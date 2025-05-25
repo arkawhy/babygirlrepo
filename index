@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>babygirl</title>
+
+  <!-- 🎨 Embedded CSS -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 span.black {
+      color: black;
+    }
+
+    h1 span.white {
+      color: white;
+    }
+
+    .panel {
+      padding: 20px;
+      margin: 20px;
+      background: #222;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .panel:hover {
+      transform: scale(1.03);
+    }
+
+    .vertical-tabs {
+      display: flex;
+      flex-direction: column;
+      max-width: 300px;
+    }
+
+    .vertical-tabs button {
+      padding: 10px;
+      margin: 10px 0;
+      background: #333;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .horizontal-tab {
+      margin-top: 20px;
+      padding: 10px;
+      background: #444;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .horizontal-tab:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <!-- 🔥 Header -->
+  <h1><span class="black">baby</span><span class="white">girl</span></h1>
+
+  <!-- 🔐 Email Login Panel -->
+  <div class="panel">
+    <form id="login-form">
+      <label for="email">Enter your email:</label><br />
+      <input type="email" id="email" name="email" required />
+      <button type="submit">Sign In</button>
+    </form>
+  </div>
+
+  <!-- 📑 Introduction Panel -->
+  <div class="panel" id="intro-panel" style="display: none;">
+    <p>Welcome, babygirl. This is your space. You'll find tasks, submit them here, and see how well you did. Be good.</p>
+  </div>
+
+  <!-- 🧭 Tabs Section -->
+  <div class="vertical-tabs" id="tabs" style="display: none;">
+    <button onclick="openTab('notif')">📬 Task Notifications</button>
+    <button onclick="openTab('submit')">📤 Submit Your Task</button>
+    <button onclick="openTab('score')">📊 View Scores</button>
+  </div>
+
+  <!-- 🌟 Horizontal Tab -->
+  <div class="horizontal-tab" id="interactive-tab" style="display: none;">
+    Interactive tab (to be defined)
+  </div>
+
+  <!-- 🧠 JavaScript -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    // Initialize EmailJS
+    (function(){
+      emailjs.init("h1yqyFnG8ms_YHBWn");
+    })();
+
+    // Form submission/login simulation
+    document.getElementById("login-form").addEventListener("submit", function(e){
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+
+      // Email template variables
+      const templateParams = {
+        email: email
+      };
+
+      // Send a welcome message (you can also skip this if you just want login)
+      emailjs.send("service_5qzribf", "template_fyawadg", templateParams)
+        .then(function(response) {
+          alert("Welcome email sent.");
+        }, function(error) {
+          alert("Something went wrong.");
+        });
+
+      // Show other panels
+      document.getElementById("intro-panel").style.display = "block";
+      document.getElementById("tabs").style.display = "flex";
+      document.getElementById("interactive-tab").style.display = "block";
+    });
+
+    function openTab(tabName) {
+      alert("Clicked on: " + tabName); // Replace with actual tab logic
+    }
+  </script>
+</body>
+</html>
