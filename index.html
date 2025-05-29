@@ -16,16 +16,16 @@
       background-color: #0f0f0f;
       color: white;
     }
-.mind-option {
-  padding: 10px;
-  background-color: #2e2e2e;
-  margin-bottom: 8px;
-  border-radius: 6px;
+#mind-options li {
   cursor: pointer;
-  transition: 0.3s;
+  padding: 8px;
+  margin: 5px 0;
+  background-color: #333;
+  border-radius: 5px;
+  transition: background 0.3s;
 }
-.mind-option:hover {
-  background-color: #3e3e3e;
+#mind-options li:hover {
+  background-color: #555;
 }
     header {
       display: flex;
@@ -195,7 +195,14 @@
 
     <main class="main-content">
       <section id="tasks" class="tab-section active"><p>one</p> <p> two </p></section>
-      <section id="mind" class="tab-section">What’s on your mind? Share here...</section>
+      <section id="mind" class="tab-section">
+  <p>Select what’s on your mind:</p>
+  <ul id="mind-options">
+    <li onclick="showMindMessage('You miss me. You crave instructions. Good girl.')">I miss you</li>
+    <li onclick="showMindMessage('You’re feeling rebellious. Don’t forget who owns you.')">Feeling bratty</li>
+    <li onclick="showMindMessage('You’re calm today. Obedient. That pleases me.')">Feeling calm</li>
+  </ul>
+</section>
       <section id="scoring" class="tab-section">Scoring panel, points etc...</section>
     </main>
   </div>
@@ -211,10 +218,10 @@
       <textarea placeholder="How much do you enjoy the options you have here? Rate them out of 10."></textarea>
       <button>Let me know.</button>
     </div>
-    <div class="footer-tab">
-      <input type="file" id="submissionFile" />
-      <button id="uploadBtn">Submit yourself here. ;)</button>
-    </div>
+    <form id="upload-form" class="footer-tab">
+  <input type="file" name="my_file" required />
+  <button type="submit">Submit yourself here. ;)</button>
+</form>
     <div class="footer-tab">
       <button id="daily-task-btn">Find your weekly passive tasks here. 😈</button>
     </div>
@@ -224,6 +231,16 @@
   </footer>
 
   <script>
+    document.getElementById("upload-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  emailjs.sendForm("service_5qzribf", "template_fyawadg", this)
+    .then(function () {
+      alert("File submitted successfully.");
+    }, function (error) {
+      alert("Error: " + error.text);
+    });
+});
     // Tabs
     function showTab(tabId) {
       const sections = document.querySelectorAll('.tab-section');
@@ -279,18 +296,8 @@
         }
       );
     });
-    function showMindMessage(option) {
-  const popup = document.getElementById("mind-message");
-  let message = "";
-
-  if (option === "option1") {
-    message = "Dress comfy today, babygirl. Soft and snuggly. 😌";
-  } else if (option === "option2") {
-    message = "Time for a spicy little challenge... check your tasks. 🔥";
-  } else if (option === "option3") {
-    message = "Take it easy. A bubble bath and cozy socks today. 💜";
-  }
-
+    function showMindMessage(message) {
+  const popup = document.getElementById("daily-popup");
   popup.textContent = message;
   popup.classList.remove("hidden");
   popup.classList.add("show");
