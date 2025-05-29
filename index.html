@@ -276,20 +276,6 @@
 </div>
 
   <script>
-    document.getElementById("upload-form").addEventListener("submit", function (e) {
-  e.preventDefault();
-<form id="upload-form" enctype="multipart/form-data">
-  <input type="text" name="file_name" placeholder="File name" required />
-  <input type="file" name="file_data" required />
-  <button type="submit">Send</button>
-</form>
-  emailjs.sendForm("service_5qzribf", "template_fyawadg", this)
-    .then(function () {
-      alert("File submitted successfully.");
-    }, function (error) {
-      alert("Error: " + error.text);
-    });
-});
     // Tabs
     function showTab(tabId) {
       const sections = document.querySelectorAll('.tab-section');
@@ -307,43 +293,6 @@
         popup.classList.remove("show");
         popup.classList.add("hidden");
       }, 5000);
-    });
-
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyDcF4AqBSxBPH0Y2yFPuP9uNJZ2R9G7PbM",
-      authDomain: "babygirl-239fe.firebaseapp.com",
-      projectId: "babygirl-239fe",
-      storageBucket: "babygirl-239fe.appspot.com",
-      messagingSenderId: "944767939823",
-      appId: "1:944767939823:web:c1effb61108db6551c571a"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const storage = firebase.storage();
-
-    // Upload logic
-    document.getElementById("uploadBtn").addEventListener("click", function () {
-      const fileInput = document.getElementById("submissionFile");
-      const file = fileInput.files[0];
-      if (!file) {
-        alert("Please choose a file first.");
-        return;
-      }
-
-      const storageRef = storage.ref("submissions/" + file.name);
-      const uploadTask = storageRef.put(file);
-
-      uploadTask.on('state_changed',
-        function (snapshot) {
-          // optional: show progress
-        },
-        function (error) {
-          alert("Upload failed: " + error.message);
-        },
-        function () {
-          alert("Upload successful!");
-        }
-      );
     });
     function showMindMessage(message) {
   const popup = document.getElementById("daily-popup");
