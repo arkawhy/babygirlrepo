@@ -27,6 +27,12 @@
 #mind-options li:hover {
   background-color: #555;
 }
+<div id="intro-screen">
+  <h1 class="intro-text"> Welcome back, babygirl.</h1>
+  <p class="intro-sub">You know the rules. Obey. Submit. Earn.</p>
+  <button id="enter-btn">I’m ready.</button>
+</div>
+<div id="main-app" style="display: none;">
     header {
       display: flex;
       justify-content: space-between;
@@ -174,6 +180,49 @@
       border-radius: 4px;
       cursor: pointer;
     }
+    #intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0f0f0f;
+  color: #d6a0f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  text-align: center;
+}
+
+.intro-text {
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  margin-bottom: 10px;
+}
+
+.intro-sub {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #bbb;
+}
+
+#enter-btn {
+  background-color: #d6a0f4;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#enter-btn:hover {
+  background-color: #a855f7;
+}
   </style>
 </head>
 
@@ -222,6 +271,7 @@
       As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘
     </div>
   </footer>
+
 
   <script>
     document.getElementById("upload-form").addEventListener("submit", function (e) {
@@ -300,6 +350,11 @@
     popup.classList.add("hidden");
   }, 5000);
 }
+document.getElementById("enter-btn").addEventListener("click", function () {
+  document.getElementById("intro-screen").style.display = "none";
+  document.getElementById("main-app").style.display = "block";
+});
   </script>
+</div>
 </body>
 </html>
