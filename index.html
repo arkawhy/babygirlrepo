@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>babygirl</title>
 
-   <style>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+
+  <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -24,7 +28,7 @@
     .logo {
       font-size: 2rem;
       font-weight: bold;
-      color: #d6a0f4; /* Light Purple */
+      color: #d6a0f4;
     }
 
     .email-form input {
@@ -85,45 +89,44 @@
     .tab-section.active {
       display: block;
     }
-    /* Daily Task button styling */
-#daily-task-btn {
-  background-color: #c084fc; /* light purple */
-  color: white;
-  width: 200px; /* wider */
-  padding: 10px;
-  margin-top: 10px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s;
-}
 
-#daily-task-btn:hover {
-  background-color: #a855f7;
-}
+    #daily-task-btn {
+      background-color: #c084fc;
+      color: white;
+      width: 200px;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-/* Popup message styling */
-.popup {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #222;
-  color: #fff;
-  padding: 15px 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #000;
-  font-size: 14px;
-  z-index: 999;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
+    #daily-task-btn:hover {
+      background-color: #a855f7;
+    }
 
-.popup.show {
-  opacity: 1;
-}
+    .popup {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #222;
+      color: #fff;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #000;
+      font-size: 14px;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
 
-.popup.hidden {
-  display: none;
-}
+    .popup.show {
+      opacity: 1;
+    }
+
+    .popup.hidden {
+      display: none;
+    }
 
     footer {
       display: flex;
@@ -163,12 +166,12 @@
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
     <div class="logo">babygirl</div>
     <div class="email-form">
-      <input type="email" placeholder="Enter your email..." />
+      <input type="email" id="email" placeholder="Enter your email..." />
       <button>Sign In</button>
     </div>
   </header>
@@ -193,73 +196,73 @@
       <button>Let me know.</button>
     </div>
     <div class="footer-tab">
-      <input type="file" />
-      <button>Submit yourself here. ;)</button>
+      <input type="file" id="submissionFile" />
+      <button id="uploadBtn">Submit yourself here. ;)</button>
     </div>
     <div class="footer-tab">
       <button id="daily-task-btn">Find your weekly passive tasks here. 😈</button>
     </div>
-    <div id="daily-popup" class="popup hidden"> As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘
-</div>
+    <div id="daily-popup" class="popup hidden">
+      As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘
+    </div>
   </footer>
 
   <script>
+    // Tabs
     function showTab(tabId) {
       const sections = document.querySelectorAll('.tab-section');
-      sections.forEach(section => {
-        section.classList.remove('active');
-      });
+      sections.forEach(section => section.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
     }
-  </script>
 
-  <script>
-    // Initialize EmailJS
-    (function(){
-      emailjs.init("h1yqyFnG8ms_YHBWn");
-    })();
+    // Daily task popup logic
+    document.getElementById("daily-task-btn").addEventListener("click", function () {
+      const popup = document.getElementById("daily-popup");
+      popup.classList.remove("hidden");
+      popup.classList.add("show");
 
-    // Form submission/login simulation
-    document.getElementById("login-form").addEventListener("submit", function(e){
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-
-      // Email template variables
-      const templateParams = {
-        email: email
-      };
-
-      // Send a welcome message (you can also skip this if you just want login)
-      emailjs.send("service_5qzribf", "template_fyawadg", templateParams)
-        .then(function(response) {
-          alert("Welcome email sent.");
-        }, function(error) {
-          alert("Something went wrong.");
-        });
-
-      // Show other panels
-      document.getElementById("intro-panel").style.display = "block";
-      document.getElementById("tabs").style.display = "flex";
-      document.getElementById("interactive-tab").style.display = "block";
+      setTimeout(() => {
+        popup.classList.remove("show");
+        popup.classList.add("hidden");
+      }, 5000);
     });
 
-    function openTab(tabName) {
-      alert("Clicked on: " + tabName); // Replace with actual tab logic
-    }
-    // Daily task popup logic
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("daily-task-btn").addEventListener("click", function () {
-    const popup = document.getElementById("daily-popup");
-    popup.classList.remove("hidden");
-    popup.classList.add("show");
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDcF4AqBSxBPH0Y2yFPuP9uNJZ2R9G7PbM",
+      authDomain: "babygirl-239fe.firebaseapp.com",
+      projectId: "babygirl-239fe",
+      storageBucket: "babygirl-239fe.appspot.com",
+      messagingSenderId: "944767939823",
+      appId: "1:944767939823:web:c1effb61108db6551c571a"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const storage = firebase.storage();
 
-    // Hide after 5 seconds
-    setTimeout(() => {
-      popup.classList.remove("show");
-      popup.classList.add("hidden");
-    }, 5000);
-  });
-});
+    // Upload logic
+    document.getElementById("uploadBtn").addEventListener("click", function () {
+      const fileInput = document.getElementById("submissionFile");
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("Please choose a file first.");
+        return;
+      }
+
+      const storageRef = storage.ref("submissions/" + file.name);
+      const uploadTask = storageRef.put(file);
+
+      uploadTask.on('state_changed',
+        function (snapshot) {
+          // optional: show progress
+        },
+        function (error) {
+          alert("Upload failed: " + error.message);
+        },
+        function () {
+          alert("Upload successful!");
+        }
+      );
+    });
   </script>
 </body>
 </html>
