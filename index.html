@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>babygirl</title>
-
+<link rel="icon" href="bbg2.jpeg" type="image/x-icon" />
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
@@ -16,7 +16,17 @@
       background-color: #0f0f0f;
       color: white;
     }
-
+.mind-option {
+  padding: 10px;
+  background-color: #2e2e2e;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.mind-option:hover {
+  background-color: #3e3e3e;
+}
     header {
       display: flex;
       justify-content: space-between;
@@ -189,7 +199,13 @@
       <section id="scoring" class="tab-section">Scoring panel, points etc...</section>
     </main>
   </div>
+<section id="mind" class="tab-section">
+  <div class="mind-option" onclick="showMindMessage('option1')">💖 I feel soft today</div>
+  <div class="mind-option" onclick="showMindMessage('option2')">🔥 I'm feeling naughty</div>
+  <div class="mind-option" onclick="showMindMessage('option3')">💤 I'm feeling tired</div>
 
+  <div id="mind-message" class="popup hidden"></div>
+</section>
   <footer>
     <div class="footer-tab">
       <textarea placeholder="How much do you enjoy the options you have here? Rate them out of 10."></textarea>
@@ -263,6 +279,27 @@
         }
       );
     });
+    function showMindMessage(option) {
+  const popup = document.getElementById("mind-message");
+  let message = "";
+
+  if (option === "option1") {
+    message = "Dress comfy today, babygirl. Soft and snuggly. 😌";
+  } else if (option === "option2") {
+    message = "Time for a spicy little challenge... check your tasks. 🔥";
+  } else if (option === "option3") {
+    message = "Take it easy. A bubble bath and cozy socks today. 💜";
+  }
+
+  popup.textContent = message;
+  popup.classList.remove("hidden");
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+    popup.classList.add("hidden");
+  }, 5000);
+}
   </script>
 </body>
 </html>
