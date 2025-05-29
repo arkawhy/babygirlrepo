@@ -10,7 +10,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
 
   <style>
-    body {
+{
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #0f0f0f;
@@ -27,12 +27,7 @@
 #mind-options li:hover {
   background-color: #555;
 }
-<div id="intro-screen">
-  <h1 class="intro-text"> Welcome back, babygirl.</h1>
-  <p class="intro-sub">You know the rules. Obey. Submit. Earn.</p>
-  <button id="enter-btn">I’m ready.</button>
-</div>
-<div id="main-app" style="display: none;">
+
     header {
       display: flex;
       justify-content: space-between;
@@ -227,6 +222,12 @@
 </head>
 
 <body>
+  
+    <div id="intro-screen">
+  <h1 class="intro-text">Welcome back, babygirl.</h1>
+  <p class="intro-sub">You know the rules. Obey. Submit. Earn.</p>
+  <button id="enter-btn">I’m ready.</button>
+</div>
   <header>
     <div class="logo">babygirl</div>
     <div class="email-form">
@@ -276,7 +277,11 @@
   <script>
     document.getElementById("upload-form").addEventListener("submit", function (e) {
   e.preventDefault();
-
+<form id="upload-form" enctype="multipart/form-data">
+  <input type="text" name="file_name" placeholder="File name" required />
+  <input type="file" name="file_data" required />
+  <button type="submit">Send</button>
+</form>
   emailjs.sendForm("service_5qzribf", "template_fyawadg", this)
     .then(function () {
       alert("File submitted successfully.");
