@@ -82,17 +82,39 @@
     <p>Welcome, babygirl. This is your space. You'll find tasks, submit them here, and see how well you did. Be good.</p>
   </div>
 
-  <!-- 🧭 Tabs Section -->
-  <div class="vertical-tabs" id="tabs" style="display: none;">
-    <button onclick="openTab('notif')">📬 Task Notifications</button>
-    <button onclick="openTab('submit')">📤 Submit Your Task</button>
-    <button onclick="openTab('score')">📊 View Scores</button>
-  </div>
+   <main>
+    <aside class="vertical-tabs">
+      <div class="tab" onclick="showPanel('tasks')">📝 Tasks</div>
+      <div class="tab" onclick="showPanel('mind')">💬 What's on our mind?</div>
+      <div class="tab" onclick="showPanel('scoring')">⭐ Scoring</div>
+    </aside>
 
-  <!-- 🌟 Horizontal Tab -->
-  <div class="horizontal-tab" id="interactive-tab" style="display: none;">
-    Interactive tab (to be defined)
-  </div>
+    <section class="main-content">
+      <div id="tasks" class="panel">Tasklist placeholder</div>
+      <div id="mind" class="panel hidden">Share what's on your mind...</div>
+      <div id="scoring" class="panel hidden">Scoring placeholder</div>
+    </section>
+
+    <div class="horizontal-tabs">
+      <div class="tab" onclick="showPanel('feedback')">🗣️ Feedback</div>
+      <div class="tab" onclick="showPanel('submit')">📤 Submit</div>
+      <div class="tab" onclick="showPanel('daily')">📅 Daily Task</div>
+    </div>
+
+    <section class="bottom-content">
+      <div id="feedback" class="panel hidden">
+        <textarea placeholder="Leave feedback..."></textarea>
+        <button>Send</button>
+      </div>
+      <div id="submit" class="panel hidden">
+        <input type="file" />
+        <button>Upload</button>
+      </div>
+      <div id="daily" class="panel hidden">Today's passive task: Reflect 5 mins 💭</div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 
   <!-- 🧠 JavaScript -->
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
