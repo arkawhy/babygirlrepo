@@ -85,6 +85,45 @@
     .tab-section.active {
       display: block;
     }
+    /* Daily Task button styling */
+#daily-task-btn {
+  background-color: #c084fc; /* light purple */
+  color: white;
+  width: 200px; /* wider */
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#daily-task-btn:hover {
+  background-color: #a855f7;
+}
+
+/* Popup message styling */
+.popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #222;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #000;
+  font-size: 14px;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.popup.show {
+  opacity: 1;
+}
+
+.popup.hidden {
+  display: none;
+}
 
     footer {
       display: flex;
@@ -207,6 +246,18 @@
     function openTab(tabName) {
       alert("Clicked on: " + tabName); // Replace with actual tab logic
     }
+    // Daily task popup logic
+document.getElementById("daily-task-btn").addEventListener("click", function () {
+  const popup = document.getElementById("daily-popup");
+  popup.classList.remove("hidden");
+  popup.classList.add("show");
+
+  // Hide after 5 seconds
+  setTimeout(() => {
+    popup.classList.remove("show");
+    popup.classList.add("hidden");
+  }, 5000);
+});
   </script>
 </body>
 </html>
