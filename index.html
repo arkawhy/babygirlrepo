@@ -324,11 +324,11 @@
         <section id="drive" class="tab-section">
   <div class="drive-columns">
     <div class="drive-panel" id="drive-step1">
-      <p>Pick how you'd like to drive:</p>
+      <p>Let's give you a chance to decide how you wish to show your submission to me, okay?</p>
       <ul>
-        <li onclick="selectDriveStep(1, 'Control')">Control 🧠</li>
-        <li onclick="selectDriveStep(1, 'Tease')">Tease 😏</li>
-        <li onclick="selectDriveStep(1, 'Obey')">Obey 💋</li>
+        <li onclick="selectDriveStep(1, 'Control')">I don't think I can do much, but I'd happily take on any passive tasks you have for me.</li>
+        <li onclick="selectDriveStep(1, 'Tease')">Maybe I can do something for you in a video?</li>
+        <li onclick="selectDriveStep(1, 'Obey')">I'd love to simply take off my clothes for you, in any way you wish.</li>
       </ul>
     </div>
 
@@ -398,41 +398,89 @@ function selectDriveStep(step, value) {
   driveSelections['step' + step] = value;
 
   if (step === 1) {
-    // Show step 2
     const step2 = document.getElementById('drive-step2');
     step2.classList.remove('hidden');
-    step2.innerHTML = `
-      <p>How intense?</p>
-      <ul>
-        <li onclick="selectDriveStep(2, 'Soft')">Soft 🌸</li>
-        <li onclick="selectDriveStep(2, 'Firm')">Firm 🧷</li>
-        <li onclick="selectDriveStep(2, 'Extreme')">Extreme 🔥</li>
-      </ul>
-    `;
+
+    let step2Options = '';
+    if (value === 'Control') {
+      step2Options = `
+        <li onclick="selectDriveStep(2, 'Mind Games')">Mind Games 🌀</li>
+        <li onclick="selectDriveStep(2, 'Slow Denial')">Slow Denial 🕰️</li>
+      `;
+    } else if (value === 'Tease') {
+      step2Options = `
+        <li onclick="selectDriveStep(2, 'Whispers')">Whispers 🫦</li>
+        <li onclick="selectDriveStep(2, 'Public Play')">Public Play 🏙️</li>
+      `;
+    } else if (value === 'Obey') {
+      step2Options = `
+        <li onclick="selectDriveStep(2, 'Instructions')">Instructions 📋</li>
+        <li onclick="selectDriveStep(2, 'Deprivation')">Deprivation 🚫</li>
+      `;
+    }
+
+    step2.innerHTML = `<p>What flavor of that drive?</p><ul>${step2Options}</ul>`;
   }
 
   if (step === 2) {
-    // Show step 3
     const step3 = document.getElementById('drive-step3');
     step3.classList.remove('hidden');
-    step3.innerHTML = `
-      <p>Where should this lead?</p>
-      <ul>
-        <li onclick="selectDriveStep(3, 'Dominate')">Dominate 🕷️</li>
-        <li onclick="selectDriveStep(3, 'Ruin')">Ruin 😵‍💫</li>
-        <li onclick="selectDriveStep(3, 'Melt')">Melt 💦</li>
-      </ul>
-    `;
+
+    const prev = driveSelections.step1;
+    let step3Options = '';
+
+    if (prev === 'Control' && value === 'Mind Games') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Collapse')">Collapse 🧠💥</li>
+        <li onclick="selectDriveStep(3, 'Surrender')">Surrender 🤍</li>
+      `;
+    } else if (prev === 'Control' && value === 'Slow Denial') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Tears')">Tears 💧</li>
+        <li onclick="selectDriveStep(3, 'Desperation')">Desperation 🫠</li>
+      `;
+    } else if (prev === 'Tease' && value === 'Whispers') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Begging')">Begging 🙏</li>
+        <li onclick="selectDriveStep(3, 'Moaning')">Moaning 🎙️</li>
+      `;
+    } else if (prev === 'Tease' && value === 'Public Play') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Shame')">Shame 🫣</li>
+        <li onclick="selectDriveStep(3, 'Thrill')">Thrill 🧨</li>
+      `;
+    } else if (prev === 'Obey' && value === 'Instructions') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Complete Submission')">Complete Submission 🧎‍♀️</li>
+        <li onclick="selectDriveStep(3, 'Blind Trust')">Blind Trust 🔒</li>
+      `;
+    } else if (prev === 'Obey' && value === 'Deprivation') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Beg For Release')">Beg For Release ⛓️</li>
+        <li onclick="selectDriveStep(3, 'Cry Yourself Dry')">Cry Yourself Dry 😭</li>
+      `;
+    }
+
+    step3.innerHTML = `<p>What should your fate be?</p><ul>${step3Options}</ul>`;
   }
 
   if (step === 3) {
     showDriveResult();
   }
 }
-
 function showDriveResult() {
   const { step1, step2, step3 } = driveSelections;
-  const message = `You chose to ${step1}, with a ${step2} mood, ending in ${step3}. We’ll make that happen. 😈`;
+
+  let message = "Your fate is sealed.";
+
+  if (step1 === 'Control' && step2 === 'Mind Games' && step3 === 'Collapse') {
+    message = "You wanted control. Now your mind is broken into surrender. Good girl.";
+  } else if (step1 === 'Tease' && step2 === 'Public Play' && step3 === 'Thrill') {
+    message = "You wanted eyes on you, didn’t you? Filthy, brave, *mine*.";
+  } else if (step1 === 'Obey' && step2 === 'Instructions' && step3 === 'Complete Submission') {
+    message = "You're perfect when you're quiet and obedient. Stay like that.";
+  }
+  // Add more custom paths as needed
 
   const popup = document.getElementById("daily-popup");
   popup.textContent = message;
