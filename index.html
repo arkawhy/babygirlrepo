@@ -283,6 +283,20 @@ button:hover {
   background: black;
   color: violet;
 }
+.floating-response {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #222;
+  color: #fff;
+  border-left: 5px solid #d280ff;
+  border-radius: 10px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
   </style>
 </head>
 <body>
@@ -302,6 +316,10 @@ button:hover {
       <h2>Welcome, baby girl 💜</h2>
       <p>Select a section to begin.</p>
     </div>
+    <button class="mind-btn" data-response="You crave attention, don't you?">Craving attention</button>
+<button class="mind-btn" data-response="Feeling small and soft today?">Feeling submissive</button>
+<button class="mind-btn" data-response="I miss you too 💜">I miss you</button>
+<button class="mind-btn" data-response="Here’s something to do.">Just want instructions</button>
     <div class="bottom-bar">
       <button onclick="toggleChat()" class="btn">Chat</button>
       <button class="btn" onclick="showContent('submit')">Submit</button>
@@ -480,6 +498,15 @@ function handleChat(event) {
     }
   }
 }
+  document.querySelectorAll('.mind-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.getAttribute('data-response');
+      const response = document.createElement('div');
+      response.className = 'floating-response';
+      response.innerText = text;
+      document.querySelector('.panel').appendChild(response);
+    });
+  });
   </script>
 </body>
 </html>
