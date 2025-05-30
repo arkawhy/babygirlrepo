@@ -304,10 +304,6 @@ button:hover {
       <h2>Welcome, baby girl 💜</h2>
       <p>Select a section to begin.</p>
     </div>
-    <button class="mind-btn" data-response="You crave attention, don't you?">Craving attention</button>
-<button class="mind-btn" data-response="Feeling small and soft today?">Feeling submissive</button>
-<button class="mind-btn" data-response="I miss you too 💜">I miss you</button>
-<button class="mind-btn" data-response="Here’s something to do.">Just want instructions</button>
     <div class="bottom-bar">
       <button onclick="toggleChat()" class="btn">Chat</button>
       <button class="btn" onclick="showContent('submit')">Submit</button>
@@ -353,10 +349,10 @@ function updateActiveTasks(task) {
   html = `
     <h2>What’s on your mind?</h2>
     <div class="panel-row">
-      <button onclick="handleMindChoice('Craving attention')">Craving attention</button>
-      <button onclick="handleMindChoice('Feeling submissive')">Feeling submissive</button>
-      <button onclick="handleMindChoice('I miss you')">I miss you</button>
-      <button onclick="handleMindChoice('Just want instructions')">Just want instructions</button>
+      <button class="mind-btn" data-response="You crave attention, don't you?">Craving attention</button>
+        <button class="mind-btn" data-response="Feeling small and soft today?">Feeling submissive</button>
+        <button class="mind-btn" data-response="I miss you too 💜">I miss you</button>
+        <button class="mind-btn" data-response="Here’s something to do.">Just want instructions</button>
     </div>
   `;
   break;
@@ -487,14 +483,14 @@ function handleChat(event) {
   }
 }
   document.querySelectorAll('.mind-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const text = btn.getAttribute('data-response');
-      const response = document.createElement('div');
-      response.className = 'floating-response';
-      response.innerText = text;
-      document.querySelector('.panel').appendChild(response);
-    });
+  btn.addEventListener('click', () => {
+    const text = btn.getAttribute('data-response');
+    const response = document.createElement('div');
+    response.className = 'floating-response';
+    response.innerText = text;
+    btn.parentElement.appendChild(response);
   });
+});
   </script>
 </body>
 </html>
