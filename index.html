@@ -6,12 +6,18 @@
   <title>babygirl</title>
   <link rel="icon" href="bbg2.jpeg" type="image/x-icon" />
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-  (function () {
-    emailjs.init("YOUR_USER_ID"); // Replace with your actual Public Key
-  })();
-</script>
   <style>
+    #intro-screen, #main-app {
+  transition: opacity 0.5s ease;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
+}
     * {
       margin: 0;
       padding: 0;
@@ -637,6 +643,9 @@ function sendChat() {
       });
     }
   });
+  (function () {
+    emailjs.init("h1yqyFnG8ms_YHBWn"); // Replace with your actual Public Key
+  })();
 </script>
 </body>
 </html>
