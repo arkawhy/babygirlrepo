@@ -8,21 +8,12 @@
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <style>
     body {
+      margin: 0;
+      font-family: sans-serif;
       background-color: #0f0f0f;
       color: white;
-    }
-
-    #mind-options li {
-      cursor: pointer;
-      padding: 8px;
-      margin: 5px 0;
-      background-color: #333;
-      border-radius: 5px;
-      transition: background 0.3s;
-    }
-
-    #mind-options li:hover {
-      background-color: #555;
+      text-align: center;
+      padding-top: 50px;
     }
 
     header {
@@ -83,7 +74,8 @@
       background-color: #1e1e1e;
       border-left: 4px solid #d6a0f4;
       cursor: pointer;
-      transition: 0.3s;
+      transition: background 0.3s;
+      color: white;
     }
 
     .tab:hover {
@@ -94,6 +86,7 @@
       flex-grow: 1;
       padding: 20px;
       background-color: #1a1a1a;
+      overflow-y: auto;
     }
 
     .tab-section {
@@ -108,6 +101,22 @@
       display: block;
     }
 
+    #mind-options li,
+    .drive-panel li {
+      cursor: pointer;
+      padding: 8px;
+      margin: 5px 0;
+      background-color: #333;
+      border-radius: 5px;
+      transition: background 0.3s;
+      list-style: none;
+    }
+
+    #mind-options li:hover,
+    .drive-panel li:hover {
+      background-color: #555;
+    }
+
     #daily-task-btn {
       background-color: #c084fc;
       color: white;
@@ -117,6 +126,7 @@
       border: none;
       cursor: pointer;
       transition: background 0.3s;
+      border-radius: 6px;
     }
 
     #daily-task-btn:hover {
@@ -136,74 +146,72 @@
       z-index: 999;
       opacity: 0;
       transition: opacity 0.5s ease;
+      pointer-events: none;
     }
 
     .popup.show {
       opacity: 1;
-    }
-
-    .popup.hidden {
-      opacity: 0;
-      pointer-events: none;
+      pointer-events: auto;
     }
 
     footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 20px;
-  background-color: #1a1a1a;
-  border-top: 1px solid #333;
-  flex-wrap: wrap;
-}
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px;
+      background-color: #1a1a1a;
+      border-top: 1px solid #333;
+      flex-wrap: wrap;
+    }
 
-.footer-tab {
-  background-color: #2a2a2a;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 0 8px rgba(214, 160, 244, 0.2);
-  flex: 1;
-  min-width: 280px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+    .footer-tab {
+      background-color: #2a2a2a;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 8px rgba(214, 160, 244, 0.2);
+      flex: 1;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: white;
+    }
 
-.footer-tab textarea {
-  resize: vertical;
-  height: 80px;
-  padding: 10px;
-  font-size: 0.95rem;
-  border-radius: 8px;
-  border: none;
-  background-color: #1a1a1a;
-  color: white;
-}
+    .footer-tab textarea {
+      resize: vertical;
+      height: 80px;
+      padding: 10px;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #1a1a1a;
+      color: white;
+    }
 
-.footer-tab input[type="file"] {
-  color: white;
-  background-color: #1a1a1a;
-  border: 1px dashed #555;
-  padding: 8px;
-  border-radius: 6px;
-  cursor: pointer;
-}
+    .footer-tab input[type="file"] {
+      color: white;
+      background-color: #1a1a1a;
+      border: 1px dashed #555;
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-.footer-tab button {
-  background-color: #d6a0f4;
-  color: #000;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-}
+    .footer-tab button {
+      background-color: #d6a0f4;
+      color: #000;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-.footer-tab button:hover {
-  background-color: #a855f7;
-}
+    .footer-tab button:hover {
+      background-color: #a855f7;
+    }
 
     #intro-screen {
       position: fixed;
@@ -248,81 +256,40 @@
     #enter-btn:hover {
       background-color: #a855f7;
     }
+
     .drive-columns {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.drive-panel {
-  flex: 1;
-  background-color: #1e1e1e;
-  padding: 15px;
-  border-radius: 10px;
-}
-
-.drive-panel ul {
-  list-style: none;
-  padding: 0;
-}
-
-.drive-panel li {
-  padding: 8px;
-  margin-bottom: 10px;
-  background-color: #333;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.drive-panel li:hover {
-  background-color: #555;
-}
-
-.hidden {
-  display: none;
-}
-#task-list ul {
-  list-style: disc;
-  padding-left: 20px;
-  color: #d6a0f4;
-}
-#task-checklist li {
-  margin-bottom: 10px;
-  color: #d6a0f4;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #f2f2f2;
-      text-align: center;
-      padding-top: 50px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    #intro-screen,
-    #main-app {
-      transition: opacity 0.5s ease;
+    .drive-panel {
+      flex: 1;
+      background-color: #1e1e1e;
+      padding: 15px;
+      border-radius: 10px;
+      color: white;
+      min-height: 150px;
     }
 
-    #intro-screen {
-      opacity: 1;
+    .hidden {
+      display: none !important;
     }
 
-    #main-app {
-      opacity: 0;
-      display: none;
+    #task-list ul {
+      list-style: disc;
+      padding-left: 20px;
+      color: #d6a0f4;
+      max-height: 300px;
+      overflow-y: auto;
     }
 
-    .fade-out {
-      opacity: 0;
-    }
-
-    .fade-in {
-      display: block !important;
-      opacity: 1 !important;
+    #task-checklist li {
+      margin-bottom: 10px;
+      color: #d6a0f4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     button {
@@ -331,341 +298,357 @@
       margin-top: 20px;
       cursor: pointer;
     }
+
+    #chat-log {
+      height: 80px;
+      width: 200px;
+      overflow-y: auto;
+      background: #1e1e1e;
+      padding: 5px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+      color: white;
+      text-align: left;
+    }
+
+    #chat-input {
+      padding: 5px;
+      border-radius: 4px;
+      border: none;
+      width: 140px;
+    }
+
   </style>
 </head>
 <body>
-
   <div id="intro-screen">
     <h1 class="intro-text">Welcome, babygirl.</h1>
     <p class="intro-sub">You know the rules, darling. Obey. Submit. Please.</p>
     <button id="enter-btn">I can't wait to be your good girl.</button>
   </div>
-  <div id="main-app" style="display: none; opacity: 0;">
+
+  <div id="main-app" class="hidden" style="opacity: 0;">
     <header>
       <div class="logo">
         babygirl
-        <span class="extra-text">| your desire, my rules</span>
+        <span class="extra-text">| Your pet and submission goddess</span>
       </div>
-      <div class="email-form">
-        <input type="email" id="email" placeholder="Enter your email..." />
-        <button>Sign In</button>
-      </div>
+      <form class="email-form" onsubmit="sendEmail(event)">
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          required
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button type="submit">Send</button>
+      </form>
     </header>
 
     <div class="container">
       <aside class="sidebar">
-        <div class="tab" onclick="showTab('tasks')">📝 Tasks I have for you</div>
-        <div class="tab" onclick="showTab('mind')">💬 What's on your mind?</div>
-        <div class="tab" onclick="showTab('drive')">🚗 Do you wish to drive?</div>
-        <div class="tab" onclick="showTab('scoring')">⭐ Scoring</div>
-        <div class="tab" onclick="showTab('task-list')">📌 Your current task checklist</div>
+        <div class="tab" onclick="showTab('tab1')">Home</div>
+        <div class="tab" onclick="showTab('tab2')">Mind</div>
+        <div class="tab" onclick="showTab('tab3')">Drive</div>
+        <div class="tab" onclick="showTab('tab4')">Task List</div>
       </aside>
 
-      <main class="main-content">
-        <section id="tasks" class="tab-section active">
-          <p>one</p>
-          <p>two</p>
-        </section>
+      <section class="main-content">
+        <div id="tab1" class="tab-section active">
+          <h2>Welcome to babygirl's domain</h2>
+          <p>Obedience is the path to pleasure. Choose a tab and follow your instructions.</p>
+        </div>
 
-        <section id="mind" class="tab-section">
-          <p>Tell me how you wish to interact today.</p>
+        <div id="tab2" class="tab-section">
+          <h2>Choose Your Mind Play</h2>
           <ul id="mind-options">
-            <li onclick="showMindMessage('Maybe we can have that happen. Dress code might be, well, subject to *change*.')">
-              I think I can work in an interview today. 😋
-            </li>
-            <li onclick="showMindMessage('Good. Call me up when you are fully naked and ready to shower on display for me.')">
-              Maybe I can take you along for a trip to the shower? 🚿
-            </li>
-            <li onclick="showMindMessage('Great. Wear a vest and no bra, and anything else you wish to.')">
-              I'd love a little one-on-one video call, maybe. 💞
-            </li>
-            <li onclick="showMindMessage('Of course, babygirl. I love teaching you. Head on over to the chatbox.')">
-              Can you just teach me how to dirty-talk well with you? 😙
-            </li>
+            <li onclick="showMindMessage('Control')">Control</li>
+            <li onclick="showMindMessage('Tease')">Tease</li>
+            <li onclick="showMindMessage('Obey')">Obey</li>
           </ul>
-        </section>
+          <div id="mind-message" style="margin-top: 20px; font-size: 1.1rem;"></div>
+        </div>
 
-        <section id="scoring" class="tab-section">
-          Scoring panel, points etc...
-        </section>
-        <section id="task-list" class="tab-section">
-  <h2>Assigned Tasks</h2>
-  <ul id="task-checklist">
-    <!-- Tasks will appear here -->
-  </ul>
-</section>
-        <section id="drive" class="tab-section">
-  <div class="drive-columns">
-    <div class="drive-panel" id="drive-step1">
-      <p>Let's give you a chance to decide how you wish to show your submission to me, okay?</p>
-      <ul>
-        <li onclick="selectDriveStep(1, 'Control')">I don't think I can do much, but I'd happily take on any passive tasks you have for me.</li>
-        <li onclick="selectDriveStep(1, 'Tease')">Maybe I can do something for you in a video?</li>
-        <li onclick="selectDriveStep(1, 'Obey')">I'd love to simply send you a hot little picture, no boundaries at all.</li>
-      </ul>
-    </div>
+        <div id="tab3" class="tab-section">
+          <h2>Choose Your Drive</h2>
+          <div class="drive-columns">
+            <div id="drive-step1" class="drive-panel">
+              <h3>Step 1</h3>
+              <ul>
+                <li onclick="chooseDriveStep(1, 'Control')">Control</li>
+                <li onclick="chooseDriveStep(1, 'Tease')">Tease</li>
+                <li onclick="chooseDriveStep(1, 'Obey')">Obey</li>
+              </ul>
+            </div>
+            <div id="drive-step2" class="drive-panel">
+              <h3>Step 2</h3>
+              <ul></ul>
+            </div>
+            <div id="drive-step3" class="drive-panel">
+              <h3>Step 3</h3>
+              <ul></ul>
+            </div>
+          </div>
+          <button id="daily-task-btn" onclick="showDriveResult()">Give Me My Task!</button>
+          <div id="drive-result" style="margin-top: 15px; font-size: 1.1rem; min-height: 50px;"></div>
+        </div>
 
-    <div class="drive-panel hidden" id="drive-step2">
-      <!-- Options added dynamically -->
-    </div>
-
-    <div class="drive-panel hidden" id="drive-step3">
-      <!-- Final options based on step 2 -->
-    </div>
-  </div>
-</section>
-      </main>
+        <div id="tab4" class="tab-section">
+          <h2>Task List</h2>
+          <ul id="task-checklist"></ul>
+        </div>
+      </section>
     </div>
 
     <footer>
-      <div class="footer-tab" style="flex-direction: column; align-items: flex-start;">
-  <div id="chat-log" style="height: 80px; width: 200px; overflow-y: auto; background: #1e1e1e; padding: 5px; border-radius: 5px; margin-bottom: 5px; font-size: 0.9rem;"></div>
-  <div style="display: flex; gap: 5px;">
-    <input type="text" id="chat-input" placeholder="Type your message..." style="padding: 5px; border-radius: 4px; border: none; width: 140px;" />
-    <button onclick="sendChat()" style="background-color: #d6a0f4; color: black; padding: 5px 8px; border: none; border-radius: 4px;">Send</button>
-  </div>
-</div>
-      <form id="upload-form" class="footer-tab">
-  <input type="file" id="file-input" name="file_url" required />
-  <button type="submit">Submit yourself here. ;)</button>
-</form>
-      <div class="footer-tab">
-        <button id="daily-task-btn">Find your weekly passive task here. 😈</button>
+      <div class="footer-tab" id="text-tab">
+        <h3>Submit Your Confession</h3>
+        <textarea placeholder="Type your confession here..."></textarea>
+        <button onclick="sendConfession()">Submit</button>
       </div>
-      <div id="daily-popup" class="popup hidden">
-        As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘
+      <div class="footer-tab" id="image-tab">
+        <h3>Upload Your Photo</h3>
+        <input type="file" accept="image/*" />
+        <button>Upload</button>
+      </div>
+      <div class="footer-tab" id="chat-tab">
+        <h3>Chat with babygirl</h3>
+        <div id="chat-log"></div>
+        <input id="chat-input" type="text" placeholder="Say something..." />
+        <button onclick="sendChatMessage()">Send</button>
       </div>
     </footer>
   </div>
-  <script>     
-    function showTab(tabId) {
-      document.querySelectorAll('.tab-section').forEach(section => section.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-    }
 
-    document.getElementById("daily-task-btn").addEventListener("click", () => {
-      const popup = document.getElementById("daily-popup");
-      popup.textContent = "As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘";
-      popup.classList.remove("hidden");
-      popup.classList.add("show");
-      setTimeout(() => popup.classList.remove("show", "hidden"), 5000);
+  <div id="popup" class="popup"></div>
+
+  <script>
+    // Initial intro screen logic
+    const introScreen = document.getElementById('intro-screen');
+    const mainApp = document.getElementById('main-app');
+    const enterBtn = document.getElementById('enter-btn');
+
+    enterBtn.addEventListener('click', () => {
+      introScreen.style.display = 'none';
+      mainApp.classList.remove('hidden');
+      setTimeout(() => {
+        mainApp.style.opacity = 1;
+      }, 50);
     });
 
-    function showMindMessage(message) {
-      const popup = document.getElementById("daily-popup");
-      popup.textContent = message;
-      popup.classList.remove("hidden");
-      popup.classList.add("show");
-      setTimeout(() => popup.classList.remove("show", "hidden"), 5000);
-      addToTaskList(message);
-
-  setTimeout(() => {
-    popup.classList.remove("show");
-    popup.classList.add("hidden");
-  }, 5000);
-    }
-    let driveSelections = {
-  step1: null,
-  step2: null,
-  step3: null
-};
-
-function selectDriveStep(step, value) {
-  driveSelections['step' + step] = value;
-
-  if (step === 1) {
-    const step2 = document.getElementById('drive-step2');
-    step2.classList.remove('hidden');
-
-    let step2Options = '';
-    if (value === 'Control') {
-      step2Options = `
-        <li onclick="selectDriveStep(2, 'Mind Games')">I'd love to wear (or not wear) something, or anything, you want. </li>
-        <li onclick="selectDriveStep(2, 'Slow Denial')">I think I'll explore some other passive task to please you.</li>
-      `;
-    } else if (value === 'Tease') {
-      step2Options = `
-        <li onclick="selectDriveStep(2, 'Whispers')">I wouldn't mind starting naked and ready to do whatever you tell me in the video.</li>
-        <li onclick="selectDriveStep(2, 'Public Play')">I'd rather you instruct me which clothes to take off, how, and when.</li>
-      `;
-    } else if (value === 'Obey') {
-      step2Options = `
-        <li onclick="selectDriveStep(2, 'Instructions')">Maybe I can be interacting with some thing else in the room?</li>
-        <li onclick="selectDriveStep(2, 'Deprivation')">I would love it if you allow me to use some accessories, anywhere on my body.</li>
-      `;
-    }
-
-    step2.innerHTML = `<p>Tell me more, kitten.</p><ul>${step2Options}</ul>`;
-  }
-
-  if (step === 2) {
-    const step3 = document.getElementById('drive-step3');
-    step3.classList.remove('hidden');
-
-    const prev = driveSelections.step1;
-    let step3Options = '';
-
-    if (prev === 'Control' && value === 'Mind Games') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Collapse')">I will skip on wearing panties for a week. You can check in on me any time I am free.</li>
-        <li onclick="selectDriveStep(3, 'Surrender')"> I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free. </li>
-      `;
-    } else if (prev === 'Control' && value === 'Slow Denial') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Tears')">I'll voluntarily learn how to dirty-talk with you throughout the week, right here on this webpage.</li>
-        <li onclick="selectDriveStep(3, 'Desperation')">I'll send you a voice note affirming my submission to you, every night of this week, along with my good night text.</li>
-      `;
-    } else if (prev === 'Tease' && value === 'Whispers') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Begging')">I would think nothing of playing with my boobs for you, while kneeling. I love to be your good girl!</li>
-        <li onclick="selectDriveStep(3, 'Moaning')">Pleast let me be naked on video for you, standing upright and saying "I love being your good girl", and then turning around to present my ass to you. </li>
-      `;
-    } else if (prev === 'Tease' && value === 'Public Play') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Shame')">I will start out standing, wearing only a vest and panties, and then lower my panties to my thighs to present my pussy to you, all the while smiling at you.</li>
-        <li onclick="selectDriveStep(3, 'Thrill')">I will start out standing, wearing only a vest and panties, and then lower my vest to my thighs to present my breasts to you, all the while smiling at you.</li>
-      `;
-    } else if (prev === 'Obey' && value === 'Instructions') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Complete Submission')">I'll strip down completely, and take a pic of me sitting in a chair and smiling in a mirror selfie, hair down, with an arm loosely held behind me, my legs wide apart for you to savour what's in between.</li>
-        <li onclick="selectDriveStep(3, 'Blind Trust')">Since you love teaching me, maybe I can take a mirror selfie with a book held up to my face, my hair down, wearing nothing but panties, and every other inch of me on display for you.</li>
-      `;
-    } else if (prev === 'Obey' && value === 'Deprivation') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Beg For Release')">I'd love to send you an upper-half profile topless video of me taking off my glasses, letting my hair down, and putting on eyeliner. I love being pretty for you!</li>
-        <li onclick="selectDriveStep(3, 'Cry Yourself Dry')">A simple nude front profile mirror selfie, standing with a foot planted in front of the other, one hand loosely covering my pussy, wearing nothing but my college ID card. </li>
-      `;
-    }
-
-    step3.innerHTML = `<p>This is the last step, babygirl.</p><ul>${step3Options}</ul>`;
-  }
-
-  if (step === 3) {
-    showDriveResult();
-  }
-}
-function showDriveResult() {
-  const { step1, step2, step3 } = driveSelections;
-
-  let message = "Your fate is sealed.";
-
-  if (step1 === 'Control' && step2 === 'Mind Games' && step3 === 'Collapse') {
-    message = "No panties for a week for my kitten.";
-      if (step1 === 'Control' && step2 === 'Mind Games' && step3 === 'Surrender') {
-    message = "Those pretty breasts shall see only nude and pink bras for the next two days.";
-      if (step1 === 'Control' && step2 === 'Slow Denial' && step3 === 'Tears') {
-    message = "Dirty-talk throughout the week."
-      if (step1 === 'Control' && step2 === 'Slow Denial' && step3 === 'Desperation') {
-    message = "Submission-affirmation voice messages throughout the week, every night.";;
-  } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Begging') {
-    message = "Boob-play while kneeling for you.";
-      } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Moaning') {
-    message = "A special message before a butt presentation.";
-      } else if (step1 === 'Tease' && step2 === 'Public Play' && step3 === 'Shame') {
-    message = "Smiling and standing pussy presentation.";
-      } else if (step1 === 'Tease' && step2 === 'Public Play' && step3 === 'Thrill') {
-    message = "Smiling and standing boobs presentation";
-  } else if (step1 === 'Obey' && step2 === 'Instructions' && step3 === 'Complete Submission') {
-    message = "Pussy presentation on a chair.";
-      } else if (step1 === 'Obey' && step2 === 'Instructions' && step3 === 'Blind Trust') {
-    message = "A nerdy display as a hot nude.";
-      } else if (step1 === 'Obey' && step2 === 'Deprivation' && step3 === 'Beg For Release') {
-    message = "Pretty up for me with your tits out.";
-      } else if (step1 === 'Obey' && step2 === 'Deprivation' && step3 === 'Cry Yourself Dry') {
-    message = "Get back to the basics and remind me when I first fell for you.";
-  }
-  // Add more custom paths as needed
-
-  const popup = document.getElementById("daily-popup");
-  popup.textContent = message;
-  addToTaskList(message);
-  popup.classList.remove("hidden");
-  popup.classList.add("show");
-
-  setTimeout(() => {
-    popup.classList.remove("show");
-    popup.classList.add("hidden");
-  }, 6000);
-}
-function addToTaskList(task) {
-  const checklist = document.getElementById("task-checklist");
-  const tasks = checklist.querySelectorAll("li");
-
-  if (tasks.length >= 3) {
-    checklist.removeChild(tasks[0]); // Remove the oldest
-  }
-
-  const li = document.createElement("li");
-  li.textContent = task;
-
-  const doneButton = document.createElement("button");
-  doneButton.textContent = "Done";
-  doneButton.style.marginLeft = "10px";
-  doneButton.style.backgroundColor = "#a855f7";
-  doneButton.style.color = "white";
-  doneButton.style.border = "none";
-  doneButton.style.padding = "3px 8px";
-  doneButton.style.borderRadius = "4px";
-  doneButton.style.cursor = "pointer";
-
-  doneButton.addEventListener("click", () => {
-    checklist.removeChild(li);
-  });
-
-  li.appendChild(doneButton);
-  checklist.appendChild(li);
-}
-function sendChat() {
-  const input = document.getElementById("chat-input");
-  const chatLog = document.getElementById("chat-log");
-
-  if (input.value.trim() === "") return;
-
-  const message = document.createElement("div");
-  message.textContent = "You: " + input.value;
-  message.style.marginBottom = "4px";
-  chatLog.appendChild(message);
-  chatLog.scrollTop = chatLog.scrollHeight;
-
-  input.value = "";
-}
-  
-  }
-  };
-
-  document.getElementById("upload-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-  emailjs.init('h1yqyFnG8ms_YHBWn'); // <-- Use your actual public key
-
-    emailjs.sendForm('service_5qzribf',' template_fyawadg', document.getElementById('upload-form'),'h1yqyFnG8ms_YHBWn')
-      .then(() => {
-        alert("File sent successfully!");
-        document.getElementById("file-input").value = ""; // Reset file input
-      })
-      .catch((error) => {
-        alert("Error: " + JSON.stringify(error));
+    // Tab switching logic
+    function showTab(tabId) {
+      const tabs = document.querySelectorAll('.tab-section');
+      tabs.forEach(tab => {
+        tab.classList.toggle('active', tab.id === tabId);
       });
-  });
-  function () {
-    emailjs.init("h1yqyFnG8ms_YHBWn"); // Replace with your actual Public Key
-  };
-  document.getElementById("enter-btn").addEventListener("click", function () {
-  document.getElementById("intro-screen").style.display = "none";
-  document.getElementById("main-app").style.display = "block";
-});
-  document.getElementById("enter-btn").addEventListener("click", () => {
-  const introScreen = document.getElementById("intro-screen");
-  const mainApp = document.getElementById("main-app");
+    }
 
-  // Fade out intro screen
-  introScreen.classList.add("fade-out");
+    // Mind messages logic
+    function showMindMessage(choice) {
+      const messageDiv = document.getElementById('mind-message');
+      let message = '';
 
-  // After fade-out completes, hide intro and show main app
-  setTimeout(() => {
-    introScreen.style.display = "none";
-    mainApp.classList.add("fade-in");
-  }, 500); // Match your CSS transition duration
-});
-</script>  
+      if (choice === 'Control') {
+        message = "I am the owner of your body and soul.";
+      } else if (choice === 'Tease') {
+        message = "I will make you ache and beg.";
+      } else if (choice === 'Obey') {
+        message = "You will obey my every command.";
+      }
+
+      messageDiv.textContent = message;
+      addToTaskList(message);
+    }
+
+    // Drive selection logic
+    const driveData = {
+      Control: {
+        MindGames: ['Collapse', 'Surrender'],
+        SlowDenial: ['Tears', 'Desperation']
+      },
+      Tease: {
+        Whispers: ['Begging', 'Moaning'],
+        PublicPlay: ['Shame', 'Thrill']
+      },
+      Obey: {
+        Instructions: ['Complete Submission']
+      }
+    };
+
+    let driveSelection = {
+      step1: null,
+      step2: null,
+      step3: null
+    };
+
+    function chooseDriveStep(step, choice) {
+      if (step === 1) {
+        driveSelection.step1 = choice;
+        driveSelection.step2 = null;
+        driveSelection.step3 = null;
+        populateDriveStep2(choice);
+        clearDriveStep3();
+      } else if (step === 2) {
+        driveSelection.step2 = choice;
+        driveSelection.step3 = null;
+        populateDriveStep3(driveSelection.step1, choice);
+      } else if (step === 3) {
+        driveSelection.step3 = choice;
+      }
+      updateDriveUI();
+    }
+
+    function populateDriveStep2(step1Choice) {
+      const step2Panel = document.querySelector('#drive-step2 ul');
+      step2Panel.innerHTML = '';
+      if (!step1Choice || !driveData[step1Choice]) return;
+      for (const option in driveData[step1Choice]) {
+        const li = document.createElement('li');
+        li.textContent = option.replace(/([A-Z])/g, ' $1').trim();
+        li.onclick = () => chooseDriveStep(2, option);
+        step2Panel.appendChild(li);
+      }
+    }
+
+    function populateDriveStep3(step1Choice, step2Choice) {
+      const step3Panel = document.querySelector('#drive-step3 ul');
+      step3Panel.innerHTML = '';
+      if (
+        !step1Choice || !step2Choice ||
+        !driveData[step1Choice] ||
+        !driveData[step1Choice][step2Choice]
+      ) return;
+      driveData[step1Choice][step2Choice].forEach(option => {
+        const li = document.createElement('li');
+        li.textContent = option;
+        li.onclick = () => chooseDriveStep(3, option);
+        step3Panel.appendChild(li);
+      });
+    }
+
+    function clearDriveStep3() {
+      const step3Panel = document.querySelector('#drive-step3 ul');
+      step3Panel.innerHTML = '';
+    }
+
+    function updateDriveUI() {
+      const { step1, step2, step3 } = driveSelection;
+
+      // Highlight selected items in step 1, 2, 3
+      ['drive-step1', 'drive-step2', 'drive-step3'].forEach((id, idx) => {
+        const step = idx + 1;
+        const selectedChoice = driveSelection['step' + step];
+        const lis = document.querySelectorAll(`#${id} ul li`);
+        lis.forEach(li => {
+          li.style.backgroundColor = li.textContent === formatDriveChoice(selectedChoice) ? '#d6a0f4' : '#333';
+        });
+      });
+    }
+
+    function formatDriveChoice(choice) {
+      if (!choice) return '';
+      // Convert camelCase or PascalCase to spaced words
+      return choice.replace(/([A-Z])/g, ' $1').trim();
+    }
+
+    function showDriveResult() {
+      const { step1, step2, step3 } = driveSelection;
+      const resultDiv = document.getElementById('drive-result');
+      let message = '';
+
+      if (step1 === 'Control' && step2 === 'MindGames' && step3 === 'Collapse') {
+        message = "No panties for a week for my kitten.";
+      } else if (step1 === 'Control' && step2 === 'MindGames' && step3 === 'Surrender') {
+        message = "Those pretty breasts shall see only nude and pink bras for the next two days.";
+      } else if (step1 === 'Control' && step2 === 'SlowDenial' && step3 === 'Tears') {
+        message = "Dirty-talk throughout the week.";
+      } else if (step1 === 'Control' && step2 === 'SlowDenial' && step3 === 'Desperation') {
+        message = "Submission-affirmation voice messages throughout the week, every night.";
+      } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Begging') {
+        message = "Boob-play while kneeling for you.";
+      } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Moaning') {
+        message = "A special message before a butt presentation.";
+      } else if (step1 === 'Tease' && step2 === 'PublicPlay' && step3 === 'Shame') {
+        message = "Smiling and standing pussy presentation.";
+      } else if (step1 === 'Tease' && step2 === 'PublicPlay' && step3 === 'Thrill') {
+        message = "Smiling and standing boobs presentation.";
+      } else if (step1 === 'Obey' && step2 === 'Instructions' && step3 === 'CompleteSubmission') {
+        message = "Your complete submission pleases me beyond words.";
+      } else {
+        message = "Your fate is sealed.";
+      }
+
+      resultDiv.textContent = message;
+      if (message) addToTaskList(message);
+    }
+
+    // Task list management
+    function addToTaskList(task) {
+      if (!task) return;
+      const taskList = document.getElementById('task-checklist');
+      const li = document.createElement('li');
+      li.textContent = task;
+      taskList.appendChild(li);
+    }
+
+    // EmailJS form submission (dummy example)
+    function sendEmail(event) {
+      event.preventDefault();
+      const emailInput = document.getElementById('email');
+      if (!emailInput.value) return alert('Please enter an email address.');
+
+      // Example: Use EmailJS here if configured.
+      alert(`Email sent to: ${emailInput.value}`);
+      emailInput.value = '';
+    }
+
+    // Confession submission placeholder
+    function sendConfession() {
+      const textarea = document.querySelector('#text-tab textarea');
+      const confession = textarea.value.trim();
+      if (!confession) {
+        alert('Please enter your confession.');
+        return;
+      }
+      alert('Confession submitted. Thank you.');
+      textarea.value = '';
+    }
+
+    // Chat functionality placeholder
+    function sendChatMessage() {
+      const chatInput = document.getElementById('chat-input');
+      const chatLog = document.getElementById('chat-log');
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      const userMsg = document.createElement('div');
+      userMsg.textContent = `You: ${message}`;
+      chatLog.appendChild(userMsg);
+
+      chatInput.value = '';
+      chatLog.scrollTop = chatLog.scrollHeight;
+
+      // Simple bot reply example
+      setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.textContent = `babygirl: I'm listening, pet.`;
+        chatLog.appendChild(botMsg);
+        chatLog.scrollTop = chatLog.scrollHeight;
+      }, 1000);
+    }
+
+    // Popup message utility
+    function showPopup(text) {
+      const popup = document.getElementById('popup');
+      popup.textContent = text;
+      popup.classList.add('show');
+      setTimeout(() => {
+        popup.classList.remove('show');
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
