@@ -367,10 +367,13 @@
     </div>
 
     <footer>
-      <div class="footer-tab">
-        <textarea placeholder="How much do you enjoy the options you have here? Rate them out of 10."></textarea>
-        <button>Let me know.</button>
-      </div>
+      <div class="footer-tab" style="flex-direction: column; align-items: flex-start;">
+  <div id="chat-log" style="height: 80px; width: 200px; overflow-y: auto; background: #1e1e1e; padding: 5px; border-radius: 5px; margin-bottom: 5px; font-size: 0.9rem;"></div>
+  <div style="display: flex; gap: 5px;">
+    <input type="text" id="chat-input" placeholder="Type your message..." style="padding: 5px; border-radius: 4px; border: none; width: 140px;" />
+    <button onclick="sendChat()" style="background-color: #d6a0f4; color: black; padding: 5px 8px; border: none; border-radius: 4px;">Send</button>
+  </div>
+</div>
       <form id="upload-form" class="footer-tab">
         <input type="file" name="my_file" required />
         <button type="submit">Submit yourself here. ;)</button>
@@ -548,6 +551,20 @@ function addToTaskList(task) {
 
   li.appendChild(doneButton);
   checklist.appendChild(li);
+}
+function sendChat() {
+  const input = document.getElementById("chat-input");
+  const chatLog = document.getElementById("chat-log");
+
+  if (input.value.trim() === "") return;
+
+  const message = document.createElement("div");
+  message.textContent = "You: " + input.value;
+  message.style.marginBottom = "4px";
+  chatLog.appendChild(message);
+  chatLog.scrollTop = chatLog.scrollHeight;
+
+  input.value = "";
 }
 
   </script>
