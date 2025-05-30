@@ -61,6 +61,19 @@
       background-color: #222;
       border-radius: 10px;
     }
+    .panel-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.panel {
+  flex: 1;
+  background-color: #333;
+  padding: 15px;
+  border-radius: 10px;
+  min-height: 150px;
+}
 
     /* Bottom buttons */
     .bottom-bar {
@@ -121,6 +134,7 @@
   <div class="sidebar">
     <div class="tab" onclick="showContent('tasks')">Tasks I have for you :)</div>
     <div class="tab" onclick="showContent('mind')">What's on your mind?</div>
+    <div class="tab" onclick="showContent('drive')">Do you wish to drive?</div>
     <div class="tab" onclick="showContent('scoring')">Scoring</div>
   </div>
 
@@ -160,10 +174,90 @@
         case 'submit':
           html = '<h2>Submit Tasks</h2><input type="file" /><br/><button class="btn" style="margin-top:10px;">Upload</button>';
           break;
+          case 'drive':
+  html = `
+    <h2>Do you wish to drive?</h2>
+    <div class="panel-row">
+      <div class="panel" id="panel1">
+        <p>Choose your role:</p>
+        <button onclick="chooseLevel1('lead')">Lead</button>
+        <button onclick="chooseLevel1('submit')">Submit</button>
+      </div>
+      <div class="panel" id="panel2"></div>
+      <div class="panel" id="panel3"></div>
+    </div>
+  `;
+  break;
       }
       content.innerHTML = html;
     }
+function chooseLevel1(choice) {
+  const panel2 = document.getElementById('panel2');
+  const panel3 = document.getElementById('panel3');
+  panel3.innerHTML = ''; // Clear downstream
 
+  if (choice === 'lead') {
+    panel2.innerHTML = `
+      <p>Choose intensity:</p>
+      <button onclick="chooseLevel2('lead', 'gentle')">Gentle</button>
+      <button onclick="chooseLevel2('lead', 'firm')">Firm</button>
+    `;
+  } else if (choice === 'submit') {
+    panel2.innerHTML = `
+      <p>Choose response:</p>
+      <button onclick="chooseLevel2('submit', 'obedient')">Obedient</button>
+      <button onclick="chooseLevel2('submit', 'tease')">Teasing</button>
+    `;
+  }
+}
+
+function chooseLevel2(l1, choice) {
+  const panel3 = document.getElementById('panel3');
+
+  if (l1 === 'lead' && choice === 'gentle') {
+    panel3.innerHTML = `
+      <p>Pick your pace:</p>
+      <button onclick="finalChoice('lead-gentle-soft')">Soft</button>
+      <button onclick="finalChoice('lead-gentle-confident')">Confident</button>
+    `;
+  } else if (l1 === 'lead' && choice === 'firm') {
+    panel3.innerHTML = `
+      <p>Pick your tone:</p>
+      <button onclick="finalChoice('lead-firm-commanding')">Commanding</button>
+      <button onclick="finalChoice('lead-firm-unrelenting')">Unrelenting</button>
+    `;
+  } else if (l1 === 'submit' && choice === 'obedient') {
+    panel3.innerHTML = `
+      <p>Pick your posture:</p>
+      <button onclick="finalChoice('submit-obedient-kneeling')">Kneeling</button>
+      <button onclick="finalChoice('submit-obedient-silent')">Silent</button>
+    `;
+  } else if (l1 === 'submit' && choice === 'tease') {
+    panel3.innerHTML = `
+      <p>Pick your tone:</p>
+      <button onclick="finalChoice('submit-tease-playful')">Playful</button>
+      <button onclick="finalChoice('submit-tease-sassy')">Sassy</button>
+    `;
+  }
+}
+
+function finalChoice(path) {
+  const messages = {
+    'lead-gentle-soft': 'You may guide, softly and with care.',
+    'lead-gentle-confident': 'Confidence suits you. Take charge.',
+    'lead-firm-commanding': 'You are the command. She obeys.',
+    'lead-firm-unrelenting': 'No mercy today. Total control.',
+    'submit-obedient-kneeling': 'Good girl. Wait there until told otherwise.',
+    'submit-obedient-silent': 'Silence is golden. Let your obedience speak.',
+    'submit-tease-playful': 'Careful, teasing invites punishment.',
+    'submit-tease-sassy': 'You dare sass? There will be consequences.'
+  };
+
+  const popup = document.getElementById('popup');
+  popup.innerText = messages[path] || "Choice accepted.";
+  popup.style.display = 'block';
+  setTimeout(() => popup.style.display = 'none', 5000);
+}
     function showDailyTask() {
       const popup = document.getElementById('popup');
       popup.style.display = 'block';
