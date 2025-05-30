@@ -655,6 +655,19 @@ function sendChat() {
   document.getElementById("intro-screen").style.display = "none";
   document.getElementById("main-app").style.display = "block";
 });
+  document.getElementById("enter-btn").addEventListener("click", () => {
+  const introScreen = document.getElementById("intro-screen");
+  const mainApp = document.getElementById("main-app");
+
+  // Fade out intro screen
+  introScreen.classList.add("fade-out");
+
+  // After fade-out completes, hide intro and show main app
+  setTimeout(() => {
+    introScreen.style.display = "none";
+    mainApp.classList.add("fade-in");
+  }, 500); // Match your CSS transition duration
+});
 </script>  
 </body>
 </html>
