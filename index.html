@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>babygirl</title>
   <link rel="icon" href="bbg2.jpeg" type="image/x-icon" />
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+  (function () {
+    emailjs.init("YOUR_USER_ID"); // Replace with your actual Public Key
+  })();
+</script>
   <style>
     * {
       margin: 0;
@@ -283,6 +289,7 @@
 </head>
 
 <body>
+
   <div id="intro-screen">
     <h1 class="intro-text">Welcome, babygirl.</h1>
     <p class="intro-sub">You know the rules, darling. Obey. Submit. Please.</p>
@@ -375,9 +382,9 @@
   </div>
 </div>
       <form id="upload-form" class="footer-tab">
-        <input type="file" name="my_file" required />
-        <button type="submit">Submit yourself here. ;)</button>
-      </form>
+  <input type="file" id="file-input" name="file_url" required />
+  <button type="submit">Submit yourself here. ;)</button>
+</form>
       <div class="footer-tab">
         <button id="daily-task-btn">Find your weekly passive task here. 😈</button>
       </div>
@@ -568,5 +575,19 @@ function sendChat() {
 }
 
   </script>
+  <script>
+  document.getElementById("upload-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+      .then(() => {
+        alert("File sent successfully!");
+        document.getElementById("file-input").value = ""; // Reset file input
+      })
+      .catch((error) => {
+        alert("Error: " + JSON.stringify(error));
+      });
+  });
+</script>
 </body>
 </html>
