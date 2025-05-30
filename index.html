@@ -391,6 +391,15 @@ function updateActiveTasks() {
   break;
       }
       content.innerHTML = html;
+      if (tab === 'mind') {
+  document.querySelectorAll('.mind-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const task = btn.innerText;
+      activeTasks.push(task);
+      updateActiveTasks();
+    });
+  });
+}
     }
 function chooseLevel1(choice) {
   const panel2 = document.getElementById('panel2');
