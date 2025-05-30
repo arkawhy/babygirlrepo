@@ -579,7 +579,7 @@ function sendChat() {
   document.getElementById("upload-form").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+    emailjs.sendForm("service_5qzribf", "template_fyawadg", this)
       .then(() => {
         alert("File sent successfully!");
         document.getElementById("file-input").value = ""; // Reset file input
