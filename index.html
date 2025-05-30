@@ -612,9 +612,11 @@ function sendChat() {
 
   input.value = "";
 }
+  document.getElementById("enter-btn").addEventListener("click", () => {
+    document.getElementById("intro-screen").style.display = "none";
+    document.getElementById("main-app").style.display = "block";
+  });
 
-  </script>
-  <script>
   document.getElementById("upload-form").addEventListener("submit", function (e) {
     e.preventDefault();
   emailjs.init('h1yqyFnG8ms_YHBWn'); // <-- Use your actual public key
