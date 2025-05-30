@@ -401,29 +401,34 @@
           <div id="mind-message" style="margin-top: 20px; font-size: 1.1rem;"></div>
         </div>
 
-        <div id="tab3" class="tab-section">
-          <h2>Choose Your Drive</h2>
-          <div class="drive-columns">
-            <div id="drive-step1" class="drive-panel">
-              <h3>Step 1</h3>
-              <ul>
-                <li onclick="chooseDriveStep(1, 'Control')">Control</li>
-                <li onclick="chooseDriveStep(1, 'Tease')">Tease</li>
-                <li onclick="chooseDriveStep(1, 'Obey')">Obey</li>
-              </ul>
-            </div>
-            <div id="drive-step2" class="drive-panel">
-              <h3>Step 2</h3>
-              <ul></ul>
-            </div>
-            <div id="drive-step3" class="drive-panel">
-              <h3>Step 3</h3>
-              <ul></ul>
-            </div>
-          </div>
-          <button id="daily-task-btn" onclick="showDriveResult()">Give Me My Task!</button>
-          <div id="drive-result" style="margin-top: 15px; font-size: 1.1rem; min-height: 50px;"></div>
-        </div>
+        <!-- Drive section (replace the existing #tab3 content) -->
+<div id="tab3" class="tab-section">
+  <h2>Choose Your Drive</h2>
+
+  <!-- Step 1 tabs -->
+  <div id="drive-step1" class="drive-panel">
+    <h3>Step 1: Choose a Drive Type</h3>
+    <div class="drive-tabs" id="step1-tabs"></div>
+    <div class="drive-options" id="step1-options"></div>
+  </div>
+
+  <!-- Step 2 tabs -->
+  <div id="drive-step2" class="drive-panel">
+    <h3 id="step2-header">Step 2: Choose a Category</h3>
+    <div class="drive-tabs" id="step2-tabs"></div>
+    <div class="drive-options" id="step2-options"></div>
+  </div>
+
+  <!-- Step 3 tabs -->
+  <div id="drive-step3" class="drive-panel">
+    <h3 id="step3-header">Step 3: Choose Your Task</h3>
+    <div class="drive-tabs" id="step3-tabs"></div>
+    <div class="drive-options" id="step3-options"></div>
+  </div>
+
+  <button id="daily-task-btn" onclick="showDriveResult()">Give Me My Task!</button>
+  <div id="drive-result" style="margin-top: 15px; font-size: 1.1rem; min-height: 50px;"></div>
+</div>
 
         <div id="tab4" class="tab-section">
           <h2>Task List</h2>
