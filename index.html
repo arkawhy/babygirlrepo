@@ -438,10 +438,7 @@
     </footer>
   </div>
   <script>     
-   document.getElementById("enter-btn").addEventListener("click", function () {
-  document.getElementById("intro-screen").style.display = "none";
-  document.getElementById("main-app").style.display = "block";
-});
+
     function showTab(tabId) {
       document.querySelectorAll('.tab-section').forEach(section => section.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
@@ -653,8 +650,12 @@ function sendChat() {
   function () {
     emailjs.init("h1yqyFnG8ms_YHBWn"); // Replace with your actual Public Key
   };
-
   </script>
-  
+<script> 
+  document.getElementById("enter-btn").addEventListener("click", function () {
+  document.getElementById("intro-screen").style.display = "none";
+  document.getElementById("main-app").style.display = "block";
+});
+</script>  
 </body>
 </html>
