@@ -257,24 +257,54 @@
       background-color: #a855f7;
     }
 
-    .drive-columns {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-    }
+    .drive-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
 
-    .drive-panel {
-      flex: 1;
-      background-color: #1e1e1e;
-      padding: 15px;
-      border-radius: 10px;
-      color: white;
-      min-height: 150px;
-    }
+.drive-tabs button {
+  background: #333;
+  border: none;
+  padding: 8px 15px;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
 
-    .hidden {
-      display: none !important;
-    }
+.drive-tabs button.active {
+  background: #d6a0f4;
+  color: #000;
+}
+
+.drive-options {
+  min-height: 50px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.drive-options button {
+  background: #444;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.drive-options button:hover {
+  background: #666;
+}
+
+.drive-options button.selected {
+  background: #a855f7;
+  color: white;
+}
 
     #task-list ul {
       list-style: disc;
@@ -465,125 +495,163 @@
 
     // Drive selection logic
     const driveData = {
-      Control: {
-        MindGames: ['Collapse', 'Surrender'],
-        SlowDenial: ['Tears', 'Desperation']
-      },
-      Tease: {
-        Whispers: ['Begging', 'Moaning'],
-        PublicPlay: ['Shame', 'Thrill']
-      },
-      Obey: {
-        Instructions: ['Complete Submission']
-      }
-    };
+  Control: {
+    MindGames: ['Collapse', 'Surrender'],
+    SlowDenial: ['Tears', 'Desperation'],
+  },
+  Tease: {
+    Whispers: ['Begging', 'Moaning'],
+    PublicPlay: ['Shame', 'Thrill'],
+  },
+  Obey: {
+    Instructions: ['CompleteSubmission'],
+  },
+};
 
-    let driveSelection = {
-      step1: null,
-      step2: null,
-      step3: null
-    };
+let driveSelection = {
+  step1: null,
+  step2: null,
+  step3: null,
+};
 
-    function chooseDriveStep(step, choice) {
-      if (step === 1) {
-        driveSelection.step1 = choice;
-        driveSelection.step2 = null;
-        driveSelection.step3 = null;
-        populateDriveStep2(choice);
-        clearDriveStep3();
-      } else if (step === 2) {
-        driveSelection.step2 = choice;
-        driveSelection.step3 = null;
-        populateDriveStep3(driveSelection.step1, choice);
-      } else if (step === 3) {
-        driveSelection.step3 = choice;
-      }
-      updateDriveUI();
-    }
+const step1TabsContainer = document.getElementById('step1-tabs');
+const step1OptionsContainer = document.getElementById('step1-options');
+const step2TabsContainer = document.getElementById('step2-tabs');
+const step2OptionsContainer = document.getElementById('step2-options');
+const step3TabsContainer = document.getElementById('step3-tabs');
+const step3OptionsContainer = document.getElementById('step3-options');
 
-    function populateDriveStep2(step1Choice) {
-      const step2Panel = document.querySelector('#drive-step2 ul');
-      step2Panel.innerHTML = '';
-      if (!step1Choice || !driveData[step1Choice]) return;
-      for (const option in driveData[step1Choice]) {
-        const li = document.createElement('li');
-        li.textContent = option.replace(/([A-Z])/g, ' $1').trim();
-        li.onclick = () => chooseDriveStep(2, option);
-        step2Panel.appendChild(li);
-      }
-    }
+function initDriveTabs() {
+  // Step 1 tabs from top-level keys
+  renderTabs(step1TabsContainer, Object.keys(driveData), 'step1');
+  // Initially clear others
+  step1OptionsContainer.innerHTML = '';
+  step2TabsContainer.innerHTML = '';
+  step2OptionsContainer.innerHTML = '';
+  step3TabsContainer.innerHTML = '';
+  step3OptionsContainer.innerHTML = '';
+}
 
-    function populateDriveStep3(step1Choice, step2Choice) {
-      const step3Panel = document.querySelector('#drive-step3 ul');
-      step3Panel.innerHTML = '';
-      if (
-        !step1Choice || !step2Choice ||
-        !driveData[step1Choice] ||
-        !driveData[step1Choice][step2Choice]
-      ) return;
-      driveData[step1Choice][step2Choice].forEach(option => {
-        const li = document.createElement('li');
-        li.textContent = option;
-        li.onclick = () => chooseDriveStep(3, option);
-        step3Panel.appendChild(li);
-      });
-    }
+function renderTabs(container, items, step) {
+  container.innerHTML = '';
+  items.forEach(item => {
+    const btn = document.createElement('button');
+    btn.textContent = formatLabel(item);
+    btn.onclick = () => chooseDriveTab(step, item);
+    btn.classList.toggle('active', driveSelection[`step${step}`] === item);
+    container.appendChild(btn);
+  });
+}
 
-    function clearDriveStep3() {
-      const step3Panel = document.querySelector('#drive-step3 ul');
-      step3Panel.innerHTML = '';
-    }
+function renderOptions(container, items, step) {
+  container.innerHTML = '';
+  items.forEach(item => {
+    const btn = document.createElement('button');
+    btn.textContent = formatLabel(item);
+    btn.onclick = () => chooseDriveOption(step, item);
+    btn.classList.toggle('selected', driveSelection[`step${step}`] === item);
+    container.appendChild(btn);
+  });
+}
 
-    function updateDriveUI() {
-      const { step1, step2, step3 } = driveSelection;
+function chooseDriveTab(step, choice) {
+  driveSelection[`step${step}`] = choice;
+  // Clear lower steps
+  for(let s = step + 1; s <= 3; s++) {
+    driveSelection[`step${s}`] = null;
+  }
+  updateDriveUI();
+}
 
-      // Highlight selected items in step 1, 2, 3
-      ['drive-step1', 'drive-step2', 'drive-step3'].forEach((id, idx) => {
-        const step = idx + 1;
-        const selectedChoice = driveSelection['step' + step];
-        const lis = document.querySelectorAll(`#${id} ul li`);
-        lis.forEach(li => {
-          li.style.backgroundColor = li.textContent === formatDriveChoice(selectedChoice) ? '#d6a0f4' : '#333';
-        });
-      });
-    }
+function chooseDriveOption(step, choice) {
+  driveSelection[`step${step}`] = choice;
+  // Clear lower steps if any
+  for(let s = step + 1; s <= 3; s++) {
+    driveSelection[`step${s}`] = null;
+  }
+  updateDriveUI();
+}
 
-    function formatDriveChoice(choice) {
-      if (!choice) return '';
-      // Convert camelCase or PascalCase to spaced words
-      return choice.replace(/([A-Z])/g, ' $1').trim();
-    }
+function updateDriveUI() {
+  // Step 1 tabs & options
+  renderTabs(step1TabsContainer, Object.keys(driveData), 1);
 
-    function showDriveResult() {
-      const { step1, step2, step3 } = driveSelection;
-      const resultDiv = document.getElementById('drive-result');
-      let message = '';
+  if (driveSelection.step1) {
+    const step2Categories = Object.keys(driveData[driveSelection.step1]);
+    renderTabs(step2TabsContainer, step2Categories, 2);
+  } else {
+    step2TabsContainer.innerHTML = '';
+    step2OptionsContainer.innerHTML = '';
+  }
 
-      if (step1 === 'Control' && step2 === 'MindGames' && step3 === 'Collapse') {
-        message = "No panties for a week for my kitten.";
-      } else if (step1 === 'Control' && step2 === 'MindGames' && step3 === 'Surrender') {
-        message = "Those pretty breasts shall see only nude and pink bras for the next two days.";
-      } else if (step1 === 'Control' && step2 === 'SlowDenial' && step3 === 'Tears') {
-        message = "Dirty-talk throughout the week.";
-      } else if (step1 === 'Control' && step2 === 'SlowDenial' && step3 === 'Desperation') {
-        message = "Submission-affirmation voice messages throughout the week, every night.";
-      } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Begging') {
-        message = "Boob-play while kneeling for you.";
-      } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Moaning') {
-        message = "A special message before a butt presentation.";
-      } else if (step1 === 'Tease' && step2 === 'PublicPlay' && step3 === 'Shame') {
-        message = "Smiling and standing pussy presentation.";
-      } else if (step1 === 'Tease' && step2 === 'PublicPlay' && step3 === 'Thrill') {
-        message = "Smiling and standing boobs presentation.";
-      } else if (step1 === 'Obey' && step2 === 'Instructions' && step3 === 'CompleteSubmission') {
-        message = "Your complete submission pleases me beyond words.";
-      } else {
-        message = "Your fate is sealed.";
-      }
+  if (driveSelection.step1 && driveSelection.step2) {
+    const step3Tasks = driveData[driveSelection.step1][driveSelection.step2];
+    renderOptions(step3OptionsContainer, step3Tasks, 3);
+  } else {
+    step3OptionsContainer.innerHTML = '';
+  }
 
-      resultDiv.textContent = message;
-      if (message) addToTaskList(message);
-    }
+  // Highlight active selections on all tabs
+  highlightActiveTabs();
+}
+
+function highlightActiveTabs() {
+  // Step 1
+  Array.from(step1TabsContainer.children).forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === formatLabel(driveSelection.step1));
+  });
+
+  // Step 2
+  Array.from(step2TabsContainer.children).forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === formatLabel(driveSelection.step2));
+  });
+
+  // Step 3 - options, use selected class
+  Array.from(step3OptionsContainer.children).forEach(btn => {
+    btn.classList.toggle('selected', btn.textContent === formatLabel(driveSelection.step3));
+  });
+}
+
+function formatLabel(str) {
+  if (!str) return '';
+  // Convert camelCase or PascalCase to spaced words
+  return str.replace(/([A-Z])/g, ' $1').replace(/([a-z])([A-Z])/g, '$1 $2').trim();
+}
+
+// Show result logic unchanged except updated keys
+function showDriveResult() {
+  const { step1, step2, step3 } = driveSelection;
+  const resultDiv = document.getElementById('drive-result');
+  let message = '';
+
+  if (step1 === 'Control' && step2 === 'MindGames' && step3 === 'Collapse') {
+    message = "No panties for a week for my kitten.";
+  } else if (step1 === 'Control' && step2 === 'MindGames' && step3 === 'Surrender') {
+    message = "Those pretty breasts shall see only nude and pink bras for the next two days.";
+  } else if (step1 === 'Control' && step2 === 'SlowDenial' && step3 === 'Tears') {
+    message = "Dirty-talk throughout the week.";
+  } else if (step1 === 'Control' && step2 === 'SlowDenial' && step3 === 'Desperation') {
+    message = "Submission-affirmation voice messages throughout the week, every night.";
+  } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Begging') {
+    message = "Boob-play while kneeling for you.";
+  } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Moaning') {
+    message = "A special message before a butt presentation.";
+  } else if (step1 === 'Tease' && step2 === 'PublicPlay' && step3 === 'Shame') {
+    message = "Smiling and standing pussy presentation.";
+  } else if (step1 === 'Tease' && step2 === 'PublicPlay' && step3 === 'Thrill') {
+    message = "Smiling and standing boobs presentation.";
+  } else if (step1 === 'Obey' && step2 === 'Instructions' && step3 === 'CompleteSubmission') {
+    message = "Your complete submission pleases me beyond words.";
+  } else {
+    message = "Your fate is sealed.";
+  }
+
+  resultDiv.textContent = message;
+  if (message) addToTaskList(message);
+}
+
+// Initialize on load
+initDriveTabs();
 
     // Task list management
     function addToTaskList(task) {
