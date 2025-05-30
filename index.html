@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>babygirl</title>
   <link rel="icon" href="bbg2.jpeg" type="image/x-icon" />
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
-
   <style>
     * {
       margin: 0;
@@ -236,6 +233,40 @@
     #enter-btn:hover {
       background-color: #a855f7;
     }
+    .drive-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.drive-panel {
+  flex: 1;
+  background-color: #1e1e1e;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.drive-panel ul {
+  list-style: none;
+  padding: 0;
+}
+
+.drive-panel li {
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.drive-panel li:hover {
+  background-color: #555;
+}
+
+.hidden {
+  display: none;
+}
   </style>
 </head>
 
@@ -261,7 +292,8 @@
     <div class="container">
       <aside class="sidebar">
         <div class="tab" onclick="showTab('tasks')">📝 Tasks</div>
-        <div class="tab" onclick="showTab('mind')">💬 What's on our mind?</div>
+        <div class="tab" onclick="showTab('mind')">💬 What's on your mind?</div>
+        <div class="tab" onclick="showTab('drive')">🚗 Do you wish to drive?</div>
         <div class="tab" onclick="showTab('scoring')">⭐ Scoring</div>
       </aside>
 
@@ -272,7 +304,7 @@
         </section>
 
         <section id="mind" class="tab-section">
-          <p>Select what’s on your mind:</p>
+          <p>Tell me how you wish to interact today.</p>
           <ul id="mind-options">
             <li onclick="showMindMessage('Maybe we can have that happen. Dress code might be, well, subject to *change*.')">
               I think I can work in an interview today. 😈
@@ -289,6 +321,26 @@
         <section id="scoring" class="tab-section">
           Scoring panel, points etc...
         </section>
+        <section id="drive" class="tab-section">
+  <div class="drive-columns">
+    <div class="drive-panel" id="drive-step1">
+      <p>Pick how you'd like to drive:</p>
+      <ul>
+        <li onclick="selectDriveStep(1, 'Control')">Control 🧠</li>
+        <li onclick="selectDriveStep(1, 'Tease')">Tease 😏</li>
+        <li onclick="selectDriveStep(1, 'Obey')">Obey 💋</li>
+      </ul>
+    </div>
+
+    <div class="drive-panel hidden" id="drive-step2">
+      <!-- Options added dynamically -->
+    </div>
+
+    <div class="drive-panel hidden" id="drive-step3">
+      <!-- Final options based on step 2 -->
+    </div>
+  </div>
+</section>
       </main>
     </div>
 
@@ -336,6 +388,62 @@
       document.getElementById("intro-screen").style.display = "none";
       document.getElementById("main-app").style.display = "block";
     });
+    let driveSelections = {
+  step1: null,
+  step2: null,
+  step3: null
+};
+
+function selectDriveStep(step, value) {
+  driveSelections['step' + step] = value;
+
+  if (step === 1) {
+    // Show step 2
+    const step2 = document.getElementById('drive-step2');
+    step2.classList.remove('hidden');
+    step2.innerHTML = `
+      <p>How intense?</p>
+      <ul>
+        <li onclick="selectDriveStep(2, 'Soft')">Soft 🌸</li>
+        <li onclick="selectDriveStep(2, 'Firm')">Firm 🧷</li>
+        <li onclick="selectDriveStep(2, 'Extreme')">Extreme 🔥</li>
+      </ul>
+    `;
+  }
+
+  if (step === 2) {
+    // Show step 3
+    const step3 = document.getElementById('drive-step3');
+    step3.classList.remove('hidden');
+    step3.innerHTML = `
+      <p>Where should this lead?</p>
+      <ul>
+        <li onclick="selectDriveStep(3, 'Dominate')">Dominate 🕷️</li>
+        <li onclick="selectDriveStep(3, 'Ruin')">Ruin 😵‍💫</li>
+        <li onclick="selectDriveStep(3, 'Melt')">Melt 💦</li>
+      </ul>
+    `;
+  }
+
+  if (step === 3) {
+    showDriveResult();
+  }
+}
+
+function showDriveResult() {
+  const { step1, step2, step3 } = driveSelections;
+  const message = `You chose to ${step1}, with a ${step2} mood, ending in ${step3}. We’ll make that happen. 😈`;
+
+  const popup = document.getElementById("daily-popup");
+  popup.textContent = message;
+  popup.classList.remove("hidden");
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+    popup.classList.add("hidden");
+  }, 6000);
+}
   </script>
 </body>
 </html>
