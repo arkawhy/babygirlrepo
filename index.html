@@ -256,6 +256,33 @@ button:hover {
   font-weight: bold;
   z-index: 200;
 }
+.chatbox {
+  position: fixed;
+  bottom: 80px;
+  left: 20px;
+  width: 300px;
+  background: #1a1a1a;
+  border: 2px solid violet;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+}
+
+.chatlog {
+  height: 150px;
+  overflow-y: auto;
+  padding: 10px;
+  color: white;
+}
+
+#chatInput {
+  border: none;
+  padding: 10px;
+  width: calc(100% - 20px);
+  border-top: 1px solid violet;
+  background: black;
+  color: violet;
+}
   </style>
 </head>
 <body>
@@ -275,7 +302,7 @@ button:hover {
       <p>Select a section to begin.</p>
     </div>
     <div class="bottom-bar">
-      <button class="btn" onclick="showContent('feedback')">Feedback</button>
+      <button onclick="toggleChat()" class="btn">Chat</button>
       <button class="btn" onclick="showContent('submit')">Submit</button>
       <button class="btn daily" onclick="showDailyTask()">Daily Task</button>
     </div>
@@ -284,7 +311,10 @@ button:hover {
   <div id="popup" class="popup">
     Today's Task: Reflect on your behavior. Write 3 sentences about how you pleased your Dom today.
   </div>
-
+<div id="chatbox" class="chatbox">
+  <div id="chatlog" class="chatlog"></div>
+  <input type="text" id="chatInput" placeholder="Type your thoughts..." onkeydown="handleChat(event)">
+</div>
   <script>
     function showContent(section) {
       const content = document.getElementById('content');
@@ -411,6 +441,24 @@ function finalChoice(path) {
     function handleMindChoice(option) {
   showPopup(`You chose: ${option}`);
   updateActiveTasks(option);
+}
+function toggleChat() {
+  const chat = document.getElementById('chatbox');
+  chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function handleChat(event) {
+  if (event.key === 'Enter') {
+    const input = document.getElementById('chatInput');
+    const chatlog = document.getElementById('chatlog');
+    if (input.value.trim() !== '') {
+      const entry = document.createElement('div');
+      entry.textContent = `You: ${input.value}`;
+      chatlog.appendChild(entry);
+      input.value = '';
+      chatlog.scrollTop = chatlog.scrollHeight;
+    }
+  }
 }
   </script>
 </body>
