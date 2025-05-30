@@ -442,6 +442,29 @@
   <div id="popup" class="popup"></div>
 
   <script>
+    const labelMap = {
+  Control: "Take Control",
+  Tease: "Turn Her On",
+  Obey: "Make Her Obey",
+  MindGames: "Mind Games",
+  SlowDenial: "Slow Denial",
+  Whispers: "Whispers",
+  PublicPlay: "Public Play",
+  Instructions: "Instructions",
+  Collapse: "Collapse Her",
+  Surrender: "Make Her Surrender",
+  Tears: "Tears of Need",
+  Desperation: "Edge of Madness",
+  Begging: "Beg For It",
+  Moaning: "Helpless Moans",
+  Shame: "Public Shame",
+  Thrill: "Public Thrill",
+  CompleteSubmission: "Total Submission"
+};
+
+function formatLabel(key) {
+  return labelMap[key] || key;
+}
     // Initial intro screen logic
     const introScreen = document.getElementById('intro-screen');
     const mainApp = document.getElementById('main-app');
