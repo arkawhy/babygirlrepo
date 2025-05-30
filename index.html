@@ -20,6 +20,219 @@
         }, 500);
       });
     });
+
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-section').forEach(section => section.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    document.getElementById("daily-task-btn").addEventListener("click", () => {
+      const popup = document.getElementById("daily-popup");
+      popup.textContent = "As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘";
+      popup.classList.remove("hidden");
+      popup.classList.add("show");
+      setTimeout(() => popup.classList.remove("show", "hidden"), 5000);
+    });
+
+    function showMindMessage(message) {
+      const popup = document.getElementById("daily-popup");
+      popup.textContent = message;
+      popup.classList.remove("hidden");
+      popup.classList.add("show");
+      setTimeout(() => popup.classList.remove("show", "hidden"), 5000);
+      addToTaskList(message);
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+    popup.classList.add("hidden");
+  }, 5000);
+    }
+    let driveSelections = {
+  step1: null,
+  step2: null,
+  step3: null
+};
+
+function selectDriveStep(step, value) {
+  driveSelections['step' + step] = value;
+
+  if (step === 1) {
+    const step2 = document.getElementById('drive-step2');
+    step2.classList.remove('hidden');
+
+    let step2Options = '';
+    if (value === 'Control') {
+      step2Options = `
+        <li onclick="selectDriveStep(2, 'Mind Games')">I'd love to wear (or not wear) something, or anything, you want. </li>
+        <li onclick="selectDriveStep(2, 'Slow Denial')">I think I'll explore some other passive task to please you.</li>
+      `;
+    } else if (value === 'Tease') {
+      step2Options = `
+        <li onclick="selectDriveStep(2, 'Whispers')">I wouldn't mind starting naked and ready to do whatever you tell me in the video.</li>
+        <li onclick="selectDriveStep(2, 'Public Play')">I'd rather you instruct me which clothes to take off, how, and when.</li>
+      `;
+    } else if (value === 'Obey') {
+      step2Options = `
+        <li onclick="selectDriveStep(2, 'Instructions')">Maybe I can be interacting with some thing else in the room?</li>
+        <li onclick="selectDriveStep(2, 'Deprivation')">I would love it if you allow me to use some accessories, anywhere on my body.</li>
+      `;
+    }
+
+    step2.innerHTML = `<p>Tell me more, kitten.</p><ul>${step2Options}</ul>`;
+  }
+
+  if (step === 2) {
+    const step3 = document.getElementById('drive-step3');
+    step3.classList.remove('hidden');
+
+    const prev = driveSelections.step1;
+    let step3Options = '';
+
+    if (prev === 'Control' && value === 'Mind Games') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Collapse')">I will skip on wearing panties for a week. You can check in on me any time I am free.</li>
+        <li onclick="selectDriveStep(3, 'Surrender')"> I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free. </li>
+      `;
+    } else if (prev === 'Control' && value === 'Slow Denial') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Tears')">I'll voluntarily learn how to dirty-talk with you throughout the week, right here on this webpage.</li>
+        <li onclick="selectDriveStep(3, 'Desperation')">I'll send you a voice note affirming my submission to you, every night of this week, along with my good night text.</li>
+      `;
+    } else if (prev === 'Tease' && value === 'Whispers') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Begging')">I would think nothing of playing with my boobs for you, while kneeling. I love to be your good girl!</li>
+        <li onclick="selectDriveStep(3, 'Moaning')">Pleast let me be naked on video for you, standing upright and saying "I love being your good girl", and then turning around to present my ass to you. </li>
+      `;
+    } else if (prev === 'Tease' && value === 'Public Play') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Shame')">I will start out standing, wearing only a vest and panties, and then lower my panties to my thighs to present my pussy to you, all the while smiling at you.</li>
+        <li onclick="selectDriveStep(3, 'Thrill')">I will start out standing, wearing only a vest and panties, and then lower my vest to my thighs to present my breasts to you, all the while smiling at you.</li>
+      `;
+    } else if (prev === 'Obey' && value === 'Instructions') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Complete Submission')">I'll strip down completely, and take a pic of me sitting in a chair and smiling in a mirror selfie, hair down, with an arm loosely held behind me, my legs wide apart for you to savour what's in between.</li>
+        <li onclick="selectDriveStep(3, 'Blind Trust')">Since you love teaching me, maybe I can take a mirror selfie with a book held up to my face, my hair down, wearing nothing but panties, and every other inch of me on display for you.</li>
+      `;
+    } else if (prev === 'Obey' && value === 'Deprivation') {
+      step3Options = `
+        <li onclick="selectDriveStep(3, 'Beg For Release')">I'd love to send you an upper-half profile topless video of me taking off my glasses, letting my hair down, and putting on eyeliner. I love being pretty for you!</li>
+        <li onclick="selectDriveStep(3, 'Cry Yourself Dry')">A simple nude front profile mirror selfie, standing with a foot planted in front of the other, one hand loosely covering my pussy, wearing nothing but my college ID card. </li>
+      `;
+    }
+
+    step3.innerHTML = `<p>This is the last step, babygirl.</p><ul>${step3Options}</ul>`;
+  }
+
+  if (step === 3) {
+    showDriveResult();
+  }
+}
+function showDriveResult() {
+  const { step1, step2, step3 } = driveSelections;
+
+  let message = "Your fate is sealed.";
+
+  if (step1 === 'Control' && step2 === 'Mind Games' && step3 === 'Collapse') {
+    message = "No panties for a week for my kitten.";
+      if (step1 === 'Control' && step2 === 'Mind Games' && step3 === 'Surrender') {
+    message = "Those pretty breasts shall see only nude and pink bras for the next two days.";
+      if (step1 === 'Control' && step2 === 'Slow Denial' && step3 === 'Tears') {
+    message = "Dirty-talk throughout the week."
+      if (step1 === 'Control' && step2 === 'Slow Denial' && step3 === 'Desperation') {
+    message = "Submission-affirmation voice messages throughout the week, every night.";;
+  } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Begging') {
+    message = "Boob-play while kneeling for you.";
+      } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Moaning') {
+    message = "A special message before a butt presentation.";
+      } else if (step1 === 'Tease' && step2 === 'Public Play' && step3 === 'Shame') {
+    message = "Smiling and standing pussy presentation.";
+      } else if (step1 === 'Tease' && step2 === 'Public Play' && step3 === 'Thrill') {
+    message = "Smiling and standing boobs presentation";
+  } else if (step1 === 'Obey' && step2 === 'Instructions' && step3 === 'Complete Submission') {
+    message = "Pussy presentation on a chair.";
+      } else if (step1 === 'Obey' && step2 === 'Instructions' && step3 === 'Blind Trust') {
+    message = "A nerdy display as a hot nude.";
+      } else if (step1 === 'Obey' && step2 === 'Deprivation' && step3 === 'Beg For Release') {
+    message = "Pretty up for me with your tits out.";
+      } else if (step1 === 'Obey' && step2 === 'Deprivation' && step3 === 'Cry Yourself Dry') {
+    message = "Get back to the basics and remind me when I first fell for you.";
+  }
+  // Add more custom paths as needed
+
+  const popup = document.getElementById("daily-popup");
+  popup.textContent = message;
+  addToTaskList(message);
+  popup.classList.remove("hidden");
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+    popup.classList.add("hidden");
+  }, 6000);
+}
+function addToTaskList(task) {
+  const checklist = document.getElementById("task-checklist");
+  const tasks = checklist.querySelectorAll("li");
+
+  if (tasks.length >= 3) {
+    checklist.removeChild(tasks[0]); // Remove the oldest
+  }
+
+  const li = document.createElement("li");
+  li.textContent = task;
+
+  const doneButton = document.createElement("button");
+  doneButton.textContent = "Done";
+  doneButton.style.marginLeft = "10px";
+  doneButton.style.backgroundColor = "#a855f7";
+  doneButton.style.color = "white";
+  doneButton.style.border = "none";
+  doneButton.style.padding = "3px 8px";
+  doneButton.style.borderRadius = "4px";
+  doneButton.style.cursor = "pointer";
+
+  doneButton.addEventListener("click", () => {
+    checklist.removeChild(li);
+  });
+
+  li.appendChild(doneButton);
+  checklist.appendChild(li);
+}
+function sendChat() {
+  const input = document.getElementById("chat-input");
+  const chatLog = document.getElementById("chat-log");
+
+  if (input.value.trim() === "") return;
+
+  const message = document.createElement("div");
+  message.textContent = "You: " + input.value;
+  message.style.marginBottom = "4px";
+  chatLog.appendChild(message);
+  chatLog.scrollTop = chatLog.scrollHeight;
+
+  input.value = "";
+}
+  
+  }
+  };
+
+  document.getElementById("upload-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+  emailjs.init('h1yqyFnG8ms_YHBWn'); // <-- Use your actual public key
+
+    emailjs.sendForm('service_5qzribf',' template_fyawadg', document.getElementById('upload-form'),'h1yqyFnG8ms_YHBWn')
+      .then(() => {
+        alert("File sent successfully!");
+        document.getElementById("file-input").value = ""; // Reset file input
+      })
+      .catch((error) => {
+        alert("Error: " + JSON.stringify(error));
+      });
+  });
+  function () {
+    emailjs.init("h1yqyFnG8ms_YHBWn"); // Replace with your actual Public Key
+  };
+
   </script>
   <style>
   
@@ -455,218 +668,6 @@
     </footer>
   </div>
 
-  <script>
-    function showTab(tabId) {
-      document.querySelectorAll('.tab-section').forEach(section => section.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-    }
-
-    document.getElementById("daily-task-btn").addEventListener("click", () => {
-      const popup = document.getElementById("daily-popup");
-      popup.textContent = "As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘";
-      popup.classList.remove("hidden");
-      popup.classList.add("show");
-      setTimeout(() => popup.classList.remove("show", "hidden"), 5000);
-    });
-
-    function showMindMessage(message) {
-      const popup = document.getElementById("daily-popup");
-      popup.textContent = message;
-      popup.classList.remove("hidden");
-      popup.classList.add("show");
-      setTimeout(() => popup.classList.remove("show", "hidden"), 5000);
-      addToTaskList(message);
-
-  setTimeout(() => {
-    popup.classList.remove("show");
-    popup.classList.add("hidden");
-  }, 5000);
-    }
-    let driveSelections = {
-  step1: null,
-  step2: null,
-  step3: null
-};
-
-function selectDriveStep(step, value) {
-  driveSelections['step' + step] = value;
-
-  if (step === 1) {
-    const step2 = document.getElementById('drive-step2');
-    step2.classList.remove('hidden');
-
-    let step2Options = '';
-    if (value === 'Control') {
-      step2Options = `
-        <li onclick="selectDriveStep(2, 'Mind Games')">I'd love to wear (or not wear) something, or anything, you want. </li>
-        <li onclick="selectDriveStep(2, 'Slow Denial')">I think I'll explore some other passive task to please you.</li>
-      `;
-    } else if (value === 'Tease') {
-      step2Options = `
-        <li onclick="selectDriveStep(2, 'Whispers')">I wouldn't mind starting naked and ready to do whatever you tell me in the video.</li>
-        <li onclick="selectDriveStep(2, 'Public Play')">I'd rather you instruct me which clothes to take off, how, and when.</li>
-      `;
-    } else if (value === 'Obey') {
-      step2Options = `
-        <li onclick="selectDriveStep(2, 'Instructions')">Maybe I can be interacting with some thing else in the room?</li>
-        <li onclick="selectDriveStep(2, 'Deprivation')">I would love it if you allow me to use some accessories, anywhere on my body.</li>
-      `;
-    }
-
-    step2.innerHTML = `<p>Tell me more, kitten.</p><ul>${step2Options}</ul>`;
-  }
-
-  if (step === 2) {
-    const step3 = document.getElementById('drive-step3');
-    step3.classList.remove('hidden');
-
-    const prev = driveSelections.step1;
-    let step3Options = '';
-
-    if (prev === 'Control' && value === 'Mind Games') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Collapse')">I will skip on wearing panties for a week. You can check in on me any time I am free.</li>
-        <li onclick="selectDriveStep(3, 'Surrender')"> I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free. </li>
-      `;
-    } else if (prev === 'Control' && value === 'Slow Denial') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Tears')">I'll voluntarily learn how to dirty-talk with you throughout the week, right here on this webpage.</li>
-        <li onclick="selectDriveStep(3, 'Desperation')">I'll send you a voice note affirming my submission to you, every night of this week, along with my good night text.</li>
-      `;
-    } else if (prev === 'Tease' && value === 'Whispers') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Begging')">I would think nothing of playing with my boobs for you, while kneeling. I love to be your good girl!</li>
-        <li onclick="selectDriveStep(3, 'Moaning')">Pleast let me be naked on video for you, standing upright and saying "I love being your good girl", and then turning around to present my ass to you. </li>
-      `;
-    } else if (prev === 'Tease' && value === 'Public Play') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Shame')">I will start out standing, wearing only a vest and panties, and then lower my panties to my thighs to present my pussy to you, all the while smiling at you.</li>
-        <li onclick="selectDriveStep(3, 'Thrill')">I will start out standing, wearing only a vest and panties, and then lower my vest to my thighs to present my breasts to you, all the while smiling at you.</li>
-      `;
-    } else if (prev === 'Obey' && value === 'Instructions') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Complete Submission')">I'll strip down completely, and take a pic of me sitting in a chair and smiling in a mirror selfie, hair down, with an arm loosely held behind me, my legs wide apart for you to savour what's in between.</li>
-        <li onclick="selectDriveStep(3, 'Blind Trust')">Since you love teaching me, maybe I can take a mirror selfie with a book held up to my face, my hair down, wearing nothing but panties, and every other inch of me on display for you.</li>
-      `;
-    } else if (prev === 'Obey' && value === 'Deprivation') {
-      step3Options = `
-        <li onclick="selectDriveStep(3, 'Beg For Release')">I'd love to send you an upper-half profile topless video of me taking off my glasses, letting my hair down, and putting on eyeliner. I love being pretty for you!</li>
-        <li onclick="selectDriveStep(3, 'Cry Yourself Dry')">A simple nude front profile mirror selfie, standing with a foot planted in front of the other, one hand loosely covering my pussy, wearing nothing but my college ID card. </li>
-      `;
-    }
-
-    step3.innerHTML = `<p>This is the last step, babygirl.</p><ul>${step3Options}</ul>`;
-  }
-
-  if (step === 3) {
-    showDriveResult();
-  }
-}
-function showDriveResult() {
-  const { step1, step2, step3 } = driveSelections;
-
-  let message = "Your fate is sealed.";
-
-  if (step1 === 'Control' && step2 === 'Mind Games' && step3 === 'Collapse') {
-    message = "No panties for a week for my kitten.";
-      if (step1 === 'Control' && step2 === 'Mind Games' && step3 === 'Surrender') {
-    message = "Those pretty breasts shall see only nude and pink bras for the next two days.";
-      if (step1 === 'Control' && step2 === 'Slow Denial' && step3 === 'Tears') {
-    message = "Dirty-talk throughout the week."
-      if (step1 === 'Control' && step2 === 'Slow Denial' && step3 === 'Desperation') {
-    message = "Submission-affirmation voice messages throughout the week, every night.";;
-  } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Begging') {
-    message = "Boob-play while kneeling for you.";
-      } else if (step1 === 'Tease' && step2 === 'Whispers' && step3 === 'Moaning') {
-    message = "A special message before a butt presentation.";
-      } else if (step1 === 'Tease' && step2 === 'Public Play' && step3 === 'Shame') {
-    message = "Smiling and standing pussy presentation.";
-      } else if (step1 === 'Tease' && step2 === 'Public Play' && step3 === 'Thrill') {
-    message = "Smiling and standing boobs presentation";
-  } else if (step1 === 'Obey' && step2 === 'Instructions' && step3 === 'Complete Submission') {
-    message = "Pussy presentation on a chair.";
-      } else if (step1 === 'Obey' && step2 === 'Instructions' && step3 === 'Blind Trust') {
-    message = "A nerdy display as a hot nude.";
-      } else if (step1 === 'Obey' && step2 === 'Deprivation' && step3 === 'Beg For Release') {
-    message = "Pretty up for me with your tits out.";
-      } else if (step1 === 'Obey' && step2 === 'Deprivation' && step3 === 'Cry Yourself Dry') {
-    message = "Get back to the basics and remind me when I first fell for you.";
-  }
-  // Add more custom paths as needed
-
-  const popup = document.getElementById("daily-popup");
-  popup.textContent = message;
-  addToTaskList(message);
-  popup.classList.remove("hidden");
-  popup.classList.add("show");
-
-  setTimeout(() => {
-    popup.classList.remove("show");
-    popup.classList.add("hidden");
-  }, 6000);
-}
-function addToTaskList(task) {
-  const checklist = document.getElementById("task-checklist");
-  const tasks = checklist.querySelectorAll("li");
-
-  if (tasks.length >= 3) {
-    checklist.removeChild(tasks[0]); // Remove the oldest
-  }
-
-  const li = document.createElement("li");
-  li.textContent = task;
-
-  const doneButton = document.createElement("button");
-  doneButton.textContent = "Done";
-  doneButton.style.marginLeft = "10px";
-  doneButton.style.backgroundColor = "#a855f7";
-  doneButton.style.color = "white";
-  doneButton.style.border = "none";
-  doneButton.style.padding = "3px 8px";
-  doneButton.style.borderRadius = "4px";
-  doneButton.style.cursor = "pointer";
-
-  doneButton.addEventListener("click", () => {
-    checklist.removeChild(li);
-  });
-
-  li.appendChild(doneButton);
-  checklist.appendChild(li);
-}
-function sendChat() {
-  const input = document.getElementById("chat-input");
-  const chatLog = document.getElementById("chat-log");
-
-  if (input.value.trim() === "") return;
-
-  const message = document.createElement("div");
-  message.textContent = "You: " + input.value;
-  message.style.marginBottom = "4px";
-  chatLog.appendChild(message);
-  chatLog.scrollTop = chatLog.scrollHeight;
-
-  input.value = "";
-}
   
-  }
-  };
-
-  document.getElementById("upload-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-  emailjs.init('h1yqyFnG8ms_YHBWn'); // <-- Use your actual public key
-
-    emailjs.sendForm('service_5qzribf',' template_fyawadg', document.getElementById('upload-form'),'h1yqyFnG8ms_YHBWn')
-      .then(() => {
-        alert("File sent successfully!");
-        document.getElementById("file-input").value = ""; // Reset file input
-      })
-      .catch((error) => {
-        alert("Error: " + JSON.stringify(error));
-      });
-  });
-  function () {
-    emailjs.init("h1yqyFnG8ms_YHBWn"); // Replace with your actual Public Key
-  };
-</script>
 </body>
 </html>
