@@ -345,112 +345,111 @@ function updateActiveTasks(task) {
 
   // If viewing task list, update UI immediately
   if (document.getElementById('taskList')) {
-    document.getElementById('taskList').innerHTML = activeTasks.map(t => <li>${t}</li>).join('');
+    document.getElementById('taskList').innerHTML = activeTasks.map(t => `<li>${t}</li>`).join('');
   }
 }
-    function showContent(section) {
-      const content = document.getElementById('content');
-      let html = '';
-      switch (section) {
-        case 'home':
-  html = 
-    <h2>Welcome, babygirl 🖤</h2>
-    <p>'Come to me when you are ready to listen.'</p>
-  ;
-  break;
-        case 'tasks':
-          html = '<h2>Tasklist</h2><ul><li>Task 1: ...</li><li>Task 2: ...</li></ul>';
-          break;
-        case 'mind':
-  html = 
-    <h2>What’s on your mind?</h2>
-    <div class="panel-row">
-      <button onclick="handleMindChoice('Craving attention')">Craving attention</button>
-      <button onclick="handleMindChoice('Feeling submissive')">Feeling submissive</button>
-      <button onclick="handleMindChoice('I miss you')">I miss you</button>
-      <button onclick="handleMindChoice('Just want instructions')">Just want instructions</button>
-    </div>
-  ;
-  break;
-        case 'scoring':
-          html = '<h2>Scoring</h2><p>Points: 75/100</p>';
-          break;
-        case 'feedback':
-          html = '<h2>Feedback</h2><textarea rows="5" style="width:100%;">Write your thoughts here...</textarea>';
-          break;
-        case 'submit':
-          html = '<h2>Submit Tasks</h2><input type="file" /><br/><button class="btn" style="margin-top:10px;">Upload</button>';
-          break;
-          case 'drive':
-  html = 
-    <h2>Do you wish to drive?</h2>
-    <div class="panel-row">
-      <div class="panel" id="panel1">
-        <p>Choose your role:</p>
-        <button onclick="chooseLevel1('lead')">Lead</button>
-        <button onclick="chooseLevel1('submit')">Submit</button>
-      </div>
-      <div class="panel" id="panel2"></div>
-      <div class="panel" id="panel3"></div>
-    </div>
-  ;
-  break;
-  case 'activeTasks':
-  html = 
-    <h2>Active Tasklist</h2>
-    <ul id="taskList"></ul>
-  ;
-  break;
-      }
-      content.innerHTML = html;
-    }
+   function showContent(section) {
+  const content = document.getElementById('content');
+  let html = '';
+  switch (section) {
+    case 'home':
+      html = `
+        <h2>Welcome, babygirl 🖤</h2>
+        <p>'Come to me when you are ready to listen.'</p>
+      `;
+      break;
+    case 'tasks':
+      html = '<h2>Tasklist</h2><ul><li>Task 1: ...</li><li>Task 2: ...</li></ul>';
+      break;
+    case 'mind':
+      html = `
+        <h2>What’s on your mind?</h2>
+        <div class="panel-row">
+          <button onclick="handleMindChoice('Craving attention')">Craving attention</button>
+          <button onclick="handleMindChoice('Feeling submissive')">Feeling submissive</button>
+          <button onclick="handleMindChoice('I miss you')">I miss you</button>
+          <button onclick="handleMindChoice('Just want instructions')">Just want instructions</button>
+        </div>
+      `;
+      break;
+    case 'scoring':
+      html = '<h2>Scoring</h2><p>Points: 75/100</p>';
+      break;
+    case 'feedback':
+      html = '<h2>Feedback</h2><textarea rows="5" style="width:100%;">Write your thoughts here...</textarea>';
+      break;
+    case 'submit':
+      html = '<h2>Submit Tasks</h2><input type="file" /><br/><button class="btn" style="margin-top:10px;">Upload</button>';
+      break;
+    case 'drive':
+      html = `
+        <h2>Do you wish to drive?</h2>
+        <div class="panel-row">
+          <div class="panel" id="panel1">
+            <p>Choose your role:</p>
+            <button onclick="chooseLevel1('lead')">Lead</button>
+            <button onclick="chooseLevel1('submit')">Submit</button>
+          </div>
+          <div class="panel" id="panel2"></div>
+          <div class="panel" id="panel3"></div>
+        </div>
+      `;
+      break;
+    case 'activeTasks':
+      html = `
+        <h2>Active Tasklist</h2>
+        <ul id="taskList"></ul>
+      `;
+      break;
+  }
+  content.innerHTML = html;
+}
 function chooseLevel1(choice) {
   const panel2 = document.getElementById('panel2');
   const panel3 = document.getElementById('panel3');
   panel3.innerHTML = ''; // Clear downstream
 
   if (choice === 'lead') {
-    panel2.innerHTML = 
+    panel2.innerHTML = `
       <p>Choose intensity:</p>
       <button onclick="chooseLevel2('lead', 'gentle')">Gentle</button>
       <button onclick="chooseLevel2('lead', 'firm')">Firm</button>
-    ;
+    `;
   } else if (choice === 'submit') {
-    panel2.innerHTML = 
+    panel2.innerHTML = `
       <p>Choose response:</p>
       <button onclick="chooseLevel2('submit', 'obedient')">Obedient</button>
       <button onclick="chooseLevel2('submit', 'tease')">Teasing</button>
-    ;
+    `;
   }
 }
-
 function chooseLevel2(l1, choice) {
   const panel3 = document.getElementById('panel3');
 
   if (l1 === 'lead' && choice === 'gentle') {
-    panel3.innerHTML = 
+    panel3.innerHTML = `
       <p>Pick your pace:</p>
       <button onclick="finalChoice('lead-gentle-soft')">Soft</button>
       <button onclick="finalChoice('lead-gentle-confident')">Confident</button>
-    ;
+    `;
   } else if (l1 === 'lead' && choice === 'firm') {
-    panel3.innerHTML = 
+    panel3.innerHTML = `
       <p>Pick your tone:</p>
       <button onclick="finalChoice('lead-firm-commanding')">Commanding</button>
       <button onclick="finalChoice('lead-firm-unrelenting')">Unrelenting</button>
-    ;
+    `;
   } else if (l1 === 'submit' && choice === 'obedient') {
-    panel3.innerHTML = 
+    panel3.innerHTML = `
       <p>Pick your posture:</p>
       <button onclick="finalChoice('submit-obedient-kneeling')">Kneeling</button>
       <button onclick="finalChoice('submit-obedient-silent')">Silent</button>
-    ;
+    `;
   } else if (l1 === 'submit' && choice === 'tease') {
-    panel3.innerHTML = 
+    panel3.innerHTML = `
       <p>Pick your tone:</p>
       <button onclick="finalChoice('submit-tease-playful')">Playful</button>
       <button onclick="finalChoice('submit-tease-sassy')">Sassy</button>
-    ;
+    `;
   }
 }
 
