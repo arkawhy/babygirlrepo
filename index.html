@@ -300,8 +300,16 @@ button:hover {
           html = '<h2>Tasklist</h2><ul><li>Task 1: ...</li><li>Task 2: ...</li></ul>';
           break;
         case 'mind':
-          html = '<h2>What\'s on Our Mind</h2><p>We grow stronger each day, bonded in trust.</p>';
-          break;
+  html = `
+    <h2>What’s on your mind?</h2>
+    <div class="panel-row">
+      <button onclick="handleMindChoice('Craving attention')">Craving attention</button>
+      <button onclick="handleMindChoice('Feeling submissive')">Feeling submissive</button>
+      <button onclick="handleMindChoice('I miss you')">I miss you</button>
+      <button onclick="handleMindChoice('Just want instructions')">Just want instructions</button>
+    </div>
+  `;
+  break;
         case 'scoring':
           html = '<h2>Scoring</h2><p>Points: 75/100</p>';
           break;
@@ -400,6 +408,10 @@ function finalChoice(path) {
       popup.style.display = 'block';
       setTimeout(() => popup.style.display = 'none', 5000);
     }
+    function handleMindChoice(option) {
+  showPopup(`You chose: ${option}`);
+  updateActiveTasks(option);
+}
   </script>
 </body>
 </html>
