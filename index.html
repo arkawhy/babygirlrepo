@@ -578,6 +578,7 @@ function sendChat() {
   <script>
   document.getElementById("upload-form").addEventListener("submit", function (e) {
     e.preventDefault();
+  emailjs.init('h1yqyFnG8ms_YHBWn'); // <-- Use your actual public key
 
     emailjs.sendForm('service_5qzribf',' template_fyawadg', document.getElementById('upload-form'),'h1yqyFnG8ms_YHBWn')
       .then(() => {
