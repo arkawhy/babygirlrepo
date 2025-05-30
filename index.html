@@ -4,29 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>babygirl</title>
-<link rel="icon" href="bbg2.jpeg" type="image/x-icon" />
-  <!-- Firebase SDKs -->
+  <link rel="icon" href="bbg2.jpeg" type="image/x-icon" />
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
 
   <style>
-{
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
       background-color: #0f0f0f;
       color: white;
     }
-#mind-options li {
-  cursor: pointer;
-  padding: 8px;
-  margin: 5px 0;
-  background-color: #333;
-  border-radius: 5px;
-  transition: background 0.3s;
-}
-#mind-options li:hover {
-  background-color: #555;
-}
+
+    #mind-options li {
+      cursor: pointer;
+      padding: 8px;
+      margin: 5px 0;
+      background-color: #333;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    #mind-options li:hover {
+      background-color: #555;
+    }
 
     header {
       display: flex;
@@ -37,9 +43,18 @@
     }
 
     .logo {
-      font-size: 2rem;
+      font-size: 2.4rem;
       font-weight: bold;
       color: #d6a0f4;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo span.extra-text {
+      font-size: 1rem;
+      color: #ccc;
+      font-weight: normal;
     }
 
     .email-form input {
@@ -95,6 +110,7 @@
       padding: 15px;
       border-radius: 10px;
       background-color: #2a2a2a;
+      color: white;
     }
 
     .tab-section.active {
@@ -136,9 +152,10 @@
     }
 
     .popup.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
+      opacity: 0;
+      pointer-events: none;
+    }
+
     footer {
       display: flex;
       justify-content: space-around;
@@ -175,140 +192,150 @@
       border-radius: 4px;
       cursor: pointer;
     }
+
     #intro-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #0f0f0f;
-  color: #d6a0f4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  text-align: center;
-}
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0f0f0f;
+      color: #d6a0f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      text-align: center;
+    }
 
-.intro-text {
-  font-size: 3rem;
-  font-weight: bold;
-  font-family: 'Georgia', serif;
-  margin-bottom: 10px;
-}
+    .intro-text {
+      font-size: 3rem;
+      font-weight: bold;
+      font-family: 'Georgia', serif;
+      margin-bottom: 10px;
+    }
 
-.intro-sub {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-  color: #bbb;
-}
+    .intro-sub {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #bbb;
+    }
 
-#enter-btn {
-  background-color: #d6a0f4;
-  color: black;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s;
-}
+    #enter-btn {
+      background-color: #d6a0f4;
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-#enter-btn:hover {
-  background-color: #a855f7;
-}
+    #enter-btn:hover {
+      background-color: #a855f7;
+    }
   </style>
 </head>
 
 <body>
-
-    <div id="intro-screen">
-  <h1 class="intro-text">Welcome, babygirl.</h1>
-  <p class="intro-sub">You know the rules. Obey. Submit. Please.</p>
-  <button id="enter-btn">I’m ready.</button>
-</div>
-<div id="main-app" style="display: none;">
-  <header>
-    <div class="logo">babygirl</div>
-    <div class="email-form">
-      <input type="email" id="email" placeholder="Enter your email..." />
-      <button>Sign In</button>
-    </div>
-  </header>
-
-  <div class="container">
-    <aside class="sidebar">
-      <div class="tab" onclick="showTab('tasks')">📝 Tasks</div>
-      <div class="tab" onclick="showTab('mind')">💬 What's on our mind?</div>
-      <div class="tab" onclick="showTab('scoring')">⭐ Scoring</div>
-    </aside>
-
-    <main class="main-content">
-      <section id="tasks" class="tab-section active"><p>one</p> <p> two </p></section>
-      <section id="mind" class="tab-section">
-  <p>Select what’s on your mind:</p>
-  <ul id="mind-options">
-    <li onclick="showMindMessage('Maybe we can have that happen. Dress code might be, well, subject to *change*.')">I think I can work in an interview today. 😈</li>
-    <li onclick="showMindMessage('Good. Call me up when you are fully naked and ready to shower on display for me.')">Maybe I can take you along for a trip to the shower?🚿</li>
-    <li onclick="showMindMessage('Great. Wear a vest and no bra, and anything else you wish to.')">I'd love a little one-on-one video call, maybe.💞</li>
-  </ul>
-</section>
-      <section id="scoring" class="tab-section">Scoring panel, points etc...</section>
-    </main>
+  <div id="intro-screen">
+    <h1 class="intro-text">Welcome, babygirl.</h1>
+    <p class="intro-sub">You know the rules. Obey. Submit. Please.</p>
+    <button id="enter-btn">I’m ready.</button>
   </div>
-  <footer>
-    <div class="footer-tab">
-      <textarea placeholder="How much do you enjoy the options you have here? Rate them out of 10."></textarea>
-      <button>Let me know.</button>
+
+  <div id="main-app" style="display: none;">
+    <header>
+      <div class="logo">
+        babygirl
+        <span class="extra-text">| your desire, your rules</span>
+      </div>
+      <div class="email-form">
+        <input type="email" id="email" placeholder="Enter your email..." />
+        <button>Sign In</button>
+      </div>
+    </header>
+
+    <div class="container">
+      <aside class="sidebar">
+        <div class="tab" onclick="showTab('tasks')">📝 Tasks</div>
+        <div class="tab" onclick="showTab('mind')">💬 What's on our mind?</div>
+        <div class="tab" onclick="showTab('scoring')">⭐ Scoring</div>
+      </aside>
+
+      <main class="main-content">
+        <section id="tasks" class="tab-section active">
+          <p>one</p>
+          <p>two</p>
+        </section>
+
+        <section id="mind" class="tab-section">
+          <p>Select what’s on your mind:</p>
+          <ul id="mind-options">
+            <li onclick="showMindMessage('Maybe we can have that happen. Dress code might be, well, subject to *change*.')">
+              I think I can work in an interview today. 😈
+            </li>
+            <li onclick="showMindMessage('Good. Call me up when you are fully naked and ready to shower on display for me.')">
+              Maybe I can take you along for a trip to the shower? 🚿
+            </li>
+            <li onclick="showMindMessage('Great. Wear a vest and no bra, and anything else you wish to.')">
+              I'd love a little one-on-one video call, maybe. 💞
+            </li>
+          </ul>
+        </section>
+
+        <section id="scoring" class="tab-section">
+          Scoring panel, points etc...
+        </section>
+      </main>
     </div>
-    <form id="upload-form" class="footer-tab">
-  <input type="file" name="my_file" required />
-  <button type="submit">Submit yourself here. ;)</button>
-</form>
-    <div class="footer-tab">
-      <button id="daily-task-btn">Find your weekly passive tasks here. 😈</button>
-    </div>
-    <div id="daily-popup" class="popup hidden">
-      As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘
-    </div>
-  </footer>
-</div>
+
+    <footer>
+      <div class="footer-tab">
+        <textarea placeholder="How much do you enjoy the options you have here? Rate them out of 10."></textarea>
+        <button>Let me know.</button>
+      </div>
+      <form id="upload-form" class="footer-tab">
+        <input type="file" name="my_file" required />
+        <button type="submit">Submit yourself here. ;)</button>
+      </form>
+      <div class="footer-tab">
+        <button id="daily-task-btn">Find your weekly passive task here. 😈</button>
+      </div>
+      <div id="daily-popup" class="popup hidden">
+        As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘
+      </div>
+    </footer>
+  </div>
 
   <script>
-    // Tabs
     function showTab(tabId) {
-      const sections = document.querySelectorAll('.tab-section');
-      sections.forEach(section => section.classList.remove('active'));
+      document.querySelectorAll('.tab-section').forEach(section => section.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
     }
 
-    // Daily task popup logic
-    document.getElementById("daily-task-btn").addEventListener("click", function () {
+    document.getElementById("daily-task-btn").addEventListener("click", () => {
       const popup = document.getElementById("daily-popup");
+      popup.textContent = "As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘";
       popup.classList.remove("hidden");
       popup.classList.add("show");
-
-      setTimeout(() => {
-        popup.classList.remove("show");
-        popup.classList.add("hidden");
-      }, 5000);
+      setTimeout(() => popup.classList.remove("show", "hidden"), 5000);
     });
-    function showMindMessage(message) {
-  const popup = document.getElementById("daily-popup");
-  popup.textContent = message;
-  popup.classList.remove("hidden");
-  popup.classList.add("show");
 
-  setTimeout(() => {
-    popup.classList.remove("show");
-    popup.classList.add("hidden");
-  }, 5000);
-}
-document.getElementById("enter-btn").addEventListener("click", function () {
-  document.getElementById("intro-screen").style.display = "none";
-  document.getElementById("main-app").style.display = "block";
-});
+    function showMindMessage(message) {
+      const popup = document.getElementById("daily-popup");
+      popup.textContent = message;
+      popup.classList.remove("hidden");
+      popup.classList.add("show");
+      setTimeout(() => popup.classList.remove("show", "hidden"), 5000);
+    }
+
+    document.getElementById("enter-btn").addEventListener("click", () => {
+      document.getElementById("intro-screen").style.display = "none";
+      document.getElementById("main-app").style.display = "block";
+    });
   </script>
 </body>
 </html>
