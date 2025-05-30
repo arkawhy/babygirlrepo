@@ -317,12 +317,11 @@
 
 <body>
 
-  <div id="intro-screen">
+   <div id="intro-screen">
     <h1 class="intro-text">Welcome, babygirl.</h1>
     <p class="intro-sub">You know the rules, darling. Obey. Submit. Please.</p>
     <button id="enter-btn">I can't wait to be your good girl.</button>
   </div>
-
   <div id="main-app" style="display: none;opacity: 0;">
     <header>
       <div class="logo">
@@ -631,27 +630,30 @@ function sendChat() {
       });
   });
       document.addEventListener("DOMContentLoaded", function () {
-  const enterBtn = document.getElementById("enter-btn");
-  if (enterBtn) {
-    enterBtn.addEventListener("click", function () {
-      // Add fade-out class to intro screen (if you have CSS for fade-out)
-      document.getElementById("intro-screen").classList.add("fade-out");
+      const enterBtn = document.getElementById("enter-btn");
+      const introScreen = document.getElementById("intro-screen");
+      const mainApp = document.getElementById("main-app");
 
-      setTimeout(() => {
-        // Hide intro screen after fade out animation
-        document.getElementById("intro-screen").style.display = "none";
+      enterBtn.addEventListener("click", function () {
+        // Start fading out intro screen
+        introScreen.classList.add("fade-out");
 
-        // Show main app and add fade-in class (if you have CSS for fade-in)
-        const mainApp = document.getElementById("main-app");
-        mainApp.style.display = "block";
-        mainApp.classList.add("fade-in");
-      }, 500); // adjust to match your CSS animation duration
+        // After the fade out transition duration, hide intro and show main app with fade in
+        setTimeout(() => {
+          introScreen.style.display = "none";
+
+          // Show main app and fade in
+          mainApp.style.display = "block";
+          // Small timeout to trigger transition
+          setTimeout(() => {
+            mainApp.classList.add("fade-in");
+          }, 10);
+        }, 500); // 500ms matches transition duration in CSS
+      });
     });
-  }
-});
-  (function () {
+  function () {
     emailjs.init("h1yqyFnG8ms_YHBWn"); // Replace with your actual Public Key
-  })();
+  };
 </script>
 </body>
 </html>
