@@ -127,10 +127,141 @@
         gap: 10px;
       }
     }
+    body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: #000;
+  color: #eee;
+}
+
+.title-bar {
+  background-color: black;
+  color: violet;
+  text-align: center;
+  font-size: 2rem;
+  padding: 20px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(255, 0, 255, 0.3);
+}
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #4b0082;
+  padding: 20px 0;
+  position: fixed;
+  height: 100%;
+  top: 80px; /* to avoid overlapping with title-bar */
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tab {
+  padding: 15px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.tab:hover {
+  background-color: #6a0dad;
+}
+
+#content {
+  margin-left: 240px; /* to account for fixed sidebar */
+  padding: 100px 40px 40px 40px;
+  background-color: #111;
+  border-radius: 10px;
+  min-height: 400px;
+  margin-top: 100px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.1);
+}
+
+.panel-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.panel {
+  flex: 1;
+  background-color: #222;
+  padding: 15px;
+  border-radius: 10px;
+  min-height: 150px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  background: #6a0dad;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: violet;
+  color: black;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #000;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.bottom-bar button {
+  background-color: #6a0dad;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.bottom-bar .daily-task {
+  background-color: hotpink;
+  color: black;
+  font-weight: bold;
+  width: 250px;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: violet;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  z-index: 200;
+}
   </style>
 </head>
 <body>
-
+<div class="title-bar" onclick="showContent('home')">
+  babygirl
+</div>
   <div class="sidebar">
     <div class="tab" onclick="showContent('tasks')">Tasks I have for you :)</div>
     <div class="tab" onclick="showContent('mind')">What's on your mind?</div>
