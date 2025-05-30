@@ -290,6 +290,12 @@ button:hover {
       const content = document.getElementById('content');
       let html = '';
       switch (section) {
+        case 'home':
+  html = `
+    <h2>Welcome, babygirl 🖤</h2>
+    <p>Come to me when you're ready to listen.</p>
+  `;
+  break;
         case 'tasks':
           html = '<h2>Tasklist</h2><ul><li>Task 1: ...</li><li>Task 2: ...</li></ul>';
           break;
