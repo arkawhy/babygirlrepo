@@ -257,52 +257,40 @@
       background-color: #a855f7;
     }
 
-    .drive-tabs {
+   .drive-container {
   display: flex;
-  gap: 12px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
 }
 
-.drive-tabs button {
-  background: #333;
-  border: none;
-  padding: 8px 15px;
-  color: white;
-  cursor: pointer;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-
-.drive-tabs button.active {
-  background: #d6a0f4;
-  color: #000;
+.drive-panel {
+  flex: 1;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
 }
 
 .drive-options {
-  min-height: 50px;
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  flex-wrap: wrap;
 }
 
 .drive-options button {
-  background: #444;
+  padding: 10px;
   border: none;
-  padding: 8px 14px;
   border-radius: 5px;
-  color: white;
+  background-color: #ddd;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 
 .drive-options button:hover {
-  background: #666;
+  background-color: #ccc;
 }
 
 .drive-options button.selected {
-  background: #a855f7;
+  background-color: #a855f7;
   color: white;
 }
 
@@ -404,32 +392,26 @@
         <!-- Drive section (replace the existing #tab3 content) -->
 <div id="tab3" class="tab-section">
   <h2>Choose Your Drive</h2>
-
-  <!-- Step 1 tabs -->
-  <div id="drive-step1" class="drive-panel">
-    <h3>Step 1: Choose a Drive Type</h3>
-    <div class="drive-tabs" id="step1-tabs"></div>
-    <div class="drive-options" id="step1-options"></div>
+  <div class="drive-container">
+    <!-- First Panel -->
+    <div class="drive-panel" id="drive-step1">
+      <h3>Step 1</h3>
+      <div class="drive-options" id="step1-options"></div>
+    </div>
+    <!-- Second Panel -->
+    <div class="drive-panel" id="drive-step2">
+      <h3>Step 2</h3>
+      <div class="drive-options" id="step2-options"></div>
+    </div>
+    <!-- Third Panel -->
+    <div class="drive-panel" id="drive-step3">
+      <h3>Step 3</h3>
+      <div class="drive-options" id="step3-options"></div>
+    </div>
   </div>
-
-  <!-- Step 2 tabs -->
-  <div id="drive-step2" class="drive-panel">
-    <h3 id="step2-header">Step 2: Choose a Category</h3>
-    <div class="drive-tabs" id="step2-tabs"></div>
-    <div class="drive-options" id="step2-options"></div>
-  </div>
-
-  <!-- Step 3 tabs -->
-  <div id="drive-step3" class="drive-panel">
-    <h3 id="step3-header">Step 3: Choose Your Task</h3>
-    <div class="drive-tabs" id="step3-tabs"></div>
-    <div class="drive-options" id="step3-options"></div>
-  </div>
-
   <button id="daily-task-btn" onclick="showDriveResult()">Give Me My Task!</button>
   <div id="drive-result" style="margin-top: 15px; font-size: 1.1rem; min-height: 50px;"></div>
 </div>
-
         <div id="tab4" class="tab-section">
           <h2>Task List</h2>
           <ul id="task-checklist"></ul>
@@ -499,7 +481,7 @@
     }
 
     // Drive selection logic
-    const driveData = {
+const driveData = {
   Control: {
     MindGames: ['Collapse', 'Surrender'],
     SlowDenial: ['Tears', 'Desperation'],
@@ -519,111 +501,69 @@ let driveSelection = {
   step3: null,
 };
 
-const step1TabsContainer = document.getElementById('step1-tabs');
-const step1OptionsContainer = document.getElementById('step1-options');
-const step2TabsContainer = document.getElementById('step2-tabs');
-const step2OptionsContainer = document.getElementById('step2-options');
-const step3TabsContainer = document.getElementById('step3-tabs');
-const step3OptionsContainer = document.getElementById('step3-options');
-
-function initDriveTabs() {
-  // Step 1 tabs from top-level keys
-  renderTabs(step1TabsContainer, Object.keys(driveData), 'step1');
-  // Initially clear others
-  step1OptionsContainer.innerHTML = '';
-  step2TabsContainer.innerHTML = '';
-  step2OptionsContainer.innerHTML = '';
-  step3TabsContainer.innerHTML = '';
-  step3OptionsContainer.innerHTML = '';
+function initDrive() {
+  renderOptions('step1-options', Object.keys(driveData), 'step1');
+  clearOptions('step2-options');
+  clearOptions('step3-options');
 }
 
-function renderTabs(container, items, step) {
+function renderOptions(containerId, options, step) {
+  const container = document.getElementById(containerId);
   container.innerHTML = '';
-  items.forEach(item => {
+  options.forEach(option => {
     const btn = document.createElement('button');
-    btn.textContent = formatLabel(item);
-    btn.onclick = () => chooseDriveTab(step, item);
-    btn.classList.toggle('active', driveSelection[`step${step}`] === item);
+    btn.textContent = formatLabel(option);
+    btn.onclick = () => handleSelection(step, option);
+    if (driveSelection[step] === option) {
+      btn.classList.add('selected');
+    }
     container.appendChild(btn);
   });
 }
 
-function renderOptions(container, items, step) {
+function clearOptions(containerId) {
+  const container = document.getElementById(containerId);
   container.innerHTML = '';
-  items.forEach(item => {
-    const btn = document.createElement('button');
-    btn.textContent = formatLabel(item);
-    btn.onclick = () => chooseDriveOption(step, item);
-    btn.classList.toggle('selected', driveSelection[`step${step}`] === item);
-    container.appendChild(btn);
-  });
 }
 
-function chooseDriveTab(step, choice) {
-  driveSelection[`step${step}`] = choice;
-  // Clear lower steps
-  for(let s = step + 1; s <= 3; s++) {
-    driveSelection[`step${s}`] = null;
+function handleSelection(step, selection) {
+  driveSelection[step] = selection;
+
+  // Reset subsequent selections
+  if (step === 'step1') {
+    driveSelection.step2 = null;
+    driveSelection.step3 = null;
+    const step2Options = Object.keys(driveData[selection]);
+    renderOptions('step2-options', step2Options, 'step2');
+    clearOptions('step3-options');
+  } else if (step === 'step2') {
+    driveSelection.step3 = null;
+    const step3Options = driveData[driveSelection.step1][selection];
+    renderOptions('step3-options', step3Options, 'step3');
+  } else if (step === 'step3') {
+    // Final selection made; ready to display result
   }
-  updateDriveUI();
+
+  // Update selected states
+  updateSelectedStates();
 }
 
-function chooseDriveOption(step, choice) {
-  driveSelection[`step${step}`] = choice;
-  // Clear lower steps if any
-  for(let s = step + 1; s <= 3; s++) {
-    driveSelection[`step${s}`] = null;
-  }
-  updateDriveUI();
-}
-
-function updateDriveUI() {
-  // Step 1 tabs & options
-  renderTabs(step1TabsContainer, Object.keys(driveData), 1);
-
-  if (driveSelection.step1) {
-    const step2Categories = Object.keys(driveData[driveSelection.step1]);
-    renderTabs(step2TabsContainer, step2Categories, 2);
-  } else {
-    step2TabsContainer.innerHTML = '';
-    step2OptionsContainer.innerHTML = '';
-  }
-
-  if (driveSelection.step1 && driveSelection.step2) {
-    const step3Tasks = driveData[driveSelection.step1][driveSelection.step2];
-    renderOptions(step3OptionsContainer, step3Tasks, 3);
-  } else {
-    step3OptionsContainer.innerHTML = '';
-  }
-
-  // Highlight active selections on all tabs
-  highlightActiveTabs();
-}
-
-function highlightActiveTabs() {
-  // Step 1
-  Array.from(step1TabsContainer.children).forEach(btn => {
-    btn.classList.toggle('active', btn.textContent === formatLabel(driveSelection.step1));
-  });
-
-  // Step 2
-  Array.from(step2TabsContainer.children).forEach(btn => {
-    btn.classList.toggle('active', btn.textContent === formatLabel(driveSelection.step2));
-  });
-
-  // Step 3 - options, use selected class
-  Array.from(step3OptionsContainer.children).forEach(btn => {
-    btn.classList.toggle('selected', btn.textContent === formatLabel(driveSelection.step3));
+function updateSelectedStates() {
+  ['step1', 'step2', 'step3'].forEach(step => {
+    const container = document.getElementById(`${step}-options`);
+    if (container) {
+      Array.from(container.children).forEach(btn => {
+        btn.classList.toggle('selected', btn.textContent === formatLabel(driveSelection[step]));
+      });
+    }
   });
 }
 
 function formatLabel(str) {
   if (!str) return '';
-  // Convert camelCase or PascalCase to spaced words
-  return str.replace(/([A-Z])/g, ' $1').replace(/([a-z])([A-Z])/g, '$1 $2').trim();
+  return str.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim();
 }
 
-// Show result logic unchanged except updated keys
 function showDriveResult() {
   const { step1, step2, step3 } = driveSelection;
   const resultDiv = document.getElementById('drive-result');
@@ -655,8 +595,8 @@ function showDriveResult() {
   if (message) addToTaskList(message);
 }
 
-// Initialize on load
-initDriveTabs();
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', initDrive);
 
     // Task list management
     function addToTaskList(task) {
