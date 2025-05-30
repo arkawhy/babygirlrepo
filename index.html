@@ -607,15 +607,9 @@ function sendChat() {
 
   input.value = "";
 }
-   document.addEventListener("DOMContentLoaded", function () {
-    const enterBtn = document.getElementById("enter-btn");
-    if (enterBtn) {
-      enterBtn.addEventListener("click", function () {
-        document.getElementById("intro-screen").style.display = "none";
-        document.getElementById("main-app").style.display = "block";
-      });
-    }
-  });
+  
+  }
+  };
 
   document.getElementById("upload-form").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -629,6 +623,19 @@ function sendChat() {
       .catch((error) => {
         alert("Error: " + JSON.stringify(error));
       });
+  });
+   document.addEventListener("DOMContentLoaded", function () {
+    const enterBtn = document.getElementById("enter-btn");
+    if (enterBtn) {
+      enterBtn.addEventListener("click", function () {
+        document.getElementById("intro-screen").classList.add("fade-out");
+        setTimeout(() => {
+          document.getElementById("intro-screen").style.display = "none";
+          document.getElementById("main-app").classList.add("fade-in");
+          document.getElementById("main-app").style.display = "block";
+        }, 500); // matches animation duration
+      });
+    }
   });
 </script>
 </body>
