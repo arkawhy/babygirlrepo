@@ -6,23 +6,23 @@
   <title>babygirl</title>
   <link rel="icon" href="bbg2.jpeg" type="image/x-icon" />
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>          document.addEventListener("DOMContentLoaded", function () {
+      const intro = document.getElementById("intro-screen");
+      const app = document.getElementById("main-app");
+      const btn = document.getElementById("enter-btn");
+
+      btn.addEventListener("click", function () {
+        intro.classList.add("fade-out");
+
+        setTimeout(() => {
+          intro.style.display = "none";
+          app.classList.add("fade-in");
+        }, 500);
+      });
+    });
+  </script>
   <style>
-   #intro-screen {
-  opacity: 1;
-  transition: opacity 0.5s ease;
-}
-#main-app {
-  opacity: 0;
-  display: none;
-  transition: opacity 0.5s ease;
-}
-.fade-out {
-  opacity: 0 !important;
-}
-.fade-in {
-  opacity: 1 !important;
-  display: block !important;
-}
+  
 
     body {
       background-color: #0f0f0f;
@@ -311,12 +311,48 @@
   align-items: center;
   justify-content: space-between;
 }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f2f2f2;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    #intro-screen,
+    #main-app {
+      transition: opacity 0.5s ease;
+    }
+
+    #intro-screen {
+      opacity: 1;
+    }
+
+    #main-app {
+      opacity: 0;
+      display: none;
+    }
+
+    .fade-out {
+      opacity: 0;
+    }
+
+    .fade-in {
+      display: block !important;
+      opacity: 1 !important;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
   </style>
 </head>
-
 <body>
 
-   <div id="intro-screen">
+  <div id="intro-screen">
     <h1 class="intro-text">Welcome, babygirl.</h1>
     <p class="intro-sub">You know the rules, darling. Obey. Submit. Please.</p>
     <button id="enter-btn">I can't wait to be your good girl.</button>
@@ -628,28 +664,6 @@ function sendChat() {
         alert("Error: " + JSON.stringify(error));
       });
   });
-      document.addEventListener("DOMContentLoaded", function () {
-      const enterBtn = document.getElementById("enter-btn");
-      const introScreen = document.getElementById("intro-screen");
-      const mainApp = document.getElementById("main-app");
-
-      enterBtn.addEventListener("click", function () {
-        // Start fading out intro screen
-        introScreen.classList.add("fade-out");
-
-        // After the fade out transition duration, hide intro and show main app with fade in
-        setTimeout(() => {
-          introScreen.style.display = "none";
-
-          // Show main app and fade in
-          mainApp.style.display = "block";
-          // Small timeout to trigger transition
-          setTimeout(() => {
-            mainApp.classList.add("fade-in");
-          }, 10);
-        }, 500); // 500ms matches transition duration in CSS
-      });
-    });
   function () {
     emailjs.init("h1yqyFnG8ms_YHBWn"); // Replace with your actual Public Key
   };
