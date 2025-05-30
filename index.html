@@ -294,6 +294,7 @@ button:hover {
     <div class="tab" onclick="showContent('mind')">What's on your mind?</div>
     <div class="tab" onclick="showContent('drive')">Do you wish to drive?</div>
     <div class="tab" onclick="showContent('scoring')">Scoring</div>
+    <div class="tab" onclick="showContent('activeTasks')">Active Tasklist</div>
   </div>
 
   <div class="main">
@@ -316,6 +317,19 @@ button:hover {
   <input type="text" id="chatInput" placeholder="Type your thoughts..." onkeydown="handleChat(event)">
 </div>
   <script>
+    let activeTasks = [];
+
+function updateActiveTasks(task) {
+  if (!activeTasks.includes(task)) {
+    if (activeTasks.length >= 3) activeTasks.shift(); // Max 3 tasks
+    activeTasks.push(task);
+  }
+
+  // If viewing task list, update UI immediately
+  if (document.getElementById('taskList')) {
+    document.getElementById('taskList').innerHTML = activeTasks.map(t => `<li>${t}</li>`).join('');
+  }
+}
     function showContent(section) {
       const content = document.getElementById('content');
       let html = '';
@@ -361,6 +375,12 @@ button:hover {
       <div class="panel" id="panel2"></div>
       <div class="panel" id="panel3"></div>
     </div>
+  `;
+  break;
+  case 'activeTasks':
+  html = `
+    <h2>Active Tasklist</h2>
+    <ul id="taskList"></ul>
   `;
   break;
       }
