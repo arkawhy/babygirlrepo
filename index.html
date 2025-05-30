@@ -327,16 +327,14 @@ button:hover {
   <script>
     let activeTasks = [];
 
-function updateActiveTasks(task) {
-  if (!activeTasks.includes(task)) {
-    if (activeTasks.length >= 3) activeTasks.shift(); // Max 3 tasks
-    activeTasks.push(task);
-  }
-
-  // If viewing task list, update UI immediately
-  if (document.getElementById('taskList')) {
-    document.getElementById('taskList').innerHTML = activeTasks.map(t => `<li>${t}</li>`).join('');
-  }
+function updateActiveTasks() {
+  const activeTaskDiv = document.getElementById("content");
+  let html = `<h2>Active Tasklist</h2><ul>`;
+  activeTasks.forEach(task => {
+    html += `<li>${task}</li>`;
+  });
+  html += `</ul>`;
+  activeTaskDiv.innerHTML = html;
 }
     function showContent(section) {
       const content = document.getElementById('content');
