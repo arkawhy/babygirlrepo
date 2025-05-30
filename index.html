@@ -442,11 +442,6 @@
     popup.classList.add("hidden");
   }, 5000);
     }
-
-    document.getElementById("enter-btn").addEventListener("click", () => {
-      document.getElementById("intro-screen").style.display = "none";
-      document.getElementById("main-app").style.display = "block";
-    });
     let driveSelections = {
   step1: null,
   step2: null,
@@ -612,9 +607,14 @@ function sendChat() {
 
   input.value = "";
 }
-  document.getElementById("enter-btn").addEventListener("click", () => {
-    document.getElementById("intro-screen").style.display = "none";
-    document.getElementById("main-app").style.display = "block";
+   document.addEventListener("DOMContentLoaded", function () {
+    const enterBtn = document.getElementById("enter-btn");
+    if (enterBtn) {
+      enterBtn.addEventListener("click", function () {
+        document.getElementById("intro-screen").style.display = "none";
+        document.getElementById("main-app").style.display = "block";
+      });
+    }
   });
 
   document.getElementById("upload-form").addEventListener("submit", function (e) {
