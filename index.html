@@ -7,23 +7,22 @@
   <link rel="icon" href="bbg2.jpeg" type="image/x-icon" />
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <style>
-    #intro-screen, #main-app {
+   #intro-screen {
+  opacity: 1;
   transition: opacity 0.5s ease;
 }
-
-.fade-out {
+#main-app {
   opacity: 0;
+  display: none;
+  transition: opacity 0.5s ease;
 }
-
+.fade-out {
+  opacity: 0 !important;
+}
 .fade-in {
-  opacity: 1;
+  opacity: 1 !important;
+  display: block !important;
 }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
 
     body {
       background-color: #0f0f0f;
