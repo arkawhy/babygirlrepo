@@ -267,6 +267,14 @@
 .hidden {
   display: none;
 }
+#task-list ul {
+  list-style: disc;
+  padding-left: 20px;
+  color: #d6a0f4;
+}
+#task-list li {
+  margin-bottom: 10px;
+}
   </style>
 </head>
 
@@ -291,10 +299,11 @@
 
     <div class="container">
       <aside class="sidebar">
-        <div class="tab" onclick="showTab('tasks')">📝 Tasks</div>
+        <div class="tab" onclick="showTab('tasks')">📝 Tasks I have for you</div>
         <div class="tab" onclick="showTab('mind')">💬 What's on your mind?</div>
         <div class="tab" onclick="showTab('drive')">🚗 Do you wish to drive?</div>
         <div class="tab" onclick="showTab('scoring')">⭐ Scoring</div>
+        <div class="tab" onclick="showTab('task-list')">📌 Your current task checklist</div>
       </aside>
 
       <main class="main-content">
@@ -321,6 +330,12 @@
         <section id="scoring" class="tab-section">
           Scoring panel, points etc...
         </section>
+        <section id="task-list" class="tab-section">
+  <h2>Assigned Tasks</h2>
+  <ul id="task-checklist">
+    <!-- Tasks will appear here -->
+  </ul>
+</section>
         <section id="drive" class="tab-section">
   <div class="drive-columns">
     <div class="drive-panel" id="drive-step1">
@@ -382,6 +397,12 @@
       popup.classList.remove("hidden");
       popup.classList.add("show");
       setTimeout(() => popup.classList.remove("show", "hidden"), 5000);
+      addToTaskList(message);
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+    popup.classList.add("hidden");
+  }, 5000);
     }
 
     document.getElementById("enter-btn").addEventListener("click", () => {
@@ -484,6 +505,7 @@ function showDriveResult() {
 
   const popup = document.getElementById("daily-popup");
   popup.textContent = message;
+  addToTaskList(message);
   popup.classList.remove("hidden");
   popup.classList.add("show");
 
@@ -492,6 +514,19 @@ function showDriveResult() {
     popup.classList.add("hidden");
   }, 6000);
 }
+function addToTaskList(task) {
+  const checklist = document.getElementById("task-checklist");
+  const tasks = checklist.querySelectorAll("li");
+
+  if (tasks.length >= 3) {
+    checklist.removeChild(tasks[0]); // Remove the oldest
+  }
+
+  const li = document.createElement("li");
+  li.textContent = task;
+  checklist.appendChild(li);
+}
+
   </script>
 </body>
 </html>
