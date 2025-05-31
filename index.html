@@ -159,28 +159,35 @@
         }
 
         .intro-screen {
-            text-align: center;
-            padding: 80px 50px;
-            background: rgba(138, 43, 226, 0.12);
-            border-radius: 25px;
-            border: 2px solid rgba(230, 230, 250, 0.25);
-        }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    text-align: center;
+    background: rgba(138, 43, 226, 0.12);
+    border-radius: 25px;
+    border: 2px solid rgba(230, 230, 250, 0.25);
+    margin: auto;
+}
 
-        .intro-screen h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: var(--color-primary);
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
+.intro-screen h2 {
+    font-size: 2.7rem;
+    margin-bottom: 24px;
+    color: #E6E6FA;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px #4b0082;
+}
 
-        .intro-screen p {
-            font-size: 1.3rem;
-            line-height: 1.7;
-            opacity: 0.92;
-            max-width: 650px;
-            margin: 0 auto;
-        }
+.intro-screen p {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    opacity: 0.98;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #fff;
+}
 
         .task-card, .mind-option, .drive-option {
             background: rgba(138, 43, 226, 0.25);
@@ -825,9 +832,9 @@
         ];
 
         const INTRO_TEXT = {
-            title: "Welcome to your personal dashboard, babygirl.",
-            description: "This is your secret playground—a space for you to surrender, to grow, and to delight in your submission. Every task, every message, every moment here is for your pleasure and our connection. Let yourself be seen, adored, and guided. I want you to feel my presence in every word and every challenge. Show me your devotion, and let’s make every day a little more delicious, together."
-        };
+    title: "Welcome, babygirl.",
+    description: "Step inside your private playground. Here, you’re free to be bold, to tease, to surrender, and to shine. Every click, every word, every task is a secret invitation—just for you and me. Let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. Are you ready to play?"
+};
 
         // ==========================================
         // EASILY EDITABLE TEXT CONTENT - END
