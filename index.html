@@ -2,298 +2,307 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>babygirl</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Babygirl</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
     body {
-      background-color: #000;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a0a0a;
       color: white;
       display: flex;
-      flex-direction: column;
       height: 100vh;
       overflow: hidden;
     }
 
-    #titleRibbon {
-      background: linear-gradient(to right, violet, black, violet);
-      color: white;
-      text-align: center;
-      padding: 1em;
-      font-size: 2em;
-      font-weight: bold;
-      cursor: pointer;
+    .title-ribbon {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #6b2d91;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 10px 20px;
+      z-index: 10;
     }
 
-    #scoreWindow {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 0.5em 1em;
-      border-radius: 10px;
-      font-size: 1em;
-      margin-right: 1em;
+    .title-ribbon h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
     }
 
-    #container {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
+    .score-display {
+      background-color: #1c1c1c;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.9rem;
     }
 
-    #leftPanel {
-      background-color: #111;
+    .sidebar {
       width: 200px;
-      padding: 1em;
+      background-color: #1e1e1e;
+      padding-top: 70px;
       display: flex;
       flex-direction: column;
-      gap: 1em;
+      position: fixed;
+      top: 0;
+      bottom: 50px;
+      left: 0;
     }
 
     .tab {
-      background-color: #222;
-      padding: 0.75em;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      cursor: pointer;
+      padding: 15px;
+      background-color: #2e2e2e;
+      margin: 5px;
       text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
     }
 
-    .tab:hover {
+    .tab:hover, .button:hover {
       transform: scale(1.05);
-      background-color: violet;
+      background-color: #4b0082;
     }
 
-    #mainArea {
-      flex: 1;
-      background-color: #000;
-      padding: 1em;
+    .main-content {
+      margin-left: 200px;
+      margin-top: 60px;
+      margin-bottom: 50px;
+      padding: 20px;
       overflow-y: auto;
+      flex: 1;
+      background-color: #121212;
     }
 
-    #bottomRibbon {
-      background-color: #111;
-      padding: 1em;
+    .bottom-ribbon {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #1e1e1e;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-evenly;
+      padding: 10px;
+      z-index: 10;
     }
 
     .button {
-      background-color: #222;
-      padding: 0.75em 1.5em;
-      border-radius: 10px;
+      padding: 10px 20px;
+      background-color: #2e2e2e;
       color: white;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.3s;
     }
 
-    .button:hover {
-      background-color: violet;
-      transform: scale(1.05);
+    .button.large {
+      flex-grow: 2;
+      text-align: center;
     }
 
-    .wide-button {
-      flex-grow: 1;
-      margin: 0 1em;
-    }
-
-    .floatingText {
+    .floating-text {
       position: fixed;
-      bottom: 20px;
+      bottom: 60px;
       right: 20px;
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 1em;
+      background-color: #6a0dad;
+      padding: 10px 15px;
       border-radius: 10px;
+      opacity: 0.9;
       animation: fadeOut 5s forwards;
+      color: white;
+      font-size: 0.9rem;
     }
 
     @keyframes fadeOut {
-      0% {opacity: 1;}
-      100% {opacity: 0; display: none;}
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
     }
 
-    .taskItem {
+    .task-item {
       display: flex;
       justify-content: space-between;
-      background-color: #111;
-      margin-bottom: 0.5em;
-      padding: 0.5em;
-      border-radius: 8px;
+      margin: 5px 0;
+      background: #292929;
+      padding: 10px;
+      border-radius: 5px;
     }
 
-    .doneBtn {
-      background-color: violet;
-      color: black;
-      padding: 0.3em 1em;
+    .task-item button {
+      background: #9900cc;
       border: none;
-      border-radius: 5px;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 3px;
       cursor: pointer;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1em;
+      color: white;
     }
 
     th, td {
-      padding: 0.5em;
-      border: 1px solid white;
+      border: 1px solid #444;
+      padding: 10px;
       text-align: left;
     }
   </style>
 </head>
 <body>
-  <div id="titleRibbon" onclick="goHome()">
-    <div></div>
-    <div>babygirl</div>
-    <div id="scoreWindow">Avg Score: <span id="avgScore">0</span></div>
+
+  <div class="title-ribbon">
+    <h1 onclick="showIntro()">babygirl</h1>
+    <div class="score-display" id="scoreDisplay">Avg: 0</div>
   </div>
-  <div id="container">
-    <div id="leftPanel">
-      <div class="tab" onclick="loadTab('pending')">Pending Tasklist</div>
-      <div class="tab" onclick="loadTab('mind')">What's on your Mind</div>
-      <div class="tab" onclick="loadTab('drive')">Drive</div>
-      <div class="tab" onclick="loadTab('active')">Active Tasklist</div>
-      <div class="tab" onclick="loadTab('scoring')">Scoring</div>
-    </div>
-    <div id="mainArea">
-      <p>Welcome, babygirl. Ready to serve?</p>
-    </div>
+
+  <div class="sidebar">
+    <div class="tab" onclick="showPending()">Pending Tasklist</div>
+    <div class="tab" onclick="showMind()">What’s On Your Mind</div>
+    <div class="tab" onclick="showDrive()">Drive</div>
+    <div class="tab" onclick="showActive()">Active Tasklist</div>
+    <div class="tab" onclick="showScoring()">Scoring</div>
   </div>
-  <div id="bottomRibbon">
-    <div class="button" onclick="chatbox()">Chatbox</div>
-    <div class="button" onclick="uploadWindow()">Upload</div>
-    <div class="button wide-button" onclick="floatingText('As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘')">Passive Task of the Week</div>
+
+  <div class="main-content" id="mainContent">
+    <h2>Welcome, babygirl</h2>
+    <p>This is your space. Tasks, thoughts, and more await you here.</p>
+  </div>
+
+  <div class="bottom-ribbon">
+    <button class="button" onclick="openChat()">Chat</button>
+    <input type="file" class="button" multiple />
+    <button class="button large" onclick="showPassiveTask()">Weekly Passive Task</button>
   </div>
 
   <script>
-    let activeTasks = [];
-    let scoredTasks = [];
+    const main = document.getElementById("mainContent");
+    const activeTasks = [];
+    const doneTasks = [];
+    const scores = [];
 
-    function goHome() {
-      document.getElementById('mainArea').innerHTML = '<p>Welcome, babygirl. Ready to serve?</p>';
+    function showIntro() {
+      main.innerHTML = `<h2>Welcome, babygirl</h2><p>This is your space. Tasks, thoughts, and more await you here.</p>`;
     }
 
-    function floatingText(text) {
-      const div = document.createElement('div');
-      div.className = 'floatingText';
-      div.innerText = text;
-      document.body.appendChild(div);
-      setTimeout(() => div.remove(), 5000);
+    function showFloatingText(text) {
+      const float = document.createElement("div");
+      float.className = "floating-text";
+      float.textContent = text;
+      document.body.appendChild(float);
+      setTimeout(() => float.remove(), 5000);
     }
 
-    function loadTab(tab) {
-      const area = document.getElementById('mainArea');
-      area.innerHTML = '';
-      if (tab === 'pending') {
-        const tasks = ['Task 1', 'Task 2', 'Task 3'];
-        tasks.forEach(t => {
-          const div = document.createElement('div');
-          div.className = 'tab';
-          div.innerText = t;
-          div.onclick = () => {
-            activeTasks.unshift(t);
-            activeTasks = activeTasks.slice(0, 5);
-            floatingText(t);
-          };
-          area.appendChild(div);
-        });
-      } else if (tab === 'mind') {
-        ['Love', 'Need', 'Hope', 'Obey'].forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'tab';
-          div.innerText = item;
-          div.onclick = () => {
-            activeTasks.unshift(item);
-            activeTasks = activeTasks.slice(0, 5);
-            floatingText(item);
-          };
-          area.appendChild(div);
-        });
-      } else if (tab === 'drive') {
-        let step1 = ['Alpha', 'Beta', 'Gamma'];
-        let step2 = ['X', 'Y', 'Z'];
-        let step3 = ['One', 'Two', 'Three'];
-        step1.forEach(a => {
-          const aDiv = document.createElement('div');
-          aDiv.className = 'tab';
-          aDiv.innerText = a;
-          aDiv.onclick = () => {
-            area.innerHTML = '';
-            step2.forEach(b => {
-              const bDiv = document.createElement('div');
-              bDiv.className = 'tab';
-              bDiv.innerText = a + ' > ' + b;
-              bDiv.onclick = () => {
-                area.innerHTML = '';
-                step3.forEach(c => {
-                  const cDiv = document.createElement('div');
-                  cDiv.className = 'tab';
-                  cDiv.innerText = a + ' > ' + b + ' > ' + c;
-                  cDiv.onclick = () => {
-                    const result = a + ' > ' + b + ' > ' + c;
-                    activeTasks.unshift(result);
-                    activeTasks = activeTasks.slice(0, 5);
-                    floatingText(result);
-                  };
-                  area.appendChild(cDiv);
-                });
-              };
-              area.appendChild(bDiv);
-            });
-          };
-          area.appendChild(aDiv);
-        });
-      } else if (tab === 'active') {
-        activeTasks.forEach((task, i) => {
-          const row = document.createElement('div');
-          row.className = 'taskItem';
-          const span = document.createElement('span');
-          span.innerText = task;
-          const btn = document.createElement('button');
-          btn.className = 'doneBtn';
-          btn.innerText = 'Done';
-          btn.onclick = () => {
-            scoredTasks.push(task);
-            activeTasks.splice(i, 1);
-            loadTab('active');
-          };
-          row.appendChild(span);
-          row.appendChild(btn);
-          area.appendChild(row);
-        });
-      } else if (tab === 'scoring') {
-        let table = '<table><tr><th>Task</th><th>Score</th></tr>';
-        scoredTasks.forEach((task, idx) => {
-          table += `<tr><td>${task}</td><td><input type='number' min='0' max='100' onchange='updateScore(${idx}, this.value)' /></td></tr>`;
-        });
-        table += '</table>';
-        area.innerHTML = table;
+    function showPending() {
+      main.innerHTML = "<h2>Pending Tasks</h2>";
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.createElement("button");
+        btn.className = "button";
+        btn.textContent = `Task ${i}`;
+        btn.onclick = () => {
+          const text = `Pending Task ${i}`;
+          showFloatingText(text);
+          pushToActive(text);
+        };
+        main.appendChild(btn);
+        main.appendChild(document.createElement("br"));
       }
     }
 
-    const scoreMap = [];
-    function updateScore(idx, val) {
-      scoreMap[idx] = parseInt(val);
-      const validScores = scoreMap.filter(x => !isNaN(x));
-      const avg = validScores.reduce((a,b) => a+b, 0) / (validScores.length || 1);
-      document.getElementById('avgScore').innerText = Math.round(avg);
+    function showMind() {
+      main.innerHTML = "<h2>What’s On Your Mind</h2>";
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.createElement("button");
+        btn.className = "button";
+        btn.textContent = `Thought Option ${i}`;
+        btn.onclick = () => {
+          const text = `Mind Option ${i}`;
+          showFloatingText(text);
+          pushToActive(text);
+        };
+        main.appendChild(btn);
+        main.appendChild(document.createElement("br"));
+      }
     }
 
-    function chatbox() {
-      floatingText("Chatbox opened.");
+    function showDrive(step = 1, path = []) {
+      main.innerHTML = `<h2>Drive - Step ${step}</h2>`;
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.createElement("button");
+        btn.className = "button";
+        btn.textContent = `Option ${i}`;
+        btn.onclick = () => {
+          const newPath = [...path, `Option${i}`];
+          if (step === 3) {
+            const final = `Drive Path: ${newPath.join(" > ")}`;
+            showFloatingText(final);
+            pushToActive(final);
+          } else {
+            showDrive(step + 1, newPath);
+          }
+        };
+        main.appendChild(btn);
+        main.appendChild(document.createElement("br"));
+      }
     }
 
-    function uploadWindow() {
-      floatingText("Upload window activated.");
+    function pushToActive(text) {
+      if (activeTasks.length >= 5) activeTasks.shift();
+      activeTasks.push(text);
+    }
+
+    function showActive() {
+      main.innerHTML = "<h2>Active Tasks</h2>";
+      activeTasks.forEach((task, index) => {
+        const div = document.createElement("div");
+        div.className = "task-item";
+        div.innerHTML = `<span>${task}</span>`;
+        const doneBtn = document.createElement("button");
+        doneBtn.textContent = "Done";
+        doneBtn.onclick = () => {
+          doneTasks.push(task);
+          activeTasks.splice(index, 1);
+          showActive();
+        };
+        div.appendChild(doneBtn);
+        main.appendChild(div);
+      });
+    }
+
+    function showScoring() {
+      main.innerHTML = "<h2>Scoring</h2><table><tr><th>Task</th><th>Score</th></tr></table>";
+      const table = main.querySelector("table");
+      doneTasks.forEach((task, index) => {
+        const row = table.insertRow();
+        row.insertCell().textContent = task;
+        const scoreInput = document.createElement("input");
+        scoreInput.type = "number";
+        scoreInput.min = 0;
+        scoreInput.max = 100;
+        scoreInput.onchange = () => {
+          scores[index] = parseInt(scoreInput.value) || 0;
+          updateAvgScore();
+        };
+        const cell = row.insertCell();
+        cell.appendChild(scoreInput);
+      });
+    }
+
+    function updateAvgScore() {
+      const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+      document.getElementById("scoreDisplay").textContent = `Avg: ${avg}`;
+    }
+
+    function showPassiveTask() {
+      showFloatingText("Weekly Passive Task Activated");
+    }
+
+    function openChat() {
+      showFloatingText("Chatbox Opened (Placeholder)");
     }
   </script>
 </body>
