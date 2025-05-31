@@ -34,7 +34,6 @@
             overflow: hidden;
         }
 
-        /* Title Ribbon */
         .title-ribbon {
             background: var(--gradient-primary);
             height: 80px;
@@ -90,14 +89,12 @@
             color: var(--color-primary);
         }
 
-        /* Main Container */
         .main-container {
             display: flex;
             flex: 1;
             overflow: hidden;
         }
 
-        /* Sidebar */
         .sidebar {
             width: 300px;
             background: var(--gradient-dark);
@@ -152,7 +149,6 @@
             font-size: 1.15rem;
         }
 
-        /* Content Area */
         .content-area {
             flex: 1;
             padding: 35px;
@@ -185,7 +181,6 @@
             margin: 0 auto;
         }
 
-        /* Task Cards and Options */
         .task-card, .mind-option, .drive-option {
             background: rgba(138, 43, 226, 0.25);
             border: 2px solid rgba(230, 230, 250, 0.35);
@@ -220,7 +215,6 @@
             box-shadow: var(--shadow-elegant);
         }
 
-        /* Drive Navigation */
         .drive-breadcrumb {
             display: flex;
             gap: 12px;
@@ -234,7 +228,7 @@
             border-radius: 25px;
             font-size: 0.95rem;
             cursor: pointer;
-            transition: var(--transition-smooth);
+            transition: var(--transition-smooth;
         }
 
         .breadcrumb-item:hover {
@@ -248,7 +242,6 @@
             font-size: 1.1rem;
         }
 
-        /* Active Tasks */
         .active-task {
             display: flex;
             justify-content: space-between;
@@ -283,7 +276,6 @@
             box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
         }
 
-        /* Scoring Table */
         .scoring-table {
             width: 100%;
             border-collapse: collapse;
@@ -328,7 +320,6 @@
             box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
         }
 
-        /* Bottom Ribbon */
         .bottom-ribbon {
             height: 85px;
             background: var(--gradient-dark);
@@ -347,7 +338,7 @@
             border-radius: 30px;
             cursor: pointer;
             font-size: 1.05rem;
-            font-weight: 600;
+            font-weight: 6;
             transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
@@ -366,7 +357,6 @@
             padding: 20px 35px;
         }
 
-        /* Floating Output */
         .floating-output {
             position: fixed;
             bottom: 110px;
@@ -389,7 +379,6 @@
             transform: translateX(0);
         }
 
-        /* Chatbox */
         .chatbox {
             position: fixed;
             bottom: 110px;
@@ -510,7 +499,6 @@
             transform: scale(1.08);
         }
 
-        /* Upload Window */
         .upload-window {
             position: fixed;
             bottom: 110px;
@@ -539,7 +527,7 @@
         }
 
         .upload-area {
-            border: 3px dashed rgba(230, 230, 250, 0.5);
+            border: 3px dashed rgba(230, 230, 250, 极5);
             border-radius: 15px;
             padding: 40px 25px;
             text-align: center;
@@ -574,7 +562,6 @@
             transform: scale(1.03);
         }
 
-        /* Section Headers */
         .section-header {
             color: var(--color-primary);
             margin-bottom: 30px;
@@ -584,7 +571,44 @@
             letter-spacing: 1px;
         }
 
-        /* Responsive Design */
+        /* Upload History Styles */
+        .upload-history {
+            margin-top: 20px;
+            border-top: 2px solid rgba(230, 230, 250, 0.3);
+            padding-top: 15px;
+        }
+
+        .upload-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(138, 43, 226, 0.15);
+            border-radius: 8px;
+        }
+
+        .upload-thumbnail {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        .upload-info {
+            flex: 1;
+        }
+
+        .upload-name {
+            font-size: 0.9rem;
+            display: block;
+        }
+
+        .upload-date {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
@@ -607,54 +631,20 @@
                 width: 90%;
                 right: 5%;
             }
-
+            
             .main-title {
                 font-size: 2.2rem;
             }
         }
     </style>
-    <!-- Add this new CSS for upload history -->
-<style>
-    .upload-history {
-        margin-top: 20px;
-        border-top: 2px solid rgba(230, 230, 250, 0.3);
-        padding-top: 15px;
-    }
-
-    .upload-item {
-        display: flex;
-        align-items: center;
-        margin: 10px 0;
-        padding: 10px;
-        background: rgba(138, 43, 226, 0.15);
-        border-radius: 8px;
-    }
-
-    .upload-thumbnail {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-        border-radius: 5px;
-        margin-right: 15px;
-    }
-
-    .upload-info {
-        flex: 1;
-    }
-
-    .upload-name {
-        font-size: 0.9rem;
-        display: block;
-    }
-
-    .upload-date {
-        font-size: 0.8rem;
-        opacity: 0.7;
-    }
-</style>
+    <!-- Fix for typo in upload-area border color -->
+    <style>
+        .upload-area {
+            border: 3px dashed rgba(230, 230, 250, 0.5);
+        }
+    </style>
 </head>
 <body>
-    <!-- Title Ribbon -->
     <header class="title-ribbon">
         <h1 class="main-title" id="homeButton">babygirl.</h1>
         <div class="score-window">
@@ -663,9 +653,7 @@
         </div>
     </header>
 
-    <!-- Main Container -->
     <div class="main-container">
-        <!-- Sidebar -->
         <nav class="sidebar">
             <div class="tab active" data-tab="pending">
                 <span class="tab-text">Daily Affirmations</span>
@@ -684,16 +672,14 @@
             </div>
         </nav>
 
-        <!-- Content Area -->
         <main class="content-area" id="contentArea">
             <div class="intro-screen">
                 <h2>Welcome to your personal dashboard, babygirl.</h2>
-                <p>Here you can track your progress, complete tasks, and stay connected. Choose a tab from the left to begin your journey of growth and submission. Choose to tell me what's on your mind for today, or whether you wish to explore how to drive a little on your own, or whether you'd simply just talk to me using the chatbox. Remember, all tasks you choose get added to your active tasklist, which upon completion will be marked by me. Do not forget to keep up with your passive tasks for the week, as they affect scoring for your active tasklist tasks. Always remember, this is meant for your pleasure, and growth as my submissive. At any time if you're uncomfortable with anything, be sure to tell me. I love you: you're the best person I could ever have, and I cannot wait to see how you decide to please me. </p>
+                <p>Here you can track your progress, complete tasks, and stay connected. Choose a tab from the left to begin your journey of growth and submission. Choose to tell me what's on your mind for today, or whether you wish to explore how to drive a little on your own, or whether you'd simply just talk to me using the chatbox. Remember, all tasks you choose get added to your active tasklist, which upon completion will be marked by me. Do not forget to keep up with your passive tasks for the week, as they affect scoring for your active tasklist tasks. Always remember, this is meant for your pleasure, and growth as my submissive. At any time if you're uncomfortable with anything, be sure to tell me. I love you: you're the best person I could ever have, and I cannot wait to see how you decide to please me.</p>
             </div>
         </main>
     </div>
 
-    <!-- Bottom Ribbon -->
     <footer class="bottom-ribbon">
         <button class="bottom-btn" id="chatboxBtn">
             <span>💬 Chatbox</span>
@@ -706,10 +692,8 @@
         </button>
     </footer>
 
-    <!-- Floating Output -->
     <div class="floating-output" id="floatingOutput"></div>
 
-    <!-- Chatbox -->
     <div class="chatbox" id="chatbox">
         <div class="chat-header">
             <span>💬 Chat with Dom</span>
@@ -724,49 +708,44 @@
         </div>
     </div>
 
-    <!-- Upload Window -->
     <div class="upload-window" id="uploadWindow">
-    <div class="upload-header">📤 Upload Task Proof</div>
-    <div class="upload-area" id="uploadArea">
-        <p>📷 Drop files here or click to select</p>
-        <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">Photos and videos accepted</p>
+        <div class="upload-header">📤 Upload Task Proof</div>
+        <div class="upload-area" id="uploadArea">
+            <p>📷 Drop files here or click to select</p>
+            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">Photos and videos accepted</p>
+        </div>
+        <input type="file" class="upload-file-input" id="uploadFileInput" accept="image/*,video/*" multiple>
+        <button class="upload-submit" id="uploadSubmit">Upload Files</button>
+        
+        <div class="upload-history">
+            <h3>Upload History</h3>
+            <div id="uploadList"></div>
+        </div>
     </div>
-    <input type="file" class="upload-file-input" id="uploadFileInput" accept="image/*,video/*" multiple>
-    <button class="upload-submit" id="uploadSubmit">Upload Files</button>
-    
-    <!-- Upload History Section -->
-    <div class="upload-history">
-        <h3>Upload History</h3>
-        <div id="uploadList"></div>
-    </div>
-</div>
 
     <script>
         // ==========================================
         // EASILY EDITABLE TEXT CONTENT - START
         // ==========================================
         
-        // Pending Tasks - Edit these as needed
         const PENDING_TASKS = [
-          "Remember that he loves me, no matter what I do, for I am his submissive babygirl princess.",
+            "Remember that he loves me, no matter what I do, for I am his submissive babygirl princess.",
             "Keep up with my weekly passive task.",
             "Keep up with whatever active tasks I have.",
-            "Remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay.",            
+            "Remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay."
         ];
 
-        // Mind Options - Edit these as needed
         const MIND_OPTIONS = [
             "I think I can work in an interview today. 😋",
-            "Maybe I can take you along for a trip to the shower? 🚿", 
+            "Maybe I can take you along for a trip to the shower? 🚿",
             "I'd love a little one-on-one video call, maybe. 💞",
-            " Can you just teach me how to dirty-talk well with you? 😙"
+            "Can you just teach me how to dirty-talk well with you? 😙"
         ];
 
-        // Drive System - 3x3x3 cascading options - Edit these as needed
         const DRIVE_OPTIONS = {
             level1: [
                 "Passive Tasks?",
-                "A sexy video?", 
+                "A sexy video?",
                 "A hot picture?"
             ],
             level2: {
@@ -789,7 +768,7 @@
             level3: {
                 "Clothing-related": [
                     "I will skip on wearing panties for a week. You can check in on me any time I am free.",
-                    "I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free", 
+                    "I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free",
                     "I will inform you at least two days this week that I am wearing my black vest with no bra underneath, and you can decide what you want to do with me then."
                 ],
                 "Mind-related": [
@@ -814,8 +793,8 @@
                 ],
                 "Special Submission": [
                     "I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.",
-                    "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission. ",
-                    "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in fron of you. I'll stand back up and then give you a little twirl so you can appreciat every inch of me."
+                    "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission.",
+                    "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in front of you. I'll stand back up and then give you a little twirl so you can appreciate every inch of me."
                 ],
                 "Object-interaction": [
                     "I'll strip down completely, and take a pic of me sitting in a chair and smiling in a mirror selfie, hair down, with an arm loosely held behind me, my legs wide apart for you to savour what's in between.",
@@ -824,7 +803,7 @@
                 ],
                 "Accessories": [
                     "I'd love to send you an upper-half profile topless picture of me without my glasses, hair tied up tight, wearing eyeliner and basic makeup. I love being pretty for you!",
-                    "A simple nude front profile mirror selfie, standing with a foot planted in front of the other, one hand loosely covering my pussy, wearing nothing but my college ID card. ",
+                    "A simple nude front profile mirror selfie, standing with a foot planted in front of the other, one hand loosely covering my pussy, wearing nothing but my college ID card.",
                     "I'll put on any earrings I can find, turn my head slightly to show them to you, while clicking a mirror selfie wearing nothing but my panties, pulled down to my thighs, legs close together and one foot slightly in front of the other."
                 ],
                 "Special Submissive": [
@@ -835,12 +814,10 @@
             }
         };
 
-        // Weekly Tasks - Edit these as needed
         const WEEKLY_TASKS = [
             "As underwear, you are allowed to wear only bras on Monday, Wednesday, Thursday, and Saturday, and only panties every other day. Don't let me down. 😘"
         ];
 
-        // Chat Responses for Dom - Edit these as needed
         const DOM_RESPONSES = [
             "Good girl, I'm very proud of your dedication.",
             "You're doing wonderfully, babygirl. Keep it up.",
@@ -852,7 +829,6 @@
             "Continue to be the perfect submissive for me."
         ];
 
-        // Intro Screen Text - Edit this as needed
         const INTRO_TEXT = {
             title: "Welcome to your personal dashboard, babygirl",
             description: "Here you can track your progress, complete tasks, and stay connected. Choose a tab from the left to begin your journey of growth and submission. Your devotion and obedience are what make our connection stronger every day."
@@ -862,7 +838,6 @@
         // EASILY EDITABLE TEXT CONTENT - END
         // ==========================================
 
-        // Application State Management
         const appState = {
             currentTab: 'pending',
             activeTasks: JSON.parse(localStorage.getItem('activeTasks')) || [],
@@ -870,46 +845,40 @@
             driveNavigation: [],
             chatMessages: JSON.parse(localStorage.getItem('chatMessages')) || [
                 { type: 'dom', text: 'Welcome, babygirl. How are you feeling today?' }
-            ]
+            ],
             uploads: JSON.parse(localStorage.getItem('uploads')) || []
         };
 
-        // Utility Functions
         function saveToLocalStorage(key, data) {
-        try {
-            localStorage.setItem(key, JSON.stringify(data));
-        } catch (e) {
-            console.error('Error saving to localStorage:', e);
-            // Clear old uploads if storage is full
-            if(e.name === 'QuotaExceededError') {
-                appState.uploads = [];
-                localStorage.setItem('uploads', '[]');
+            try {
+                localStorage.setItem(key, JSON.stringify(data));
+            } catch (e) {
+                console.error('Error saving to localStorage:', e);
+                if (e.name === 'QuotaExceededError') {
+                    appState.uploads = [];
+                    localStorage.setItem('uploads', '[]');
+                }
             }
         }
-    }
 
         function showFloatingOutput(text) {
             const output = document.getElementById('floatingOutput');
             output.textContent = text;
             output.classList.add('show');
-            
             setTimeout(() => {
                 output.classList.remove('show');
             }, 5000);
         }
 
         function addToActiveTasks(taskText) {
-            // Remove oldest if we have 5 or more
             if (appState.activeTasks.length >= 5) {
                 appState.activeTasks.shift();
             }
-            
             const newTask = {
                 id: Date.now(),
                 text: taskText,
                 timestamp: new Date().toISOString()
             };
-            
             appState.activeTasks.push(newTask);
             saveToLocalStorage('activeTasks', appState.activeTasks);
         }
@@ -919,28 +888,24 @@
                 document.getElementById('averageScore').textContent = '0';
                 return;
             }
-            
             const total = appState.scoringData.reduce((sum, item) => sum + item.score, 0);
             const average = Math.round(total / appState.scoringData.length);
             document.getElementById('averageScore').textContent = average;
         }
 
-        // Tab Navigation Functions
         function switchTab(tabName) {
-            // Update tab visual state
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
 
-            // Reset drive navigation when switching tabs
             if (tabName !== 'drive') {
                 appState.driveNavigation = [];
             }
 
             appState.currentTab = tabName;
 
-            switch(tabName) {
+            switch (tabName) {
                 case 'pending':
                     showPendingTasks();
                     break;
@@ -972,7 +937,7 @@
 
         function showPendingTasks() {
             const content = `
-                <h2 class="section-header">Some things I should never forget </h2>
+                <h2 class="section-header">Some things I should never forget</h2>
                 ${PENDING_TASKS.map(task => `
                     <div class="task-card" onclick="handleTaskClick('${task.replace(/'/g, "\\'")}')">
                         <span style="position: relative; z-index: 1;">${task}</span>
@@ -995,7 +960,7 @@
         }
 
         function showDriveOptions() {
-            const breadcrumb = appState.driveNavigation.length > 0 ? 
+            const breadcrumb = appState.driveNavigation.length > 0 ?
                 `<div class="drive-breadcrumb">
                     <span class="breadcrumb-item" onclick="resetDriveNavigation()">🏠 Start</span>
                     ${appState.driveNavigation.map((item, index) => `
@@ -1010,14 +975,12 @@
             `;
 
             if (appState.driveNavigation.length === 0) {
-                // Level 1
                 content += DRIVE_OPTIONS.level1.map(option => `
                     <div class="drive-option" onclick="handleDriveClick('${option}', 1)">
                         <span style="position: relative; z-index: 1;">${option}</span>
                     </div>
                 `).join('');
             } else if (appState.driveNavigation.length === 1) {
-                // Level 2
                 const level1Choice = appState.driveNavigation[0];
                 content += DRIVE_OPTIONS.level2[level1Choice].map(option => `
                     <div class="drive-option" onclick="handleDriveClick('${option}', 2)">
@@ -1025,7 +988,6 @@
                     </div>
                 `).join('');
             } else if (appState.driveNavigation.length === 2) {
-                // Level 3
                 const level2Choice = appState.driveNavigation[1];
                 content += DRIVE_OPTIONS.level3[level2Choice].map(option => `
                     <div class="drive-option" onclick="handleDriveClick('${option.replace(/'/g, "\\'")}', 3)">
@@ -1040,7 +1002,7 @@
         function showActiveTasks() {
             const content = `
                 <h2 class="section-header">All your active tasks.</h2>
-                ${appState.activeTasks.length === 0 ? 
+                ${appState.activeTasks.length === 0 ?
                     '<p style="text-align: center; opacity: 0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No active tasks yet. Complete tasks from other tabs to see them here.</p>' :
                     appState.activeTasks.map(task => `
                         <div class="active-task">
@@ -1056,7 +1018,7 @@
         function showScoring() {
             const content = `
                 <h2 class="section-header">Marking for your completed tasks.</h2>
-                ${appState.scoringData.length === 0 ? 
+                ${appState.scoringData.length === 0 ?
                     '<p style="text-align: center; opacity: 0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No completed tasks to score yet.</p>' :
                     `<table class="scoring-table">
                         <thead>
@@ -1070,8 +1032,8 @@
                                 <tr>
                                     <td>${item.text}</td>
                                     <td>
-                                        <input type="number" class="score-input" min="0" max="100" 
-                                               value="${item.score}" 
+                                        <input type="number" class="score-input" min="0" max="100"
+                                               value="${item.score}"
                                                onchange="updateScore(${item.id}, this.value)">
                                     </td>
                                 </tr>
@@ -1083,7 +1045,6 @@
             document.getElementById('contentArea').innerHTML = content;
         }
 
-        // Event Handlers
         function handleTaskClick(task) {
             showFloatingOutput(`Task added: ${task}`);
             addToActiveTasks(task);
@@ -1120,21 +1081,14 @@
             const taskIndex = appState.activeTasks.findIndex(task => task.id === taskId);
             if (taskIndex !== -1) {
                 const task = appState.activeTasks[taskIndex];
-                
-                // Move to scoring
                 appState.scoringData.push({
                     id: task.id,
                     text: task.text,
                     score: 0
                 });
-                
-                // Remove from active tasks
                 appState.activeTasks.splice(taskIndex, 1);
-                
-                // Save to localStorage
                 saveToLocalStorage('activeTasks', appState.activeTasks);
                 saveToLocalStorage('scoringData', appState.scoringData);
-                
                 showActiveTasks();
                 updateAverageScore();
                 showFloatingOutput('Task marked as done and moved to scoring!');
@@ -1150,12 +1104,9 @@
             }
         }
 
-        // Chat Functionality
         function toggleChatbox() {
             const chatbox = document.getElementById('chatbox');
             chatbox.classList.toggle('show');
-            
-            // Focus input when opened
             if (chatbox.classList.contains('show')) {
                 setTimeout(() => {
                     document.getElementById('chatInput').focus();
@@ -1166,12 +1117,9 @@
         function sendChatMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
-            
             if (message) {
                 addChatMessage('sub', message);
                 input.value = '';
-                
-                // Simulate dom response
                 setTimeout(() => {
                     const randomResponse = DOM_RESPONSES[Math.floor(Math.random() * DOM_RESPONSES.length)];
                     addChatMessage('dom', randomResponse);
@@ -1186,115 +1134,96 @@
             messageDiv.textContent = text;
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            
             appState.chatMessages.push({ type, text });
             saveToLocalStorage('chatMessages', appState.chatMessages);
         }
 
-        // Upload Functionality
         function toggleUploadWindow() {
             const uploadWindow = document.getElementById('uploadWindow');
             uploadWindow.classList.toggle('show');
         }
 
         function handleFileUpload() {
-        const fileInput = document.getElementById('uploadFileInput');
-        const files = fileInput.files;
-        
-        if (files.length > 0) {
-            Array.from(files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    appState.uploads.unshift({
-                        name: file.name,
-                        type: file.type,
-                        data: e.target.result.split(',')[1], // Store base64 without prefix
-                        timestamp: new Date().toISOString()
-                    });
-                    
-                    // Keep only last 20 uploads
-                    if (appState.uploads.length > 20) appState.uploads.pop();
-                    
-                    saveToLocalStorage('uploads', appState.uploads);
-                    updateUploadDisplay();
-                };
-                reader.readAsDataURL(file);
-            });
-            
-            showFloatingOutput(`Files uploaded successfully: ${Array.from(files).map(f => f.name).join(', ')}`);
-            toggleUploadWindow();
-            fileInput.value = '';
-        } else {
-            showFloatingOutput('Please select files to upload.');
+            const fileInput = document.getElementById('uploadFileInput');
+            const files = fileInput.files;
+            if (files.length > 0) {
+                Array.from(files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        appState.uploads.unshift({
+                            name: file.name,
+                            type: file.type,
+                            data: e.target.result.split(',')[1],
+                            timestamp: new Date().toISOString()
+                        });
+                        if (appState.uploads.length > 20) appState.uploads.pop();
+                        saveToLocalStorage('uploads', appState.uploads);
+                        updateUploadDisplay();
+                    };
+                    reader.readAsDataURL(file);
+                });
+                showFloatingOutput(`Files uploaded successfully: ${Array.from(files).map(f => f.name).join(', ')}`);
+                toggleUploadWindow();
+                fileInput.value = '';
+            } else {
+                showFloatingOutput('Please select files to upload.');
+            }
         }
-    }
-     function updateUploadDisplay() {
-        const uploadList = document.getElementById('uploadList');
-        uploadList.innerHTML = appState.uploads.map(upload => `
-            <div class="upload-item">
-                ${upload.type.startsWith('image/') ? 
-                    `<img src="data:${upload.type};base64,${upload.data}" class="upload-thumbnail">` : 
-                    upload.type.startsWith('video/') ?
-                    `<video controls class="upload-thumbnail">
-                        <source src="data:${upload.type};base64,${upload.data}" type="${upload.type}">
-                    </video>` :
-                    `<div class="upload-thumbnail">📄</div>`
-                }
-                <div class="upload-info">
-                    <span class="upload-name">${upload.name}</span>
-                    <span class="upload-date">${new Date(upload.timestamp).toLocaleString()}</span>
-                </div>
-            </div>
-        `).join('');
-    }
 
-        // Weekly Tasks
+        function updateUploadDisplay() {
+            const uploadList = document.getElementById('uploadList');
+            uploadList.innerHTML = appState.uploads.map(upload => `
+                <div class="upload-item">
+                    ${upload.type.startsWith('image/') ?
+                        `<img src="data:${upload.type};base64,${upload.data}" class="upload-thumbnail">` :
+                        upload.type.startsWith('video/') ?
+                        `<video controls class="upload-thumbnail">
+                            <source src="data:${upload.type};base64,${upload.data}" type="${upload.type}">
+                        </video>` :
+                        `<div class="upload-thumbnail">📄</div>`
+                    }
+                    <div class="upload-info">
+                        <span class="upload-name">${upload.name}</span>
+                        <span class="upload-date">${new Date(upload.timestamp).toLocaleString()}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         function handleWeeklyTasks() {
             const randomTask = WEEKLY_TASKS[Math.floor(Math.random() * WEEKLY_TASKS.length)];
             showFloatingOutput(`Weekly task: ${randomTask}`);
         }
 
-        // Initialize chat messages from localStorage
         function loadChatMessages() {
             const messagesContainer = document.getElementById('chatMessages');
             messagesContainer.innerHTML = '';
-            
             appState.chatMessages.forEach(msg => {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `chat-message ${msg.type}`;
                 messageDiv.textContent = msg.text;
                 messagesContainer.appendChild(messageDiv);
             });
-            
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // Event Listeners
-          document.addEventListener('DOMContentLoaded', function() {
-          updateUploadDisplay();
-            // Tab navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUploadDisplay();
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() {
                     const tabName = this.getAttribute('data-tab');
                     switchTab(tabName);
                 });
             });
-
-            // Home button
             document.getElementById('homeButton').addEventListener('click', function() {
                 showIntroScreen();
-                // Reset active tab visual state
                 document.querySelectorAll('.tab').forEach(tab => {
                     tab.classList.remove('active');
                 });
             });
-
-            // Bottom ribbon buttons
             document.getElementById('chatboxBtn').addEventListener('click', toggleChatbox);
             document.getElementById('uploadBtn').addEventListener('click', toggleUploadWindow);
             document.getElementById('weeklyTasksBtn').addEventListener('click', handleWeeklyTasks);
-
-            // Chat functionality
             document.getElementById('chatClose').addEventListener('click', toggleChatbox);
             document.getElementById('chatSend').addEventListener('click', sendChatMessage);
             document.getElementById('chatInput').addEventListener('keypress', function(e) {
@@ -1302,39 +1231,27 @@
                     sendChatMessage();
                 }
             });
-
-            // Upload functionality
             document.getElementById('uploadArea').addEventListener('click', function() {
                 document.getElementById('uploadFileInput').click();
             });
-            
             document.getElementById('uploadSubmit').addEventListener('click', handleFileUpload);
-
-            // Drag and drop for uploads
             const uploadArea = document.getElementById('uploadArea');
-            
             uploadArea.addEventListener('dragover', function(e) {
                 e.preventDefault();
                 this.style.borderColor = 'var(--color-primary)';
                 this.style.background = 'rgba(230, 230, 250, 0.15)';
             });
-            
             uploadArea.addEventListener('dragleave', function(e) {
                 e.preventDefault();
                 this.style.borderColor = 'rgba(230, 230, 250, 0.5)';
                 this.style.background = 'transparent';
             });
-            
             uploadArea.addEventListener('drop', function(e) {
                 e.preventDefault();
                 this.style.borderColor = 'rgba(230, 230, 250, 0.5)';
                 this.style.background = 'transparent';
-                
-                const files = e.dataTransfer.files;
-                document.getElementById('uploadFileInput').files = files;
+                document.getElementById('uploadFileInput').files = e.dataTransfer.files;
             });
-
-            // Initialize
             loadChatMessages();
             switchTab('pending');
             updateAverageScore();
