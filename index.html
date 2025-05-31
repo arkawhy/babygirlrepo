@@ -1,252 +1,425 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>babygirl</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000;
-      color: #fff;
-      overflow: hidden;
-    }
-    .container {
-      display: grid;
-      grid-template-areas:
-        'title title'
-        'sidebar main'
-        'footer footer';
-      grid-template-rows: 60px 1fr 60px;
-      grid-template-columns: 200px 1fr;
-      height: 100vh;
-    }
-    .title {
-      grid-area: title;
-      background-color: #2e003e;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-      color: white;
-    }
-    .title h1 {
-      font-size: 28px;
-      cursor: pointer;
-    }
-    .score-box {
-      background: #111;
-      padding: 6px 12px;
-      border-radius: 8px;
-    }
-    .sidebar {
-      grid-area: sidebar;
-      background-color: #1a001f;
-      padding: 20px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .sidebar button {
-      background-color: #6a0dad;
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      transition: 0.2s;
-      cursor: pointer;
-    }
-    .sidebar button:hover {
-      transform: scale(1.05);
-      background-color: #8a2be2;
-    }
-    .main {
-      grid-area: main;
-      padding: 20px;
-      overflow-y: auto;
-    }
-    .footer {
-      grid-area: footer;
-      background-color: #111;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .footer button {
-      background-color: #6a0dad;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .footer button:hover {
-      background-color: #8a2be2;
-      transform: scale(1.05);
-    }
-    .footer .wide {
-      flex-grow: 1;
-    }
-    .tab-item {
-      background-color: #1c1c1c;
-      border-radius: 8px;
-      padding: 12px;
-      margin: 8px 0;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .tab-item:hover {
-      transform: scale(1.02);
-      background-color: #292929;
-    }
-    .output-float {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      background-color: #8a2be2;
-      color: white;
-      padding: 12px 16px;
-      border-radius: 8px;
-      animation: fadeOut 5s forwards;
-    }
-    @keyframes fadeOut {
-      0% {opacity: 0.9;}
-      80% {opacity: 0.5;}
-      100% {opacity: 0; display: none;}
-    }
-    .chatbox {
-      background: #2b2b2b;
-      padding: 10px;
-      border-radius: 8px;
-      max-height: 200px;
-      overflow-y: auto;
-      color: white;
-    }
-    .hidden { display: none; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #444;
-      padding: 8px;
-      text-align: left;
-    }
-    input[type="number"] {
-      width: 60px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babygirl</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #title-ribbon {
+            background: linear-gradient(90deg, violet, lavender);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            user-select: none;
+        }
+        #title-text {
+            cursor: pointer;
+            flex-grow: 1;
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        #average-score {
+            font-size: 1em;
+            background-color: rgba(75, 0, 130, 0.7);
+            padding: 5px 10px;
+            border-radius: 10px;
+            cursor: default;
+        }
+        #left-panel {
+            background-color: #4b0082;
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0;
+            flex-shrink: 0;
+        }
+        .tab {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid lavender;
+            user-select: none;
+        }
+        .tab:hover {
+            background-color: lavender;
+            color: black;
+            font-weight: bold;
+            transform: scale(1.05);
+        }
+        #main-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #1a001a;
+            color: white;
+            font-size: 1.2em;
+        }
+        #bottom-ribbon {
+            background-color: #4b0082;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+        #bottom-ribbon button {
+            background-color: lavender;
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            user-select: none;
+        }
+        #bottom-ribbon button:hover {
+            background-color: violet;
+            color: white;
+            transform: scale(1.1);
+        }
+        #btn-weekly-tasks {
+            flex-grow: 1;
+            max-width: 300px;
+            font-weight: bold;
+        }
+        #floating-output {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(75, 0, 130, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px violet;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            max-width: 300px;
+            font-size: 1em;
+            z-index: 1000;
+        }
+        .mind-option, .drive-option, .pending-task, .active-task {
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(138, 43, 226, 0.3);
+            border: 1px solid lavender;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .mind-option:hover, .drive-option:hover, .pending-task:hover, .active-task:hover {
+            background: rgba(138, 43, 226, 0.7);
+            transform: scale(1.02);
+        }
+        .drive-panel {
+            display: none;
+            flex-direction: column;
+        }
+        .drive-panel.show {
+            display: flex;
+        }
+        .scoring-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .scoring-table th, .scoring-table td {
+            border: 1px solid lavender;
+            padding: 8px;
+            text-align: left;
+        }
+        #chatbox {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: rgba(75, 0, 130, 0.9);
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px violet;
+            font-size: 1em;
+            z-index: 1000;
+            display: none;
+        }
+        #chatbox-content {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        #chatbox-input {
+            width: calc(100% - 20px);
+            margin: 10px;
+            background: lavender;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        #upload-window {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: rgba(75, 0, 130, 0.9);
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px violet;
+            padding: 10px;
+            display: none;
+            z-index: 1000;
+        }
+        #upload-window label, #upload-window input, #upload-window button {
+            display: block;
+            margin: 8px 0;
+        }
+        #upload-window input[type="file"] {
+            background: lavender;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            width: calc(100% - 18px);
+        }
+        #upload-window button {
+            background: lavender;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        #upload-window button:hover {
+            background: violet;
+            color: white;
+        }
+        .done-button {
+            background: lavender;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .done-button:hover {
+            background: violet;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="title">
-      <h1 onclick="showIntro()">babygirl</h1>
-      <div class="score-box">Avg. Score: <span id="avgScore">--</span></div>
+    <div id="title-ribbon">
+        <div id="title-text" tabindex="0" role="button" aria-label="Home button">babygirl</div>
+        <div id="average-score">Average Score: <span id="avg-score-value">0</span></div>
     </div>
-    <div class="sidebar">
-      <button onclick="loadTab('pending')">Pending Tasks</button>
-      <button onclick="loadTab('mind')">What's on Your Mind</button>
-      <button onclick="loadTab('drive')">Drive</button>
-      <button onclick="loadTab('active')">Active Tasks</button>
-      <button onclick="loadTab('scoring')">Scoring</button>
+    <div id="left-panel">
+        <div class="tab" id="tab-pending">Pending Tasklist</div>
+        <div class="tab" id="tab-mind">What's on your mind</div>
+        <div class="tab" id="tab-drive">Drive</div>
+        <div class="tab" id="tab-active">Active Tasklist</div>
+        <div class="tab" id="tab-scoring">Scoring</div>
     </div>
-    <div class="main" id="main">
-      <div id="intro">Welcome, babygirl. Your instructions will appear here.</div>
+    <div id="main-content">
+        <div id="intro-screen">Welcome to your babygirl site. Placeholder intro text here.</div>
     </div>
-    <div class="footer">
-      <button onclick="toggleChat()">Chatbox</button>
-      <button onclick="uploadFiles()">Upload</button>
-      <button class="wide" onclick="outputFloating('Weekly passive task added')">Weekly Passive Task</button>
+    <div id="bottom-ribbon">
+        <button id="btn-chatbox">Chatbox</button>
+        <button id="btn-upload">Upload</button>
+        <button id="btn-weekly-tasks">Weekly Passive Tasks</button>
     </div>
-  </div>
-  <div class="chatbox hidden" id="chatBox">
-    <p><strong>You:</strong> Placeholder text message.</p>
-  </div>
+    <div id="floating-output" aria-live="polite" aria-atomic="true"></div>
+    <div id="chatbox">
+        <div id="chatbox-content"></div>
+        <input id="chatbox-input" type="text" placeholder="Type a message...">
+    </div>
+    <div id="upload-window">
+        <label>Upload photo or video proof:</label>
+        <input type="file" id="upload-file" accept="image/*,video/*">
+        <button id="upload-submit">Upload</button>
+    </div>
+    <script>
+        // Utility function to show floating output text
+        function showFloatingOutput(text) {
+            const output = document.getElementById('floating-output');
+            output.textContent = text;
+            output.style.opacity = '1';
+            output.style.pointerEvents = 'auto';
+            clearTimeout(output.hideTimeout);
+            output.hideTimeout = setTimeout(() => {
+                output.style.opacity = '0';
+                output.style.pointerEvents = 'none';
+            }, 5000);
+        }
 
-  <script>
-    const main = document.getElementById('main');
-    let activeTasks = [];
-    let scoredTasks = [];
+        // Home button functionality
+        const titleText = document.getElementById('title-text');
+        titleText.addEventListener('click', () => {
+            showIntroScreen();
+        });
 
-    function showIntro() {
-      main.innerHTML = '<div id="intro">Welcome, babygirl. Your instructions will appear here.</div>';
-    }
+        function showIntroScreen() {
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = '<div id="intro-screen">Welcome to your babygirl site. Placeholder intro text here.</div>';
+        }
 
-    function outputFloating(msg) {
-      const float = document.createElement('div');
-      float.className = 'output-float';
-      float.innerText = msg;
-      document.body.appendChild(float);
-      setTimeout(() => float.remove(), 5000);
-    }
+        // Tabs and their content handlers
+        const tabs = document.querySelectorAll('#left-panel .tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                handleTabClick(tab.id);
+            });
+        });
 
-    function loadTab(tab) {
-      if (tab === 'pending') {
-        main.innerHTML = '<h2>Pending Tasks</h2>' +
-          [...Array(3)].map((_, i) => `<div class='tab-item' onclick='addTask("Pending Task ${i+1}")'>Pending Task ${i+1}</div>`).join('');
-      } else if (tab === 'mind') {
-        main.innerHTML = '<h2>What\'s on Your Mind</h2>' +
-          [...Array(4)].map((_, i) => `<div class='tab-item' onclick='addTask("Mind Choice ${i+1}")'>Mind Choice ${i+1}</div>`).join('');
-      } else if (tab === 'drive') {
-        renderDrive(1, '');
-      } else if (tab === 'active') {
-        renderActiveTasks();
-      } else if (tab === 'scoring') {
-        renderScoring();
-      }
-    }
+        // Example pending tasks (edit as needed)
+        const pendingTasks = [
+            'Task 1: Placeholder for pending task',
+            'Task 2: Another pending task',
+            'Task 3: One more pending task'
+        ];
 
-    function addTask(task) {
-      outputFloating(task);
-      if (activeTasks.length >= 5) activeTasks.shift();
-      activeTasks.push(task);
-    }
+        // Example mind options (edit as needed)
+        const mindOptions = [
+            'Option 1: Placeholder for mind option',
+            'Option 2: Another mind option',
+            'Option 3: Yet another mind option',
+            'Option 4: Final mind option'
+        ];
 
-    function renderDrive(level, path) {
-      if (level > 3) {
-        addTask(`Drive: ${path}`);
-        return;
-      }
-      main.innerHTML = `<h2>Drive Level ${level}</h2>` +
-        [...Array(3)].map((_, i) => `<div class='tab-item' onclick='renderDrive(${level+1}, "${path} > Choice ${level}.${i+1}")'>Choice ${level}.${i+1}</div>`).join('');
-    }
+        // Example drive options (edit as needed)
+        const drivePanels = [
+            ['Drive Option A1', 'Drive Option B1', 'Drive Option C1'],
+            ['Drive Option A2', 'Drive Option B2', 'Drive Option C2'],
+            ['Drive Option A3', 'Drive Option B3', 'Drive Option C3']
+        ];
 
-    function renderActiveTasks() {
-      main.innerHTML = '<h2>Active Tasks</h2>' +
-        activeTasks.map((t, i) => `<div>${t} <button onclick='markDone(${i})'>Done</button></div>`).join('');
-    }
+        // Active tasks list (max 5)
+        let activeTasks = [];
+        // Scoring data
+        let scoringData = [];
 
-    function markDone(index) {
-      const task = activeTasks[index];
-      activeTasks.splice(index, 1);
-      scoredTasks.push({ task, score: 0 });
-      renderActiveTasks();
-    }
+        function handleTabClick(tabId) {
+            const mainContent = document.getElementById('main-content');
+            switch(tabId) {
+                case 'tab-pending':
+                    mainContent.innerHTML = '<h2>Pending Tasklist</h2>';
+                    pendingTasks.forEach((task, i) => {
+                        const taskEl = document.createElement('div');
+                        taskEl.className = 'pending-task';
+                        taskEl.textContent = task;
+                        taskEl.addEventListener('click', () => {
+                            showFloatingOutput(`Pending task output: ${task}`);
+                        });
+                        mainContent.appendChild(taskEl);
+                    });
+                    break;
+                case 'tab-mind':
+                    mainContent.innerHTML = '<h2>What\'s on your mind</h2>';
+                    mindOptions.forEach((option, i) => {
+                        const optionEl = document.createElement('div');
+                        optionEl.className = 'mind-option';
+                        optionEl.textContent = option;
+                        optionEl.addEventListener('click', () => {
+                            showFloatingOutput(`Mind option output: ${option}`);
+                        });
+                        mainContent.appendChild(optionEl);
+                    });
+                    break;
+                case 'tab-drive':
+                    mainContent.innerHTML = '<h2>Drive</h2><div id="drive-panel-1"></div>';
+                    const panel1 = document.getElementById('drive-panel-1');
+                    drivePanels[0].forEach((option, i) => {
+                        const optionEl = document.createElement('div');
+                        optionEl.className = 'drive-option';
+                        optionEl.textContent = option;
+                        optionEl.addEventListener('click', () => {
+                            showFloatingOutput(`Drive option output: ${option}`);
+                        });
+                        panel1.appendChild(optionEl);
+                    });
+                    // For full cascading effect, add more panels and event listeners as needed
+                    break;
+                case 'tab-active':
+                    mainContent.innerHTML = '<h2>Active Tasklist</h2>';
+                    activeTasks.forEach((task, i) => {
+                        const taskEl = document.createElement('div');
+                        taskEl.className = 'active-task';
+                        taskEl.textContent = task;
+                        // In a real app, only show "done" button for dom if logged in as dom
+                        if (confirm("Are you the dom? (For demo, click OK)")) {
+                            const doneBtn = document.createElement('button');
+                            doneBtn.className = 'done-button';
+                            doneBtn.textContent = 'Done';
+                            doneBtn.addEventListener('click', () => {
+                                activeTasks.splice(i, 1);
+                                handleTabClick('tab-active');
+                            });
+                            taskEl.appendChild(doneBtn);
+                        }
+                        mainContent.appendChild(taskEl);
+                    });
+                    break;
+                case 'tab-scoring':
+                    mainContent.innerHTML = '<h2>Scoring</h2><table class="scoring-table"><tr><th>Task</th><th>Score (out of 100)</th></tr></table>';
+                    const table = mainContent.querySelector('.scoring-table');
+                    scoringData.forEach((score, i) => {
+                        const row = document.createElement('tr');
+                        const taskCell = document.createElement('td');
+                        taskCell.textContent = score.task;
+                        const scoreCell = document.createElement('td');
+                        scoreCell.textContent = score.score;
+                        row.appendChild(taskCell);
+                        row.appendChild(scoreCell);
+                        table.appendChild(row);
+                    });
+                    break;
+                default:
+                    mainContent.innerHTML = '<div>Unknown tab.</div>';
+            }
+        }
 
-    function renderScoring() {
-      main.innerHTML = '<h2>Scoring</h2><table><tr><th>Task</th><th>Score</th></tr>' +
-        scoredTasks.map((t, i) => `<tr><td>${t.task}</td><td><input type='number' min='0' max='100' onchange='updateScore(${i}, this.value)' /></td></tr>`).join('') + '</table>';
-    }
+        // Chatbox functionality
+        const chatboxBtn = document.getElementById('btn-chatbox');
+        const chatbox = document.getElementById('chatbox');
+        const chatboxContent = document.getElementById('chatbox-content');
+        const chatboxInput = document.getElementById('chatbox-input');
+        chatboxBtn.addEventListener('click', () => {
+            chatbox.style.display = chatbox.style.display === 'block' ? 'none' : 'block';
+        });
+        chatboxInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && chatboxInput.value) {
+                const msg = document.createElement('div');
+                msg.textContent = chatboxInput.value;
+                chatboxContent.appendChild(msg);
+                chatboxInput.value = '';
+                chatboxContent.scrollTop = chatboxContent.scrollHeight;
+            }
+        });
 
-    function updateScore(index, value) {
-      scoredTasks[index].score = parseInt(value);
-      const avg = scoredTasks.reduce((sum, t) => sum + t.score, 0) / scoredTasks.length;
-      document.getElementById('avgScore').innerText = isNaN(avg) ? '--' : avg.toFixed(2);
-    }
+        // Upload window functionality
+        const uploadBtn = document.getElementById('btn-upload');
+        const uploadWindow = document.getElementById('upload-window');
+        uploadBtn.addEventListener('click', () => {
+            uploadWindow.style.display = uploadWindow.style.display === 'block' ? 'none' : 'block';
+        });
+        document.getElementById('upload-submit').addEventListener('click', () => {
+            showFloatingOutput('File uploaded. Placeholder for upload confirmation.');
+            uploadWindow.style.display = 'none';
+        });
 
-    function toggleChat() {
-      document.getElementById('chatBox').classList.toggle('hidden');
-    }
+        // Weekly passive tasks button
+        const weeklyTasksBtn = document.getElementById('btn-weekly-tasks');
+        weeklyTasksBtn.addEventListener('click', () => {
+            showFloatingOutput('Weekly passive tasks output.');
+        });
 
-    function uploadFiles() {
-      outputFloating("Upload triggered [integrate file input logic here]");
-    }
-  </script>
+        // Initialize with intro screen
+        showIntroScreen();
+    </script>
 </body>
 </html>
