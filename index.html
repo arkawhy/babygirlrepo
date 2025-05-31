@@ -937,7 +937,7 @@
 
         function showMindOptions() {
             const content = `
-                <h2 class="section-header">💭 What's on your mind</h2>
+                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h2>
                 ${MIND_OPTIONS.map(option => `
                     <div class="mind-option" onclick="handleMindClick('${option.replace(/'/g, "\\'")}')">
                         <span style="position: relative; z-index: 1;">${option}</span>
@@ -958,7 +958,7 @@
                 </div>` : '';
 
             let content = `
-                <h2 class="section-header">🎯 Drive</h2>
+                <h2 class="section-header">Hey, cutie. Do you wish to drive for a while?</h2>
                 ${breadcrumb}
             `;
 
@@ -992,7 +992,7 @@
 
         function showActiveTasks() {
             const content = `
-                <h2 class="section-header">✅ Active Tasklist</h2>
+                <h2 class="section-header">All your active tasks.</h2>
                 ${appState.activeTasks.length === 0 ? 
                     '<p style="text-align: center; opacity: 0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No active tasks yet. Complete tasks from other tabs to see them here.</p>' :
                     appState.activeTasks.map(task => `
@@ -1008,7 +1008,7 @@
 
         function showScoring() {
             const content = `
-                <h2 class="section-header">📊 Scoring</h2>
+                <h2 class="section-header">Marking for your completed tasks.</h2>
                 ${appState.scoringData.length === 0 ? 
                     '<p style="text-align: center; opacity: 0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No completed tasks to score yet.</p>' :
                     `<table class="scoring-table">
