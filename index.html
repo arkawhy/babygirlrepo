@@ -65,31 +65,6 @@
             text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
         }
 
-        .score-window {
-            background: rgba(75, 0, 130, 0.9);
-            padding: 12px 22px;
-            border-radius: 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(230, 230, 250, 0.4);
-            min-width: 120px;
-        }
-
-        .score-label {
-            font-size: 0.85rem;
-            opacity: 0.9;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .score-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--color-primary);
-        }
-
         .main-container {
             display: flex;
             flex: 1;
@@ -159,35 +134,35 @@
         }
 
         .intro-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 60vh;
-    text-align: center;
-    background: rgba(138, 43, 226, 0.12);
-    border-radius: 25px;
-    border: 2px solid rgba(230, 230, 250, 0.25);
-    margin: auto;
-}
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            text-align: center;
+            background: rgba(138, 43, 226, 极0.12);
+            border-radius: 25px;
+            border: 2px solid rgba(230, 230, 250, 0.25);
+            margin: auto;
+        }
 
-.intro-screen h2 {
-    font-size: 2.7rem;
-    margin-bottom: 24px;
-    color: #E6E6FA;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-shadow: 0 2px 8px #4b0082;
-}
+        .intro-screen h2 {
+            font-size: 2.7rem;
+            margin-bottom: 24px;
+            color: #E6E6FA;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 8px #4b0082;
+        }
 
-.intro-screen p {
-    font-size: 1.25rem;
-    line-height: 1.8;
-    opacity: 0.98;
-    max-width: 600px;
-    margin: 0 auto;
-    color: #fff;
-}
+        .intro-screen p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            opacity: 0.98;
+            max-width: 极600px;
+            margin: 0 auto;
+            color: #fff;
+        }
 
         .task-card, .mind-option, .drive-option {
             background: rgba(138, 43, 226, 0.25);
@@ -250,119 +225,13 @@
             font-size: 1.1rem;
         }
 
-        .active-task {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(138, 43, 226, 0.18);
-            border: 2px solid rgba(230, 230, 250, 0.25);
-            border-radius: 15px;
-            padding: 18px 25px;
-            margin: 12px 0;
-            transition: var(--transition-smooth);
-        }
-
-        .active-task:hover {
-            background: rgba(138, 43, 226, 0.28);
-            transform: translateX(5px);
-        }
-
-        .done-button {
-            background: var(--gradient-primary);
-            border: none;
-            color: var(--color-background);
-            padding: 10px 18px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-            font-size: 0.9rem;
-        }
-
-        .done-button:hover {
-            transform: scale(1.15);
-            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
-        }
-
-        .scoring-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: rgba(138, 43, 226, 0.12);
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: var(--shadow-elegant);
-        }
-
-        .scoring-table th {
-            background: var(--gradient-primary);
-            color: var(--color-background);
-            padding: 18px;
-            font-weight: 600;
-极            text-align: left;
-            font-size: 1.1rem;
-        }
-
-        .scoring-table td {
-            padding: 18px;
-            border-bottom: 1px solid rgba(230, 230, 250, 0.15);
-        }
-
-        .scoring-table tr:hover {
-            background: rgba(138, 43, 226, 0.25);
-        }
-
-        .score-input {
-            background: rgba(230, 230, 250, 0.15);
-            border: 2px solid rgba(230, 230, 250, 0.35);
-            border-radius: 10px;
-            padding: 10px 15px;
-            color: var(--color-text);
-            width: 90px;
+        .section-header {
+            color: var(--color-primary);
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            font-weight: 300;
             text-align: center;
-            font-size: 1rem;
-        }
-
-        .score-input:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
-        }
-
-        .bottom-ribbon {
-            height: 85px;
-            background: var(--gradient-dark);
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            padding: 0 35px;
-            box-shadow: 0 -8px 20px rgba(138, 43, 226, 极0.25);
-        }
-
-        .bottom-btn {
-            background: var(--gradient-primary);
-            border: none;
-            color: var(--color-background);
-            padding: 16px 28px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1.05rem;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .bottom-btn:hover {
-            transform: translateY(-4px) scale(1.08);
-            box-shadow: var(--shadow-elegant);
-        }
-
-        .weekly-tasks-btn {
-            flex: 1;
-            max-width: 320px;
-            margin: 0 25px;
-            font-size: 1.15rem;
-            padding: 20px 35px;
+            letter-spacing: 1px;
         }
 
         .floating-output {
@@ -387,236 +256,6 @@
             transform: translateX(0);
         }
 
-        .chatbox {
-            position: fixed;
-            bottom: 110px;
-            right: 35px;
-            width: 380px;
-            height: 450px;
-            background: rgba(75, 0, 130, 0.95);
-            border-radius: 18px;
-            box-shadow: var(--shadow-elegant);
-            display: none;
-            flex-direction: column;
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(230, 230, 250, 0.35);
-            z-index: 1000;
-        }
-
-        .chatbox.show {
-            display: flex;
-        }
-
-        .chat-header {
-            background: var(--gradient-primary);
-            color: var(--color-background);
-            padding: 18px 25px;
-            border-radius: 18px 18px 0 0;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.1rem;
-        }
-
-        .chat-close {
-            background: none;
-            border: none;
-            color: var(--color-background);
-            font-size: 1.4rem;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition-smooth);
-        }
-
-        .chat-close:hover {
-            background: rgba(0, 0, 0, 0.25);
-            transform: scale(1.1);
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .chat-message {
-            padding: 12px 18px;
-            border-radius: 18px;
-            max-width: 85%;
-            word-wrap: break-word;
-            font-size: 1rem;
-            line-height: 1.4;
-        }
-
-        .chat-message.dom {
-            background: var(--gradient-primary);
-            color: var(--color-background);
-            align-self: flex-end;
-            border-bottom-right-radius: 6px;
-        }
-
-        .chat-message.sub极 {
-            background: rgba(230, 230, 250, 0.25);
-            color: var(--color-text);
-            align-self: flex-start;
-            border-bottom-left-radius: 6px;
-        }
-
-        .chat-input-container {
-            padding: 18px;
-            display: flex;
-            gap: 12px;
-        }
-
-        .chat-input {
-            flex: 1;
-            background: rgba(230, 230, 250, 0.15);
-            border: 2px solid rgba(230, 230, 250, 0.35);
-            border-radius: 25px;
-            padding: 12px 18px;
-            color: var(--color-text);
-            outline: none;
-            font-size: 1rem;
-        }
-
-        .chat-input:focus {
-            border-color: var(--color-primary);
-        }
-
-        .chat-send {
-            background: var(--gradient-primary);
-            border: none;
-            color: var(--color-background);
-            padding: 12px 22px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-        }
-
-        .chat-send:hover {
-            transform: scale(1.08);
-        }
-
-        .upload-window {
-            position: fixed;
-            bottom: 110px;
-            right: 35px;
-            width: 380px;
-            background: rgba(75, 0, 130, 0.95);
-            border-radius: 18px;
-            box-shadow: var(--shadow-elegant);
-            padding: 25px;
-            display: none;
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(230, 230, 250, 0.35);
-            z-index: 1000;
-        }
-
-        .upload-window.show {
-            display: block;
-        }
-
-        .upload-header {
-            color: var(--color-primary);
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .upload-area {
-            border: 3px dashed rgba(230, 230, 250, 0.5);
-            border-radius: 15px;
-            padding: 40px 25px;
-            text-align: center;
-            transition: var(--transition-smooth);
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        .upload-area:hover {
-            border-color: var(--color-primary);
-            background: rgba(230, 230, 250, 0.12);
-        }
-
-        .upload-file-input {
-            display: none;
-        }
-
-        .upload-submit {
-            width: 100%;
-            background:极 var(--gradient-primary);
-            border: none;
-            color: var(--color-background);
-            padding: 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-            font-size: 1.05rem;
-        }
-
-        .upload-submit:hover {
-            transform: scale(1.03);
-        }
-
-        .section-header {
-            color: var(--color-primary);
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-            font-weight: 300;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        /* Upload History Styles */
-        .upload-history {
-            margin-top: 20px;
-            border-top: 2px solid rgba(230, 230, 250, 0.3);
-            padding-top: 15px;
-        }
-
-        .upload-item {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            padding: 10px;
-            background: rgba(138, 43, 226, 0.15);
-            border-radius: 8px;
-        }
-
-        .upload-thumbnail {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-right: 15px;
-        }
-
-        .upload-info {
-            flex: 1;
-        }
-
-        .upload-name {
-            font-size: 0.9rem;
-            display: block;
-        }
-
-        .upload-date {
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
@@ -635,7 +274,7 @@
                 padding: 18px 25px;
             }
             
-            .chatbox, .upload-window, .floating-output {
+            .floating-output {
                 width: 90%;
                 right: 5%;
             }
@@ -649,10 +288,6 @@
 <body>
     <header class="title-ribbon">
         <h1 class="main-title" id="homeButton">babygirl.</h1>
-        <div class="score-window">
-            <span class="极score-label">Average Score</span>
-            <span class="score-value" id="averageScore">0</span>
-        </div>
     </header>
 
     <div class="main-container">
@@ -666,12 +301,6 @@
             <div class="tab" data-tab="drive">
                 <span class="tab-text">Drive?😈</span>
             </div>
-            <div class="tab" data-tab="active">
-                <span class="tab-text">Active Tasklist☑</span>
-            </div>
-            <div class="tab" data-tab="scoring">
-                <span class="tab-text">Scoring📑</span>
-            </极div>
         </nav>
 
         <main class="content-area" id="contentArea">
@@ -682,48 +311,7 @@
         </main>
     </div>
 
-    <footer class="bottom-ribbon">
-        <button class="bottom-btn" id="chatboxBtn">
-            <span>💬 Chatbox</span>
-        </button>
-        <button class="bottom-btn weekly-tasks-btn" id="weeklyTasksBtn">
-            <span>📅 Weekly Passive Tasks</span>
-        </button>
-        <button class="bottom-btn" id="uploadBtn">
-            <span>📤 Upload</span>
-        </button>
-    </footer>
-
     <div class="floating-output" id="floatingOutput"></div>
-
-    <div class="chatbox" id="chatbox">
-        <div class="chat-header">
-            <span>Talk to your Dom here.</span>
-            <button class="chat-close" id="chatClose">×</button>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="chat-message dom">Welcome, my beautiful sub. How are you feeling today?</div>
-        </div>
-        <div class="chat-input-container">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
-            <button class="chat-send" id="chatSend">Send</button>
-        </div>
-    </div>
-
-    <div class="upload-window" id="uploadWindow">
-        <div class="upload-header">📤 Upload Task Proof</div>
-        <div class="upload-area" id="uploadArea">
-            <p>📷 Drop files here or click to select</p>
-            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">Photos and videos accepted</p>
-        </div>
-        <input type="file" class="upload-file-input" id="uploadFileInput" accept="image/*,video/*" multiple>
-        <button class="upload-submit" id="uploadSubmit">Upload Files</button>
-        
-        <div class="upload-history">
-            <h3>Upload History</h3>
-            <div id="uploadList"></div>
-        </div>
-    </div>
 
     <script>
         // ==========================================
@@ -733,7 +321,7 @@
         const PENDING_TASKS = [
             "I'll remember that he loves me, no matter what I do, for I am his submissive babygirl, his personal princess.",
             "I am going to try to keep up with my weekly passive task.",
-            "I am going to try to keep up with whatever active tasks I have.",
+            "极I am going to try to keep up with whatever active tasks I have.",
             "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay."
         ];
 
@@ -771,7 +359,7 @@
                 "Clothing-related": [
                     "I will skip on wearing panties for a week. You can check in on me any time I am free.",
                     "I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free",
-                    "I will inform you at least two days this week that I am wearing my black vest with no bra underneath极, and you can decide what you want to do with me then."
+                    "I will inform you at least two days this week that I am wearing my black vest with no bra underneath, and you can decide what you want to do with me then."
                 ],
                 "Mind-related": [
                     "A healthy body begets a healthy mind. I will do ten push-ups with you on a video call at least three times this week.",
@@ -789,12 +377,12 @@
                     "I'll begin wearing a towel covering my breasts and pussy and my hair tied up: I will first lower the towel to release my breasts, smile at you, and then let my hair down."
                 ],
                 "Starting Nude": [
-                    "Please let me be naked on video for you, standing upright and saying how much I love being your good girl, and then turning around to present my ass to you.",
+                    "Please let me be naked on video for you极, standing upright and saying how much I love being your good girl, and then turning around to present my ass to you.",
                     "I would think nothing of playing with my boobs for you, while kneeling. I love to be your good girl!",
                     "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each."
                 ],
                 "Special Submission": [
-                    "极I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.",
+                    "I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.",
                     "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission.",
                     "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in front of you. I'll stand back up and then give you a little twirl so you can appreciate every inch of me."
                 ],
@@ -806,7 +394,7 @@
                 "Accessories": [
                     "I'd love to send you an upper-half profile topless picture of me without my glasses, hair tied up tight, wearing eyeliner and basic makeup. I love being pretty for you!",
                     "A simple nude front profile mirror selfie, standing with a foot planted in front of the other, one hand loosely covering my pussy, wearing nothing but my college ID card.",
-                    "I'll put on any earrings I can find, turn my head slightly to show them to you, while clicking a mirror selfie wearing nothing but my panties, pulled down to my thighs, legs close together and one foot slightly in front of the other."
+                    "I'll put on any earrings极 I can find, turn my head slightly to show them to you, while clicking a mirror selfie wearing nothing but my panties, pulled down to my thighs, legs close together and one foot slightly in front of the other."
                 ],
                 "Special Submissive": [
                     "Maybe I'll take a simple nude of me kneeling with my hair in a single braid and in front of me, my eyes lowered, a playful smile on my lips, my hands behind me even as i thrust my chest out for you?",
@@ -832,9 +420,9 @@
         ];
 
         const INTRO_TEXT = {
-    title: "Welcome, babygirl.",
-    description: "Step inside your private playground. Here, you’re free to be bold, to tease, to surrender, and to shine. Every click, every word, every task is a secret invitation—just for you and me. Let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. Are you ready to play?"
-};
+            title: "Welcome, babygirl.",
+            description: "Step inside your private playground. Here, you’re free to be bold, to tease, to surrender, and to shine. Every click, every word, every task is a secret invitation—just for you and me. Let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. Are you ready to play?"
+        };
 
         // ==========================================
         // EASILY EDITABLE TEXT CONTENT - END
@@ -842,26 +430,8 @@
 
         const appState = {
             currentTab: 'intro',
-            activeTasks: JSON.parse(localStorage.getItem('activeTasks')) || [],
-            scoringData: JSON.parse(localStorage.getItem('scoringData')) || [],
-            driveNavigation: [],
-            chatMessages: JSON.parse(localStorage.getItem('chatMessages')) || [
-                { type: 'dom', text: 'Welcome, babygirl. How are you feeling today?' }
-            ],
-            uploads: JSON.parse(localStorage.getItem('uploads')) || []
+            driveNavigation: []
         };
-
-        function saveToLocalStorage(key, data) {
-            try {
-                localStorage.setItem(key, JSON.stringify(data));
-            } catch (e) {
-                console.error('Error saving to localStorage:', e);
-                if (e.name === 'QuotaExceededError') {
-                    appState.uploads = [];
-                    localStorage.setItem('uploads', '[]');
-                }
-            }
-        }
 
         function showFloatingOutput(text) {
             const output = document.getElementById('floatingOutput');
@@ -870,29 +440,6 @@
             setTimeout(() => {
                 output.classList.remove('show');
             }, 5000);
-        }
-
-        function addToActiveTasks(taskText) {
-            if (appState.activeTasks.length >= 5) {
-                appState.activeTasks.shift();
-            }
-            const newTask = {
-                id: Date.now(),
-                text: taskText,
-                timestamp: new Date().toISOString()
-            };
-            appState.activeTasks.push(newTask);
-            saveToLocalStorage('activeTasks', appState.activeTasks);
-        }
-
-        function updateAverageScore() {
-            if (appState.scoringData.length === 0) {
-                document.getElementById('averageScore').textContent = '0';
-                return;
-            }
-            const total = appState.scoringData.reduce((sum, item) => sum + item.score, 0);
-            const average = Math.round(total / appState.scoringData.length);
-            document.getElementById('averageScore').textContent = average;
         }
 
         function switchTab(tabName) {
@@ -917,24 +464,17 @@
                 case 'drive':
                     showDriveOptions();
                     break;
-                case 'active':
-                    showActiveTasks();
-                    break;
-                case 'scoring':
-                    showScoring();
-                    break;
                 default:
                     showIntroScreen();
             }
         }
 
         function showIntroScreen() {
-             // Remove 'active' class from all tabs
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
             document.getElementById('contentArea').innerHTML = `
-                <div class极="intro-screen">
+                <div class="intro-screen">
                     <h2>${INTRO_TEXT.title}</h2>
                     <p>${INTRO_TEXT.description}</p>
                 </div>
@@ -955,10 +495,10 @@
 
         function showMindOptions() {
             const content = `
-                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h极2>
+                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h2>
                 ${MIND_OPTIONS.map(option => `
                     <div class="mind-option" onclick="handleMindClick('${option.replace(/'/g, "\\'")}')">
-                        <span style="position: relative; z-index: 1;">${option}</span>
+                        <span style="position: relative; z-index: 1;">${极option}</span>
                     </div>
                 `).join('')}
             `;
@@ -991,10 +531,10 @@
                 content += DRIVE_OPTIONS.level2[level1Choice].map(option => `
                     <div class="drive-option" onclick="handleDriveClick('${option}', 2)">
                         <span style="position: relative; z-index: 1;">${option}</span>
-                    </div>
+                    </极div>
                 `).join('');
             } else if (appState.driveNavigation.length === 2) {
-                const level2Choice = appState.driveNavigation[1];
+                const level2Choice = app极State.driveNavigation[1];
                 content += DRIVE_OPTIONS.level3[level2Choice].map(option => `
                     <div class="drive-option" onclick="handleDriveClick('${option.replace(/'/g, "\\'")}', 3)">
                         <span style="position: relative; z-index: 1;">${option}</span>
@@ -1005,66 +545,17 @@
             document.getElementById('contentArea').innerHTML = content;
         }
 
-        function showActiveTasks() {
-            const content = `
-                <h2 class="section-header">All your active tasks.</h2>
-                ${appState.activeTasks.length === 0 ?
-                    '<p style="text-align: center; opacity: 0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No active tasks yet. Complete tasks from other tabs to see them here.</p>' :
-                    appState.activeTasks.map(task => `
-                        <div class="active-task">
-                            <span>${task.text}</span>
-                            <button class="done-button" onclick="markTaskDone(${task.id})" title="Dom Only">Done</button>
-                        </div>
-                    `).join('')
-                }
-            `;
-            document.getElementById('contentArea').innerHTML = content;
-        }
-
-        function showScoring() {
-            const content = `
-                <h2 class="section-header">Marking for your completed tasks.</h2>
-                ${appState.scoringData.length === 0 ?
-                    '<p style="text-align: center; opacity: 极0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No completed tasks to score yet.</p>' :
-                    `<table class="scoring-table">
-                        <thead>
-                            <tr>
-                                <th>Task</th>
-                                <th>Score (out of 100)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${appState.scoringData.map(item => `
-                                <tr>
-                                    <td>${item.text}</td>
-                                    <td>
-                                        <input type="number" class="score-input" min="0" max="100"
-                                               value="${item.score}"
-                                               onchange="updateScore(${item.id}, this.value)">
-                                    </td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>`
-                }
-            `;
-            document.getElementById('contentArea').innerHTML = content;
-        }
-
         function handleTaskClick(task) {
             showFloatingOutput(`Task added: ${task}`);
-            }
+        }
 
         function handleMindClick(option) {
             showFloatingOutput(`Mind state recorded: ${option}`);
-            addToActiveTasks(option);
         }
 
         function handleDriveClick(option, level) {
             if (level === 3) {
-                const fullPath = [...appState.driveNavigation, option].join(' → ');
-                showF极loatingOutput(`Drive task completed: ${fullPath}`);
-                addToActiveTasks(`Drive: ${fullPath}`);
+                showFloatingOutput(`Drive task chosen: ${option}`);
                 resetDriveNavigation();
             } else {
                 appState.driveNavigation.push(option);
@@ -1082,138 +573,7 @@
             showDriveOptions();
         }
 
-        function markTaskDone(taskId) {
-            const taskIndex = appState.activeTasks.findIndex(task => task.id === taskId);
-            if (taskIndex !== -1) {
-                const task = appState.activeTasks[taskIndex];
-                appState.scoringData.push({
-                    id: task.id,
-                    text: task.text,
-                    score: 0
-                });
-                appState.activeTasks.splice(taskIndex, 1);
-                saveToLocalStorage('activeTasks', appState.activeTasks);
-                saveToLocalStorage('scoringData', appState.scoringData);
-                showActiveTasks();
-                updateAverageScore();
-                showFloatingOutput('Task marked as done and moved to scoring!');
-            }
-        }
-
-        function updateScore(taskId, newScore) {
-            const task = appState.scoringData.find(item => item.id === taskId);
-            if (task) {
-                task.score = parseInt(newScore) || 0;
-                saveToLocalStorage('scoringData', appState.scoringData);
-                updateAverageScore();
-            }
-        }
-
-        function toggleChatbox() {
-            const chatbox = document.getElementById('chatbox');
-            chatbox.classList.toggle('show');
-            if (chatbox.classList.contains('show')) {
-                setTimeout(() => {
-                    document.getElementById('chatInput').focus();
-                }, 100);
-            }
-        }
-
-        function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            if (message) {
-                addChatMessage('sub', message);
-                input.value = '';
-                setTimeout(() => {
-                    const randomResponse = DOM_RESPONSES[Math.floor(Math.random() * DOM_RESPONSES.length)];
-                    addChatMessage('dom', randomResponse);
-                }, 1000 + Math.random() * 2000);
-            }
-        }
-
-        function addChatMessage(type, text) {
-            const messagesContainer = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message ${type}`;
-            messageDiv.textContent = text;
-            messagesContainer.appendChild(messageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            appState.chatMessages.push({ type, text });
-            saveToLocalStorage('chatMessages', appState.chatMessages);
-        }
-
-        function toggleUploadWindow() {
-            const uploadWindow = document.getElementById('uploadWindow');
-            uploadWindow.classList.toggle('show');
-        }
-
-        function handleFileUpload() {
-            const fileInput = document.getElementById('uploadFileInput');
-            const files = fileInput.files;
-            if (files.length > 0) {
-                Array.from(files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        appState.uploads.unshift({
-                            name: file.name,
-                            type: file.type,
-                            data: e.target.result.split(',')[1],
-                            timestamp: new Date().toISOString()
-                        });
-                        if (appState.uploads.length > 20) appState.uploads.pop();
-                        saveToLocalStorage('uploads', appState.uploads);
-                        updateUploadDisplay();
-                    };
-                    reader.readAsDataURL(file);
-                });
-                showFloatingOutput(`Files uploaded successfully: ${Array.from(files).map(f => f.name).join(', ')}`);
-                toggleUploadWindow();
-                fileInput.value = '';
-            } else {
-                showFloatingOutput('Please select files to upload.');
-            }
-        }
-
-        function updateUploadDisplay() {
-            const uploadList = document.getElementById('uploadList');
-            uploadList.innerHTML = appState.uploads.map(upload => `
-                <div class="upload-item">
-                    ${upload.type.startsWith('image/') ?
-                        `<img src="data:${upload.type};base64,${upload.data}" class="upload-thumbnail">` :
-                        upload.type.startsWith('video/') ?
-                        `<video controls class="upload-thumbnail">
-                            <source src="data:${upload.type};base64,${upload.data}" type="${upload.type}">
-                        </video>` :
-                        `<div class="upload-thumbnail">📄</div>`
-                    }
-                    <div class="upload-info">
-                        <span class="upload-name">${upload.name}</span>
-                        <span class="upload-date">${new Date(upload.timestamp).toLocaleString()}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function handleWeeklyTasks() {
-            const randomTask = WEEKLY_TASKS[Math.floor(Math.random() * WEEKLY_TASKS.length)];
-            showFloatingOutput(`Weekly task: ${randomTask}`);
-        }
-
-        function loadChatMessages() {
-            const messagesContainer = document.getElementById('chatMessages');
-            messagesContainer.innerHTML = '';
-            appState.chatMessages.forEach(msg => {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `chat-message ${msg.type}`;
-                messageDiv.textContent = msg.text;
-                messagesContainer.appendChild(messageDiv);
-            });
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
-            updateUploadDisplay();
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() {
                     const tabName = this.getAttribute('data-tab');
@@ -1226,40 +586,7 @@
                     tab.classList.remove('active');
                 });
             });
-            document.getElementById('chatboxBtn').addEventListener('click', toggleChatbox);
-            document.getElementById('uploadBtn').addEventListener('click', toggleUploadWindow);
-            document.getElementById('weeklyTasksBtn').addEventListener('click', handleWeeklyTasks);
-            document.getElementById('chatClose').addEventListener('click', toggleChatbox);
-            document.getElementById('chatSend').addEventListener('click', sendChatMessage);
-            document.getElementById('chatInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendChatMessage();
-                }
-            });
-            document.getElementById('uploadArea').addEventListener('click', function() {
-                document.getElementById('uploadFileInput').click();
-            });
-            document.getElementById('uploadSubmit').addEventListener('click', handleFileUpload);
-            const uploadArea = document.getElementById('uploadArea');
-            uploadArea.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                this.style.borderColor = 'var(--color-primary)';
-                this.style.background = 'rgba(230, 230, 250, 0.15)';
-            });
-            uploadArea.addEventListener('dragleave', function(e) {
-                e.preventDefault();
-                this.style.borderColor = 'rgba(230, 230, 250, 0.5)';
-                this.style.background = 'transparent';
-            });
-            uploadArea.addEventListener('drop', function(e) {
-                e.preventDefault();
-                this.style.borderColor = 'rgba(230, 230, 250, 0.5)';
-                this.style.background = 'transparent';
-                document.getElementById('uploadFileInput').files = e.dataTransfer.files;
-            });
-            loadChatMessages();
             showIntroScreen();
-            updateAverageScore();
         });
     </script>
 </body>
