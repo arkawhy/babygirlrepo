@@ -35,7 +35,7 @@
         }
 
         .title-ribbon {
-            background: #4B0082;
+            background: var(--gradient-primary);
             height: 80px;
             display: flex;
             align-items: center;
@@ -97,7 +97,7 @@
 
         .sidebar {
             width: 300px;
-            background: #4B0082;
+            background: var(--gradient-dark);
             padding: 25px 0;
             display: flex;
             flex-direction: column;
@@ -109,7 +109,7 @@
             padding: 22px 35px;
             cursor: pointer;
             transition: var(--transition-smooth);
-            border-bottom: 1px solid rgba(230, 230, 极0.15);
+            border-bottom: 1px solid rgba(230, 230, 250, 0.15);
             position: relative;
             overflow: hidden;
         }
@@ -121,7 +121,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: #4B0082;
+            background: var(--gradient-primary);
             transition: var(--transition-smooth);
             z-index: -1;
         }
@@ -137,7 +137,7 @@
         }
 
         .tab.active {
-            background: #8A2BE2;
+            background: var(--gradient-primary);
             color: var(--color-background);
             font-weight: 600;
             transform: translateX(15px);
@@ -146,49 +146,40 @@
         .tab-text {
             position: relative;
             z-index: 1;
-            font-size: 极1.15rem;
+            font-size: 1.15rem;
         }
 
-       .content-area {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #1a001a; /* solid color, no gradient */
-    min-height: 100%;
-}
+        .content-area {
+            flex: 1;
+            padding: 35px;
+            background: var(--color-dark);
+            overflow-y: auto;
+            position: relative;
+        }
 
         .intro-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
-    text-align: center;
-    background: #1a001a; /* solid, no gradient */
-    border-radius: 25px;
-    border: 2px solid rgba(230, 230, 250, 0.25);
-    margin: auto;
-    box-shadow: 0 4px 24px rgba(138, 43, 226, 0.08);
-    max-width: 700px;
-}
+            text-align: center;
+            padding: 80px 50px;
+            background: rgba(138, 43, 226, 0.12);
+            border-radius: 25px;
+            border: 2px solid rgba(230, 230, 250, 0.25);
+        }
 
-.intro-screen h2 {
-    font-size: 2.6rem;
-    margin-bottom: 28px;
-    color: #E6E6FA;
-    font-weight: 400;
-    letter-spacing: 1px;
-    text-shadow: 0 2px 8px #4b0082;
-}
+        .intro-screen h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--color-primary);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
 
-.intro-screen p {
-    font-size: 1.25rem;
-    line-height: 1.8;
-    opacity: 0.96;
-    max-width: 600px;
-    margin: 0 auto;
-    color: #fff;
-}
+        .intro-screen p {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            opacity: 0.92;
+            max-width: 650px;
+            margin: 0 auto;
+        }
 
         .task-card, .mind-option, .drive-option {
             background: rgba(138, 43, 226, 0.25);
@@ -207,9 +198,9 @@
             position: absolute;
             top: 0;
             left: -100%;
-            width: 极100%;
+            width: 100%;
             height: 100%;
-            background: #8A2BE2;;
+            background: var(--gradient-primary);
             transition: var(--transition-smooth);
             z-index: -1;
         }
@@ -237,7 +228,7 @@
             border-radius: 25px;
             font-size: 0.95rem;
             cursor: pointer;
-            transition: var(--transition-smooth);
+            transition: var(--transition-smooth;
         }
 
         .breadcrumb-item:hover {
@@ -269,7 +260,7 @@
         }
 
         .done-button {
-            background: #8A2BE2;;
+            background: var(--gradient-primary);
             border: none;
             color: var(--color-background);
             padding: 10px 18px;
@@ -295,11 +286,11 @@
         }
 
         .scoring-table th {
-            background: #8A2BE2;;
+            background: var(--gradient-primary);
             color: var(--color-background);
             padding: 18px;
             font-weight: 600;
-极            text-align: left;
+            text-align: left;
             font-size: 1.1rem;
         }
 
@@ -331,12 +322,12 @@
 
         .bottom-ribbon {
             height: 85px;
-            background: #8A2BE2;;
+            background: var(--gradient-dark);
             display: flex;
             align-items: center;
             justify-content: space-around;
             padding: 0 35px;
-            box-shadow: 0 -8px 20px rgba(138, 43, 226, 极0.25);
+            box-shadow: 0 -8px 20px rgba(138, 43, 226, 0.25);
         }
 
         .bottom-btn {
@@ -347,7 +338,7 @@
             border-radius: 30px;
             cursor: pointer;
             font-size: 1.05rem;
-            font-weight: 600;
+            font-weight: 6;
             transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
@@ -465,7 +456,7 @@
             border-bottom-right-radius: 6px;
         }
 
-        .chat-message.sub极 {
+        .chat-message.sub {
             background: rgba(230, 230, 250, 0.25);
             color: var(--color-text);
             align-self: flex-start;
@@ -536,7 +527,7 @@
         }
 
         .upload-area {
-            border: 3px dashed rgba(230, 230, 250, 0.5);
+            border: 3px dashed rgba(230, 230, 250, 极5);
             border-radius: 15px;
             padding: 40px 25px;
             text-align: center;
@@ -556,7 +547,7 @@
 
         .upload-submit {
             width: 100%;
-            background:极 var(--gradient-primary);
+            background: var(--gradient-primary);
             border: none;
             color: var(--color-background);
             padding: 15px;
@@ -646,12 +637,18 @@
             }
         }
     </style>
+    <!-- Fix for typo in upload-area border color -->
+    <style>
+        .upload-area {
+            border: 3px dashed rgba(230, 230, 250, 0.5);
+        }
+    </style>
 </head>
 <body>
     <header class="title-ribbon">
         <h1 class="main-title" id="homeButton">babygirl.</h1>
         <div class="score-window">
-            <span class="极score-label">Average Score</span>
+            <span class="score-label">Average Score</span>
             <span class="score-value" id="averageScore">0</span>
         </div>
     </header>
@@ -672,7 +669,7 @@
             </div>
             <div class="tab" data-tab="scoring">
                 <span class="tab-text">Scoring</span>
-            </极div>
+            </div>
         </nav>
 
         <main class="content-area" id="contentArea">
@@ -772,7 +769,7 @@
                 "Clothing-related": [
                     "I will skip on wearing panties for a week. You can check in on me any time I am free.",
                     "I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free",
-                    "I will inform you at least two days this week that I am wearing my black vest with no bra underneath极, and you can decide what you want to do with me then."
+                    "I will inform you at least two days this week that I am wearing my black vest with no bra underneath, and you can decide what you want to do with me then."
                 ],
                 "Mind-related": [
                     "A healthy body begets a healthy mind. I will do ten push-ups with you on a video call at least three times this week.",
@@ -795,7 +792,7 @@
                     "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each."
                 ],
                 "Special Submission": [
-                    "极I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.",
+                    "I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.",
                     "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission.",
                     "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in front of you. I'll stand back up and then give you a little twirl so you can appreciate every inch of me."
                 ],
@@ -833,10 +830,9 @@
         ];
 
         const INTRO_TEXT = {
-    title: "Welcome, my precious babygirl",
-    description: "This is your secret playground—a space for you to surrender, to grow, and to delight in your submission. Every task, every message, every moment here is for your pleasure and our connection. Let yourself be seen, adored, and guided. I want you to feel my presence in every word and every challenge. Show me your devotion, and let’s make every day a little more delicious, together."
-};
-        
+            title: "Welcome to your personal dashboard, babygirl",
+            description: "Here you can track your progress, complete tasks, and stay connected. Choose a tab from the left to begin your journey of growth and submission. Your devotion and obedience are what make our connection stronger every day."
+        };
 
         // ==========================================
         // EASILY EDITABLE TEXT CONTENT - END
@@ -932,7 +928,7 @@
 
         function showIntroScreen() {
             document.getElementById('contentArea').innerHTML = `
-                <div class极="intro-screen">
+                <div class="intro-screen">
                     <h2>${INTRO_TEXT.title}</h2>
                     <p>${INTRO_TEXT.description}</p>
                 </div>
@@ -953,7 +949,7 @@
 
         function showMindOptions() {
             const content = `
-                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h极2>
+                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h2>
                 ${MIND_OPTIONS.map(option => `
                     <div class="mind-option" onclick="handleMindClick('${option.replace(/'/g, "\\'")}')">
                         <span style="position: relative; z-index: 1;">${option}</span>
@@ -1023,7 +1019,7 @@
             const content = `
                 <h2 class="section-header">Marking for your completed tasks.</h2>
                 ${appState.scoringData.length === 0 ?
-                    '<p style="text-align: center; opacity: 极0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No completed tasks to score yet.</p>' :
+                    '<p style="text-align: center; opacity: 0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No completed tasks to score yet.</p>' :
                     `<table class="scoring-table">
                         <thead>
                             <tr>
@@ -1062,7 +1058,7 @@
         function handleDriveClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.driveNavigation, option].join(' → ');
-                showF极loatingOutput(`Drive task completed: ${fullPath}`);
+                showFloatingOutput(`Drive task completed: ${fullPath}`);
                 addToActiveTasks(`Drive: ${fullPath}`);
                 resetDriveNavigation();
             } else {
