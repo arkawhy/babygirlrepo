@@ -929,6 +929,10 @@
         }
 
         function showIntroScreen() {
+             // Remove 'active' class from all tabs
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
             document.getElementById('contentArea').innerHTML = `
                 <div class极="intro-screen">
                     <h2>${INTRO_TEXT.title}</h2>
