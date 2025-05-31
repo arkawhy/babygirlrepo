@@ -2,307 +2,252 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Babygirl</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>babygirl</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0a0a0a;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
       color: white;
-      display: flex;
-      height: 100vh;
       overflow: hidden;
     }
-
-    .title-ribbon {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: #6b2d91;
+    .container {
+      display: grid;
+      grid-template-areas:
+        'title title'
+        'sidebar main'
+        'footer footer';
+      grid-template-rows: 60px 1fr 60px;
+      grid-template-columns: 200px 1fr;
+      height: 100vh;
+    }
+    .title {
+      grid-area: title;
+      background: #4b0082;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
-      z-index: 10;
+      justify-content: space-between;
+      padding: 0 20px;
     }
-
-    .title-ribbon h1 {
+    .title h1 {
       margin: 0;
-      font-size: 2rem;
-      color: white;
+      font-size: 28px;
       cursor: pointer;
+      color: white;
     }
-
-    .score-display {
-      background-color: #1c1c1c;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.9rem;
+    .score {
+      background: #222;
+      padding: 8px 12px;
+      border-radius: 8px;
     }
-
     .sidebar {
-      width: 200px;
-      background-color: #1e1e1e;
-      padding-top: 70px;
+      grid-area: sidebar;
+      background: #111;
       display: flex;
       flex-direction: column;
-      position: fixed;
-      top: 0;
-      bottom: 50px;
-      left: 0;
+      padding-top: 20px;
+      gap: 15px;
     }
-
-    .tab {
-      padding: 15px;
-      background-color: #2e2e2e;
-      margin: 5px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .tab:hover, .button:hover {
-      transform: scale(1.05);
-      background-color: #4b0082;
-    }
-
-    .main-content {
-      margin-left: 200px;
-      margin-top: 60px;
-      margin-bottom: 50px;
-      padding: 20px;
-      overflow-y: auto;
-      flex: 1;
-      background-color: #121212;
-    }
-
-    .bottom-ribbon {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #1e1e1e;
-      display: flex;
-      justify-content: space-evenly;
-      padding: 10px;
-      z-index: 10;
-    }
-
-    .button {
-      padding: 10px 20px;
-      background-color: #2e2e2e;
+    .sidebar button {
+      background: #6a0dad;
       color: white;
       border: none;
-      border-radius: 5px;
+      padding: 10px;
+      margin: 0 10px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.2s;
     }
-
-    .button.large {
-      flex-grow: 2;
-      text-align: center;
+    .sidebar button:hover {
+      transform: scale(1.05);
+      background: #8a2be2;
     }
-
-    .floating-text {
-      position: fixed;
-      bottom: 60px;
-      right: 20px;
-      background-color: #6a0dad;
+    .main {
+      grid-area: main;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .footer {
+      grid-area: footer;
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    .footer button {
+      background: #6a0dad;
+      color: white;
+      border: none;
       padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .footer button:hover {
+      transform: scale(1.05);
+      background: #8a2be2;
+    }
+    .footer .wide {
+      flex-grow: 1;
+      margin-left: 10px;
+    }
+    .output {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: #8a2be2;
+      color: white;
+      padding: 10px;
       border-radius: 10px;
       opacity: 0.9;
       animation: fadeOut 5s forwards;
-      color: white;
-      font-size: 0.9rem;
     }
-
     @keyframes fadeOut {
-      0% { opacity: 1; }
-      80% { opacity: 1; }
-      100% { opacity: 0; }
+      0% { opacity: 0.9; }
+      100% { opacity: 0; display: none; }
     }
-
-    .task-item {
-      display: flex;
-      justify-content: space-between;
-      margin: 5px 0;
-      background: #292929;
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    .task-item button {
-      background: #9900cc;
-      border: none;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 3px;
+    .tab-panel {
+      background: #1a1a1a;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
       cursor: pointer;
+      transition: all 0.2s;
     }
-
+    .tab-panel:hover {
+      transform: scale(1.02);
+      background: #2b2b2b;
+    }
+    .hidden { display: none; }
+    .chatbox {
+      max-height: 200px;
+      overflow-y: auto;
+      background: #333;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .chatbox p {
+      margin: 4px 0;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
       color: white;
     }
-
     th, td {
-      border: 1px solid #444;
-      padding: 10px;
+      border: 1px solid #555;
+      padding: 8px;
       text-align: left;
+    }
+    input[type="number"] {
+      width: 60px;
     }
   </style>
 </head>
 <body>
-
-  <div class="title-ribbon">
-    <h1 onclick="showIntro()">babygirl</h1>
-    <div class="score-display" id="scoreDisplay">Avg: 0</div>
+  <div class="container">
+    <div class="title">
+      <h1 onclick="showIntro()">babygirl</h1>
+      <div class="score">Avg. Score: <span id="avgScore">--</span></div>
+    </div>
+    <div class="sidebar">
+      <button onclick="showTab('pending')">Pending Tasks</button>
+      <button onclick="showTab('mind')">What's on Your Mind</button>
+      <button onclick="showTab('drive')">Drive</button>
+      <button onclick="showTab('active')">Active Tasks</button>
+      <button onclick="showTab('scoring')">Scoring</button>
+    </div>
+    <div class="main" id="main">
+      <div id="intro">Welcome, babygirl. This is your dashboard. Awaiting your input...</div>
+    </div>
+    <div class="footer">
+      <button onclick="toggleChat()">Chatbox</button>
+      <button onclick="uploadTask()">Upload</button>
+      <button class="wide" onclick="addWeeklyTask()">Weekly Passive Tasks</button>
+    </div>
   </div>
-
-  <div class="sidebar">
-    <div class="tab" onclick="showPending()">Pending Tasklist</div>
-    <div class="tab" onclick="showMind()">What’s On Your Mind</div>
-    <div class="tab" onclick="showDrive()">Drive</div>
-    <div class="tab" onclick="showActive()">Active Tasklist</div>
-    <div class="tab" onclick="showScoring()">Scoring</div>
-  </div>
-
-  <div class="main-content" id="mainContent">
-    <h2>Welcome, babygirl</h2>
-    <p>This is your space. Tasks, thoughts, and more await you here.</p>
-  </div>
-
-  <div class="bottom-ribbon">
-    <button class="button" onclick="openChat()">Chat</button>
-    <input type="file" class="button" multiple />
-    <button class="button large" onclick="showPassiveTask()">Weekly Passive Task</button>
-  </div>
-
+  <div id="chat" class="chatbox hidden"></div>
   <script>
-    const main = document.getElementById("mainContent");
-    const activeTasks = [];
-    const doneTasks = [];
-    const scores = [];
+    const main = document.getElementById('main');
+    let activeTasks = [];
+    let scores = [];
 
     function showIntro() {
-      main.innerHTML = `<h2>Welcome, babygirl</h2><p>This is your space. Tasks, thoughts, and more await you here.</p>`;
+      main.innerHTML = '<div id="intro">Welcome, babygirl. This is your dashboard. Awaiting your input...</div>';
     }
 
-    function showFloatingText(text) {
-      const float = document.createElement("div");
-      float.className = "floating-text";
-      float.textContent = text;
-      document.body.appendChild(float);
-      setTimeout(() => float.remove(), 5000);
+    function outputMessage(msg) {
+      const msgBox = document.createElement('div');
+      msgBox.className = 'output';
+      msgBox.innerText = msg;
+      document.body.appendChild(msgBox);
+      setTimeout(() => msgBox.remove(), 5000);
     }
 
-    function showPending() {
-      main.innerHTML = "<h2>Pending Tasks</h2>";
-      for (let i = 1; i <= 5; i++) {
-        const btn = document.createElement("button");
-        btn.className = "button";
-        btn.textContent = `Task ${i}`;
-        btn.onclick = () => {
-          const text = `Pending Task ${i}`;
-          showFloatingText(text);
-          pushToActive(text);
-        };
-        main.appendChild(btn);
-        main.appendChild(document.createElement("br"));
+    function showTab(tab) {
+      if (tab === 'pending') {
+        main.innerHTML = '<h2>Pending Tasks</h2>' +
+          [...Array(3).keys()].map(i => `<div class="tab-panel" onclick="addToActive('Pending Task ${i+1}')">Pending Task ${i+1}</div>`).join('');
+      } else if (tab === 'mind') {
+        main.innerHTML = '<h2>What's on Your Mind</h2>' +
+          [...Array(4).keys()].map(i => `<div class="tab-panel" onclick="addToActive('Mind Choice ${i+1}')">Mind Choice ${i+1}</div>`).join('');
+      } else if (tab === 'drive') {
+        let content = '';
+        for (let i = 1; i <= 3; i++) {
+          content += `<div class="tab-panel" onclick="cascadeDrive(${i}, '')">Drive Level 1 - ${i}</div>`;
+        }
+        main.innerHTML = '<h2>Drive</h2>' + content;
+      } else if (tab === 'active') {
+        main.innerHTML = '<h2>Active Tasks</h2>' +
+          activeTasks.map((t, i) => `<div>${t} <button onclick="markDone(${i})">Done</button></div>`).join('');
+      } else if (tab === 'scoring') {
+        main.innerHTML = '<h2>Scoring</h2><table><tr><th>Task</th><th>Score</th></tr>' +
+          scores.map((s, i) => `<tr><td>${s.task}</td><td><input type='number' min='0' max='100' onchange='updateScore(${i}, this.value)' /></td></tr>`).join('') + '</table>';
       }
     }
 
-    function showMind() {
-      main.innerHTML = "<h2>What’s On Your Mind</h2>";
-      for (let i = 1; i <= 4; i++) {
-        const btn = document.createElement("button");
-        btn.className = "button";
-        btn.textContent = `Thought Option ${i}`;
-        btn.onclick = () => {
-          const text = `Mind Option ${i}`;
-          showFloatingText(text);
-          pushToActive(text);
-        };
-        main.appendChild(btn);
-        main.appendChild(document.createElement("br"));
-      }
-    }
-
-    function showDrive(step = 1, path = []) {
-      main.innerHTML = `<h2>Drive - Step ${step}</h2>`;
-      for (let i = 1; i <= 3; i++) {
-        const btn = document.createElement("button");
-        btn.className = "button";
-        btn.textContent = `Option ${i}`;
-        btn.onclick = () => {
-          const newPath = [...path, `Option${i}`];
-          if (step === 3) {
-            const final = `Drive Path: ${newPath.join(" > ")}`;
-            showFloatingText(final);
-            pushToActive(final);
-          } else {
-            showDrive(step + 1, newPath);
-          }
-        };
-        main.appendChild(btn);
-        main.appendChild(document.createElement("br"));
-      }
-    }
-
-    function pushToActive(text) {
+    function addToActive(text) {
+      outputMessage(text);
       if (activeTasks.length >= 5) activeTasks.shift();
       activeTasks.push(text);
     }
 
-    function showActive() {
-      main.innerHTML = "<h2>Active Tasks</h2>";
-      activeTasks.forEach((task, index) => {
-        const div = document.createElement("div");
-        div.className = "task-item";
-        div.innerHTML = `<span>${task}</span>`;
-        const doneBtn = document.createElement("button");
-        doneBtn.textContent = "Done";
-        doneBtn.onclick = () => {
-          doneTasks.push(task);
-          activeTasks.splice(index, 1);
-          showActive();
-        };
-        div.appendChild(doneBtn);
-        main.appendChild(div);
-      });
+    function markDone(index) {
+      const task = activeTasks[index];
+      activeTasks.splice(index, 1);
+      scores.push({ task, score: 0 });
+      showTab('active');
     }
 
-    function showScoring() {
-      main.innerHTML = "<h2>Scoring</h2><table><tr><th>Task</th><th>Score</th></tr></table>";
-      const table = main.querySelector("table");
-      doneTasks.forEach((task, index) => {
-        const row = table.insertRow();
-        row.insertCell().textContent = task;
-        const scoreInput = document.createElement("input");
-        scoreInput.type = "number";
-        scoreInput.min = 0;
-        scoreInput.max = 100;
-        scoreInput.onchange = () => {
-          scores[index] = parseInt(scoreInput.value) || 0;
-          updateAvgScore();
-        };
-        const cell = row.insertCell();
-        cell.appendChild(scoreInput);
-      });
+    function updateScore(index, val) {
+      scores[index].score = Number(val);
+      const avg = scores.reduce((a, b) => a + b.score, 0) / scores.length;
+      document.getElementById('avgScore').innerText = avg.toFixed(2);
     }
 
-    function updateAvgScore() {
-      const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
-      document.getElementById("scoreDisplay").textContent = `Avg: ${avg}`;
+    function cascadeDrive(level, path) {
+      if (level === 4) {
+        addToActive(`Drive Path: ${path}`);
+        return;
+      }
+      main.innerHTML = `<h2>Drive Level ${level}</h2>` +
+        [...Array(3).keys()].map(i => `<div class="tab-panel" onclick="cascadeDrive(${level+1}, '${path} ${level}.${i+1}')">Choice ${level}.${i+1}</div>`).join('');
     }
 
-    function showPassiveTask() {
-      showFloatingText("Weekly Passive Task Activated");
+    function toggleChat() {
+      const chat = document.getElementById('chat');
+      chat.classList.toggle('hidden');
+      chat.innerHTML += '<p><b>You:</b> [edit this message]</p>';
     }
 
-    function openChat() {
-      showFloatingText("Chatbox Opened (Placeholder)");
+    function uploadTask() {
+      outputMessage("Upload button clicked. [connect upload logic]");
+    }
+
+    function addWeeklyTask() {
+      outputMessage("Weekly passive task triggered.");
     }
   </script>
 </body>
