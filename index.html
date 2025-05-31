@@ -109,7 +109,7 @@
             padding: 22px 35px;
             cursor: pointer;
             transition: var(--transition-smooth);
-            border-bottom: 1px solid rgba(230, 230, 250, 0.15);
+            border-bottom: 1px solid rgba(230, 230, 极0.15);
             position: relative;
             overflow: hidden;
         }
@@ -146,7 +146,7 @@
         .tab-text {
             position: relative;
             z-index: 1;
-            font-size: 1.15rem;
+            font-size: 极1.15rem;
         }
 
         .content-area {
@@ -198,7 +198,7 @@
             position: absolute;
             top: 0;
             left: -100%;
-            width: 100%;
+            width: 极100%;
             height: 100%;
             background: var(--gradient-primary);
             transition: var(--transition-smooth);
@@ -228,7 +228,7 @@
             border-radius: 25px;
             font-size: 0.95rem;
             cursor: pointer;
-            transition: var(--transition-smooth;
+            transition: var(--transition-smooth);
         }
 
         .breadcrumb-item:hover {
@@ -290,7 +290,7 @@
             color: var(--color-background);
             padding: 18px;
             font-weight: 600;
-            text-align: left;
+极            text-align: left;
             font-size: 1.1rem;
         }
 
@@ -327,7 +327,7 @@
             align-items: center;
             justify-content: space-around;
             padding: 0 35px;
-            box-shadow: 0 -8px 20px rgba(138, 43, 226, 0.25);
+            box-shadow: 0 -8px 20px rgba(138, 43, 226, 极0.25);
         }
 
         .bottom-btn {
@@ -338,7 +338,7 @@
             border-radius: 30px;
             cursor: pointer;
             font-size: 1.05rem;
-            font-weight: 6;
+            font-weight: 600;
             transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
@@ -456,7 +456,7 @@
             border-bottom-right-radius: 6px;
         }
 
-        .chat-message.sub {
+        .chat-message.sub极 {
             background: rgba(230, 230, 250, 0.25);
             color: var(--color-text);
             align-self: flex-start;
@@ -527,7 +527,7 @@
         }
 
         .upload-area {
-            border: 3px dashed rgba(230, 230, 250, 极5);
+            border: 3px dashed rgba(230, 230, 250, 0.5);
             border-radius: 15px;
             padding: 40px 25px;
             text-align: center;
@@ -547,7 +547,7 @@
 
         .upload-submit {
             width: 100%;
-            background: var(--gradient-primary);
+            background:极 var(--gradient-primary);
             border: none;
             color: var(--color-background);
             padding: 15px;
@@ -637,18 +637,12 @@
             }
         }
     </style>
-    <!-- Fix for typo in upload-area border color -->
-    <style>
-        .upload-area {
-            border: 3px dashed rgba(230, 230, 250, 0.5);
-        }
-    </style>
 </head>
 <body>
     <header class="title-ribbon">
         <h1 class="main-title" id="homeButton">babygirl.</h1>
         <div class="score-window">
-            <span class="score-label">Average Score</span>
+            <span class="极score-label">Average Score</span>
             <span class="score-value" id="averageScore">0</span>
         </div>
     </header>
@@ -669,7 +663,7 @@
             </div>
             <div class="tab" data-tab="scoring">
                 <span class="tab-text">Scoring</span>
-            </div>
+            </极div>
         </nav>
 
         <main class="content-area" id="contentArea">
@@ -769,7 +763,7 @@
                 "Clothing-related": [
                     "I will skip on wearing panties for a week. You can check in on me any time I am free.",
                     "I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free",
-                    "I will inform you at least two days this week that I am wearing my black vest with no bra underneath, and you can decide what you want to do with me then."
+                    "I will inform you at least two days this week that I am wearing my black vest with no bra underneath极, and you can decide what you want to do with me then."
                 ],
                 "Mind-related": [
                     "A healthy body begets a healthy mind. I will do ten push-ups with you on a video call at least three times this week.",
@@ -792,7 +786,7 @@
                     "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each."
                 ],
                 "Special Submission": [
-                    "I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.",
+                    "极I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.",
                     "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission.",
                     "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in front of you. I'll stand back up and then give you a little twirl so you can appreciate every inch of me."
                 ],
@@ -928,7 +922,7 @@
 
         function showIntroScreen() {
             document.getElementById('contentArea').innerHTML = `
-                <div class="intro-screen">
+                <div class极="intro-screen">
                     <h2>${INTRO_TEXT.title}</h2>
                     <p>${INTRO_TEXT.description}</p>
                 </div>
@@ -949,7 +943,7 @@
 
         function showMindOptions() {
             const content = `
-                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h2>
+                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h极2>
                 ${MIND_OPTIONS.map(option => `
                     <div class="mind-option" onclick="handleMindClick('${option.replace(/'/g, "\\'")}')">
                         <span style="position: relative; z-index: 1;">${option}</span>
@@ -1019,7 +1013,7 @@
             const content = `
                 <h2 class="section-header">Marking for your completed tasks.</h2>
                 ${appState.scoringData.length === 0 ?
-                    '<p style="text-align: center; opacity: 0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No completed tasks to score yet.</p>' :
+                    '<p style="text-align: center; opacity: 极0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No completed tasks to score yet.</p>' :
                     `<table class="scoring-table">
                         <thead>
                             <tr>
@@ -1058,7 +1052,7 @@
         function handleDriveClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.driveNavigation, option].join(' → ');
-                showFloatingOutput(`Drive task completed: ${fullPath}`);
+                showF极loatingOutput(`Drive task completed: ${fullPath}`);
                 addToActiveTasks(`Drive: ${fullPath}`);
                 resetDriveNavigation();
             } else {
