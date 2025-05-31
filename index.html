@@ -149,37 +149,46 @@
             font-size: 极1.15rem;
         }
 
-        .content-area {
-            flex: 1;
-            padding: 35px;
-            background: var(--color-dark);
-            overflow-y: auto;
-            position: relative;
-        }
+       .content-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1a001a; /* solid color, no gradient */
+    min-height: 100%;
+}
 
         .intro-screen {
-            text-align: center;
-            padding: 80px 50px;
-            background: rgba(138, 43, 226, 0.12);
-            border-radius: 25px;
-            border: 2px solid rgba(230, 230, 250, 0.25);
-        }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    text-align: center;
+    background: #1a001a; /* solid, no gradient */
+    border-radius: 25px;
+    border: 2px solid rgba(230, 230, 250, 0.25);
+    margin: auto;
+    box-shadow: 0 4px 24px rgba(138, 43, 226, 0.08);
+    max-width: 700px;
+}
 
-        .intro-screen h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: var(--color-primary);
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
+.intro-screen h2 {
+    font-size: 2.6rem;
+    margin-bottom: 28px;
+    color: #E6E6FA;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px #4b0082;
+}
 
-        .intro-screen p {
-            font-size: 1.3rem;
-            line-height: 1.7;
-            opacity: 0.92;
-            max-width: 650px;
-            margin: 0 auto;
-        }
+.intro-screen p {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    opacity: 0.96;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #fff;
+}
 
         .task-card, .mind-option, .drive-option {
             background: rgba(138, 43, 226, 0.25);
@@ -824,9 +833,10 @@
         ];
 
         const INTRO_TEXT = {
-            title: "Welcome to your personal dashboard, babygirl",
-            description: "Here you can track your progress, complete tasks, and stay connected. Choose a tab from the left to begin your journey of growth and submission. Your devotion and obedience are what make our connection stronger every day."
-        };
+    title: "Welcome, my precious babygirl",
+    description: "This is your secret playground—a space for you to surrender, to grow, and to delight in your submission. Every task, every message, every moment here is for your pleasure and our connection. Let yourself be seen, adored, and guided. I want you to feel my presence in every word and every challenge. Show me your devotion, and let’s make every day a little more delicious, together."
+};
+        
 
         // ==========================================
         // EASILY EDITABLE TEXT CONTENT - END
