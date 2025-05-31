@@ -680,10 +680,10 @@
         ];
 
         const mindOptions = [
-            "I'm feeling submissive today",
-            "I want to please you more", 
-            "I'm thinking about our future",
-            "I need your guidance today"
+            "I think I can work in an interview today. 😋",
+            "Maybe I can take you along for a trip to the shower? 🚿", 
+            "I'd love a little one-on-one video call, maybe. 💞",
+            " Can you just teach me how to dirty-talk well with you? 😙"
         ];
 
         const driveOptions = {
@@ -855,7 +855,7 @@
 
         function showMindOptions() {
             const content = `
-                <h2 style="color: var(--color-primary); margin-bottom: 25px;">💭 What's on your mind</h2>
+                <h2 style="color: var(--color-primary); margin-bottom: 25px;">Tell me how you wish to interact today.</h2>
                 ${mindOptions.map(option => `
                     <div class="mind-option" onclick="handleMindClick('${option}')">
                         <span style="position: relative; z-index: 1;">${option}</span>
