@@ -3,423 +3,1145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Babygirl</title>
+    <title>babygirl</title>
     <style>
-        body {
+        :root {
+            --color-background: #000000;
+            --color-primary: #E6E6FA;
+            --color-secondary: #8A2BE2;
+            --color-accent: #4B0082;
+            --color-text: #FFFFFF;
+            --color-dark: #1a001a;
+            --gradient-primary: linear-gradient(135deg, #8A2BE2, #E6E6FA);
+            --gradient-dark: linear-gradient(135deg, #4B0082, #000000);
+            --shadow-elegant: 0 8px 32px rgba(138, 43, 226, 0.3);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: black;
-            color: white;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--color-background);
+            color: var(--color-text);
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            overflow: hidden;
         }
-        #title-ribbon {
-            background: linear-gradient(90deg, violet, lavender);
-            color: white;
+
+        /* Title Ribbon */
+        .title-ribbon {
+            background: var(--gradient-primary);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            box-shadow: var(--shadow-elegant);
+            position: relative;
+            z-index: 100;
+        }
+
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: 'Georgia', serif;
+            letter-spacing: 2px;
+            color: var(--color-text);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-title:hover {
+            transform: scale(1.05);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .score-window {
+            background: rgba(75, 0, 130, 0.8);
+            padding: 10px 20px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(230, 230, 250, 0.3);
+        }
+
+        .score-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--gradient-dark);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 5px 0 15px rgba(138, 43, 226, 0.2);
+        }
+
+        .tab {
+            padding: 20px 30px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border-bottom: 1px solid rgba(230, 230, 250, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: var(--transition-smooth);
+            z-index: -1;
+        }
+
+        .tab:hover::before {
+            left: 0;
+        }
+
+        .tab:hover {
+            transform: translateX(10px) scale(1.02);
+            color: var(--color-background);
+            font-weight: 600;
+        }
+
+        .tab.active {
+            background: var(--gradient-primary);
+            color: var(--color-background);
+            font-weight: 600;
+            transform: translateX(10px);
+        }
+
+        .tab-text {
+            position: relative;
+            z-index: 1;
+            font-size: 1.1rem;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            background: var(--color-dark);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .intro-screen {
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 20px;
+            border: 2px solid rgba(230, 230, 250, 0.2);
+        }
+
+        .intro-screen h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--color-primary);
+            font-weight: 300;
+        }
+
+        .intro-screen p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Task Cards */
+        .task-card, .mind-option, .drive-option {
+            background: rgba(138, 43, 226, 0.2);
+            border: 2px solid rgba(230, 230, 250, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-card::before, .mind-option::before, .drive-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: var(--transition-smooth);
+            z-index: -1;
+        }
+
+        .task-card:hover::before, .mind-option:hover::before, .drive-option:hover::before {
+            left: 0;
+        }
+
+        .task-card:hover, .mind-option:hover, .drive-option:hover {
+            transform: translateY(-5px) scale(1.02);
+            color: var(--color-background);
+            box-shadow: var(--shadow-elegant);
+        }
+
+        /* Drive Navigation */
+        .drive-breadcrumb {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb-item {
+            background: rgba(75, 0, 130, 0.6);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .breadcrumb-item:hover {
+            background: var(--color-secondary);
+            transform: scale(1.05);
+        }
+
+        .breadcrumb-separator {
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        /* Active Tasks */
+        .active-task {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
-            font-size: 1.5em;
-            font-weight: bold;
-            user-select: none;
-        }
-        #title-text {
-            cursor: pointer;
-            flex-grow: 1;
-            text-align: center;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-        }
-        #average-score {
-            font-size: 1em;
-            background-color: rgba(75, 0, 130, 0.7);
-            padding: 5px 10px;
+            background: rgba(138, 43, 226, 0.15);
+            border: 1px solid rgba(230, 230, 250, 0.2);
             border-radius: 10px;
-            cursor: default;
-        }
-        #left-panel {
-            background-color: #4b0082;
-            width: 200px;
-            display: flex;
-            flex-direction: column;
-            padding: 10px 0;
-            flex-shrink: 0;
-        }
-        .tab {
             padding: 15px 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid lavender;
-            user-select: none;
+            margin: 10px 0;
         }
-        .tab:hover {
-            background-color: lavender;
-            color: black;
-            font-weight: bold;
-            transform: scale(1.05);
-        }
-        #main-content {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-            background-color: #1a001a;
-            color: white;
-            font-size: 1.2em;
-        }
-        #bottom-ribbon {
-            background-color: #4b0082;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-        }
-        #bottom-ribbon button {
-            background-color: lavender;
+
+        .done-button {
+            background: var(--gradient-primary);
             border: none;
-            color: black;
-            padding: 10px 20px;
-            font-size: 1em;
+            color: var(--color-background);
+            padding: 8px 15px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 5px;
-            user-select: none;
+            font-weight: 600;
+            transition: var(--transition-smooth);
         }
-        #bottom-ribbon button:hover {
-            background-color: violet;
-            color: white;
+
+        .done-button:hover {
             transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
         }
-        #btn-weekly-tasks {
-            flex-grow: 1;
-            max-width: 300px;
-            font-weight: bold;
-        }
-        #floating-output {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(75, 0, 130, 0.9);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px violet;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-            max-width: 300px;
-            font-size: 1em;
-            z-index: 1000;
-        }
-        .mind-option, .drive-option, .pending-task, .active-task {
-            padding: 12px;
-            margin: 8px 0;
-            background: rgba(138, 43, 226, 0.3);
-            border: 1px solid lavender;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .mind-option:hover, .drive-option:hover, .pending-task:hover, .active-task:hover {
-            background: rgba(138, 43, 226, 0.7);
-            transform: scale(1.02);
-        }
-        .drive-panel {
-            display: none;
-            flex-direction: column;
-        }
-        .drive-panel.show {
-            display: flex;
-        }
+
+        /* Scoring Table */
         .scoring-table {
             width: 100%;
             border-collapse: collapse;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-elegant);
         }
-        .scoring-table th, .scoring-table td {
-            border: 1px solid lavender;
-            padding: 8px;
+
+        .scoring-table th {
+            background: var(--gradient-primary);
+            color: var(--color-background);
+            padding: 15px;
+            font-weight: 600;
             text-align: left;
         }
-        #chatbox {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            background-color: rgba(75, 0, 130, 0.9);
-            width: 300px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px violet;
-            font-size: 1em;
-            z-index: 1000;
-            display: none;
+
+        .scoring-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(230, 230, 250, 0.1);
         }
-        #chatbox-content {
-            max-height: 200px;
+
+        .scoring-table tr:hover {
+            background: rgba(138, 43, 226, 0.2);
+        }
+
+        .score-input {
+            background: rgba(230, 230, 250, 0.1);
+            border: 2px solid rgba(230, 230, 250, 0.3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--color-text);
+            width: 80px;
+            text-align: center;
+        }
+
+        .score-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+
+        /* Bottom Ribbon */
+        .bottom-ribbon {
+            height: 80px;
+            background: var(--gradient-dark);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 30px;
+            box-shadow: 0 -5px 15px rgba(138, 43, 226, 0.2);
+        }
+
+        .bottom-btn {
+            background: var(--gradient-primary);
+            border: none;
+            color: var(--color-background);
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bottom-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-elegant);
+        }
+
+        .weekly-tasks-btn {
+            flex: 1;
+            max-width: 300px;
+            margin: 0 20px;
+            font-size: 1.1rem;
+            padding: 18px 30px;
+        }
+
+        /* Floating Output */
+        .floating-output {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: rgba(75, 0, 130, 0.95);
+            color: var(--color-text);
+            padding: 20px 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-elegant);
+            max-width: 350px;
+            transform: translateX(100%);
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(230, 230, 250, 0.3);
+            z-index: 1000;
+        }
+
+        .floating-output.show {
+            transform: translateX(0);
+        }
+
+        /* Chatbox */
+        .chatbox {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 400px;
+            background: rgba(75, 0, 130, 0.95);
+            border-radius: 15px;
+            box-shadow: var(--shadow-elegant);
+            display: none;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(230, 230, 250, 0.3);
+            z-index: 1000;
+        }
+
+        .chatbox.show {
+            display: flex;
+        }
+
+        .chat-header {
+            background: var(--gradient-primary);
+            color: var(--color-background);
+            padding: 15px 20px;
+            border-radius: 15px 15px 0 0;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: var(--color-background);
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-close:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
             overflow-y: auto;
-            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        #chatbox-input {
-            width: calc(100% - 20px);
-            margin: 10px;
-            background: lavender;
+
+        .chat-message {
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .chat-message.dom {
+            background: var(--gradient-primary);
+            color: var(--color-background);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-message.sub {
+            background: rgba(230, 230, 250, 0.2);
+            color: var(--color-text);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-input-container {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(230, 230, 250, 0.1);
+            border: 2px solid rgba(230, 230, 250, 0.3);
+            border-radius: 20px;
+            padding: 10px 15px;
+            color: var(--color-text);
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: var(--color-primary);
+        }
+
+        .chat-send {
+            background: var(--gradient-primary);
             border: none;
-            padding: 8px;
-            border-radius: 5px;
+            color: var(--color-background);
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
         }
-        #upload-window {
+
+        .chat-send:hover {
+            transform: scale(1.05);
+        }
+
+        /* Upload Window */
+        .upload-window {
             position: fixed;
-            bottom: 80px;
-            right: 20px;
-            background-color: rgba(75, 0, 130, 0.9);
-            width: 300px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px violet;
-            padding: 10px;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            background: rgba(75, 0, 130, 0.95);
+            border-radius: 15px;
+            box-shadow: var(--shadow-elegant);
+            padding: 20px;
             display: none;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(230, 230, 250, 0.3);
             z-index: 1000;
         }
-        #upload-window label, #upload-window input, #upload-window button {
+
+        .upload-window.show {
             display: block;
-            margin: 8px 0;
         }
-        #upload-window input[type="file"] {
-            background: lavender;
-            border: none;
-            padding: 8px;
-            border-radius: 5px;
-            width: calc(100% - 18px);
+
+        .upload-header {
+            color: var(--color-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
         }
-        #upload-window button {
-            background: lavender;
-            border: none;
-            padding: 8px;
-            border-radius: 5px;
+
+        .upload-area {
+            border: 2px dashed rgba(230, 230, 250, 0.5);
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: var(--transition-smooth);
             cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .upload-area:hover {
+            border-color: var(--color-primary);
+            background: rgba(230, 230, 250, 0.1);
+        }
+
+        .upload-file-input {
+            display: none;
+        }
+
+        .upload-submit {
             width: 100%;
-        }
-        #upload-window button:hover {
-            background: violet;
-            color: white;
-        }
-        .done-button {
-            background: lavender;
+            background: var(--gradient-primary);
             border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            margin-left: 10px;
+            color: var(--color-background);
+            padding: 12px;
+            border-radius: 10px;
             cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-smooth);
         }
-        .done-button:hover {
-            background: violet;
-            color: white;
+
+        .upload-submit:hover {
+            transform: scale(1.02);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 10px;
+            }
+            
+            .tab {
+                min-width: 150px;
+                padding: 15px 20px;
+            }
+            
+            .chatbox, .upload-window, .floating-output {
+                width: 90%;
+                right: 5%;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="title-ribbon">
-        <div id="title-text" tabindex="0" role="button" aria-label="Home button">babygirl</div>
-        <div id="average-score">Average Score: <span id="avg-score-value">0</span></div>
+    <!-- Title Ribbon -->
+    <header class="title-ribbon">
+        <h1 class="main-title" id="homeButton">babygirl</h1>
+        <div class="score-window">
+            <span class="score-label">Average Score</span>
+            <span class="score-value" id="averageScore">0</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="tab active" data-tab="intro">
+                <span class="tab-text">Pending Tasklist</span>
+            </div>
+            <div class="tab" data-tab="mind">
+                <span class="tab-text">What's on your mind</span>
+            </div>
+            <div class="tab" data-tab="drive">
+                <span class="tab-text">Drive</span>
+            </div>
+            <div class="tab" data-tab="active">
+                <span class="tab-text">Active Tasklist</span>
+            </div>
+            <div class="tab" data-tab="scoring">
+                <span class="tab-text">Scoring</span>
+            </div>
+        </nav>
+
+        <!-- Content Area -->
+        <main class="content-area" id="contentArea">
+            <div class="intro-screen">
+                <h2>Welcome to your personal dashboard, babygirl</h2>
+                <p>Here you can track your progress, complete tasks, and stay connected. Choose a tab from the left to begin your journey of growth and submission.</p>
+            </div>
+        </main>
     </div>
-    <div id="left-panel">
-        <div class="tab" id="tab-pending">Pending Tasklist</div>
-        <div class="tab" id="tab-mind">What's on your mind</div>
-        <div class="tab" id="tab-drive">Drive</div>
-        <div class="tab" id="tab-active">Active Tasklist</div>
-        <div class="tab" id="tab-scoring">Scoring</div>
+
+    <!-- Bottom Ribbon -->
+    <footer class="bottom-ribbon">
+        <button class="bottom-btn" id="chatboxBtn">
+            <span>💬 Chatbox</span>
+        </button>
+        <button class="bottom-btn weekly-tasks-btn" id="weeklyTasksBtn">
+            <span>📅 Weekly Passive Tasks</span>
+        </button>
+        <button class="bottom-btn" id="uploadBtn">
+            <span>📤 Upload</span>
+        </button>
+    </footer>
+
+    <!-- Floating Output -->
+    <div class="floating-output" id="floatingOutput"></div>
+
+    <!-- Chatbox -->
+    <div class="chatbox" id="chatbox">
+        <div class="chat-header">
+            <span>💬 Chat with Dom</span>
+            <button class="chat-close" id="chatClose">×</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message dom">Welcome, babygirl. How are you feeling today?</div>
+        </div>
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+            <button class="chat-send" id="chatSend">Send</button>
+        </div>
     </div>
-    <div id="main-content">
-        <div id="intro-screen">Welcome to your babygirl site. Placeholder intro text here.</div>
+
+    <!-- Upload Window -->
+    <div class="upload-window" id="uploadWindow">
+        <div class="upload-header">📤 Upload Task Proof</div>
+        <div class="upload-area" id="uploadArea">
+            <p>📷 Drop files here or click to select</p>
+            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">Photos and videos accepted</p>
+        </div>
+        <input type="file" class="upload-file-input" id="uploadFileInput" accept="image/*,video/*" multiple>
+        <button class="upload-submit" id="uploadSubmit">Upload Files</button>
     </div>
-    <div id="bottom-ribbon">
-        <button id="btn-chatbox">Chatbox</button>
-        <button id="btn-upload">Upload</button>
-        <button id="btn-weekly-tasks">Weekly Passive Tasks</button>
-    </div>
-    <div id="floating-output" aria-live="polite" aria-atomic="true"></div>
-    <div id="chatbox">
-        <div id="chatbox-content"></div>
-        <input id="chatbox-input" type="text" placeholder="Type a message...">
-    </div>
-    <div id="upload-window">
-        <label>Upload photo or video proof:</label>
-        <input type="file" id="upload-file" accept="image/*,video/*">
-        <button id="upload-submit">Upload</button>
-    </div>
+
     <script>
-        // Utility function to show floating output text
+        // Application State
+        const appState = {
+            currentTab: 'intro',
+            activeTasks: [],
+            scoringData: [],
+            driveNavigation: [],
+            chatMessages: [
+                { type: 'dom', text: 'Welcome, babygirl. How are you feeling today?' }
+            ]
+        };
+
+        // Task Data - Easily Editable
+        const pendingTasks = [
+            "Complete morning routine by 8 AM",
+            "Send progress photo before lunch",
+            "Complete assigned reading material", 
+            "Practice yoga for 30 minutes",
+            "Write daily reflection journal"
+        ];
+
+        const mindOptions = [
+            "I'm feeling submissive today",
+            "I want to please you more", 
+            "I'm thinking about our future",
+            "I need your guidance today"
+        ];
+
+        const driveOptions = {
+            level1: [
+                "Physical Tasks",
+                "Mental Challenges",
+                "Creative Expression"
+            ],
+            level2: {
+                "Physical Tasks": [
+                    "Exercise Routine",
+                    "Appearance Tasks", 
+                    "Discipline Training"
+                ],
+                "Mental Challenges": [
+                    "Learning Goals",
+                    "Meditation Practice",
+                    "Problem Solving"
+                ],
+                "Creative Expression": [
+                    "Art Projects",
+                    "Writing Tasks",
+                    "Performance"
+                ]
+            },
+            level3: {
+                "Exercise Routine": [
+                    "30-minute cardio session",
+                    "Strength training routine", 
+                    "Flexibility and stretching"
+                ],
+                "Appearance Tasks": [
+                    "Perfect makeup application",
+                    "Hair styling practice",
+                    "Outfit coordination"
+                ],
+                "Discipline Training": [
+                    "Posture maintenance",
+                    "Voice modulation practice",
+                    "Etiquette exercises"
+                ],
+                "Learning Goals": [
+                    "Read assigned chapter",
+                    "Study new language",
+                    "Research topic of interest"
+                ],
+                "Meditation Practice": [
+                    "10-minute mindfulness",
+                    "Breathing exercises",
+                    "Visualization techniques"
+                ],
+                "Problem Solving": [
+                    "Logic puzzle completion",
+                    "Strategic planning task",
+                    "Creative problem analysis"
+                ],
+                "Art Projects": [
+                    "Sketch daily subject",
+                    "Digital art creation",
+                    "Craft project completion"
+                ],
+                "Writing Tasks": [
+                    "Journal entry about feelings",
+                    "Creative story writing",
+                    "Letter of appreciation"
+                ],
+                "Performance": [
+                    "Dance routine practice",
+                    "Vocal exercises",
+                    "Acting scene study"
+                ]
+            }
+        };
+
+        const weeklyTasks = [
+            "Weekly reflection and goal setting",
+            "Deep cleaning and organization",
+            "Meal planning and preparation",
+            "Self-care routine assessment",
+            "Relationship check-in discussion"
+        ];
+
+        // Utility Functions
         function showFloatingOutput(text) {
-            const output = document.getElementById('floating-output');
+            const output = document.getElementById('floatingOutput');
             output.textContent = text;
-            output.style.opacity = '1';
-            output.style.pointerEvents = 'auto';
-            clearTimeout(output.hideTimeout);
-            output.hideTimeout = setTimeout(() => {
-                output.style.opacity = '0';
-                output.style.pointerEvents = 'none';
+            output.classList.add('show');
+            
+            setTimeout(() => {
+                output.classList.remove('show');
             }, 5000);
         }
 
-        // Home button functionality
-        const titleText = document.getElementById('title-text');
-        titleText.addEventListener('click', () => {
-            showIntroScreen();
-        });
-
-        function showIntroScreen() {
-            const mainContent = document.getElementById('main-content');
-            mainContent.innerHTML = '<div id="intro-screen">Welcome to your babygirl site. Placeholder intro text here.</div>';
+        function addToActiveTasks(taskText) {
+            if (appState.activeTasks.length >= 5) {
+                appState.activeTasks.shift();
+            }
+            appState.activeTasks.push({
+                id: Date.now(),
+                text: taskText,
+                timestamp: new Date()
+            });
         }
 
-        // Tabs and their content handlers
-        const tabs = document.querySelectorAll('#left-panel .tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                handleTabClick(tab.id);
+        function updateAverageScore() {
+            if (appState.scoringData.length === 0) {
+                document.getElementById('averageScore').textContent = '0';
+                return;
+            }
+            
+            const total = appState.scoringData.reduce((sum, item) => sum + item.score, 0);
+            const average = Math.round(total / appState.scoringData.length);
+            document.getElementById('averageScore').textContent = average;
+        }
+
+        // Tab Navigation
+        function switchTab(tabName) {
+            // Update tab visual state
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
             });
-        });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
 
-        // Example pending tasks (edit as needed)
-        const pendingTasks = [
-            'Task 1: Placeholder for pending task',
-            'Task 2: Another pending task',
-            'Task 3: One more pending task'
-        ];
+            // Update content area
+            const contentArea = document.getElementById('contentArea');
+            appState.currentTab = tabName;
 
-        // Example mind options (edit as needed)
-        const mindOptions = [
-            'Option 1: Placeholder for mind option',
-            'Option 2: Another mind option',
-            'Option 3: Yet another mind option',
-            'Option 4: Final mind option'
-        ];
-
-        // Example drive options (edit as needed)
-        const drivePanels = [
-            ['Drive Option A1', 'Drive Option B1', 'Drive Option C1'],
-            ['Drive Option A2', 'Drive Option B2', 'Drive Option C2'],
-            ['Drive Option A3', 'Drive Option B3', 'Drive Option C3']
-        ];
-
-        // Active tasks list (max 5)
-        let activeTasks = [];
-        // Scoring data
-        let scoringData = [];
-
-        function handleTabClick(tabId) {
-            const mainContent = document.getElementById('main-content');
-            switch(tabId) {
-                case 'tab-pending':
-                    mainContent.innerHTML = '<h2>Pending Tasklist</h2>';
-                    pendingTasks.forEach((task, i) => {
-                        const taskEl = document.createElement('div');
-                        taskEl.className = 'pending-task';
-                        taskEl.textContent = task;
-                        taskEl.addEventListener('click', () => {
-                            showFloatingOutput(`Pending task output: ${task}`);
-                        });
-                        mainContent.appendChild(taskEl);
-                    });
+            switch(tabName) {
+                case 'intro':
+                    showIntroScreen();
                     break;
-                case 'tab-mind':
-                    mainContent.innerHTML = '<h2>What\'s on your mind</h2>';
-                    mindOptions.forEach((option, i) => {
-                        const optionEl = document.createElement('div');
-                        optionEl.className = 'mind-option';
-                        optionEl.textContent = option;
-                        optionEl.addEventListener('click', () => {
-                            showFloatingOutput(`Mind option output: ${option}`);
-                        });
-                        mainContent.appendChild(optionEl);
-                    });
+                case 'mind':
+                    showMindOptions();
                     break;
-                case 'tab-drive':
-                    mainContent.innerHTML = '<h2>Drive</h2><div id="drive-panel-1"></div>';
-                    const panel1 = document.getElementById('drive-panel-1');
-                    drivePanels[0].forEach((option, i) => {
-                        const optionEl = document.createElement('div');
-                        optionEl.className = 'drive-option';
-                        optionEl.textContent = option;
-                        optionEl.addEventListener('click', () => {
-                            showFloatingOutput(`Drive option output: ${option}`);
-                        });
-                        panel1.appendChild(optionEl);
-                    });
-                    // For full cascading effect, add more panels and event listeners as needed
+                case 'drive':
+                    showDriveOptions();
                     break;
-                case 'tab-active':
-                    mainContent.innerHTML = '<h2>Active Tasklist</h2>';
-                    activeTasks.forEach((task, i) => {
-                        const taskEl = document.createElement('div');
-                        taskEl.className = 'active-task';
-                        taskEl.textContent = task;
-                        // In a real app, only show "done" button for dom if logged in as dom
-                        if (confirm("Are you the dom? (For demo, click OK)")) {
-                            const doneBtn = document.createElement('button');
-                            doneBtn.className = 'done-button';
-                            doneBtn.textContent = 'Done';
-                            doneBtn.addEventListener('click', () => {
-                                activeTasks.splice(i, 1);
-                                handleTabClick('tab-active');
-                            });
-                            taskEl.appendChild(doneBtn);
-                        }
-                        mainContent.appendChild(taskEl);
-                    });
+                case 'active':
+                    showActiveTasks();
                     break;
-                case 'tab-scoring':
-                    mainContent.innerHTML = '<h2>Scoring</h2><table class="scoring-table"><tr><th>Task</th><th>Score (out of 100)</th></tr></table>';
-                    const table = mainContent.querySelector('.scoring-table');
-                    scoringData.forEach((score, i) => {
-                        const row = document.createElement('tr');
-                        const taskCell = document.createElement('td');
-                        taskCell.textContent = score.task;
-                        const scoreCell = document.createElement('td');
-                        scoreCell.textContent = score.score;
-                        row.appendChild(taskCell);
-                        row.appendChild(scoreCell);
-                        table.appendChild(row);
-                    });
+                case 'scoring':
+                    showScoring();
                     break;
                 default:
-                    mainContent.innerHTML = '<div>Unknown tab.</div>';
+                    showPendingTasks();
             }
         }
 
-        // Chatbox functionality
-        const chatboxBtn = document.getElementById('btn-chatbox');
-        const chatbox = document.getElementById('chatbox');
-        const chatboxContent = document.getElementById('chatbox-content');
-        const chatboxInput = document.getElementById('chatbox-input');
-        chatboxBtn.addEventListener('click', () => {
-            chatbox.style.display = chatbox.style.display === 'block' ? 'none' : 'block';
-        });
-        chatboxInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && chatboxInput.value) {
-                const msg = document.createElement('div');
-                msg.textContent = chatboxInput.value;
-                chatboxContent.appendChild(msg);
-                chatboxInput.value = '';
-                chatboxContent.scrollTop = chatboxContent.scrollHeight;
+        function showIntroScreen() {
+            document.getElementById('contentArea').innerHTML = `
+                <div class="intro-screen">
+                    <h2>Welcome to your personal dashboard, babygirl</h2>
+                    <p>Here you can track your progress, complete tasks, and stay connected. Choose a tab from the left to begin your journey of growth and submission.</p>
+                </div>
+            `;
+        }
+
+        function showPendingTasks() {
+            const content = `
+                <h2 style="color: var(--color-primary); margin-bottom: 25px;">📋 Pending Tasklist</h2>
+                ${pendingTasks.map(task => `
+                    <div class="task-card" onclick="handleTaskClick('${task}')">
+                        <span style="position: relative; z-index: 1;">${task}</span>
+                    </div>
+                `).join('')}
+            `;
+            document.getElementById('contentArea').innerHTML = content;
+        }
+
+        function showMindOptions() {
+            const content = `
+                <h2 style="color: var(--color-primary); margin-bottom: 25px;">💭 What's on your mind</h2>
+                ${mindOptions.map(option => `
+                    <div class="mind-option" onclick="handleMindClick('${option}')">
+                        <span style="position: relative; z-index: 1;">${option}</span>
+                    </div>
+                `).join('')}
+            `;
+            document.getElementById('contentArea').innerHTML = content;
+        }
+
+        function showDriveOptions() {
+            const breadcrumb = appState.driveNavigation.length > 0 ? 
+                `<div class="drive-breadcrumb">
+                    <span class="breadcrumb-item" onclick="resetDriveNavigation()">🏠 Start</span>
+                    ${appState.driveNavigation.map((item, index) => `
+                        <span class="breadcrumb-separator">→</span>
+                        <span class="breadcrumb-item" onclick="navigateDriveTo(${index})">${item}</span>
+                    `).join('')}
+                </div>` : '';
+
+            let content = `
+                <h2 style="color: var(--color-primary); margin-bottom: 25px;">🎯 Drive</h2>
+                ${breadcrumb}
+            `;
+
+            if (appState.driveNavigation.length === 0) {
+                // Level 1
+                content += driveOptions.level1.map(option => `
+                    <div class="drive-option" onclick="handleDriveClick('${option}', 1)">
+                        <span style="position: relative; z-index: 1;">${option}</span>
+                    </div>
+                `).join('');
+            } else if (appState.driveNavigation.length === 1) {
+                // Level 2
+                const level1Choice = appState.driveNavigation[0];
+                content += driveOptions.level2[level1Choice].map(option => `
+                    <div class="drive-option" onclick="handleDriveClick('${option}', 2)">
+                        <span style="position: relative; z-index: 1;">${option}</span>
+                    </div>
+                `).join('');
+            } else if (appState.driveNavigation.length === 2) {
+                // Level 3
+                const level2Choice = appState.driveNavigation[1];
+                content += driveOptions.level3[level2Choice].map(option => `
+                    <div class="drive-option" onclick="handleDriveClick('${option}', 3)">
+                        <span style="position: relative; z-index: 1;">${option}</span>
+                    </div>
+                `).join('');
             }
-        });
 
-        // Upload window functionality
-        const uploadBtn = document.getElementById('btn-upload');
-        const uploadWindow = document.getElementById('upload-window');
-        uploadBtn.addEventListener('click', () => {
-            uploadWindow.style.display = uploadWindow.style.display === 'block' ? 'none' : 'block';
-        });
-        document.getElementById('upload-submit').addEventListener('click', () => {
-            showFloatingOutput('File uploaded. Placeholder for upload confirmation.');
-            uploadWindow.style.display = 'none';
-        });
+            document.getElementById('contentArea').innerHTML = content;
+        }
 
-        // Weekly passive tasks button
-        const weeklyTasksBtn = document.getElementById('btn-weekly-tasks');
-        weeklyTasksBtn.addEventListener('click', () => {
-            showFloatingOutput('Weekly passive tasks output.');
-        });
+        function showActiveTasks() {
+            const content = `
+                <h2 style="color: var(--color-primary); margin-bottom: 25px;">✅ Active Tasklist</h2>
+                ${appState.activeTasks.length === 0 ? 
+                    '<p style="text-align: center; opacity: 0.7; font-style: italic;">No active tasks yet. Complete tasks from other tabs to see them here.</p>' :
+                    appState.activeTasks.map(task => `
+                        <div class="active-task">
+                            <span>${task.text}</span>
+                            <button class="done-button" onclick="markTaskDone(${task.id})">Done</button>
+                        </div>
+                    `).join('')
+                }
+            `;
+            document.getElementById('contentArea').innerHTML = content;
+        }
 
-        // Initialize with intro screen
-        showIntroScreen();
+        function showScoring() {
+            const content = `
+                <h2 style="color: var(--color-primary); margin-bottom: 25px;">📊 Scoring</h2>
+                ${appState.scoringData.length === 0 ? 
+                    '<p style="text-align: center; opacity: 0.7; font-style: italic;">No completed tasks to score yet.</p>' :
+                    `<table class="scoring-table">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Score (out of 100)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${appState.scoringData.map(item => `
+                                <tr>
+                                    <td>${item.text}</td>
+                                    <td>
+                                        <input type="number" class="score-input" min="0" max="100" 
+                                               value="${item.score}" 
+                                               onchange="updateScore(${item.id}, this.value)">
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>`
+                }
+            `;
+            document.getElementById('contentArea').innerHTML = content;
+        }
+
+        // Event Handlers
+        function handleTaskClick(task) {
+            showFloatingOutput(`Task noted: ${task}`);
+            addToActiveTasks(task);
+        }
+
+        function handleMindClick(option) {
+            showFloatingOutput(`Mind state: ${option}`);
+            addToActiveTasks(option);
+        }
+
+        function handleDriveClick(option, level) {
+            if (level === 3) {
+                const fullPath = [...appState.driveNavigation, option].join(' → ');
+                showFloatingOutput(`Drive path completed: ${fullPath}`);
+                addToActiveTasks(`Drive: ${fullPath}`);
+                resetDriveNavigation();
+            } else {
+                appState.driveNavigation.push(option);
+                showDriveOptions();
+            }
+        }
+
+        function resetDriveNavigation() {
+            appState.driveNavigation = [];
+            showDriveOptions();
+        }
+
+        function navigateDriveTo(index) {
+            appState.driveNavigation = appState.driveNavigation.slice(0, index + 1);
+            showDriveOptions();
+        }
+
+        function markTaskDone(taskId) {
+            const taskIndex = appState.activeTasks.findIndex(task => task.id === taskId);
+            if (taskIndex !== -1) {
+                const task = appState.activeTasks[taskIndex];
+                appState.scoringData.push({
+                    id: task.id,
+                    text: task.text,
+                    score: 0
+                });
+                appState.activeTasks.splice(taskIndex, 1);
+                showActiveTasks();
+                updateAverageScore();
+            }
+        }
+
+        function updateScore(taskId, newScore) {
+            const task = appState.scoringData.find(item => item.id === taskId);
+            if (task) {
+                task.score = parseInt(newScore) || 0;
+                updateAverageScore();
+            }
+        }
+
+        // Chat Functionality
+        function toggleChatbox() {
+            const chatbox = document.getElementById('chatbox');
+            chatbox.classList.toggle('show');
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addChatMessage('sub', message);
+                input.value = '';
+                
+                // Simulate dom response
+                setTimeout(() => {
+                    const responses = [
+                        "Good girl, keep it up.",
+                        "I'm proud of your progress.",
+                        "Remember to focus on your tasks.",
+                        "You're doing wonderfully, babygirl.",
+                        "I love hearing from you."
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addChatMessage('dom', randomResponse);
+                }, 1000 + Math.random() * 2000);
+            }
+        }
+
+        function addChatMessage(type, text) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${type}`;
+            messageDiv.textContent = text;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            appState.chatMessages.push({ type, text });
+        }
+
+        // Upload Functionality
+        function toggleUploadWindow() {
+            const uploadWindow = document.getElementById('uploadWindow');
+            uploadWindow.classList.toggle('show');
+        }
+
+        function handleFileUpload() {
+            const fileInput = document.getElementById('uploadFileInput');
+            const files = fileInput.files;
+            
+            if (files.length > 0) {
+                const fileNames = Array.from(files).map(file => file.name).join(', ');
+                showFloatingOutput(`Files uploaded successfully: ${fileNames}`);
+                toggleUploadWindow();
+                fileInput.value = '';
+            } else {
+                showFloatingOutput('Please select files to upload.');
+            }
+        }
+
+        // Weekly Tasks
+        function handleWeeklyTasks() {
+            const randomTask = weeklyTasks[Math.floor(Math.random() * weeklyTasks.length)];
+            showFloatingOutput(`Weekly task: ${randomTask}`);
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab navigation
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    if (tabName === 'intro') {
+                        switchTab('intro');
+                    } else {
+                        switchTab(tabName);
+                    }
+                });
+            });
+
+            // Home button
+            document.getElementById('homeButton').addEventListener('click', function() {
+                switchTab('intro');
+            });
+
+            // Bottom ribbon buttons
+            document.getElementById('chatboxBtn').addEventListener('click', toggleChatbox);
+            document.getElementById('uploadBtn').addEventListener('click', toggleUploadWindow);
+            document.getElementById('weeklyTasksBtn').addEventListener('click', handleWeeklyTasks);
+
+            // Chat functionality
+            document.getElementById('chatClose').addEventListener('click', toggleChatbox);
+            document.getElementById('chatSend').addEventListener('click', sendChatMessage);
+            document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendChatMessage();
+                }
+            });
+
+            // Upload functionality
+            document.getElementById('uploadArea').addEventListener('click', function() {
+                document.getElementById('uploadFileInput').click();
+            });
+            document.getElementById('uploadSubmit').addEventListener('click', handleFileUpload);
+
+            // Drag and drop for uploads
+            const uploadArea = document.getElementById('uploadArea');
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.borderColor = 'var(--color-primary)';
+                this.style.background = 'rgba(230, 230, 250, 0.1)';
+            });
+            
+            uploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.style.borderColor = 'rgba(230, 230, 250, 0.5)';
+                this.style.background = 'transparent';
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.borderColor = 'rgba(230, 230, 250, 0.5)';
+                this.style.background = 'transparent';
+                
+                const files = e.dataTransfer.files;
+                document.getElementById('uploadFileInput').files = files;
+            });
+
+            // Initialize with pending tasks
+            switchTab('intro');
+            updateAverageScore();
+        });
     </script>
 </body>
 </html>
