@@ -613,6 +613,45 @@
             }
         }
     </style>
+    <!-- Add this new CSS for upload history -->
+<style>
+    .upload-history {
+        margin-top: 20px;
+        border-top: 2px solid rgba(230, 230, 250, 0.3);
+        padding-top: 15px;
+    }
+
+    .upload-item {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        padding: 10px;
+        background: rgba(138, 43, 226, 0.15);
+        border-radius: 8px;
+    }
+
+    .upload-thumbnail {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 15px;
+    }
+
+    .upload-info {
+        flex: 1;
+    }
+
+    .upload-name {
+        font-size: 0.9rem;
+        display: block;
+    }
+
+    .upload-date {
+        font-size: 0.8rem;
+        opacity: 0.7;
+    }
+</style>
 </head>
 <body>
     <!-- Title Ribbon -->
@@ -687,14 +726,20 @@
 
     <!-- Upload Window -->
     <div class="upload-window" id="uploadWindow">
-        <div class="upload-header">📤 Upload Task Proof</div>
-        <div class="upload-area" id="uploadArea">
-            <p>📷 Drop files here or click to select</p>
-            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">Photos and videos accepted</p>
-        </div>
-        <input type="file" class="upload-file-input" id="uploadFileInput" accept="image/*,video/*" multiple>
-        <button class="upload-submit" id="uploadSubmit">Upload Files</button>
+    <div class="upload-header">📤 Upload Task Proof</div>
+    <div class="upload-area" id="uploadArea">
+        <p>📷 Drop files here or click to select</p>
+        <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">Photos and videos accepted</p>
     </div>
+    <input type="file" class="upload-file-input" id="uploadFileInput" accept="image/*,video/*" multiple>
+    <button class="upload-submit" id="uploadSubmit">Upload Files</button>
+    
+    <!-- Upload History Section -->
+    <div class="upload-history">
+        <h3>Upload History</h3>
+        <div id="uploadList"></div>
+    </div>
+</div>
 
     <script>
         // ==========================================
@@ -826,16 +871,22 @@
             chatMessages: JSON.parse(localStorage.getItem('chatMessages')) || [
                 { type: 'dom', text: 'Welcome, babygirl. How are you feeling today?' }
             ]
+            uploads: JSON.parse(localStorage.getItem('uploads')) || []
         };
 
         // Utility Functions
         function saveToLocalStorage(key, data) {
-            try {
-                localStorage.setItem(key, JSON.stringify(data));
-            } catch (e) {
-                console.error('Error saving to localStorage:', e);
+        try {
+            localStorage.setItem(key, JSON.stringify(data));
+        } catch (e) {
+            console.error('Error saving to localStorage:', e);
+            // Clear old uploads if storage is full
+            if(e.name === 'QuotaExceededError') {
+                appState.uploads = [];
+                localStorage.setItem('uploads', '[]');
             }
         }
+    }
 
         function showFloatingOutput(text) {
             const output = document.getElementById('floatingOutput');
@@ -1147,18 +1198,55 @@
         }
 
         function handleFileUpload() {
-            const fileInput = document.getElementById('uploadFileInput');
-            const files = fileInput.files;
+        const fileInput = document.getElementById('uploadFileInput');
+        const files = fileInput.files;
+        
+        if (files.length > 0) {
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    appState.uploads.unshift({
+                        name: file.name,
+                        type: file.type,
+                        data: e.target.result.split(',')[1], // Store base64 without prefix
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    // Keep only last 20 uploads
+                    if (appState.uploads.length > 20) appState.uploads.pop();
+                    
+                    saveToLocalStorage('uploads', appState.uploads);
+                    updateUploadDisplay();
+                };
+                reader.readAsDataURL(file);
+            });
             
-            if (files.length > 0) {
-                const fileNames = Array.from(files).map(file => file.name).join(', ');
-                showFloatingOutput(`Files uploaded successfully: ${fileNames}`);
-                toggleUploadWindow();
-                fileInput.value = '';
-            } else {
-                showFloatingOutput('Please select files to upload.');
-            }
+            showFloatingOutput(`Files uploaded successfully: ${Array.from(files).map(f => f.name).join(', ')}`);
+            toggleUploadWindow();
+            fileInput.value = '';
+        } else {
+            showFloatingOutput('Please select files to upload.');
         }
+    }
+     function updateUploadDisplay() {
+        const uploadList = document.getElementById('uploadList');
+        uploadList.innerHTML = appState.uploads.map(upload => `
+            <div class="upload-item">
+                ${upload.type.startsWith('image/') ? 
+                    `<img src="data:${upload.type};base64,${upload.data}" class="upload-thumbnail">` : 
+                    upload.type.startsWith('video/') ?
+                    `<video controls class="upload-thumbnail">
+                        <source src="data:${upload.type};base64,${upload.data}" type="${upload.type}">
+                    </video>` :
+                    `<div class="upload-thumbnail">📄</div>`
+                }
+                <div class="upload-info">
+                    <span class="upload-name">${upload.name}</span>
+                    <span class="upload-date">${new Date(upload.timestamp).toLocaleString()}</span>
+                </div>
+            </div>
+        `).join('');
+    }
 
         // Weekly Tasks
         function handleWeeklyTasks() {
@@ -1182,6 +1270,8 @@
         }
 
         // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+        updateUploadDisplay();
         document.addEventListener('DOMContentLoaded', function() {
             // Tab navigation
             document.querySelectorAll('.tab').forEach(tab => {
