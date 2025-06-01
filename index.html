@@ -987,22 +987,28 @@
 
        
         document.addEventListener('DOMContentLoaded', function() {
-            updateUploadDisplay();
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabName = this.getAttribute('data-tab');
-                    switchTab(tabName);
-                });
-            });
-            document.getElementById('homeButton').addEventListener('click', function() {
-                showIntroScreen();
-                document.querySelectorAll('.tab').forEach(tab => {
-                    tab.classList.remove('active');
-                });
-            document.getElementById('weeklyTasksBtn').addEventListener('click', handleWeeklyTasks);
-            showIntroScreen();
-            });
-            });
+    // Attach tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const tabName = this.getAttribute('data-tab');
+            switchTab(tabName);
+        });
+    });
+
+    // Attach home button
+    document.getElementById('homeButton').addEventListener('click', function() {
+        showIntroScreen();
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+    });
+
+    // Attach weekly tasks button
+    document.getElementById('weeklyTasksBtn').addEventListener('click', handleWeeklyTasks);
+
+    // Show intro screen
+    showIntroScreen();
+});
     </script>
 </body>
 </html>
