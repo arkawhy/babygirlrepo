@@ -864,12 +864,6 @@
                 case 'drive':
                     showDriveOptions();
                     break;
-                case 'active':
-                    showActiveTasks();
-                    break;
-                case 'scoring':
-                    showScoring();
-                    break;
                 default:
                     showIntroScreen();
             }
@@ -952,52 +946,7 @@
             document.getElementById('contentArea').innerHTML = content;
         }
 
-        function showActiveTasks() {
-            const content = `
-                <h2 class="section-header">All your active tasks.</h2>
-                ${appState.activeTasks.length === 0 ?
-                    '<p style="text-align: center; opacity: 0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No active tasks yet. Complete tasks from other tabs to see them here.</p>' :
-                    appState.activeTasks.map(task => `
-                        <div class="active-task">
-                            <span>${task.text}</span>
-                            <button class="done-button" onclick="markTaskDone(${task.id})" title="Dom Only">Done</button>
-                        </div>
-                    `).join('')
-                }
-            `;
-            document.getElementById('contentArea').innerHTML = content;
-        }
-
-        function showScoring() {
-            const content = `
-                <h2 class="section-header">Marking for your completed tasks.</h2>
-                ${appState.scoringData.length === 0 ?
-                    '<p style="text-align: center; opacity: 极0.7; font-style: italic; font-size: 1.2rem; margin-top: 40px;">No completed tasks to score yet.</p>' :
-                    `<table class="scoring-table">
-                        <thead>
-                            <tr>
-                                <th>Task</th>
-                                <th>Score (out of 100)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${appState.scoringData.map(item => `
-                                <tr>
-                                    <td>${item.text}</td>
-                                    <td>
-                                        <input type="number" class="score-input" min="0" max="100"
-                                               value="${item.score}"
-                                               onchange="updateScore(${item.id}, this.value)">
-                                    </td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>`
-                }
-            `;
-            document.getElementById('contentArea').innerHTML = content;
-        }
-
+              
         function handleTaskClick(task) {
             showFloatingOutput(`Task added: ${task}`);
             }
@@ -1029,136 +978,14 @@
             showDriveOptions();
         }
 
-        function markTaskDone(taskId) {
-            const taskIndex = appState.activeTasks.findIndex(task => task.id === taskId);
-            if (taskIndex !== -1) {
-                const task = appState.activeTasks[taskIndex];
-                appState.scoringData.push({
-                    id: task.id,
-                    text: task.text,
-                    score: 0
-                });
-                appState.activeTasks.splice(taskIndex, 1);
-                saveToLocalStorage('activeTasks', appState.activeTasks);
-                saveToLocalStorage('scoringData', appState.scoringData);
-                showActiveTasks();
-                updateAverageScore();
-                showFloatingOutput('Task marked as done and moved to scoring!');
-            }
-        }
-
-        function updateScore(taskId, newScore) {
-            const task = appState.scoringData.find(item => item.id === taskId);
-            if (task) {
-                task.score = parseInt(newScore) || 0;
-                saveToLocalStorage('scoringData', appState.scoringData);
-                updateAverageScore();
-            }
-        }
-
-        function toggleChatbox() {
-            const chatbox = document.getElementById('chatbox');
-            chatbox.classList.toggle('show');
-            if (chatbox.classList.contains('show')) {
-                setTimeout(() => {
-                    document.getElementById('chatInput').focus();
-                }, 100);
-            }
-        }
-
-        function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            if (message) {
-                addChatMessage('sub', message);
-                input.value = '';
-                setTimeout(() => {
-                    const randomResponse = DOM_RESPONSES[Math.floor(Math.random() * DOM_RESPONSES.length)];
-                    addChatMessage('dom', randomResponse);
-                }, 1000 + Math.random() * 2000);
-            }
-        }
-
-        function addChatMessage(type, text) {
-            const messagesContainer = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message ${type}`;
-            messageDiv.textContent = text;
-            messagesContainer.appendChild(messageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            appState.chatMessages.push({ type, text });
-            saveToLocalStorage('chatMessages', appState.chatMessages);
-        }
-
-        function toggleUploadWindow() {
-            const uploadWindow = document.getElementById('uploadWindow');
-            uploadWindow.classList.toggle('show');
-        }
-
-        function handleFileUpload() {
-            const fileInput = document.getElementById('uploadFileInput');
-            const files = fileInput.files;
-            if (files.length > 0) {
-                Array.from(files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        appState.uploads.unshift({
-                            name: file.name,
-                            type: file.type,
-                            data: e.target.result.split(',')[1],
-                            timestamp: new Date().toISOString()
-                        });
-                        if (appState.uploads.length > 20) appState.uploads.pop();
-                        saveToLocalStorage('uploads', appState.uploads);
-                        updateUploadDisplay();
-                    };
-                    reader.readAsDataURL(file);
-                });
-                showFloatingOutput(`Files uploaded successfully: ${Array.from(files).map(f => f.name).join(', ')}`);
-                toggleUploadWindow();
-                fileInput.value = '';
-            } else {
-                showFloatingOutput('Please select files to upload.');
-            }
-        }
-
-        function updateUploadDisplay() {
-            const uploadList = document.getElementById('uploadList');
-            uploadList.innerHTML = appState.uploads.map(upload => `
-                <div class="upload-item">
-                    ${upload.type.startsWith('image/') ?
-                        `<img src="data:${upload.type};base64,${upload.data}" class="upload-thumbnail">` :
-                        upload.type.startsWith('video/') ?
-                        `<video controls class="upload-thumbnail">
-                            <source src="data:${upload.type};base64,${upload.data}" type="${upload.type}">
-                        </video>` :
-                        `<div class="upload-thumbnail">📄</div>`
-                    }
-                    <div class="upload-info">
-                        <span class="upload-name">${upload.name}</span>
-                        <span class="upload-date">${new Date(upload.timestamp).toLocaleString()}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
+        
 
         function handleWeeklyTasks() {
             const randomTask = WEEKLY_TASKS[Math.floor(Math.random() * WEEKLY_TASKS.length)];
             showFloatingOutput(`Weekly task: ${randomTask}`);
         }
 
-        function loadChatMessages() {
-            const messagesContainer = document.getElementById('chatMessages');
-            messagesContainer.innerHTML = '';
-            appState.chatMessages.forEach(msg => {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `chat-message ${msg.type}`;
-                messageDiv.textContent = msg.text;
-                messagesContainer.appendChild(messageDiv);
-            });
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-
+       
         document.addEventListener('DOMContentLoaded', function() {
             updateUploadDisplay();
             document.querySelectorAll('.tab').forEach(tab => {
