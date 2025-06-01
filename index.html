@@ -1173,41 +1173,9 @@
                     tab.classList.remove('active');
                 });
             });
-            document.getElementById('chatboxBtn').addEventListener('click', toggleChatbox);
-            document.getElementById('uploadBtn').addEventListener('click', toggleUploadWindow);
             document.getElementById('weeklyTasksBtn').addEventListener('click', handleWeeklyTasks);
-            document.getElementById('chatClose').addEventListener('click', toggleChatbox);
-            document.getElementById('chatSend').addEventListener('click', sendChatMessage);
-            document.getElementById('chatInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendChatMessage();
-                }
-            });
-            document.getElementById('uploadArea').addEventListener('click', function() {
-                document.getElementById('uploadFileInput').click();
-            });
-            document.getElementById('uploadSubmit').addEventListener('click', handleFileUpload);
-            const uploadArea = document.getElementById('uploadArea');
-            uploadArea.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                this.style.borderColor = 'var(--color-primary)';
-                this.style.background = 'rgba(230, 230, 250, 0.15)';
-            });
-            uploadArea.addEventListener('dragleave', function(e) {
-                e.preventDefault();
-                this.style.borderColor = 'rgba(230, 230, 250, 0.5)';
-                this.style.background = 'transparent';
-            });
-            uploadArea.addEventListener('drop', function(e) {
-                e.preventDefault();
-                this.style.borderColor = 'rgba(230, 230, 250, 0.5)';
-                this.style.background = 'transparent';
-                document.getElementById('uploadFileInput').files = e.dataTransfer.files;
-            });
-            loadChatMessages();
             showIntroScreen();
-            updateAverageScore();
-        });
+            });
     </script>
 </body>
 </html>
