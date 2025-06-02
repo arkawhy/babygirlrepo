@@ -704,13 +704,13 @@
         }
 
         function handleMindClick(option) {
-            showFloatingOutput(`Mind state recorded: ${option}`);
+            showFloatingOutput(`Tell me what you've decided: ${option}`);
         }
 
         function handleDriveClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.driveNavigation, option].join(' → ');
-                showFloatingOutput(`Drive task completed: ${fullPath}`);
+                showFloatingOutput(`Send me a screenshot of the instructions: ${fullPath}`);
                 resetDriveNavigation();
             } else {
                 appState.driveNavigation.push(option);
@@ -721,7 +721,7 @@
         function handleGrowthClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.growthNavigation, option].join(' → ');
-                showFloatingOutput(`Growth task completed: ${fullPath}`);
+                showFloatingOutput(`Growth task committed: ${fullPath}`);
                 resetGrowthNavigation();
             } else {
                 appState.growthNavigation.push(option);
