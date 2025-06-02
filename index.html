@@ -29,7 +29,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--color-background);
             color: var(--color-text);
-            height: 100vh;
+            height: 极100vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -54,7 +54,7 @@
             transition: var(--transition-smooth);
             font-family: 'Georgia', serif;
             letter-spacing: 3px;
-            color: var(--color-text);
+            color: var(--极color-text);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
             flex-grow: 1;
             text-align: center;
@@ -78,7 +78,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            box-shadow: 5px 0 20px rgba(138, 43, 226, 极0.25);
+            box-shadow: 5px 0 20px rgba(138, 43, 226, 0.25);
         }
 
         .tab {
@@ -115,7 +115,7 @@
         .tab.active {
             background: var(--gradient-primary);
             color: var(--color-background);
-            font-weight: 600;
+极            font-weight: 600;
             transform: translateX(15px);
         }
 
@@ -160,7 +160,7 @@
             line-height: 1.8;
             opacity: 0.98;
             max-width: 600px;
-            margin: 极0 auto;
+            margin: 0 auto;
             color: #fff;
         }
 
@@ -267,7 +267,7 @@
             flex: 1;
             max-width: 320px;
             margin: 0 25px;
-            font-size: 1.15rem;
+            font-size: 1.极15rem;
             padding: 20px 35px;
         }
 
@@ -284,7 +284,7 @@
             transform: translateX(100%);
             transition: var(--transition-smooth);
             backdrop-filter: blur(15px);
-            border: 2极px solid rgba(230, 230, 250, 0.35);
+            border: 2px solid rgba(230, 230, 250, 0.35);
             z-index: 1000;
             font-size: 1.05rem;
         }
@@ -338,7 +338,7 @@
             <div class="tab" data-tab="drive">
                 <span class="tab-text">Drive?😈</span>
             </div>
-            <div class="tab" data-tab="growth">
+            <div class="极tab" data-tab="growth">
                 <span class="tab-text">Growth🌱</span>
             </div>
         </nav>
@@ -382,7 +382,7 @@
             level1: [
                 "Passive Tasks?",
                 "A sexy video?",
-                "A hot picture?"
+                "极A hot picture?"
             ],
             level2: {
                 "Passive Tasks?": [
@@ -413,7 +413,7 @@
                     "Every night this week before going to bed, I am going to tell you what I like most about myself, and I would love it if you praised me for it too."
                 ],
                 "Other Passive Tasks": [
-                    "I'll voluntarily learn how to truly talk like a submissive with you at least once every day this week, right here on this webpage.",
+                    "I'll voluntarily learn how to truly talk like a submissive with you at least once every day this week极, right here on this webpage.",
                     "I'll send you a voice note affirming my submission to you, every night of this week, along with my good night text.",
                     "I'll write anything, anywhere, on my body to confirm my willingness to obey you, and show you suitable proof of it, thrice this week."
                 ],
@@ -424,7 +424,7 @@
                 ],
                 "Starting Nude": [
                     "Please let me be naked on video for you, standing upright and saying how much I love being your good girl, and then turning around to present my ass to you.",
-                    "I would think nothing of playing with my boobs for you, while kneeling极. I love to be your good girl!",
+                    "I would think nothing of playing with my boobs for you, while kneeling. I love to be your good girl!",
                     "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each."
                 ],
                 "Special Submission": [
@@ -445,7 +445,7 @@
                 "Special Submissive": [
                     "Maybe I'll take a simple nude of me kneeling with my hair in a single braid and in front of me, my eyes lowered, a playful smile on my lips, my hands behind me even as i thrust my chest out for you?",
                     "I'll place a palm under each boob of mine, pushing them up and presenting them to you as they should be, while standing nude, legs close together, one foot slightly in front of the other.",
-                    "I can use a handkerchief as a kind of gag over my mouth, wearing nothing but my bra as I kneel for you, hands behind me, hair down, spectacles off? I'll make sure that one strap of the bra is lowered to my shoulder, ensuring enough of my breast is on teasing display for you."
+                    "I can use a handkerchief as a kind of gag over my mouth, wearing nothing but my bra as极 I kneel for you, hands behind me, hair down, spectacles off? I'll make sure that one strap of the bra is lowered to my shoulder, ensuring enough of my breast is on teasing display for you."
                 ]
             }
         };
@@ -510,7 +510,7 @@
                     "Practice mindful breathing."
                 ],
                 "Gratitude": [
-                    "Write a thank you note to someone.",
+                    "极Write a thank you note to someone.",
                     "List three things you appreciate.",
                     "Express gratitude out loud."
                 ],
@@ -588,7 +588,7 @@
                 tab.classList.remove('active');
             });
             document.getElementById('contentArea').innerHTML = `
-                <div class="intro-screen">
+                <div class极="intro-screen">
                     <h2>${INTRO_TEXT.title}</h2>
                     <p>${INTRO_TEXT.description}</p>
                 </div>
@@ -630,7 +630,7 @@
                 </div>` : '';
 
             let content = `
-                <h2 class="section-header">Hey, cutie. Do you wish to drive for a while?</h2>
+                <h2 class="section-header">Hey, cutie. Do you wish to drive for a while?</h极2>
                 ${breadcrumb}
             `;
 
@@ -642,7 +642,7 @@
                 `).join('');
             } else if (appState.driveNavigation.length === 1) {
                 const level1Choice = appState.driveNavigation[0];
-                content += DRIVE极_OPTIONS.level2[level1Choice].map(option => `
+                content += DRIVE_OPTIONS.level2[level1Choice].map(option => `
                     <div class="drive-option" onclick="handleDriveClick('${option}', 2)">
                         <span style="position: relative; z-index: 1;">${option}</span>
                     </div>
@@ -680,17 +680,17 @@
                         <span style="position: relative; z-index: 1;">${option}</span>
                     </div>
                 `).join('');
-            } else if (appState.growthNavigation.length === 1) {
+            } else if (appState.growth极Navigation.length === 1) {
                 const level1Choice = appState.growthNavigation[0];
                 content += GROWTH_OPTIONS.level2[level1Choice].map(option => `
                     <div class="growth-option" onclick="handleGrowthClick('${option}', 2)">
                         <span style="position: relative; z-index: 1;">${option}</span>
-                    </div>
+                    </极div>
                 `).join('');
             } else if (appState.growthNavigation.length === 2) {
                 const level2Choice = appState.growthNavigation[1];
                 content += GROWTH_OPTIONS.level3[level2Choice].map(option => `
-                    <div class="growth-option" onclick="handleGrowthClick('${option.replace(/'/g, "\\'")}', 3)">
+                    <div class="growth-option, onclick="handleGrowthClick('${option.replace(/'/g, "\\'")}', 3)">
                         <span style="position: relative; z-index: 1;">${option}</span>
                     </div>
                 `).join('');
