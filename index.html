@@ -65,31 +65,6 @@
             text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
         }
 
-        .score-window {
-            background: rgba(75, 0, 130, 0.9);
-            padding: 12px 22px;
-            border-radius: 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(230, 230, 250, 0.4);
-            min-width: 120px;
-        }
-
-        .score-label {
-            font-size: 0.85rem;
-            opacity: 0.9;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .score-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--color-primary);
-        }
-
         .main-container {
             display: flex;
             flex: 1;
@@ -103,14 +78,14 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            box-shadow: 5px 0 20px rgba(138, 43, 226, 0.25);
+            box-shadow: 5px 0 20px rgba(138, 43, 226, 极0.25);
         }
 
         .tab {
             padding: 22px 35px;
             cursor: pointer;
             transition: var(--transition-smooth);
-            border-bottom: 1px solid rgba(230, 230, 0.15);
+            border-bottom: 1px solid rgba(230, 230, 250, 0.15);
             position: relative;
             overflow: hidden;
         }
@@ -159,37 +134,37 @@
         }
 
         .intro-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 60vh;
-    text-align: center;
-    background: rgba(138, 43, 226, 0.12);
-    border-radius: 25px;
-    border: 2px solid rgba(230, 230, 250, 0.25);
-    margin: auto;
-}
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            text-align: center;
+            background: rgba(138, 43, 226, 0.12);
+            border-radius: 25px;
+            border: 2px solid rgba(230, 230, 250, 0.25);
+            margin: auto;
+        }
 
-.intro-screen h2 {
-    font-size: 2.7rem;
-    margin-bottom: 24px;
-    color: #E6E6FA;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-shadow: 0 2px 8px #4b0082;
-}
+        .intro-screen h2 {
+            font-size: 2.7rem;
+            margin-bottom: 24px;
+            color: #E6E6FA;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 8px #4b0082;
+        }
 
-.intro-screen p {
-    font-size: 1.25rem;
-    line-height: 1.8;
-    opacity: 0.98;
-    max-width: 600px;
-    margin: 0 auto;
-    color: #fff;
-}
+        .intro-screen p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            opacity: 0.98;
+            max-width: 600px;
+            margin: 极0 auto;
+            color: #fff;
+        }
 
-        .task-card, .mind-option, .drive-option {
+        .task-card, .mind-option, .drive-option, .growth-option {
             background: rgba(138, 43, 226, 0.25);
             border: 2px solid rgba(230, 230, 250, 0.35);
             border-radius: 18px;
@@ -201,7 +176,7 @@
             overflow: hidden;
         }
 
-        .task-card::before, .mind-option::before, .drive-option::before {
+        .task-card::before, .mind-option::before, .drive-option::before, .growth-option::before {
             content: '';
             position: absolute;
             top: 0;
@@ -213,17 +188,17 @@
             z-index: -1;
         }
 
-        .task-card:hover::before, .mind-option:hover::before, .drive-option:hover::before {
+        .task-card:hover::before, .mind-option:hover::before, .drive-option:hover::before, .growth-option:hover::before {
             left: 0;
         }
 
-        .task-card:hover, .mind-option:hover, .drive-option:hover {
+        .task-card:hover, .mind-option:hover, .drive-option:hover, .growth-option:hover {
             transform: translateY(-8px) scale(1.03);
             color: var(--color-background);
             box-shadow: var(--shadow-elegant);
         }
 
-        .drive-breadcrumb {
+        .drive-breadcrumb, .growth-breadcrumb {
             display: flex;
             gap: 12px;
             margin-bottom: 25px;
@@ -250,82 +225,13 @@
             font-size: 1.1rem;
         }
 
-        .active-task {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(138, 43, 226, 0.18);
-            border: 2px solid rgba(230, 230, 250, 0.25);
-            border-radius: 15px;
-            padding: 18px 25px;
-            margin: 12px 0;
-            transition: var(--transition-smooth);
-        }
-
-        .active-task:hover {
-            background: rgba(138, 43, 226, 0.28);
-            transform: translateX(5px);
-        }
-
-        .done-button {
-            background: var(--gradient-primary);
-            border: none;
-            color: var(--color-background);
-            padding: 10px 18px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-            font-size: 0.9rem;
-        }
-
-        .done-button:hover {
-            transform: scale(1.15);
-            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
-        }
-
-        .scoring-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: rgba(138, 43, 226, 0.12);
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: var(--shadow-elegant);
-        }
-
-        .scoring-table th {
-            background: var(--gradient-primary);
-            color: var(--color-background);
-            padding: 18px;
-            font-weight: 600;
-极            text-align: left;
-            font-size: 1.1rem;
-        }
-
-        .scoring-table td {
-            padding: 18px;
-            border-bottom: 1px solid rgba(230, 230, 250, 0.15);
-        }
-
-        .scoring-table tr:hover {
-            background: rgba(138, 43, 226, 0.25);
-        }
-
-        .score-input {
-            background: rgba(230, 230, 250, 0.15);
-            border: 2px solid rgba(230, 230, 250, 0.35);
-            border-radius: 10px;
-            padding: 10px 15px;
-            color: var(--color-text);
-            width: 90px;
+        .section-header {
+            color: var(--color-primary);
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            font-weight: 300;
             text-align: center;
-            font-size: 1rem;
-        }
-
-        .score-input:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+            letter-spacing: 1px;
         }
 
         .bottom-ribbon {
@@ -335,7 +241,7 @@
             align-items: center;
             justify-content: space-around;
             padding: 0 35px;
-            box-shadow: 0 -8px 20px rgba(138, 43, 226, 极0.25);
+            box-shadow: 0 -8px 20px rgba(138, 43, 226, 0.25);
         }
 
         .bottom-btn {
@@ -378,243 +284,13 @@
             transform: translateX(100%);
             transition: var(--transition-smooth);
             backdrop-filter: blur(15px);
-            border: 2px solid rgba(230, 230, 250, 0.35);
+            border: 2极px solid rgba(230, 230, 250, 0.35);
             z-index: 1000;
             font-size: 1.05rem;
         }
 
         .floating-output.show {
             transform: translateX(0);
-        }
-
-        .chatbox {
-            position: fixed;
-            bottom: 110px;
-            right: 35px;
-            width: 380px;
-            height: 450px;
-            background: rgba(75, 0, 130, 0.95);
-            border-radius: 18px;
-            box-shadow: var(--shadow-elegant);
-            display: none;
-            flex-direction: column;
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(230, 230, 250, 0.35);
-            z-index: 1000;
-        }
-
-        .chatbox.show {
-            display: flex;
-        }
-
-        .chat-header {
-            background: var(--gradient-primary);
-            color: var(--color-background);
-            padding: 18px 25px;
-            border-radius: 18px 18px 0 0;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.1rem;
-        }
-
-        .chat-close {
-            background: none;
-            border: none;
-            color: var(--color-background);
-            font-size: 1.4rem;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition-smooth);
-        }
-
-        .chat-close:hover {
-            background: rgba(0, 0, 0, 0.25);
-            transform: scale(1.1);
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .chat-message {
-            padding: 12px 18px;
-            border-radius: 18px;
-            max-width: 85%;
-            word-wrap: break-word;
-            font-size: 1rem;
-            line-height: 1.4;
-        }
-
-        .chat-message.dom {
-            background: var(--gradient-primary);
-            color: var(--color-background);
-            align-self: flex-end;
-            border-bottom-right-radius: 6px;
-        }
-
-        .chat-message.sub极 {
-            background: rgba(230, 230, 250, 0.25);
-            color: var(--color-text);
-            align-self: flex-start;
-            border-bottom-left-radius: 6px;
-        }
-
-        .chat-input-container {
-            padding: 18px;
-            display: flex;
-            gap: 12px;
-        }
-
-        .chat-input {
-            flex: 1;
-            background: rgba(230, 230, 250, 0.15);
-            border: 2px solid rgba(230, 230, 250, 0.35);
-            border-radius: 25px;
-            padding: 12px 18px;
-            color: var(--color-text);
-            outline: none;
-            font-size: 1rem;
-        }
-
-        .chat-input:focus {
-            border-color: var(--color-primary);
-        }
-
-        .chat-send {
-            background: var(--gradient-primary);
-            border: none;
-            color: var(--color-background);
-            padding: 12px 22px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-        }
-
-        .chat-send:hover {
-            transform: scale(1.08);
-        }
-
-        .upload-window {
-            position: fixed;
-            bottom: 110px;
-            right: 35px;
-            width: 380px;
-            background: rgba(75, 0, 130, 0.95);
-            border-radius: 18px;
-            box-shadow: var(--shadow-elegant);
-            padding: 25px;
-            display: none;
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(230, 230, 250, 0.35);
-            z-index: 1000;
-        }
-
-        .upload-window.show {
-            display: block;
-        }
-
-        .upload-header {
-            color: var(--color-primary);
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .upload-area {
-            border: 3px dashed rgba(230, 230, 250, 0.5);
-            border-radius: 15px;
-            padding: 40px 25px;
-            text-align: center;
-            transition: var(--transition-smooth);
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        .upload-area:hover {
-            border-color: var(--color-primary);
-            background: rgba(230, 230, 250, 0.12);
-        }
-
-        .upload-file-input {
-            display: none;
-        }
-
-        .upload-submit {
-            width: 100%;
-            background:极 var(--gradient-primary);
-            border: none;
-            color: var(--color-background);
-            padding: 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-            font-size: 1.05rem;
-        }
-
-        .upload-submit:hover {
-            transform: scale(1.03);
-        }
-
-        .section-header {
-            color: var(--color-primary);
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-            font-weight: 300;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        /* Upload History Styles */
-        .upload-history {
-            margin-top: 20px;
-            border-top: 2px solid rgba(230, 230, 250, 0.3);
-            padding-top: 15px;
-        }
-
-        .upload-item {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            padding: 10px;
-            background: rgba(138, 43, 226, 0.15);
-            border-radius: 8px;
-        }
-
-        .upload-thumbnail {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-right: 15px;
-        }
-
-        .upload-info {
-            flex: 1;
-        }
-
-        .upload-name {
-            font-size: 0.9rem;
-            display: block;
-        }
-
-        .upload-date {
-            font-size: 0.8rem;
-            opacity: 0.7;
         }
 
         @media (max-width: 768px) {
@@ -635,7 +311,7 @@
                 padding: 18px 25px;
             }
             
-            .chatbox, .upload-window, .floating-output {
+            .floating-output {
                 width: 90%;
                 right: 5%;
             }
@@ -649,25 +325,28 @@
 <body>
     <header class="title-ribbon">
         <h1 class="main-title" id="homeButton">babygirl.</h1>
-            </header>
+    </header>
 
     <div class="main-container">
         <nav class="sidebar">
             <div class="tab active" data-tab="pending">
                 <span class="tab-text">Daily Affirmations💪🏼</span>
             </div>
-            <div class="tab" data-tab="mind">
+            <div class="tab" data极-tab="mind">
                 <span class="tab-text">What's on your mind?😏</span>
             </div>
             <div class="tab" data-tab="drive">
                 <span class="tab-text">Drive?😈</span>
             </div>
-            </nav>
+            <div class="tab" data-tab="growth">
+                <span class="tab-text">Growth🌱</span>
+            </div>
+        </nav>
 
         <main class="content-area" id="contentArea">
             <div class="intro-screen">
                 <h2>Welcome to your personal dashboard, babygirl.</h2>
-                <p>Here you can track your progress, complete tasks, and stay connected. Choose a tab from the left to begin your journey of growth and submission. Choose to tell me what's on your mind for today, or whether you wish to explore how to drive a little on your own, or whether you'd simply just talk to me using the chatbox. Remember, all tasks you choose get added to your active tasklist, which upon completion will be marked by me. Do not forget to keep up with your passive tasks for the week, as they affect scoring for your active tasklist tasks. Always remember, this is meant for your pleasure, and growth as my submissive. At any time if you're uncomfortable with anything, be sure to tell me. I love you: you're the best person I could ever have, and I cannot wait to see how you decide to please me.</p>
+                <p>Here you can track your progress, complete tasks, and stay connected. Choose a tab from the left to begin your journey of growth and submission. Choose to tell me what's on your mind for today, or whether you wish to explore how to drive or grow a little on your own. Remember, all tasks you choose get added to your active tasklist, which upon completion will be marked by me. Do not forget to keep up with your passive tasks for the week, as they affect scoring for your active tasks. Always remember, this is meant for your pleasure and growth as my submissive. At any time if you're uncomfortable with anything, be sure to tell me. I love you: you're the best person I could ever have, and I cannot wait to see how you decide to please me.</p>
             </div>
         </main>
     </div>
@@ -676,16 +355,14 @@
         <button class="bottom-btn weekly-tasks-btn" id="weeklyTasksBtn">
             <span>📅 Weekly Passive Tasks</span>
         </button>
-        </footer>
+    </footer>
 
     <div class="floating-output" id="floatingOutput"></div>
 
-    
     <script>
         // ==========================================
         // EASILY EDITABLE TEXT CONTENT - START
         // ==========================================
-        
         const PENDING_TASKS = [
             "I'll remember that he loves me, no matter what I do, for I am his submissive babygirl, his personal princess.",
             "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and he's going to help me every step of the way.",
@@ -728,7 +405,7 @@
                 "Clothing-related": [
                     "I will skip on wearing panties for a week. You can check in on me any time I am free.",
                     "I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free",
-                    "I will inform you at least two days this week that I am wearing my black vest with no bra underneath极, and you can decide what you want to do with me then."
+                    "I will inform you at least two days this week that I am wearing my black vest with no bra underneath, and you can decide what you want to do with me then."
                 ],
                 "Mind-related": [
                     "A healthy body begets a healthy mind. I will do ten push-ups with you on a video call at least three times this week.",
@@ -747,13 +424,13 @@
                 ],
                 "Starting Nude": [
                     "Please let me be naked on video for you, standing upright and saying how much I love being your good girl, and then turning around to present my ass to you.",
-                    "I would think nothing of playing with my boobs for you, while kneeling. I love to be your good girl!",
+                    "I would think nothing of playing with my boobs for you, while kneeling极. I love to be your good girl!",
                     "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each."
                 ],
                 "Special Submission": [
                     "I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.",
                     "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission.",
-                    "I'll get fully naked for you, and then start the video with my hands behind me and hair down, spectacles on. I'll then affirm my submission to you buy saying as much, and assure you of my obedience to do anything you say."
+                    "I'll get fully naked for you, and then start the video with my hands behind me and hair down, spectacles on. I'll then affirm my submission to you by saying as much, and assure you of my obedience to do anything you say."
                 ],
                 "Object-interaction": [
                     "I'll strip down completely, and take a pic of me sitting in a chair and smiling in a mirror selfie, hair down, with an arm loosely held behind me, my legs wide apart for you to savour what's in between.",
@@ -773,15 +450,86 @@
             }
         };
 
+        const GROWTH_OPTIONS = {
+            level1: [
+                "Self-Care",
+                "Learning",
+                "Mindfulness"
+            ],
+            level2: {
+                "Self-Care": [
+                    "Physical Health",
+                    "Emotional Health",
+                    "Social Health"
+                ],
+                "Learning": [
+                    "New Skills",
+                    "Reading",
+                    "Reflection"
+                ],
+                "Mindfulness": [
+                    "Meditation",
+                    "Gratitude",
+                    "Journaling"
+                ]
+            },
+            level3: {
+                "Physical Health": [
+                    "Go for a walk or run today.",
+                    "Prepare a healthy meal for yourself.",
+                    "Stretch or do yoga for 15 minutes."
+                ],
+                "Emotional Health": [
+                    "Write down three things you're grateful for.",
+                    "Reach out to a friend or loved one.",
+                    "Take a moment to relax and breathe deeply."
+                ],
+                "Social Health": [
+                    "Plan a catch-up with a friend.",
+                    "Give someone a compliment.",
+                    "Join a new group or community."
+                ],
+                "New Skills": [
+                    "Try learning something new for 30 minutes.",
+                    "Watch a tutorial or take an online course.",
+                    "Practice a new hobby."
+                ],
+                "Reading": [
+                    "Read a chapter of a book.",
+                    "Read an article or blog post.",
+                    "Listen to an audiobook."
+                ],
+                "Reflection": [
+                    "Reflect on your week and write down your thoughts.",
+                    "Think about your goals and progress.",
+                    "Write down one thing you want to improve."
+                ],
+                "Meditation": [
+                    "Meditate for 10 minutes.",
+                    "Listen to a guided meditation.",
+                    "Practice mindful breathing."
+                ],
+                "Gratitude": [
+                    "Write a thank you note to someone.",
+                    "List three things you appreciate.",
+                    "Express gratitude out loud."
+                ],
+                "Journaling": [
+                    "Write in your journal for 10 minutes.",
+                    "Write about your feelings.",
+                    "Write down your dreams or goals."
+                ]
+            }
+        };
+
         const WEEKLY_TASKS = [
             "As underwear, you are allowed to wear only panties on Monday, Wednesday, Thursday, and Saturday. Don't let me down. 😘"
         ];
 
-        
         const INTRO_TEXT = {
-    title: "Welcome, babygirl.",
-    description: "Step inside your private playground. Here, you’re free to be bold, to tease, to surrender, and to shine. Every click, every word, every task is a secret invitation—just for you and me. Let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. Are you ready to play?"
-};
+            title: "Welcome, babygirl.",
+            description: "Step inside your private playground. Here, you’re free to be bold, to tease, to surrender, and to shine. Every click, every word, every task is a secret invitation—just for you and me. Let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. Are you ready to play?"
+        };
 
         // ==========================================
         // EASILY EDITABLE TEXT CONTENT - END
@@ -789,26 +537,9 @@
 
         const appState = {
             currentTab: 'intro',
-            activeTasks: JSON.parse(localStorage.getItem('activeTasks')) || [],
-            scoringData: JSON.parse(localStorage.getItem('scoringData')) || [],
             driveNavigation: [],
-            chatMessages: JSON.parse(localStorage.getItem('chatMessages')) || [
-                { type: 'dom', text: 'Welcome, babygirl. How are you feeling today?' }
-            ],
-            uploads: JSON.parse(localStorage.getItem('uploads')) || []
+            growthNavigation: []
         };
-
-        function saveToLocalStorage(key, data) {
-            try {
-                localStorage.setItem(key, JSON.stringify(data));
-            } catch (e) {
-                console.error('Error saving to localStorage:', e);
-                if (e.name === 'QuotaExceededError') {
-                    appState.uploads = [];
-                    localStorage.setItem('uploads', '[]');
-                }
-            }
-        }
 
         function showFloatingOutput(text) {
             const output = document.getElementById('floatingOutput');
@@ -819,29 +550,6 @@
             }, 5000);
         }
 
-        function addToActiveTasks(taskText) {
-            if (appState.activeTasks.length >= 5) {
-                appState.activeTasks.shift();
-            }
-            const newTask = {
-                id: Date.now(),
-                text: taskText,
-                timestamp: new Date().toISOString()
-            };
-            appState.activeTasks.push(newTask);
-            saveToLocalStorage('activeTasks', appState.activeTasks);
-        }
-
-        function updateAverageScore() {
-            if (appState.scoringData.length === 0) {
-                document.getElementById('averageScore').textContent = '0';
-                return;
-            }
-            const total = appState.scoringData.reduce((sum, item) => sum + item.score, 0);
-            const average = Math.round(total / appState.scoringData.length);
-            document.getElementById('averageScore').textContent = average;
-        }
-
         function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
@@ -850,6 +558,9 @@
 
             if (tabName !== 'drive') {
                 appState.driveNavigation = [];
+            }
+            if (tabName !== 'growth') {
+                appState.growthNavigation = [];
             }
 
             appState.currentTab = tabName;
@@ -864,18 +575,20 @@
                 case 'drive':
                     showDriveOptions();
                     break;
+                case 'growth':
+                    showGrowthOptions();
+                    break;
                 default:
                     showIntroScreen();
             }
         }
 
         function showIntroScreen() {
-             // Remove 'active' class from all tabs
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
             document.getElementById('contentArea').innerHTML = `
-                <div class极="intro-screen">
+                <div class="intro-screen">
                     <h2>${INTRO_TEXT.title}</h2>
                     <p>${INTRO_TEXT.description}</p>
                 </div>
@@ -896,7 +609,7 @@
 
         function showMindOptions() {
             const content = `
-                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h极2>
+                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h2>
                 ${MIND_OPTIONS.map(option => `
                     <div class="mind-option" onclick="handleMindClick('${option.replace(/'/g, "\\'")}')">
                         <span style="position: relative; z-index: 1;">${option}</span>
@@ -929,7 +642,7 @@
                 `).join('');
             } else if (appState.driveNavigation.length === 1) {
                 const level1Choice = appState.driveNavigation[0];
-                content += DRIVE_OPTIONS.level2[level1Choice].map(option => `
+                content += DRIVE极_OPTIONS.level2[level1Choice].map(option => `
                     <div class="drive-option" onclick="handleDriveClick('${option}', 2)">
                         <span style="position: relative; z-index: 1;">${option}</span>
                     </div>
@@ -946,25 +659,73 @@
             document.getElementById('contentArea').innerHTML = content;
         }
 
-              
+        function showGrowthOptions() {
+            const breadcrumb = appState.growthNavigation.length > 0 ?
+                `<div class="growth-breadcrumb">
+                    <span class="breadcrumb-item" onclick="resetGrowthNavigation()">🏠 Start</span>
+                    ${appState.growthNavigation.map((item, index) => `
+                        <span class="breadcrumb-separator">→</span>
+                        <span class="breadcrumb-item" onclick="navigateGrowthTo(${index})">${item}</span>
+                    `).join('')}
+                </div>` : '';
+
+            let content = `
+                <h2 class="section-header">Let's focus on your growth, babygirl 🌱</h2>
+                ${breadcrumb}
+            `;
+
+            if (appState.growthNavigation.length === 0) {
+                content += GROWTH_OPTIONS.level1.map(option => `
+                    <div class="growth-option" onclick="handleGrowthClick('${option}', 1)">
+                        <span style="position: relative; z-index: 1;">${option}</span>
+                    </div>
+                `).join('');
+            } else if (appState.growthNavigation.length === 1) {
+                const level1Choice = appState.growthNavigation[0];
+                content += GROWTH_OPTIONS.level2[level1Choice].map(option => `
+                    <div class="growth-option" onclick="handleGrowthClick('${option}', 2)">
+                        <span style="position: relative; z-index: 1;">${option}</span>
+                    </div>
+                `).join('');
+            } else if (appState.growthNavigation.length === 2) {
+                const level2Choice = appState.growthNavigation[1];
+                content += GROWTH_OPTIONS.level3[level2Choice].map(option => `
+                    <div class="growth-option" onclick="handleGrowthClick('${option.replace(/'/g, "\\'")}', 3)">
+                        <span style="position: relative; z-index: 1;">${option}</span>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('contentArea').innerHTML = content;
+        }
+
         function handleTaskClick(task) {
             showFloatingOutput(`Task added: ${task}`);
-            }
+        }
 
         function handleMindClick(option) {
             showFloatingOutput(`Mind state recorded: ${option}`);
-            addToActiveTasks(option);
         }
 
         function handleDriveClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.driveNavigation, option].join(' → ');
-                showF极loatingOutput(`Drive task completed: ${fullPath}`);
-                addToActiveTasks(`Drive: ${fullPath}`);
+                showFloatingOutput(`Drive task completed: ${fullPath}`);
                 resetDriveNavigation();
             } else {
                 appState.driveNavigation.push(option);
                 showDriveOptions();
+            }
+        }
+
+        function handleGrowthClick(option, level) {
+            if (level === 3) {
+                const fullPath = [...appState.growthNavigation, option].join(' → ');
+                showFloatingOutput(`Growth task completed: ${fullPath}`);
+                resetGrowthNavigation();
+            } else {
+                appState.growthNavigation.push(option);
+                showGrowthOptions();
             }
         }
 
@@ -973,42 +734,49 @@
             showDriveOptions();
         }
 
+        function resetGrowthNavigation() {
+            appState.growthNavigation = [];
+            showGrowthOptions();
+        }
+
         function navigateDriveTo(index) {
             appState.driveNavigation = appState.driveNavigation.slice(0, index + 1);
             showDriveOptions();
         }
 
-        
+        function navigateGrowthTo(index) {
+            appState.growthNavigation = appState.growthNavigation.slice(0, index + 1);
+            showGrowthOptions();
+        }
 
         function handleWeeklyTasks() {
             const randomTask = WEEKLY_TASKS[Math.floor(Math.random() * WEEKLY_TASKS.length)];
             showFloatingOutput(`Weekly task: ${randomTask}`);
         }
 
-       
         document.addEventListener('DOMContentLoaded', function() {
-    // Attach tab switching
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            const tabName = this.getAttribute('data-tab');
-            switchTab(tabName);
+            // Attach tab switching
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    switchTab(tabName);
+                });
+            });
+
+            // Attach home button
+            document.getElementById('homeButton').addEventListener('click', function() {
+                showIntroScreen();
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+            });
+
+            // Attach weekly tasks button
+            document.getElementById('weeklyTasksBtn').addEventListener('click', handleWeeklyTasks);
+
+            // Show intro screen
+            showIntroScreen();
         });
-    });
-
-    // Attach home button
-    document.getElementById('homeButton').addEventListener('click', function() {
-        showIntroScreen();
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.classList.remove('active');
-        });
-    });
-
-    // Attach weekly tasks button
-    document.getElementById('weeklyTasksBtn').addEventListener('click', handleWeeklyTasks);
-
-    // Show intro screen
-    showIntroScreen();
-});
     </script>
 </body>
 </html>
