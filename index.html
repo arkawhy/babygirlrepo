@@ -6,90 +6,62 @@
     <title>babygirl.</title>
     <link rel="icon" type="image/png" href="image.png">
     <style>
-        :root {
-            --color-primary: #E6E6FA;
-            --color-secondary: #8A2BE2;
-            --color-accent: #4B0082;
-            --color-text: #FFFFFF;
-            --color-background: #000000;
-            --color-dark: #1a001a;
-            --gradient-primary: linear-gradient(135deg, #8A2BE2, #E6E6FA);
-            --gradient-dark: linear-gradient(135deg, #4B0082, #000000);
-            --shadow-elegant: 0 8px 32px rgba(138, 43, 226, 0.3);
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        html, body {
+            height: 100%;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--color-background);
-            color: var(--color-text);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            background: #000;
+            color: #fff;
         }
-
         .title-ribbon {
-            background: var(--gradient-primary);
+            background: linear-gradient(135deg, #8A2BE2, #E6E6FA);
             height: 80px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 30px;
-            box-shadow: var(--shadow-elegant);
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
             position: relative;
             z-index: 100;
         }
-
         .main-title {
             font-size: 2.8rem;
             font-weight: 300;
             cursor: pointer;
-            transition: var(--transition-smooth);
             font-family: 'Georgia', serif;
             letter-spacing: 3px;
-            color: var(--color-text);
+            color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-            flex-grow: 1;
             text-align: center;
         }
-
         .main-title:hover {
             transform: scale(1.08);
             text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
         }
-
         .main-container {
+            flex: 1 0 auto;
             display: flex;
-            flex: 1;
-            overflow: hidden;
+            min-height: 0;
         }
-
         .sidebar {
             width: 300px;
-            background: var(--gradient-dark);
+            background: linear-gradient(135deg, #4B0082, #000);
             padding: 25px 0;
             display: flex;
             flex-direction: column;
             gap: 12px;
             box-shadow: 5px 0 20px rgba(138, 43, 226, 0.25);
         }
-
         .tab {
             padding: 22px 35px;
             cursor: pointer;
-            transition: var(--transition-smooth);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-bottom: 1px solid rgba(230, 230, 250, 0.15);
             position: relative;
             overflow: hidden;
         }
-
         .tab::before {
             content: '';
             position: absolute;
@@ -97,42 +69,37 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: var(--gradient-primary);
-            transition: var(--transition-smooth);
+            background: linear-gradient(135deg, #8A2BE2, #E6E6FA);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: -1;
         }
-
         .tab:hover::before {
             left: 0;
         }
-
         .tab:hover {
             transform: translateX(15px) scale(1.03);
-            color: var(--color-background);
+            color: #000;
             font-weight: 600;
         }
-
         .tab.active {
-            background: var(--gradient-primary);
-            color: var(--color-background);
-极            font-weight: 600;
+            background: linear-gradient(135deg, #8A2BE2, #E6E6FA);
+            color: #000;
+            font-weight: 600;
             transform: translateX(15px);
         }
-
         .tab-text {
             position: relative;
             z-index: 1;
             font-size: 1.15rem;
         }
-
         .content-area {
             flex: 1;
             padding: 35px;
-            background: var(--color-dark);
+            background: #1a001a;
             overflow-y: auto;
             position: relative;
+            min-height: 0;
         }
-
         .intro-screen {
             display: flex;
             flex-direction: column;
@@ -144,8 +111,9 @@
             border-radius: 25px;
             border: 2px solid rgba(230, 230, 250, 0.25);
             margin: auto;
+            max-width: 700px;
+            margin-top: 60px;
         }
-
         .intro-screen h2 {
             font-size: 2.7rem;
             margin-bottom: 24px;
@@ -154,16 +122,14 @@
             letter-spacing: 1px;
             text-shadow: 0 2px 8px #4b0082;
         }
-
         .intro-screen p {
             font-size: 1.25rem;
             line-height: 1.8;
             opacity: 0.98;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 30px auto;
             color: #fff;
         }
-
         .task-card, .mind-option, .drive-option, .growth-option {
             background: rgba(138, 43, 226, 0.25);
             border: 2px solid rgba(230, 230, 250, 0.35);
@@ -171,11 +137,11 @@
             padding: 25px;
             margin: 18px 0;
             cursor: pointer;
-            transition: var(--transition-smooth);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            font-size: 1.2rem;
         }
-
         .task-card::before, .mind-option::before, .drive-option::before, .growth-option::before {
             content: '';
             position: absolute;
@@ -183,121 +149,108 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: var(--gradient-primary);
-            transition: var(--transition-smooth);
+            background: linear-gradient(135deg, #8A2BE2, #E6E6FA);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: -1;
         }
-
         .task-card:hover::before, .mind-option:hover::before, .drive-option:hover::before, .growth-option:hover::before {
             left: 0;
         }
-
         .task-card:hover, .mind-option:hover, .drive-option:hover, .growth-option:hover {
             transform: translateY(-8px) scale(1.03);
-            color: var(--color-background);
-            box-shadow: var(--shadow-elegant);
+            color: #000;
+            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
+            background: #E6E6FA;
         }
-
         .drive-breadcrumb, .growth-breadcrumb {
             display: flex;
             gap: 12px;
             margin-bottom: 25px;
             flex-wrap: wrap;
         }
-
         .breadcrumb-item {
             background: rgba(75, 0, 130, 0.7);
             padding: 10px 18px;
             border-radius: 25px;
             font-size: 0.95rem;
             cursor: pointer;
-            transition: var(--transition-smooth);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #fff;
         }
-
         .breadcrumb-item:hover {
-            background: var(--color-secondary);
+            background: #8A2BE2;
             transform: scale(1.08);
         }
-
         .breadcrumb-separator {
-            color: var(--color-primary);
+            color: #E6E6FA;
             font-weight: bold;
             font-size: 1.1rem;
         }
-
         .section-header {
-            color: var(--color-primary);
+            color: #E6E6FA;
             margin-bottom: 30px;
             font-size: 2.2rem;
             font-weight: 300;
             text-align: center;
             letter-spacing: 1px;
         }
-
         .bottom-ribbon {
             height: 85px;
-            background: var(--gradient-dark);
+            background: linear-gradient(135deg, #4B0082, #000);
             display: flex;
             align-items: center;
-            justify-content: space-around;
+            justify-content: center;
             padding: 0 35px;
             box-shadow: 0 -8px 20px rgba(138, 43, 226, 0.25);
+            flex-shrink: 0;
+            position: relative;
         }
-
         .bottom-btn {
-            background: var(--gradient-primary);
+            background: linear-gradient(135deg, #8A2BE2, #E6E6FA);
             border: none;
-            color: var(--color-background);
+            color: #000;
             padding: 16px 28px;
             border-radius: 30px;
             cursor: pointer;
             font-size: 1.05rem;
             font-weight: 600;
-            transition: var(--transition-smooth);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
-
         .bottom-btn:hover {
             transform: translateY(-4px) scale(1.08);
-            box-shadow: var(--shadow-elegant);
+            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
         }
-
         .weekly-tasks-btn {
-            flex: 1;
             max-width: 320px;
-            margin: 0 25px;
             font-size: 1.15rem;
             padding: 20px 35px;
         }
-
         .floating-output {
             position: fixed;
             bottom: 110px;
             right: 35px;
             background: rgba(75, 0, 130, 0.95);
-            color: var(--color-text);
+            color: #fff;
             padding: 22px 28px;
             border-radius: 18px;
-            box-shadow: var(--shadow-elegant);
+            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
             max-width: 380px;
             transform: translateX(100%);
-            transition: var(--transition-smooth);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(15px);
             border: 2px solid rgba(230, 230, 250, 0.35);
             z-index: 1000;
             font-size: 1.05rem;
         }
-
         .floating-output.show {
             transform: translateX(0);
         }
-
-        @media (max-width: 768px) {
+        @media (max-width: 1000px) {
             .main-container {
                 flex-direction: column;
             }
-            
             .sidebar {
                 width: 100%;
                 height: auto;
@@ -305,17 +258,14 @@
                 overflow-x: auto;
                 padding: 15px;
             }
-            
             .tab {
                 min-width: 180px;
                 padding: 18px 25px;
             }
-            
             .floating-output {
                 width: 90%;
                 right: 5%;
             }
-            
             .main-title {
                 font-size: 2.2rem;
             }
@@ -326,7 +276,6 @@
     <header class="title-ribbon">
         <h1 class="main-title" id="homeButton">babygirl.</h1>
     </header>
-
     <div class="main-container">
         <nav class="sidebar">
             <div class="tab active" data-tab="pending">
@@ -342,27 +291,18 @@
                 <span class="tab-text">Growth🌱</span>
             </div>
         </nav>
-
         <main class="content-area" id="contentArea">
-            <div class="intro-screen">
-                <h2>Welcome to your personal dashboard, my babygirl.</h2>
-                <p>Here you can track your progress, complete tasks, and stay connected. Choose a tab from the left to begin your journey of growth and submission. Choose to tell me what's on your mind for today, or whether you wish to explore how to drive or grow a little on your own. Remember, all tasks you choose get added to your active tasklist, which upon completion will be marked by me. Do not forget to keep up with your passive tasks for the week, as they affect scoring for your active tasks. Always remember, this is meant for your pleasure and growth as my submissive. At any time if you're uncomfortable with anything, be sure to tell me. I love you: you're the best person I could ever have, and I cannot wait to see how you decide to please me.</p>
-            </div>
+            <!-- Content loads here -->
         </main>
     </div>
-
     <footer class="bottom-ribbon">
         <button class="bottom-btn weekly-tasks-btn" id="weeklyTasksBtn">
             <span>📅 Weekly Passive Tasks</span>
         </button>
     </footer>
-
     <div class="floating-output" id="floatingOutput"></div>
-
     <script>
-        // ==========================================
-        // EASILY EDITABLE TEXT CONTENT - START
-        // ==========================================
+        // Editable content
         const PENDING_TASKS = [
             "I'll remember that he loves me, no matter what I do, for I am his submissive babygirl, his personal princess.",
             "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and he's going to help me every step of the way.",
@@ -370,14 +310,12 @@
             "I am going to try to keep up with whatever active tasks I have.",
             "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay."
         ];
-
         const MIND_OPTIONS = [
             "I think I can work in an interview today. 😋",
             "Maybe I can take you along for a trip to the shower? 🚿",
             "I'd love a little one-on-one video call, maybe. 💞",
             "Can you just teach me how to dirty-talk well with you? 😙"
         ];
-
         const DRIVE_OPTIONS = {
             level1: [
                 "Passive Tasks?",
@@ -445,102 +383,93 @@
                 "Special Submissive": [
                     "Maybe I'll take a simple nude of me kneeling with my hair in a single braid and in front of me, my eyes lowered, a playful smile on my lips, my hands behind me even as i thrust my chest out for you?",
                     "I'll place a palm under each boob of mine, pushing them up and presenting them to you as they should be, while standing nude, legs close together, one foot slightly in front of the other.",
-                    "I can use a handkerchief as a kind of gag over my mouth, wearing nothing but my bra as极 I kneel for you, hands behind me, hair down, spectacles off? I'll make sure that one strap of the bra is lowered to my shoulder, ensuring enough of my breast is on teasing display for you."
+                    "I can use a handkerchief as a kind of gag over my mouth, wearing nothing but my bra as I kneel for you, hands behind me, hair down, spectacles off? I'll make sure that one strap of the bra is lowered to my shoulder, ensuring enough of my breast is on teasing display for you."
                 ]
             }
         };
-
-        const GROWTH_OPTIONS = {
-            level1: [
-                "Self-Care",
-                "Studies",
-                "Submission"
+        // Growth tab uses the same structure as Drive for a flat, clickable UI
+        const GROWTH_OPTIONS = JSON.parse(JSON.stringify(DRIVE_OPTIONS));
+        GROWTH_OPTIONS.level1 = [
+            "Self-Care",
+            "Learning",
+            "Mindfulness"
+        ];
+        GROWTH_OPTIONS.level2 = {
+            "Self-Care": [
+                "Physical Health",
+                "Emotional Health",
+                "Social Health"
             ],
-            level2: {
-                "Self-Care": [
-                    "Physical Health",
-                    "Emotional Health",
-                    "Social Health"
-                ],
-                "Studies": [
-                    "New Skills",
-                    "Reading",
-                    "Reflection"
-                ],
-                "Submission": [
-                    "Meditation",
-                    "Gratitude",
-                    "Journaling"
-                ]
-            },
-            level3: {
-                "Physical Health": [
-                    "Go for a walk or run today.",
-                    "Prepare a healthy meal for yourself.",
-                    "Stretch or do yoga for 15 minutes."
-                ],
-                "Emotional Health": [
-                    "Write down three things you're grateful for.",
-                    "Reach out to a friend or loved one.",
-                    "Take a moment to relax and breathe deeply."
-                ],
-                "Social Health": [
-                    "Plan a catch-up with a friend.",
-                    "Give someone a compliment.",
-                    "Join a new group or community."
-                ],
-                "New Skills": [
-                    "Try learning something new for 30 minutes.",
-                    "Watch a tutorial or take an online course.",
-                    "Practice a new hobby."
-                ],
-                "Reading": [
-                    "Read a chapter of a book.",
-                    "Read an article or blog post.",
-                    "Listen to an audiobook."
-                ],
-                "Reflection": [
-                    "Reflect on your week and write down your thoughts.",
-                    "Think about your goals and progress.",
-                    "Write down one thing you want to improve."
-                ],
-                "Meditation": [
-                    "Meditate for 10 minutes.",
-                    "Listen to a guided meditation.",
-                    "Practice mindful breathing."
-                ],
-                "Gratitude": [
-                    "Write a thank you note to someone.",
-                    "List three things you appreciate.",
-                    "Express gratitude out loud."
-                ],
-                "Journaling": [
-                    "Write in your journal for 10 minutes.",
-                    "Write about your feelings.",
-                    "Write down your dreams or goals."
-                ]
-            }
+            "Learning": [
+                "New Skills",
+                "Reading",
+                "Reflection"
+            ],
+            "Mindfulness": [
+                "Meditation",
+                "Gratitude",
+                "Journaling"
+            ]
         };
-
+        GROWTH_OPTIONS.level3 = {
+            "Physical Health": [
+                "Go for a walk or run today.",
+                "Prepare a healthy meal for yourself.",
+                "Stretch or do yoga for 15 minutes."
+            ],
+            "Emotional Health": [
+                "Write down three things you're grateful for.",
+                "Reach out to a friend or loved one.",
+                "Take a moment to relax and breathe deeply."
+            ],
+            "Social Health": [
+                "Plan a catch-up with a friend.",
+                "Give someone a compliment.",
+                "Join a new group or community."
+            ],
+            "New Skills": [
+                "Try learning something new for 30 minutes.",
+                "Watch a tutorial or take an online course.",
+                "Practice a new hobby."
+            ],
+            "Reading": [
+                "Read a chapter of a book.",
+                "Read an article or blog post.",
+                "Listen to an audiobook."
+            ],
+            "Reflection": [
+                "Reflect on your week and write down your thoughts.",
+                "Think about your goals and progress.",
+                "Write down one thing you want to improve."
+            ],
+            "Meditation": [
+                "Meditate for 10 minutes.",
+                "Listen to a guided meditation.",
+                "Practice mindful breathing."
+            ],
+            "Gratitude": [
+                "Write a thank you note to someone.",
+                "List three things you appreciate.",
+                "Express gratitude out loud."
+            ],
+            "Journaling": [
+                "Write in your journal for 10 minutes.",
+                "Write about your feelings.",
+                "Write down your dreams or goals."
+            ]
+        };
         const WEEKLY_TASKS = [
             "As underwear, you are allowed to wear only panties on Monday, Wednesday, Thursday, and Saturday. Don't let me down. 😘"
         ];
-
         const INTRO_TEXT = {
             title: "Welcome, babygirl.",
             description: "Step inside your private playground. Here, you’re free to be bold, to tease, to surrender, and to shine. Every click, every word, every task is a secret invitation—just for you and me. Let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. Are you ready to play?"
         };
-
-        // ==========================================
-        // EASILY EDITABLE TEXT CONTENT - END
-        // ==========================================
-
         const appState = {
             currentTab: 'intro',
             driveNavigation: [],
             growthNavigation: []
         };
-
         function showFloatingOutput(text) {
             const output = document.getElementById('floatingOutput');
             output.textContent = text;
@@ -549,52 +478,30 @@
                 output.classList.remove('show');
             }, 5000);
         }
-
         function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-
-            if (tabName !== 'drive') {
-                appState.driveNavigation = [];
-            }
-            if (tabName !== 'growth') {
-                appState.growthNavigation = [];
-            }
-
+            if (tabName !== 'drive') appState.driveNavigation = [];
+            if (tabName !== 'growth') appState.growthNavigation = [];
             appState.currentTab = tabName;
-
             switch (tabName) {
-                case 'pending':
-                    showPendingTasks();
-                    break;
-                case 'mind':
-                    showMindOptions();
-                    break;
-                case 'drive':
-                    showDriveOptions();
-                    break;
-                case 'growth':
-                    showGrowthOptions();
-                    break;
-                default:
-                    showIntroScreen();
+                case 'pending': showPendingTasks(); break;
+                case 'mind': showMindOptions(); break;
+                case 'drive': showDriveOptions(); break;
+                case 'growth': showGrowthOptions(); break;
+                default: showIntroScreen();
             }
         }
-
         function showIntroScreen() {
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
             document.getElementById('contentArea').innerHTML = `
-                <div class极="intro-screen">
+                <div class="intro-screen">
                     <h2>${INTRO_TEXT.title}</h2>
                     <p>${INTRO_TEXT.description}</p>
                 </div>
             `;
         }
-
         function showPendingTasks() {
             const content = `
                 <h2 class="section-header">Some things you should never forget♥</h2>
@@ -606,7 +513,6 @@
             `;
             document.getElementById('contentArea').innerHTML = content;
         }
-
         function showMindOptions() {
             const content = `
                 <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h2>
@@ -618,7 +524,6 @@
             `;
             document.getElementById('contentArea').innerHTML = content;
         }
-
         function showDriveOptions() {
             const breadcrumb = appState.driveNavigation.length > 0 ?
                 `<div class="drive-breadcrumb">
@@ -628,12 +533,10 @@
                         <span class="breadcrumb-item" onclick="navigateDriveTo(${index})">${item}</span>
                     `).join('')}
                 </div>` : '';
-
             let content = `
-                <h2 class="section-header">Hey, cutie. Do you wish to drive for a while?</h极2>
+                <h2 class="section-header">Hey, cutie. Do you wish to drive for a while?</h2>
                 ${breadcrumb}
             `;
-
             if (appState.driveNavigation.length === 0) {
                 content += DRIVE_OPTIONS.level1.map(option => `
                     <div class="drive-option" onclick="handleDriveClick('${option}', 1)">
@@ -655,10 +558,8 @@
                     </div>
                 `).join('');
             }
-
             document.getElementById('contentArea').innerHTML = content;
         }
-
         function showGrowthOptions() {
             const breadcrumb = appState.growthNavigation.length > 0 ?
                 `<div class="growth-breadcrumb">
@@ -668,12 +569,10 @@
                         <span class="breadcrumb-item" onclick="navigateGrowthTo(${index})">${item}</span>
                     `).join('')}
                 </div>` : '';
-
             let content = `
-                <h2 class="section-header">Let's focus on your growth, babygirl.</h2>
+                <h2 class="section-header">Let's focus on your growth, babygirl 🌱</h2>
                 ${breadcrumb}
             `;
-
             if (appState.growthNavigation.length === 0) {
                 content += GROWTH_OPTIONS.level1.map(option => `
                     <div class="growth-option" onclick="handleGrowthClick('${option}', 1)">
@@ -685,96 +584,78 @@
                 content += GROWTH_OPTIONS.level2[level1Choice].map(option => `
                     <div class="growth-option" onclick="handleGrowthClick('${option}', 2)">
                         <span style="position: relative; z-index: 1;">${option}</span>
-                    </极div>
+                    </div>
                 `).join('');
             } else if (appState.growthNavigation.length === 2) {
                 const level2Choice = appState.growthNavigation[1];
                 content += GROWTH_OPTIONS.level3[level2Choice].map(option => `
-                    <div class="growth-option, onclick="handleGrowthClick('${option.replace(/'/g, "\\'")}', 3)">
+                    <div class="growth-option" onclick="handleGrowthClick('${option.replace(/'/g, "\\'")}', 3)">
                         <span style="position: relative; z-index: 1;">${option}</span>
                     </div>
                 `).join('');
             }
-
             document.getElementById('contentArea').innerHTML = content;
         }
-
         function handleTaskClick(task) {
             showFloatingOutput(`Task added: ${task}`);
         }
-
         function handleMindClick(option) {
-            showFloatingOutput(`Tell me what you've decided: ${option}`);
+            showFloatingOutput(`Mind state recorded: ${option}`);
         }
-
         function handleDriveClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.driveNavigation, option].join(' → ');
-                showFloatingOutput(`Send me a screenshot of the instructions: ${fullPath}`);
+                showFloatingOutput(`Drive task completed: ${fullPath}`);
                 resetDriveNavigation();
             } else {
                 appState.driveNavigation.push(option);
                 showDriveOptions();
             }
         }
-
         function handleGrowthClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.growthNavigation, option].join(' → ');
-                showFloatingOutput(`Growth task committed: ${fullPath}`);
+                showFloatingOutput(`Growth task completed: ${fullPath}`);
                 resetGrowthNavigation();
             } else {
                 appState.growthNavigation.push(option);
                 showGrowthOptions();
             }
         }
-
         function resetDriveNavigation() {
             appState.driveNavigation = [];
             showDriveOptions();
         }
-
         function resetGrowthNavigation() {
             appState.growthNavigation = [];
             showGrowthOptions();
         }
-
         function navigateDriveTo(index) {
             appState.driveNavigation = appState.driveNavigation.slice(0, index + 1);
             showDriveOptions();
         }
-
         function navigateGrowthTo(index) {
             appState.growthNavigation = appState.growthNavigation.slice(0, index + 1);
             showGrowthOptions();
         }
-
         function handleWeeklyTasks() {
             const randomTask = WEEKLY_TASKS[Math.floor(Math.random() * WEEKLY_TASKS.length)];
             showFloatingOutput(`Weekly task: ${randomTask}`);
         }
-
         document.addEventListener('DOMContentLoaded', function() {
-            // Attach tab switching
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() {
                     const tabName = this.getAttribute('data-tab');
                     switchTab(tabName);
                 });
             });
-
-            // Attach home button
             document.getElementById('homeButton').addEventListener('click', function() {
                 showIntroScreen();
                 document.querySelectorAll('.tab').forEach(tab => {
                     tab.classList.remove('active');
                 });
             });
-
-            // Attach weekly tasks button
             document.getElementById('weeklyTasksBtn').addEventListener('click', handleWeeklyTasks);
-
-            // Show intro screen
             showIntroScreen();
         });
     </script>
