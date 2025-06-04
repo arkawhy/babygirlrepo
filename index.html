@@ -270,6 +270,11 @@
                 font-size: 2.2rem;
             }
         }
+        .play-sub-option:hover {
+    background: #8A2BE2 !important;
+    transform: scale(1.03);
+    box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3);
+}
     </style>
 </head>
 <body>
@@ -283,6 +288,9 @@
             </div>
             <div class="tab" data-tab="mind">
                 <span class="tab-text">What's on your mind?😏</span>
+            </div>
+            <div class="tab" data-tab="play">
+            <span class="tab-text">How do you want to play?😏</span>
             </div>
             <div class="tab" data-tab="drive">
                 <span class="tab-text">Do you wish to drive?😈</span>
@@ -386,6 +394,23 @@
                 ]
             }
         };
+        const PLAY_OPTIONS = {
+    "Playful Tease": [
+        "Send a flirty selfie with a wink.",
+        "Record a short audio saying, 'I miss you, sir.'",
+        "Write a naughty note and send a photo of it."
+    ],
+    "Sensual Challenge": [
+        "Touch yourself for 30 seconds while thinking of me.",
+        "Take a slow, sexy video of your lips.",
+        "Send a picture of your bare back, shoulders, or neck."
+    ],
+    "Submission Request": [
+        "Ask me directly for a command.",
+        "Text me, 'Sir, tell me what to do.'",
+        "Send a voice note begging for instructions."
+    ]
+};
         // Growth tab uses the same structure as Drive for a flat, clickable UI
         const GROWTH_OPTIONS = JSON.parse(JSON.stringify(DRIVE_OPTIONS));
         GROWTH_OPTIONS.level1 = [
@@ -467,7 +492,8 @@
         const appState = {
             currentTab: 'intro',
             driveNavigation: [],
-            growthNavigation: []
+            growthNavigation: [],
+            playNavigation: [] 
         };
         function showFloatingOutput(text) {
             const output = document.getElementById('floatingOutput');
@@ -484,12 +510,14 @@
             document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
             if (tabName !== 'drive') appState.driveNavigation = [];
             if (tabName !== 'growth') appState.growthNavigation = [];
+            if (tabName !== 'play') appState.playNavigation = [];
             appState.currentTab = tabName;
             switch (tabName) {
                 case 'pending': showPendingTasks(); break;
                 case 'mind': showMindOptions(); break;
                 case 'drive': showDriveOptions(); break;
                 case 'growth': showGrowthOptions(); break;
+                case 'play': showPlayOptions(); break;
                 default: showIntroScreen();
             }
         }
@@ -559,6 +587,24 @@
             }
             document.getElementById('contentArea').innerHTML = content;
         }
+        function showPlayOptions() {
+    const content = `
+        <h2 class="section-header">How do you want to play, babygirl?😏</h2>
+        ${Object.entries(PLAY_OPTIONS).map(([mainOption, subOptions]) => `
+            <div class="play-option" style="background: rgba(138, 43, 226, 0.25); border: 2px solid rgba(230, 230, 250, 0.35); border-radius: 18px; padding: 25px; margin: 18px 0; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; font-size: 1.2rem;">
+                <span style="position: relative; z-index: 1;">${mainOption}</span>
+                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                    ${subOptions.map(subOption => `
+                        <div class="play-sub-option" style="background: rgba(75, 0, 130, 0.7); border-radius: 14px; padding: 10px 15px; font-size: 1rem; cursor: pointer; transition: all 0.2s; color: #E6E6FA;" onclick="handlePlaySubClick('${subOption.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')">
+                            ${subOption}
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('')}
+    `;
+    document.getElementById('contentArea').innerHTML = content;
+}
         function showGrowthOptions() {
             const breadcrumb = appState.growthNavigation.length > 0 ?
                 `<div class="growth-breadcrumb">
@@ -611,6 +657,9 @@
                 showDriveOptions();
             }
         }
+        function handlePlaySubClick(option) {
+    showFloatingOutput(`Play mode activated: ${option}`);
+}
         function handleGrowthClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.growthNavigation, option].join(' → ');
