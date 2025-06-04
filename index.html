@@ -588,21 +588,32 @@
             document.getElementById('contentArea').innerHTML = content;
         }
         function showPlayOptions() {
-    const content = `
+    let content = `
         <h2 class="section-header">How do you want to play, babygirl?😏</h2>
-        ${Object.entries(PLAY_OPTIONS).map(([mainOption, subOptions]) => `
-            <div class="play-option" style="background: rgba(138, 43, 226, 0.25); border: 2px solid rgba(230, 230, 250, 0.35); border-radius: 18px; padding: 25px; margin: 18px 0; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; font-size: 1.2rem;">
-                <span style="position: relative; z-index: 1;">${mainOption}</span>
-                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                    ${subOptions.map(subOption => `
-                        <div class="play-sub-option" style="background: rgba(75, 0, 130, 0.7); border-radius: 14px; padding: 10px 15px; font-size: 1rem; cursor: pointer; transition: all 0.2s; color: #E6E6FA;" onclick="handlePlaySubClick('${subOption.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')">
-                            ${subOption}
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `).join('')}
     `;
+    if (appState.playNavigation.length === 0) {
+        // Show main options
+        content += Object.keys(PLAY_OPTIONS).map(option => `
+            <div class="play-option" onclick="handlePlayOptionClick('${option.replace(/'/g, "\\'")}')">
+                <span style="position: relative; z-index: 1;">${option}</span>
+            </div>
+        `).join('');
+    } else {
+        // Show sub-options for the selected main option
+        const selectedOption = appState.playNavigation[0];
+        content += `
+            <div class="play-breadcrumb">
+                <span class="breadcrumb-item" onclick="resetPlayNavigation()">🏠 Start</span>
+                <span class="breadcrumb-separator">→</span>
+                <span class="breadcrumb-item">${selectedOption}</span>
+            </div>
+        `;
+        content += PLAY_OPTIONS[selectedOption].map(subOption => `
+            <div class="play-sub-option" onclick="handlePlaySubClick('${subOption.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')">
+                ${subOption}
+            </div>
+        `).join('');
+    }
     document.getElementById('contentArea').innerHTML = content;
 }
         function showGrowthOptions() {
@@ -690,6 +701,20 @@
             const randomTask = WEEKLY_TASKS[Math.floor(Math.random() * WEEKLY_TASKS.length)];
             showFloatingOutput(`Weekly task: ${randomTask}`);
         }
+        function handlePlayOptionClick(option) {
+    appState.playNavigation = [option];
+    showPlayOptions();
+}
+
+function handlePlaySubClick(option) {
+    showFloatingOutput(`Play mode activated: ${option}`);
+    resetPlayNavigation(); // Optional: reset after choosing a sub-option, or leave as is for multiple selections
+}
+
+function resetPlayNavigation() {
+    appState.playNavigation = [];
+    showPlayOptions();
+}
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() {
