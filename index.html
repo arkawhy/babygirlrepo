@@ -275,6 +275,57 @@
     transform: scale(1.03);
     box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3);
 }
+.play-breadcrumb {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+.play-breadcrumb .breadcrumb-item {
+    background: rgba(75, 0, 130, 0.7);
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #fff;
+}
+.play-breadcrumb .breadcrumb-item:hover {
+    background: #8A2BE2;
+    transform: scale(1.08);
+}
+.play-breadcrumb .breadcrumb-separator {
+    color: #E6E6FA;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.play-option {
+    background: rgba(138, 43, 226, 0.25);
+    border: 2px solid rgba(230, 230, 250, 0.35);
+    border-radius: 18px;
+    padding: 25px;
+    margin: 18px 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    font-size: 1.2rem;
+}
+.play-sub-option {
+    background: rgba(75, 0, 130, 0.7);
+    border-radius: 14px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #E6E6FA;
+    margin: 10px 0;
+}
+.play-sub-option:hover {
+    background: #8A2BE2 !important;
+    transform: scale(1.03);
+    box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3);
+}
     </style>
 </head>
 <body>
