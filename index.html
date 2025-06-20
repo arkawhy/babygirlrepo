@@ -326,6 +326,59 @@
     transform: scale(1.03);
     box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3);
 }
+
+/* Sexy Animated Loader */
+.sexy-loader {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(20, 10, 30, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s;
+  opacity: 0;
+  pointer-events: none;
+}
+.sexy-loader.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.heart {
+  width: 70px;
+  height: 70px;
+  position: relative;
+  transform: rotate(-45deg);
+  animation: pulse 1s infinite;
+}
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #ff5eae 60%, #fc466b 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 30px #ff5eae, 0 0 80px #fc466b;
+}
+.heart:before {
+  top: -35px;
+  left: 0;
+}
+.heart:after {
+  left: 35px;
+  top: 0;
+}
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1) rotate(-45deg);
+    box-shadow: 0 0 30px #ff5eae, 0 0 80px #fc466b;
+  }
+  50% {
+    transform: scale(1.15) rotate(-45deg);
+    box-shadow: 0 0 60px #ff5eae, 0 0 120px #fc466b;
+  }
+}
     </style>
 </head>
 <body>
@@ -351,8 +404,7 @@
             </div>
         </nav>
         <main class="content-area" id="contentArea">
-            <!-- Content loads here -->
-        </main>
+            <!-- Content loads here -->... </main>
     </div>
     <footer class="bottom-ribbon">
         <button class="bottom-btn weekly-tasks-btn" id="weeklyTasksBtn">
@@ -360,6 +412,12 @@
         </button>
     </footer>
     <div class="floating-output" id="floatingOutput"></div>
+
+    <!-- Sexy Animated Loading Spinner -->
+    <div id="sexy-loader" class="sexy-loader">
+      <div class="heart"></div>
+    </div>
+
     <script>
         // Editable content
         const PENDING_TASKS = [
@@ -420,8 +478,7 @@
                 ],
                 "Starting Nude🔴": [
                     "Please let me be naked on video for you, standing upright and saying how much I love being your good girl, and then turning around to present my ass to you.",
-                    "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in front of you. I'll stand back up and then give you a little twirl so you can appreciate every inch of me.",
-                    "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each."
+                    "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in front of you. I'll stand back up and then give you a little twirl so you can appreciate every inch of me.",... "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each."
                 ],
                 "Special Submission🔴": [
                     "I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.",
@@ -465,8 +522,7 @@
         // Growth tab uses the same structure as Drive for a flat, clickable UI
         const GROWTH_OPTIONS = JSON.parse(JSON.stringify(DRIVE_OPTIONS));
         GROWTH_OPTIONS.level1 = [
-            "Self-Care🟢",
-            "Career-related🟢🟠",
+            "Self-Care🟢",... "Career-related🟢🟠",
             "Submission🟠🔴"
         ];
         GROWTH_OPTIONS.level2 = {
@@ -527,8 +583,7 @@
                 "Text me once today saying, 'Sir, I just wanted to remind you that I am all yours,' but not in these exact same words.",
                 "Kneel nude, clasp your breasts with your hands, and slowly place your knees wide apart in a video, opening yourself up to me. Caption the video as 'A thank-you video for you'."
             ],
-            "Mental Conditioning🟠": [
-                "Get topless, write 'I am Arka's favourite plaything' on your stomach, and send me a video of you writing it.",
+            "Mental Conditioning🟠": [... "Get topless, write 'I am Arka's favourite plaything' on your stomach, and send me a video of you writing it.",
                 "Call me up some time today, and ask me for instructions for a task, and remember to thank me appropriately.",
                 "Type up a 200-word essay on why you think you should obey me every step of your being, every day in your life, and send it to me."
             ]
@@ -554,6 +609,16 @@
                 output.classList.remove('show');
             }, 5000);
         }
+
+        // Sexy loader functions
+        function showSexyLoader() {
+          document.getElementById('sexy-loader').classList.add('active');
+        }
+        function hideSexyLoader() {
+          document.getElementById('sexy-loader').classList.remove('active');
+        }
+
+        // Wrap tab switching with loader
         function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
@@ -563,15 +628,20 @@
             if (tabName !== 'growth') appState.growthNavigation = [];
             if (tabName !== 'play') appState.playNavigation = [];
             appState.currentTab = tabName;
-            switch (tabName) {
-                case 'pending': showPendingTasks(); break;
-                case 'mind': showMindOptions(); break;
-                case 'drive': showDriveOptions(); break;
-                case 'growth': showGrowthOptions(); break;
-                case 'play': showPlayOptions(); break;
-                default: showIntroScreen();
-            }
+            showSexyLoader();
+            setTimeout(() => {
+                switch (tabName) {
+                    case 'pending': showPendingTasks(); break;
+                    case 'mind': showMindOptions(); break;
+                    case 'drive': showDriveOptions(); break;
+                    case 'growth': showGrowthOptions(); break;
+                    case 'play': showPlayOptions(); break;
+                    default: showIntroScreen();
+                }
+                hideSexyLoader();
+            }, 850); // Adjust duration as needed
         }
+
         function showIntroScreen() {
             document.getElementById('contentArea').innerHTML = `
                 <div class="intro-screen">
@@ -617,8 +687,7 @@
             `;
             if (appState.driveNavigation.length === 0) {
                 content += DRIVE_OPTIONS.level1.map(option => `
-                    <div class="drive-option" onclick="handleDriveClick('${option}', 1)">
-                        <span style="position: relative; z-index: 1;">${option}</span>
+                    <div class="drive-option" onclick="handleDriveClick('${option}', 1)">... <span style="position: relative; z-index: 1;">${option}</span>
                     </div>
                 `).join('');
             } else if (appState.driveNavigation.length === 1) {
@@ -702,8 +771,7 @@
                 `).join('');
             }
             document.getElementById('contentArea').innerHTML = content;
-        }
-        function handleTaskClick(task) {
+        }... function handleTaskClick(task) {
             showFloatingOutput(`Task added: ${task}`);
         }
         function handleMindClick(option) {
