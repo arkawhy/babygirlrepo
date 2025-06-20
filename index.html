@@ -366,7 +366,6 @@
             "I'll remember that he loves me, no matter what I do, for I am his submissive babygirl, his personal princess.",
             "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and he's going to help me every step of the way.",
             "I am going to try to keep up with my weekly passive task.",
-            "I will know that I am to do whatever he says, no boundaries at all, for I trust that he knows what's best for me, and what's best for us.",
             "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay."
         ];
         const MIND_OPTIONS = [
@@ -393,7 +392,7 @@
                     "Special Submission🔴"
                 ],
                 "A hot picture?🔴": [
-                    "Unique🔴",
+                    "Object-interaction🔴",
                     "Accessories🔴",
                     "Special Submissive🔴"
                 ]
@@ -429,7 +428,7 @@
                     "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission.",
                     "I'll get fully naked for you, and then start the video with my hands behind me and hair down, spectacles on. I'll then affirm my submission to you by saying as much, and assure you of my obedience to do anything you say."
                 ],
-                "Unique🔴": [
+                "Object-interaction🔴": [
                     "I'll strip down completely, and take a pic of me sitting in a chair and smiling in a mirror selfie, hair down, with an arm loosely held behind me, my legs wide apart for you to savour what's in between.",
                     "Since you love teaching me, maybe I can take a mirror selfie with a book held up to my face, my hair down, wearing nothing but panties, and every other inch of me on display for you",
                     "I'll take a photo of me lying nude on the bed, the camera placed just above my breasts and pointing at my feet. I am going to give you a a clear view of how your baby looks naked, from right between my boobs, all the way down to my pussy and legs."
@@ -720,6 +719,9 @@
                 showDriveOptions();
             }
         }
+        function handlePlaySubClick(option) {
+    showFloatingOutput(`Play mode activated: ${option}`);
+}
         function handleGrowthClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.growthNavigation, option].join(' → ');
