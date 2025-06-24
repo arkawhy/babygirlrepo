@@ -478,7 +478,7 @@
         const GROWTH_OPTIONS = JSON.parse(JSON.stringify(DRIVE_OPTIONS));
         GROWTH_OPTIONS.level1 = [
             "Self-Care🟢",
-            "Career-related🟢🟠",
+            "Life-related🟢🟠",
             "Submission🟠🔴"
         ];
         GROWTH_OPTIONS.level2 = {
@@ -487,14 +487,14 @@
                 "Emotional Health🟢",
                 "Mental Health🟢"
             ],
-            "Career-related🟢🟠": [
+            "Life-related🟢🟠": [
                 "Studies🟢",
                 "Skills🟢🟠",
                 "Capabilities🟢🟠"
             ],
             "Submission🟠🔴": [
                 "Physical Display🔴",
-                "Verbal Gratitude🟠🔴",
+                "Gratitude Expression🟠🔴",
                 "Mental Conditioning🟠"
             ]
         };
@@ -512,7 +512,7 @@
                 "Can I ask you to write me a fantasy scenario of us in any setting?"
             ],
             "Mental Health🟢": [
-                "I will write this on a paper: 'There are always going to be people better and worse than me, and that is okay. I am content.' I shall send you a photo of the paper.",
+                "I will write this on a paper: 'There are always going to be people better and worse than me, and that is okay.' I shall send you a photo of the paper.",
                 "I shall call you up and compliment myself on something that I did in the recent past that I am really proud of for having done.",
                 "As soon as I wake up tomorrow morning, I will call you, and tell you, 'I am confident that this is going to be a good day for me. I love you.'",
                 "Before going to bed today, I'll call you up and wish you a good night, and remember to collect an ILY from you."
@@ -535,17 +535,20 @@
             "Physical Display🔴": [
                 "I will duly present myself to you in the most natural of my poses: fully nude, kneeling with my hair down, spectacles off, eyes lowered and hands clasped behind me. I am allowed to choose to do as much in a photo, video, or on a video call.",
                 "I will duly present myself to you with my bra in my mouth, wearing nothing at all, feet close together and hands behind me, hair down. I shall be standing upright and fully on display for you.",
-                "I will duly present my ass to you by perfectly displaying my curves, in a photo, video, or on a video call."
+                "I will duly present my ass to you by perfectly displaying my curves, in a photo, video, or on a video call.",
+                "I will learn three new submissive positions from you on a video call."
             ],
-            "Verbal Gratitude🟠🔴": [
+            "Gratitude Expression🟠🔴": [
                 "I'll be sending you a voice message clearly expressing my gratitude at being your submissive. ",
                 "I shall text you once today saying, 'Sir, I just wanted to remind you that I am all yours,' but not in these exact same words.",
-                "I will use 'sir' with you throughout today, including in at least one video where I am just as clothed or naked as you want me to be."
+                "I will use 'sir' with you throughout today, including in at least one video where I am just as clothed or naked as you want me to be.",
+                "I'll video call you today, strip naked, and thank you for any non-sexual thing I feel I need to express my gratitude for."
             ],
             "Mental Conditioning🟠": [
-                "I'll happily get topless, write 'I am Arka's favourite plaything' on your stomach, and send you a video of you writing it.",
+                "I'll happily get topless, write 'I am Arka's favourite plaything' on my stomach, and send you a video of me writing it.",
                 "I can call you up some time today, and ask you for instructions for a task, and remember to thank you appropriately.",
-                "I will type up a 200-word essay on why I think I should obey you every step of my being, every day in my life, and send it to you."
+                "I will type up a 200-word essay on why I think I should obey you every step of my being, every day in my life, and send it to you.",
+                "I am going to video call you naked, and read out the daily affirmations from the website on camera."
             ]
         };
         const WEEKLY_TASKS = [
@@ -620,7 +623,7 @@
         function showDriveOptions() {
             const breadcrumb = appState.driveNavigation.length > 0 ?
                 `<div class="drive-breadcrumb">
-                    <span class="breadcrumb-item" onclick="resetDriveNavigation()">🏠 Start</span>
+                    <span class="breadcrumb-item" onclick="resetDriveNavigation()">Drive</span>
                     ${appState.driveNavigation.map((item, index) => `
                         <span class="breadcrumb-separator">→</span>
                         <span class="breadcrumb-item" onclick="navigateDriveTo(${index})">${item}</span>
@@ -669,7 +672,7 @@
         const selectedOption = appState.playNavigation[0];
         content += `
             <div class="play-breadcrumb">
-                <span class="breadcrumb-item" onclick="resetPlayNavigation()">🏠 Start</span>
+                <span class="breadcrumb-item" onclick="resetPlayNavigation()">Games</span>
                 <span class="breadcrumb-separator">→</span>
                 <span class="breadcrumb-item">${selectedOption}</span>
             </div>
@@ -685,7 +688,7 @@
         function showGrowthOptions() {
             const breadcrumb = appState.growthNavigation.length > 0 ?
                 `<div class="growth-breadcrumb">
-                    <span class="breadcrumb-item" onclick="resetGrowthNavigation()">🏠 Start</span>
+                    <span class="breadcrumb-item" onclick="resetGrowthNavigation()">Growth</span>
                     ${appState.growthNavigation.map((item, index) => `
                         <span class="breadcrumb-separator">→</span>
                         <span class="breadcrumb-item" onclick="navigateGrowthTo(${index})">${item}</span>
@@ -722,12 +725,12 @@
             showFloatingOutput(`Task added: ${task}`);
         }
         function handleMindClick(option) {
-            showFloatingOutput(`Mind state recorded: ${option}`);
+            showFloatingOutput(`What you've said is on your mind: ${option}`);
         }
         function handleDriveClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.driveNavigation, option].join(' → ');
-                showFloatingOutput(`Drive task completed: ${fullPath}`);
+                showFloatingOutput(`Drive task chosen: ${fullPath}`);
                 resetDriveNavigation();
             } else {
                 appState.driveNavigation.push(option);
@@ -735,12 +738,12 @@
             }
         }
         function handlePlaySubClick(option) {
-    showFloatingOutput(`Play mode activated: ${option}`);
+    showFloatingOutput(`Game chosen: ${option}`);
 }
         function handleGrowthClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.growthNavigation, option].join(' → ');
-                showFloatingOutput(`Growth task completed: ${fullPath}`);
+                showFloatingOutput(`Growth task chosen: ${fullPath}`);
                 resetGrowthNavigation();
             } else {
                 appState.growthNavigation.push(option);
@@ -773,7 +776,7 @@
 }
 
 function handlePlaySubClick(option) {
-    showFloatingOutput(`Play mode activated: ${option}`);
+    showFloatingOutput(`Game chosen: ${option}`);
     resetPlayNavigation(); // Optional: reset after choosing a sub-option, or leave as is for multiple selections
 }
 
