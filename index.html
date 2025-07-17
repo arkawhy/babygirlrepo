@@ -214,19 +214,27 @@
             top: 0;
             left: 50%;
             transform-origin: 0% 100%;
-            clip-path: polygon(0 0, 100% 0, 100% 1px, 50% 100%, 0 1px);
+            /* This clip-path creates the triangle shape */
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
         }
+        
+        /* --- FIX FOR TEXT WRAPPING --- */
         .slice-text {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
+            width: 65%; /* Constrains the width to encourage wrapping */
+            left: 17.5%; /* Centers the constrained width */
+            top: 15%; /* Pushes text down from the point */
             color: white;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            width: 70%;
             text-align: center;
+            white-space: normal; /* Allows text to wrap */
+            word-wrap: break-word; /* Breaks long words if necessary */
+            transform: rotate(45deg); /* Aligns text with the slice direction */
+            line-height: 1.2;
         }
+        /* End of fix */
+
         .wheel-slice:nth-child(1) { background-color: var(--c1); transform: rotate(0deg); }
         .wheel-slice:nth-child(2) { background-color: var(--c2); transform: rotate(45deg); }
         .wheel-slice:nth-child(3) { background-color: var(--c3); transform: rotate(90deg); }
@@ -811,7 +819,7 @@
                     </div>
                 `;
                 content += PLAY_OPTIONS[selectedOption].map(subOption => `
-                    <div class="play-sub-option" onclick="handlePlaySubClick('${subOption.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')">
+                    <div class="play-sub-option" onclick="handlePlaySubClick('${subOption.replace(/'/g, "\\'").replace(/"/g, '"')}')">
                         ${subOption}
                     </div>
                 `).join('');
