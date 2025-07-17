@@ -17,10 +17,6 @@
             --font-heading: 'Garamond', 'Georgia', serif; /* Elegant serif for titles */
             --font-body: 'Segoe UI', 'Roboto', sans-serif; /* Clean sans-serif for body */
             --shadow: 0 10px 30px rgba(155, 89, 182, 0.15); /* A softer, more ambient shadow */
-            
-            /* Spin Wheel Slice Colors */
-            --c1: #581845; --c2: #900C3F; --c3: #C70039; --c4: #FF5733;
-            --c5: #4A235A; --c6: #7D3C98; --c7: #9B59B6; --c8: #AF7AC5;
         }
 
         html {
@@ -35,7 +31,7 @@
             color: var(--text-light);
             font-family: var(--font-body);
             line-height: 1.7;
-            -webkit-font-smoothing: antialiased; /* Smoother fonts on webkit browsers */
+            -webkit-font-smoothing: antialiased;
         }
 
         /* --- Top & Bottom Ribbons --- */
@@ -51,7 +47,7 @@
         .title-ribbon {
             height: 70px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            justify-content: space-between; /* To space out title and timer */
+            justify-content: space-between;
             padding: 0 30px;
         }
         .bottom-ribbon {
@@ -89,7 +85,7 @@
         .main-container {
             flex: 1 1 auto;
             display: flex;
-            overflow: hidden; /* Prevents layout shifts */
+            overflow: hidden;
         }
 
         /* --- Sidebar Navigation --- */
@@ -147,7 +143,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: calc(100vh - 200px); /* Fill the space better */
+            min-height: calc(100vh - 200px);
         }
         .intro-screen h2 {
             font-family: var(--font-heading);
@@ -171,7 +167,7 @@
             font-weight: normal;
         }
         
-        /* --- Spin Wheel Styles --- */
+        /* --- SVG SPIN WHEEL STYLES --- */
         .wheel-container {
             display: flex;
             flex-direction: column;
@@ -182,59 +178,38 @@
         }
         .wheel-wrapper {
             position: relative;
-            width: 350px;
-            height: 350px;
+            width: 450px;
+            height: 450px;
         }
         .wheel-pointer {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -100%);
+            transform: translate(-50%, -50px);
             width: 0;
             height: 0;
             border-left: 15px solid transparent;
             border-right: 15px solid transparent;
             border-top: 30px solid var(--primary-lavender);
             z-index: 10;
+            filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.3));
         }
-        .wheel {
+        #wheel-svg {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            position: relative;
-            overflow: hidden;
-            border: 5px solid var(--bg-dark);
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
+            border-radius: 50%; /* Helps with anti-aliasing on some browsers */
+        }
+        #wheel-group {
             transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .wheel-slice {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            top: 0;
-            left: 50%;
-            transform-origin: 0% 100%;
-            clip-path: polygon(0 0, 100% 0, 100% 1px, 50% 100%, 0 1px);
-        }
-        .slice-text {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            color: white;
+        .wheel-text {
+            font-family: var(--font-body);
             font-size: 12px;
             font-weight: 600;
-            width: 70%;
-            text-align: center;
+            fill: #fff;
+            letter-spacing: 0.5px;
         }
-        .wheel-slice:nth-child(1) { background-color: var(--c1); transform: rotate(0deg); }
-        .wheel-slice:nth-child(2) { background-color: var(--c2); transform: rotate(45deg); }
-        .wheel-slice:nth-child(3) { background-color: var(--c3); transform: rotate(90deg); }
-        .wheel-slice:nth-child(4) { background-color: var(--c4); transform: rotate(135deg); }
-        .wheel-slice:nth-child(5) { background-color: var(--c5); transform: rotate(180deg); }
-        .wheel-slice:nth-child(6) { background-color: var(--c6); transform: rotate(225deg); }
-        .wheel-slice:nth-child(7) { background-color: var(--c7); transform: rotate(270deg); }
-        .wheel-slice:nth-child(8) { background-color: var(--c8); transform: rotate(315deg); }
 
         .spin-button {
             background: var(--primary-purple);
@@ -378,7 +353,7 @@
         /* --- Floating Output Popup --- */
         .floating-output {
             position: fixed;
-            bottom: 95px; /* Positioned above the footer */
+            bottom: 95px;
             right: 20px;
             background: #2c2a31;
             color: var(--text-light);
@@ -388,7 +363,7 @@
             max-width: 350px;
             transform: translateY(20px) scale(0.95);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); /* Smooth spring-like transition */
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
@@ -424,14 +399,14 @@
                 padding: 5px 0;
                 border-right: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                -ms-overflow-style: none;  /* IE and Edge */
-                scrollbar-width: none;  /* Firefox */
+                -ms-overflow-style: none;
+                scrollbar-width: none;
             }
             .sidebar::-webkit-scrollbar {
-                display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+                display: none;
             }
             .tab {
-                flex: 0 0 auto; /* Allow tabs to scroll horizontally */
+                flex: 0 0 auto;
                 min-width: 150px;
                 text-align: center;
                 padding: 15px 20px;
@@ -457,8 +432,8 @@
                 bottom: 90px;
             }
             .wheel-wrapper {
-                width: 300px;
-                height: 300px;
+                width: 320px;
+                height: 320px;
             }
             .weather-display-container {
                 flex-direction: column;
@@ -475,28 +450,28 @@
     <div class="main-container">
         <nav class="sidebar">
             <div class="tab" data-tab="pending">
-                <span class="tab-text">Daily Affirmations💪🏼</span>
+                <span class="tab-text">daily affirmations</span>
             </div>
             <div class="tab" data-tab="mind">
-                <span class="tab-text">What's on your mind?😏</span>
+                <span class="tab-text">mostly interactive stuff, left upto you to choose</span>
             </div>
             <div class="tab" data-tab="luck">
-                <span class="tab-text">My Lady Luck 🎡</span>
+                <span class="tab-text">my lady luck</span>
             </div>
             <div class="tab" data-tab="playlist">
-                <span class="tab-text">Our Playlist 🎵</span>
+                <span class="tab-text">slow dance</span>
             </div>
             <div class="tab" data-tab="play">
-                <span class="tab-text">Some games for you🕹</span>
+                <span class="tab-text">games?</span>
             </div>
             <div class="tab" data-tab="drive">
-                <span class="tab-text">Do you wish to drive?😈</span>
+                <span class="tab-text">mango milkshakes.</span>
             </div>
             <div class="tab" data-tab="growth">
-                <span class="tab-text">Baby steps toward growth🌱</span>
+                <span class="tab-text">test the limits of your obedience, and grow</span>
             </div>
             <div class="tab locked" data-tab="vault">
-                <span class="tab-text">The Vault 🔒</span>
+                <span class="tab-text">the vault</span>
             </div>
         </nav>
         <main class="content-area" id="contentArea">
@@ -515,14 +490,13 @@
     <script>
         // --- REAL-WORLD CONNECTION (WEATHER) ---
         function updateWeather() {
-            // ❗ NOTE: A working API key has been added for demonstration.
             const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab'; 
 
             const cityDelhi = '1273294';
             const cityKolkata = '1275004';
 
-            fetchWeatherForCity(cityDelhi, 'weather-delhi', 'My World (Delhi)', apiKey);
-            fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'Your World (Kolkata)', apiKey);
+            fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city', apiKey);
+            fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city', apiKey);
         }
 
         function fetchWeatherForCity(cityId, elementId, locationName, apiKey) {
@@ -556,7 +530,6 @@
                 });
         }
         
-        // Update weather every 10 minutes (600000 milliseconds)
         setInterval(updateWeather, 600000);
         
 
@@ -573,20 +546,20 @@
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             if (distance > 0) {
-                document.getElementById("countdownTimer").innerHTML = `Vault Unlocks In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                document.getElementById("countdownTimer").innerHTML = `the vault opens in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
             } else {
                 clearInterval(countdownInterval);
-                document.getElementById("countdownTimer").innerHTML = "The Vault is Open";
+                document.getElementById("countdownTimer").innerHTML = "the vault is open!";
                 const vaultTab = document.querySelector('.tab[data-tab="vault"]');
                 vaultTab.classList.remove('locked');
-                vaultTab.querySelector('.tab-text').innerHTML = "The Vault 🔓";
+                vaultTab.querySelector('.tab-text').innerHTML = "the vault";
             }
         }, 1000);
         
         // --- Editable content ---
-        const PENDING_TASKS = [ "I'll remember that he loves me, no matter what I do, for I am his submissive babygirl, his personal princess.", "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and he's going to help me every step of the way.", "I am going to try to keep up with my weekly passive task.", "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay." ];
+        const PENDING_TASKS = [ "I'll remember that you love me, no matter what I do, for I am your submissive babygirl, your personal princess.", "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and you're going to help me every step of the way.", "I am going to try to keep up with my weekly passive task.", "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay." ];
         const MIND_OPTIONS = [ "I think I can work in an interview today. 😋", "Maybe I can take you along for a trip to the shower? 🚿", "I'd love a little one-on-one video call, maybe. 💞", "Can you just teach me how to dirty-talk well with you? 😙" ];
-        const WHEEL_OPTIONS = [ "Placeholder 1", "Placeholder 2", "Placeholder 3", "Placeholder 4", "Placeholder 5", "Placeholder 6", "Placeholder 7", "Placeholder 8" ];
+        const WHEEL_OPTIONS = [ "A 10-second video of only your smile.", "Get me to write you something spicy.", "A picture of your nude silhouette against a light.", "A photo of you wearing your favorite color.", "Choose a mango milkshake from the website which involves you getting nude.", "Write my name on your wrist and send a picture.", "Describe your outfit in detail, and choose one you wish for me to remove.", "Ask me to send you a mango milkshake." ];
         const DRIVE_OPTIONS = {
             level1: [ "Passive Tasks?🟢🟠🔴", "A sexy video?🟠🔴", "A hot picture?🔴" ],
             level2: { "Passive Tasks?🟢🟠🔴": [ "Clothing-related🟠🔴", "Mind-related🟢", "Other Passive Tasks🟠" ], "A sexy video?🟠🔴": [ "Starting Clothed🟠", "Starting Nude🔴", "Special Submission🔴" ], "A hot picture?🔴": [ "Object-interaction🔴", "Accessories🔴", "Special Submissive🔴" ] },
@@ -605,8 +578,8 @@
             "I am to send you at least three videos in the 26 June-3 July week showing you that I am studying with my pretty hair down. I am not going to let you down. 😘"
         ];
         const INTRO_TEXT = {
-            title: "Welcome, babygirl.",
-            description: "Step inside your private playground. Here, you’re free to be bold, to tease, to surrender, and to shine. Every click, every word, every task is a secret invitation—just for you and me. Let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. Are you ready to play?"
+            title: "welcome, babygirl.",
+            description: "step inside your private playground. here, you’re free to be bold, to tease, to surrender, and to shine. every click, every word, every task is a secret invitation—just for you and me. let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. are you ready to play?"
         };
         const appState = {
             currentTab: 'intro',
@@ -627,7 +600,7 @@
         function switchTab(tabName) {
             const vaultTab = document.querySelector('.tab[data-tab="vault"]');
             if (tabName === 'vault' && vaultTab.classList.contains('locked')) {
-                showFloatingOutput("The Vault is still locked. Be patient.");
+                showFloatingOutput("the vault is still locked, my love. wait for the countdown.");
                 return;
             }
 
@@ -677,37 +650,48 @@
             const contentArea = document.getElementById('contentArea');
             contentArea.innerHTML = `
                 <div style="text-align: center;">
-                    <h2 class="section-header">Our Shared Soundtrack</h2>
+                    <h2 class="section-header">happy headache</h2>
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
-                        This is our space for music. Add songs that remind you of us, songs you love, or songs you want me to hear. This playlist belongs to both of us.
+                        you don't use spotfy, so i think i found a way for us to listen to it here. yay.
                     </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/4" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             `;
         }
         function showSpinWheel() {
             const content = `
                 <div style="text-align: center;">
-                    <h2 class="section-header">Feeling Lucky?</h2>
+                    <h2 class="section-header">you're my lady luck, btw.</h2>
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
-                        Leave tonight's little adventure to fate. Spin the wheel and see what surprise Lady Luck has in store for you.
+                        still, if you want, we can leave it to the fates for once.
                     </p>
                 </div>
                 <div class="wheel-container">
                     <div class="wheel-wrapper">
                         <div class="wheel-pointer"></div>
-                        <div class="wheel" id="wheel">
-                            ${WHEEL_OPTIONS.map(option => `
-                                <div class="wheel-slice">
-                                    <div class="slice-text">${option}</div>
-                                </div>
-                            `).join('')}
-                        </div>
+                        <ul class="wheel" id="wheel">
+                        </ul>
                     </div>
                     <button class="spin-button" id="spinBtn">Spin the Wheel</button>
                 </div>
             `;
             document.getElementById('contentArea').innerHTML = content;
+            
+            const wheel = document.getElementById('wheel');
+            wheel.innerHTML = ''; // Clear previous slices if any
+            WHEEL_OPTIONS.forEach((option, i) => {
+                const slice = document.createElement('li');
+                slice.className = 'wheel-slice';
+                slice.style.setProperty('--i', i);
+                
+                const text = document.createElement('div');
+                text.className = 'slice-text';
+                text.textContent = option;
+                
+                slice.appendChild(text);
+                wheel.appendChild(slice);
+            });
+
             document.getElementById('spinBtn').addEventListener('click', spinTheWheel);
         }
         function spinTheWheel() {
@@ -735,7 +719,7 @@
         }
         function showPendingTasks() {
             const content = `
-                <h2 class="section-header">Some things you should never forget♥</h2>
+                <h2 class="section-header">some things you should never forget♥</h2>
                 ${PENDING_TASKS.map(task => `
                     <div class="task-card" onclick="handleTaskClick('${task.replace(/'/g, "\\'")}')">
                         <span style="position: relative; z-index: 1;">${task}</span>
@@ -746,7 +730,7 @@
         }
         function showMindOptions() {
             const content = `
-                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h2>
+                <h2 class="section-header">hey, hottie. how would you like for us to itneract today?</h2>
                 ${MIND_OPTIONS.map(option => `
                     <div class="mind-option" onclick="handleMindClick('${option.replace(/'/g, "\\'")}')">
                         <span style="position: relative; z-index: 1;">${option}</span>
@@ -765,7 +749,7 @@
                     `).join('')}
                 </div>` : '';
             let content = `
-                <h2 class="section-header">Hey, cutie. Do you wish to drive for a while?</h2>
+                <h2 class="section-header">so you wish to show yourself to me. how indecent of you. i love it</h2>
                 ${breadcrumb}
             `;
             if (appState.driveNavigation.length === 0) {
@@ -793,7 +777,7 @@
         }
         function showPlayOptions() {
             let content = `
-                <h2 class="section-header">How do you want to play, babygirl?😏</h2>
+                <h2 class="section-header">in case you're bored, here's some us-themed games.</h2>
             `;
             if (appState.playNavigation.length === 0) {
                 content += Object.keys(PLAY_OPTIONS).map(option => `
@@ -805,13 +789,13 @@
                 const selectedOption = appState.playNavigation[0];
                 content += `
                     <div class="play-breadcrumb">
-                        <span class="breadcrumb-item" onclick="resetPlayNavigation()">Games</span>
+                        <span class="breadcrumb-item" onclick="resetPlayNavigation()">games</span>
                         <span class="breadcrumb-separator">→</span>
                         <span class="breadcrumb-item">${selectedOption}</span>
                     </div>
                 `;
                 content += PLAY_OPTIONS[selectedOption].map(subOption => `
-                    <div class="play-sub-option" onclick="handlePlaySubClick('${subOption.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')">
+                    <div class="play-sub-option" onclick="handlePlaySubClick('${subOption.replace(/'/g, "\\'").replace(/"/g, '"')}')">
                         ${subOption}
                     </div>
                 `).join('');
@@ -828,7 +812,7 @@
                     `).join('')}
                 </div>` : '';
             let content = `
-                <h2 class="section-header">Let's focus on your growth, babygirl 🌱</h2>
+                <h2 class="section-header">shut out everything else, and just follow instructions to grow. isn't it simple?</h2>
                 ${breadcrumb}
             `;
             if (appState.growthNavigation.length === 0) {
@@ -855,15 +839,15 @@
             document.getElementById('contentArea').innerHTML = content;
         }
         function handleTaskClick(task) {
-            showFloatingOutput(`Affirmation chosen: ${task}`);
+            showFloatingOutput(`I've reminded myself that: ${task}`);
         }
         function handleMindClick(option) {
-            showFloatingOutput(`What you've said is on your mind: ${option}`);
+            showFloatingOutput(`This is how I wish to interact with you today: ${option}`);
         }
         function handleDriveClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.driveNavigation, option].join(' → ');
-                showFloatingOutput(`Drive task chosen: ${fullPath}`);
+                showFloatingOutput(`How I plan to show myself to you today: ${fullPath}`);
                 resetDriveNavigation();
             } else {
                 appState.driveNavigation.push(option);
@@ -871,12 +855,12 @@
             }
         }
         function handlePlaySubClick(option) {
-            showFloatingOutput(`Game chosen: ${option}`);
+            showFloatingOutput(`The game I want us to play: ${option}`);
         }
         function handleGrowthClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.growthNavigation, option].join(' → ');
-                showFloatingOutput(`Growth task chosen: ${fullPath}`);
+                showFloatingOutput(`How I wish to add to my growth today: ${fullPath}`);
                 resetGrowthNavigation();
             } else {
                 appState.growthNavigation.push(option);
