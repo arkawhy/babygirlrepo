@@ -855,15 +855,15 @@
             document.getElementById('contentArea').innerHTML = content;
         }
         function handleTaskClick(task) {
-            showFloatingOutput(`Affirmation chosen: ${task}`);
+            showFloatingOutput(`I've reminded myself that: ${task}`);
         }
         function handleMindClick(option) {
-            showFloatingOutput(`What you've said is on your mind: ${option}`);
+            showFloatingOutput(`This is how I wish to interact with you today: ${option}`);
         }
         function handleDriveClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.driveNavigation, option].join(' → ');
-                showFloatingOutput(`Drive task chosen: ${fullPath}`);
+                showFloatingOutput(`How I plan to show myself to you today: ${fullPath}`);
                 resetDriveNavigation();
             } else {
                 appState.driveNavigation.push(option);
@@ -871,12 +871,12 @@
             }
         }
         function handlePlaySubClick(option) {
-            showFloatingOutput(`Game chosen: ${option}`);
+            showFloatingOutput(`The game I want us to play: ${option}`);
         }
         function handleGrowthClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.growthNavigation, option].join(' → ');
-                showFloatingOutput(`Growth task chosen: ${fullPath}`);
+                showFloatingOutput(`How I wish to add to my growth today: ${fullPath}`);
                 resetGrowthNavigation();
             } else {
                 appState.growthNavigation.push(option);
