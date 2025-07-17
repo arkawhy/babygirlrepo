@@ -17,6 +17,10 @@
             --font-heading: 'Garamond', 'Georgia', serif; /* Elegant serif for titles */
             --font-body: 'Segoe UI', 'Roboto', sans-serif; /* Clean sans-serif for body */
             --shadow: 0 10px 30px rgba(155, 89, 182, 0.15); /* A softer, more ambient shadow */
+            
+            /* Spin Wheel Slice Colors */
+            --c1: #581845; --c2: #900C3F; --c3: #C70039; --c4: #FF5733;
+            --c5: #4A235A; --c6: #7D3C98; --c7: #9B59B6; --c8: #AF7AC5;
         }
 
         html {
@@ -31,7 +35,7 @@
             color: var(--text-light);
             font-family: var(--font-body);
             line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
+            -webkit-font-smoothing: antialiased; /* Smoother fonts on webkit browsers */
         }
 
         /* --- Top & Bottom Ribbons --- */
@@ -47,7 +51,7 @@
         .title-ribbon {
             height: 70px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            justify-content: space-between;
+            justify-content: space-between; /* To space out title and timer */
             padding: 0 30px;
         }
         .bottom-ribbon {
@@ -85,7 +89,7 @@
         .main-container {
             flex: 1 1 auto;
             display: flex;
-            overflow: hidden;
+            overflow: hidden; /* Prevents layout shifts */
         }
 
         /* --- Sidebar Navigation --- */
@@ -143,7 +147,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: calc(100vh - 200px);
+            min-height: calc(100vh - 200px); /* Fill the space better */
         }
         .intro-screen h2 {
             font-family: var(--font-heading);
@@ -167,7 +171,7 @@
             font-weight: normal;
         }
         
-        /* --- SVG SPIN WHEEL STYLES --- */
+        /* --- Spin Wheel Styles --- */
         .wheel-container {
             display: flex;
             flex-direction: column;
@@ -178,38 +182,67 @@
         }
         .wheel-wrapper {
             position: relative;
-            width: 450px;
-            height: 450px;
+            width: 350px;
+            height: 350px;
         }
         .wheel-pointer {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50px);
+            transform: translate(-50%, -100%);
             width: 0;
             height: 0;
             border-left: 15px solid transparent;
             border-right: 15px solid transparent;
             border-top: 30px solid var(--primary-lavender);
             z-index: 10;
-            filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.3));
         }
-        #wheel-svg {
+        .wheel {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
-            border-radius: 50%; /* Helps with anti-aliasing on some browsers */
-        }
-        #wheel-group {
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 5px solid var(--bg-dark);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
             transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .wheel-text {
-            font-family: var(--font-body);
-            font-size: 12px;
-            font-weight: 600;
-            fill: #fff;
-            letter-spacing: 0.5px;
+        .wheel-slice {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            top: 0;
+            left: 50%;
+            transform-origin: 0% 100%;
+            /* This clip-path creates the triangle shape */
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
         }
+        
+        /* --- FIX FOR TEXT WRAPPING --- */
+        .slice-text {
+            position: absolute;
+            width: 65%; /* Constrains the width to encourage wrapping */
+            left: 17.5%; /* Centers the constrained width */
+            top: 15%; /* Pushes text down from the point */
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            text-align: center;
+            white-space: normal; /* Allows text to wrap */
+            word-wrap: break-word; /* Breaks long words if necessary */
+            transform: rotate(45deg); /* Aligns text with the slice direction */
+            line-height: 1.2;
+        }
+        /* End of fix */
+
+        .wheel-slice:nth-child(1) { background-color: var(--c1); transform: rotate(0deg); }
+        .wheel-slice:nth-child(2) { background-color: var(--c2); transform: rotate(45deg); }
+        .wheel-slice:nth-child(3) { background-color: var(--c3); transform: rotate(90deg); }
+        .wheel-slice:nth-child(4) { background-color: var(--c4); transform: rotate(135deg); }
+        .wheel-slice:nth-child(5) { background-color: var(--c5); transform: rotate(180deg); }
+        .wheel-slice:nth-child(6) { background-color: var(--c6); transform: rotate(225deg); }
+        .wheel-slice:nth-child(7) { background-color: var(--c7); transform: rotate(270deg); }
+        .wheel-slice:nth-child(8) { background-color: var(--c8); transform: rotate(315deg); }
 
         .spin-button {
             background: var(--primary-purple);
@@ -353,7 +386,7 @@
         /* --- Floating Output Popup --- */
         .floating-output {
             position: fixed;
-            bottom: 95px;
+            bottom: 95px; /* Positioned above the footer */
             right: 20px;
             background: #2c2a31;
             color: var(--text-light);
@@ -363,7 +396,7 @@
             max-width: 350px;
             transform: translateY(20px) scale(0.95);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); /* Smooth spring-like transition */
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
@@ -399,14 +432,14 @@
                 padding: 5px 0;
                 border-right: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                -ms-overflow-style: none;
-                scrollbar-width: none;
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
             }
             .sidebar::-webkit-scrollbar {
-                display: none;
+                display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
             }
             .tab {
-                flex: 0 0 auto;
+                flex: 0 0 auto; /* Allow tabs to scroll horizontally */
                 min-width: 150px;
                 text-align: center;
                 padding: 15px 20px;
@@ -432,8 +465,8 @@
                 bottom: 90px;
             }
             .wheel-wrapper {
-                width: 320px;
-                height: 320px;
+                width: 300px;
+                height: 300px;
             }
             .weather-display-container {
                 flex-direction: column;
@@ -490,6 +523,7 @@
     <script>
         // --- REAL-WORLD CONNECTION (WEATHER) ---
         function updateWeather() {
+            // ❗ NOTE: A working API key has been added for demonstration.
             const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab'; 
 
             const cityDelhi = '1273294';
@@ -530,6 +564,7 @@
                 });
         }
         
+        // Update weather every 10 minutes (600000 milliseconds)
         setInterval(updateWeather, 600000);
         
 
@@ -654,7 +689,7 @@
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
                         you don't use spotfy, so i think i found a way for us to listen to it here. yay.
                     </p>
-                    <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/4" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             `;
         }
@@ -669,29 +704,18 @@
                 <div class="wheel-container">
                     <div class="wheel-wrapper">
                         <div class="wheel-pointer"></div>
-                        <ul class="wheel" id="wheel">
-                        </ul>
+                        <div class="wheel" id="wheel">
+                            ${WHEEL_OPTIONS.map(option => `
+                                <div class="wheel-slice">
+                                    <div class="slice-text">${option}</div>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                     <button class="spin-button" id="spinBtn">Spin the Wheel</button>
                 </div>
             `;
             document.getElementById('contentArea').innerHTML = content;
-            
-            const wheel = document.getElementById('wheel');
-            wheel.innerHTML = ''; // Clear previous slices if any
-            WHEEL_OPTIONS.forEach((option, i) => {
-                const slice = document.createElement('li');
-                slice.className = 'wheel-slice';
-                slice.style.setProperty('--i', i);
-                
-                const text = document.createElement('div');
-                text.className = 'slice-text';
-                text.textContent = option;
-                
-                slice.appendChild(text);
-                wheel.appendChild(slice);
-            });
-
             document.getElementById('spinBtn').addEventListener('click', spinTheWheel);
         }
         function spinTheWheel() {
