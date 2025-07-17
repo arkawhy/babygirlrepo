@@ -17,10 +17,6 @@
             --font-heading: 'Garamond', 'Georgia', serif; /* Elegant serif for titles */
             --font-body: 'Segoe UI', 'Roboto', sans-serif; /* Clean sans-serif for body */
             --shadow: 0 10px 30px rgba(155, 89, 182, 0.15); /* A softer, more ambient shadow */
-            
-            /* Spin Wheel Slice Colors */
-            --c1: #581845; --c2: #900C3F; --c3: #C70039; --c4: #FF5733;
-            --c5: #4A235A; --c6: #7D3C98; --c7: #9B59B6; --c8: #AF7AC5;
         }
 
         html {
@@ -35,7 +31,7 @@
             color: var(--text-light);
             font-family: var(--font-body);
             line-height: 1.7;
-            -webkit-font-smoothing: antialiased; /* Smoother fonts on webkit browsers */
+            -webkit-font-smoothing: antialiased;
         }
 
         /* --- Top & Bottom Ribbons --- */
@@ -51,7 +47,7 @@
         .title-ribbon {
             height: 70px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            justify-content: space-between; /* To space out title and timer */
+            justify-content: space-between;
             padding: 0 30px;
         }
         .bottom-ribbon {
@@ -89,7 +85,7 @@
         .main-container {
             flex: 1 1 auto;
             display: flex;
-            overflow: hidden; /* Prevents layout shifts */
+            overflow: hidden;
         }
 
         /* --- Sidebar Navigation --- */
@@ -171,7 +167,7 @@
             font-weight: normal;
         }
         
-        /* --- NEW & IMPROVED SPIN WHEEL STYLES --- */
+        /* --- SVG SPIN WHEEL STYLES --- */
         .wheel-container {
             display: flex;
             flex-direction: column;
@@ -182,14 +178,14 @@
         }
         .wheel-wrapper {
             position: relative;
-            width: 420px;  /* Increased size */
-            height: 420px; /* Increased size */
+            width: 450px; /* Increased radius */
+            height: 450px;
         }
         .wheel-pointer {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -100%);
+            transform: translate(-50%, -50px); /* Adjusted for pointer shape */
             width: 0;
             height: 0;
             border-left: 15px solid transparent;
@@ -198,55 +194,20 @@
             z-index: 10;
             filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.3));
         }
-        .wheel {
-            list-style: none; /* Removed default list styling */
-            margin: 0;
-            padding: 0;
+        #wheel-svg {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            position: relative;
-            overflow: hidden;
-            border: 5px solid var(--bg-dark);
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
+        }
+        #wheel-group {
             transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
-            
-            /* Creates 8 perfect pie slices with just one property */
-            background: conic-gradient(
-                var(--c1) 0deg 45deg,
-                var(--c2) 45deg 90deg,
-                var(--c3) 90deg 135deg,
-                var(--c4) 135deg 180deg,
-                var(--c5) 180deg 225deg,
-                var(--c6) 225deg 270deg,
-                var(--c7) 270deg 315deg,
-                var(--c8) 315deg 360deg
-            );
         }
-        .wheel-slice {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            top: 50%;
-            left: 50%;
-            transform-origin: 0% 0%;
-            /* Each slice is an invisible container rotated to its position */
-            transform: rotate(calc(45deg * var(--i))); 
-        }
-        .slice-text {
-            position: absolute;
-            color: white;
-            font-size: 11px;
+        .wheel-text {
+            font-family: var(--font-body);
+            font-size: 13px;
             font-weight: 600;
-            line-height: 1.2;
-            text-align: center;
-            white-space: normal; /* Allows text to wrap */
-            word-wrap: break-word; /* Breaks long words */
-
-            width: 100px; /* Gives the text a box to wrap inside */
-            
-            /* Positions the text box in the middle of the slice */
-            transform: translate(80px, -50%) rotate(22.5deg);
+            fill: #fff;
+            letter-spacing: 0.5px;
         }
 
         .spin-button {
@@ -270,7 +231,6 @@
             cursor: not-allowed;
             color: #999;
         }
-        /* -- END OF WHEEL STYLES -- */
 
         /* --- Vault Content Styles --- */
         .vault-header {
@@ -392,7 +352,7 @@
         /* --- Floating Output Popup --- */
         .floating-output {
             position: fixed;
-            bottom: 95px; /* Positioned above the footer */
+            bottom: 95px;
             right: 20px;
             background: #2c2a31;
             color: var(--text-light);
@@ -402,7 +362,7 @@
             max-width: 350px;
             transform: translateY(20px) scale(0.95);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); /* Smooth spring-like transition */
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
@@ -438,14 +398,14 @@
                 padding: 5px 0;
                 border-right: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                -ms-overflow-style: none;  /* IE and Edge */
-                scrollbar-width: none;  /* Firefox */
+                -ms-overflow-style: none;
+                scrollbar-width: none;
             }
             .sidebar::-webkit-scrollbar {
-                display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+                display: none;
             }
             .tab {
-                flex: 0 0 auto; /* Allow tabs to scroll horizontally */
+                flex: 0 0 auto;
                 min-width: 150px;
                 text-align: center;
                 padding: 15px 20px;
@@ -471,13 +431,8 @@
                 bottom: 90px;
             }
             .wheel-wrapper {
-                width: 320px; /* Adjust size for mobile */
+                width: 320px;
                 height: 320px;
-            }
-            .slice-text {
-                width: 80px;
-                transform: translate(60px, -50%) rotate(22.5deg);
-                font-size: 10px;
             }
             .weather-display-container {
                 flex-direction: column;
@@ -698,7 +653,7 @@
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
                         you don't use spotfy, so i think i found a way for us to listen to it here. yay.
                     </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/27gfqzCNAz3sW7i5e4S4kX?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/YOUR_PLAYLIST_ID_HERE" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             `;
         }
@@ -713,8 +668,8 @@
                 <div class="wheel-container">
                     <div class="wheel-wrapper">
                         <div class="wheel-pointer"></div>
-                        <ul class="wheel" id="wheel">
-                        </ul>
+                        <div class="wheel" id="wheel">
+                            </div>
                     </div>
                     <button class="spin-button" id="spinBtn">Spin the Wheel</button>
                 </div>
@@ -722,9 +677,11 @@
             document.getElementById('contentArea').innerHTML = content;
             
             const wheel = document.getElementById('wheel');
-            wheel.innerHTML = ''; // Clear previous slices if any
+            wheel.innerHTML = ''; // Clear previous slices
+            
+            // This part creates the text elements on top of the conic-gradient background
             WHEEL_OPTIONS.forEach((option, i) => {
-                const slice = document.createElement('li');
+                const slice = document.createElement('div');
                 slice.className = 'wheel-slice';
                 slice.style.setProperty('--i', i);
                 
