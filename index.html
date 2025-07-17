@@ -257,6 +257,36 @@
             color: #999;
         }
 
+        /* --- Vault Content Styles --- */
+        .vault-header {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            text-align: center;
+            color: var(--primary-lavender);
+            margin-bottom: 30px;
+            animation: fadeIn 1.5s ease;
+        }
+        .vault-letter {
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            background: rgba(0,0,0,0.2);
+            padding: 30px;
+            border-left: 3px solid var(--primary-purple);
+            animation: fadeIn 2s ease;
+        }
+        .vault-letter p {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5em;
+            opacity: 0.9;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
 
         /* --- Reusable Cards & Options --- */
         .task-card, .mind-option, .drive-option, .growth-option, .play-option {
@@ -403,7 +433,7 @@
             .content-area {
                 padding: 25px;
             }
-            .intro-screen h2, .section-header {
+            .intro-screen h2, .section-header, .vault-header {
                 font-size: 2rem;
             }
             .main-title {
@@ -428,7 +458,7 @@
     </header>
     <div class="main-container">
         <nav class="sidebar">
-            <div class="tab active" data-tab="pending">
+            <div class="tab" data-tab="pending">
                 <span class="tab-text">Daily Affirmations💪🏼</span>
             </div>
             <div class="tab" data-tab="mind">
@@ -451,8 +481,7 @@
             </div>
         </nav>
         <main class="content-area" id="contentArea">
-            <!-- Content loads here -->
-        </main>
+            </main>
     </div>
     <footer class="bottom-ribbon">
         <button class="bottom-btn weekly-tasks-btn" id="weeklyTasksBtn">
@@ -462,9 +491,8 @@
     <div class="floating-output" id="floatingOutput"></div>
     <script>
         // --- VAULT COUNTDOWN ---
-        // ❗ IMPORTANT: Change this date to when you want the vault to unlock.
-        // Format: Month Day, Year HH:MM:SS
-        const vaultTargetDate = new Date("July 24, 2025 12:00:00").getTime();
+        // ❗ Set to her birthday: October 27th
+        const vaultTargetDate = new Date("October 27, 2025 00:00:00").getTime();
 
         const countdownInterval = setInterval(function() {
             const now = new Date().getTime();
@@ -475,9 +503,9 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("countdownTimer").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-            if (distance < 0) {
+            if (distance > 0) {
+                document.getElementById("countdownTimer").innerHTML = `Vault Unlocks In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else {
                 clearInterval(countdownInterval);
                 document.getElementById("countdownTimer").innerHTML = "The Vault is Open";
                 const vaultTab = document.querySelector('.tab[data-tab="vault"]');
@@ -487,23 +515,9 @@
         }, 1000);
         
         // --- Editable content ---
-        const PENDING_TASKS = [
-            "I'll remember that he loves me, no matter what I do, for I am his submissive babygirl, his personal princess.",
-            "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and he's going to help me every step of the way.",
-            "I am going to try to keep up with my weekly passive task.",
-            "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay."
-        ];
-        const MIND_OPTIONS = [
-            "I think I can work in an interview today. 😋",
-            "Maybe I can take you along for a trip to the shower? 🚿",
-            "I'd love a little one-on-one video call, maybe. 💞",
-            "Can you just teach me how to dirty-talk well with you? 😙"
-        ];
-        // --- SPIN WHEEL OPTIONS ---
-        const WHEEL_OPTIONS = [
-            "Placeholder 1", "Placeholder 2", "Placeholder 3", "Placeholder 4",
-            "Placeholder 5", "Placeholder 6", "Placeholder 7", "Placeholder 8"
-        ];
+        const PENDING_TASKS = [ "I'll remember that he loves me, no matter what I do, for I am his submissive babygirl, his personal princess.", "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and he's going to help me every step of the way.", "I am going to try to keep up with my weekly passive task.", "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay." ];
+        const MIND_OPTIONS = [ "I think I can work in an interview today. 😋", "Maybe I can take you along for a trip to the shower? 🚿", "I'd love a little one-on-one video call, maybe. 💞", "Can you just teach me how to dirty-talk well with you? 😙" ];
+        const WHEEL_OPTIONS = [ "Placeholder 1", "Placeholder 2", "Placeholder 3", "Placeholder 4", "Placeholder 5", "Placeholder 6", "Placeholder 7", "Placeholder 8" ];
         const DRIVE_OPTIONS = {
             level1: [ "Passive Tasks?🟢🟠🔴", "A sexy video?🟠🔴", "A hot picture?🔴" ],
             level2: { "Passive Tasks?🟢🟠🔴": [ "Clothing-related🟠🔴", "Mind-related🟢", "Other Passive Tasks🟠" ], "A sexy video?🟠🔴": [ "Starting Clothed🟠", "Starting Nude🔴", "Special Submission🔴" ], "A hot picture?🔴": [ "Object-interaction🔴", "Accessories🔴", "Special Submissive🔴" ] },
@@ -576,10 +590,16 @@
             `;
         }
         function showVaultContent() {
-             document.getElementById('contentArea').innerHTML = `
-                <div class="intro-screen">
-                    <h2>The Vault is Open</h2>
-                    <p>Patience is a virtue, and yours has been rewarded. A special message, a new set of tasks, or a gallery of photos could be waiting for you here. This is your space to fill with a secret only she can unlock.</p>
+             const contentArea = document.getElementById('contentArea');
+             contentArea.innerHTML = `
+                <div>
+                    <h2 class="vault-header">Happy Birthday, My Love</h2>
+                    <div class="vault-letter">
+                        <p>My Dearest,</p>
+                        <p>If you're reading this, it means the wait is over. Happy birthday, my beautiful girl. I wanted to give you something more than just a gift; I wanted to give you a space filled with our memories and my love for you.</p>
+                        <p>This past year has been... [continue your letter here].</p>
+                        <p>With all my heart,<br>Arka</p>
+                    </div>
                 </div>
             `;
         }
@@ -624,7 +644,6 @@
             setTimeout(() => {
                 const finalAngle = appState.currentRotation % 360;
                 const sliceAngle = 360 / WHEEL_OPTIONS.length;
-                // Adjust for pointer position (top-center)
                 const winningIndex = Math.floor((360 - finalAngle + (sliceAngle / 2)) % 360 / sliceAngle);
                 
                 showFloatingOutput(`Fate has chosen: ${WHEEL_OPTIONS[winningIndex]}`);
