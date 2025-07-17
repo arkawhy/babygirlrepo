@@ -475,28 +475,28 @@
     <div class="main-container">
         <nav class="sidebar">
             <div class="tab" data-tab="pending">
-                <span class="tab-text">daily affirmations</span>
+                <span class="tab-text">Daily Affirmations💪🏼</span>
             </div>
             <div class="tab" data-tab="mind">
-                <span class="tab-text">interactive stuff, largely. you decide.</span>
+                <span class="tab-text">What's on your mind?😏</span>
             </div>
             <div class="tab" data-tab="luck">
-                <span class="tab-text">my lady luck</span>
+                <span class="tab-text">My Lady Luck 🎡</span>
             </div>
             <div class="tab" data-tab="playlist">
-                <span class="tab-text">slow dance</span>
+                <span class="tab-text">Our Playlist 🎵</span>
             </div>
             <div class="tab" data-tab="play">
-                <span class="tab-text">games if you're bored?</span>
+                <span class="tab-text">Some games for you🕹</span>
             </div>
             <div class="tab" data-tab="drive">
-                <span class="tab-text">mango milkshakes. </span>
+                <span class="tab-text">Do you wish to drive?😈</span>
             </div>
             <div class="tab" data-tab="growth">
-                <span class="tab-text">display your obedience, and grow</span>
+                <span class="tab-text">Baby steps toward growth🌱</span>
             </div>
             <div class="tab locked" data-tab="vault">
-                <span class="tab-text">the vault</span>
+                <span class="tab-text">The Vault 🔒</span>
             </div>
         </nav>
         <main class="content-area" id="contentArea">
@@ -505,9 +505,9 @@
     <footer class="bottom-ribbon">
         <div class="weather-display-container">
             <div class="weather-display" id="weather-delhi">
-                </div>
+            </div>
             <div class="weather-display" id="weather-kolkata">
-                </div>
+            </div>
         </div>
     </footer>
     <div class="floating-output" id="floatingOutput"></div>
@@ -515,10 +515,9 @@
     <script>
         // --- REAL-WORLD CONNECTION (WEATHER) ---
         function updateWeather() {
-            // ❗ STEP 1: Get your free API key from openweathermap.org and paste it here.
+            // ❗ NOTE: A working API key has been added for demonstration.
             const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab'; 
 
-            // ❗ STEP 2: City IDs. Delhi and Kolkata are set. You can find others if needed.
             const cityDelhi = '1273294';
             const cityKolkata = '1275004';
 
@@ -529,12 +528,6 @@
         function fetchWeatherForCity(cityId, elementId, locationName, apiKey) {
             const weatherElement = document.getElementById(elementId);
             if (!weatherElement) return;
-
-            // Don't fetch if the API key is a placeholder
-            if (apiKey === 'YOUR_API_KEY_HERE') {
-                weatherElement.innerHTML = `<div class="weather-location">${locationName}</div><div>Weather API Key Needed</div>`;
-                return;
-            }
 
             const url = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${apiKey}&units=metric`;
             
@@ -634,7 +627,7 @@
         function switchTab(tabName) {
             const vaultTab = document.querySelector('.tab[data-tab="vault"]');
             if (tabName === 'vault' && vaultTab.classList.contains('locked')) {
-                showFloatingOutput("easy, cutiecry. vault's locked still, watch the countdown.");
+                showFloatingOutput("The Vault is still locked. Be patient.");
                 return;
             }
 
@@ -684,20 +677,20 @@
             const contentArea = document.getElementById('contentArea');
             contentArea.innerHTML = `
                 <div style="text-align: center;">
-                    <h2 class="section-header">happy headache🍀💤</h2>
+                    <h2 class="section-header">Our Shared Soundtrack</h2>
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
-                        this is more a feature for me than for you, because you wouldn't listen to the playlist anyway, but here it is.
+                        This is our space for music. Add songs that remind you of us, songs you love, or songs you want me to hear. This playlist belongs to both of us.
                     </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4vy1nKzIatI2lfvLIw3P0F?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             `;
         }
         function showSpinWheel() {
             const content = `
                 <div style="text-align: center;">
-                    <h2 class="section-header">you're my lady luck, btw.</h2>
+                    <h2 class="section-header">Feeling Lucky?</h2>
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
-                        but for once, let's leave it to the fates.
+                        Leave tonight's little adventure to fate. Spin the wheel and see what surprise Lady Luck has in store for you.
                     </p>
                 </div>
                 <div class="wheel-container">
@@ -753,7 +746,7 @@
         }
         function showMindOptions() {
             const content = `
-                <h2 class="section-header">hey there, hottie. what's on your mind'?</h2>
+                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h2>
                 ${MIND_OPTIONS.map(option => `
                     <div class="mind-option" onclick="handleMindClick('${option.replace(/'/g, "\\'")}')">
                         <span style="position: relative; z-index: 1;">${option}</span>
@@ -937,7 +930,6 @@
                     tab.classList.remove('active');
                 });
             });
-            document.getElementById('weeklyTasksBtn').addEventListener('click', handleWeeklyTasks);
             
             // Initial calls
             showIntroScreen();
