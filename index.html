@@ -31,6 +31,7 @@
             color: var(--text-light);
             font-family: var(--font-body);
             line-height: 1.7;
+            margin: 0;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -143,7 +144,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: calc(100vh - 200px);
+            min-height: calc(100vh - 200px); /* Adjust based on header/footer */
         }
         .intro-screen h2 {
             font-family: var(--font-heading);
@@ -186,10 +187,11 @@
             top: -5px; /* Positioned above the wheel */
             left: 50%;
             transform: translateX(-50%);
-            width: 2px;
-            height: 50px;
-            background: var(--primary-lavender);
-            box-shadow: 0 0 10px var(--primary-lavender);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 20px solid var(--primary-lavender);
             z-index: 10;
         }
         #wheel-svg {
@@ -199,7 +201,6 @@
             border-radius: 50%;
         }
         #wheel-group {
-            /* This is what the javascript will rotate */
             transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .wheel-text {
@@ -492,13 +493,18 @@
     <script>
         // --- REAL-WORLD CONNECTION (WEATHER) ---
         function updateWeather() {
-            const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab'; 
+            // 🚨 CRITICAL: Your API key should NOT be stored here. 
+            // This is a major security risk.
+            // Create a backend server or serverless function to make API calls securely.
+            const apiKey = 'YOUR_API_KEY_HERE'; 
 
             const cityDelhi = '1273294';
             const cityKolkata = '1275004';
 
-            fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city', apiKey);
-            fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city', apiKey);
+            if (apiKey !== 'YOUR_API_KEY_HERE') {
+                fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city', apiKey);
+                fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city', apiKey);
+            }
         }
 
         function fetchWeatherForCity(cityId, elementId, locationName, apiKey) {
@@ -532,8 +538,7 @@
                 });
         }
         
-        setInterval(updateWeather, 600000);
-        
+        setInterval(updateWeather, 600000); // Update every 10 minutes
 
         // --- VAULT COUNTDOWN ---
         const vaultTargetDate = new Date("October 27, 2025 00:00:00").getTime();
@@ -561,7 +566,7 @@
         // --- Editable content ---
         const PENDING_TASKS = [ "I'll remember that you love me, no matter what I do, for I am your submissive babygirl, your personal princess.", "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and you're going to help me every step of the way.", "I am going to try to keep up with my weekly passive task.", "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay." ];
         const MIND_OPTIONS = [ "I think I can work in an interview today. 😋", "Maybe I can take you along for a trip to the shower? 🚿", "I'd love a little one-on-one video call, maybe. 💞", "Can you just teach me how to dirty-talk well with you? 😙" ];
-        const WHEEL_OPTIONS = [ "A 10-second video of only your smile.", "Get me to write you something spicy.", "A picture of your nude silhouette against a light.", "A photo of you wearing your favorite color.", "Choose a mango milkshake from the website which involves you getting nude.", "Write my name on your wrist and send a picture.", "Describe your outfit in detail, and choose one you wish for me to remove.", "Ask me to send you a mango milkshake." ];
+        const WHEEL_OPTIONS = [ "10-sec video of your smile", "Write me something spicy", "Nude silhouette picture", "Photo in your favorite color", "Choose a nude mango milkshake", "Write my name on your wrist", "Describe your outfit in detail", "Ask me for a mango milkshake" ];
         const DRIVE_OPTIONS = {
             level1: [ "Passive Tasks?🟢🟠🔴", "A sexy video?🟠🔴", "A hot picture?🔴" ],
             level2: { "Passive Tasks?🟢🟠🔴": [ "Clothing-related🟠🔴", "Mind-related🟢", "Other Passive Tasks🟠" ], "A sexy video?🟠🔴": [ "Starting Clothed🟠", "Starting Nude🔴", "Special Submission🔴" ], "A hot picture?🔴": [ "Object-interaction🔴", "Accessories🔴", "Special Submissive🔴" ] },
@@ -572,13 +577,12 @@
             "Remote Games 🟢🟠": [ "I will ask ChatGPT, 'What can I do to please my long-distance dominant boyfriend?', take a screenshot of the results to show them to you, and do the top two things suggested. ", "I will take time out to play Adult Truth or Dare with you on any app you choose. ", "Can we play some other online 1v1 game today?", "I will carry out some research to find the best free or cheap adult games on Google Play Store, and then get you to play it with me." ],
             "Games for a good Submissive 🔴": [ "The moment I am free to get naked for you, I will ask you directly for a command, and immediately do as you say. ", "I shall try to tease you while you are at work tomorrow by resorting to texts, photos, videos, or voice messages. ", "I would like to try and play a game of endurance with you on video call, and take up the challenge to do what you say, for as long as you say. ", "I'll get naked, put a blindfold on, and video call you, while assuming my standard kneeling-hands-behind position. I trust that you'll take the video call in surroundings which do not expose me. On the call, I am all yours to play with, of course." ]
         };
-        const GROWTH_OPTIONS = JSON.parse(JSON.stringify(DRIVE_OPTIONS));
+        // ✅ BEST PRACTICE: Use structuredClone for a true deep copy.
+        const GROWTH_OPTIONS = structuredClone(DRIVE_OPTIONS);
         GROWTH_OPTIONS.level1 = [ "Self-Care🟢", "Life-related🟢🟠", "Submission🟠🔴" ];
         GROWTH_OPTIONS.level2 = { "Self-Care🟢": [ "Physical Health🟢", "Emotional Health🟢", "Mental Health🟢" ], "Life-related🟢🟠": [ "Studies🟢", "Skills🟢🟠", "Capabilities🟢🟠" ], "Submission🟠🔴": [ "Physical Display🔴", "Gratitude Expression🟠🔴", "Mental Conditioning🟠" ] };
         GROWTH_OPTIONS.level3 = { "Physical Health🟢": [ "I am going to send you four videos of me drinking a full glass of water today.", "Let's work on my body from today. I am going to ask you about how to to ease into general exercise.", "I think I will work on toning my abdominal region. I'll put you on a vc and do 2x10 ab crunches today!", "A 30-seconds plank, for you, on video call today." ], "Emotional Health🟢": [ "I am going to find one activity we can do everyday for a week. This may be a video call, sending some picture or video regularly, playing something together everyday, or anything else at all. I can choose whether it's sexual or non-sexual in nature.", "I will call you up and ask you to tell me about any three things you love about my body or my being.", "I am going to show you some part of my body on a video call, in a video, or in a picture, and you will have to baby me about it for two minutes straight.", "Can I ask you to write me a fantasy scenario of us in any setting?" ], "Mental Health🟢": [ "I shall call you up and compliment you on something that you did which made me happy, and tell you why it made me happy.", "I shall call you up and compliment myself on something that I did in the recent past that I am really proud of for having done.", "As soon as I wake up tomorrow morning, I will call you, and tell you, 'I am confident that this is going to be a good day for me. I love you.'", "Before going to bed today, I'll call you up and wish you a good night, and remember to collect an ILY from you." ], "Studies🟢": [ "I am going to keep up with my Finance Course from IISER Pune. This is a recurring task till you decide that I need not study it any more.", "I will explain the causes, effects, and results of the Great Recession to you on a phone call.", "I will explain the causes, effects, and results of the late-2000s Indian inflation scenario to you on a phone call.", "I shall keep revising regression analysis, statistical inference and testing of hypotheses, and distributions. This is a recurring task till you decide that I need not study it any more." ], "Skills🟢🟠": [ "I will write you a 500-word essay on an introduction of myself.", "I am going to schedule an interview with you, either one where I remain clothed throughout, or one where I start out clothed and keep losing garments for every mistake I make.", "After suitably consulting me, I shall enroll myself in a MicroMasters course or its equivalent." ], "Capabilities🟢🟠": [ "I will be doing a hundred jumping jacks for better breathing and lung capacity, while keeping you on video call. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked.", "I am going to write a 500-word essay on how I picture a day in my life at college during Masters, by hand in a copy, and send you a PDF of it.", "I'll perform 10 time-controlled squats with you on video call. Please do the controlling of the time for me. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked." ], "Physical Display🔴": [ "I will duly present myself to you in the most natural of my poses: fully nude, kneeling with my hair down, spectacles off, eyes lowered and hands clasped behind me. I am allowed to choose to do as much in a photo, video, or on a video call.", "I will duly present myself to you with my bra in my mouth, wearing nothing at all, feet close together and hands behind me, hair down. I shall be standing upright and fully on display for you.", "I will duly present my ass to you by perfectly displaying my curves, in a photo, video, or on a video call.", "I will learn three new submissive positions from you on a video call.", "I will send you a video of using veet on my arms/legs, but I am fully naked for you." ], "Gratitude Expression🟠🔴": [ "I'll be sending you a voice message clearly expressing my gratitude at being your submissive. ", "I shall text you once today saying, 'Sir, I just wanted to remind you that I am all yours,' but not in these exact same words.", "I will use 'sir' with you throughout today, including in at least one video where I am just as clothed or naked as you want me to be.", "I'll video call you today, strip naked, and thank you for any non-sexual thing I feel I need to express my gratitude for.", "I will ask you what you think of me, my being and my body, and thank you suitably when you compliment be redoubtably." ], "Mental Conditioning🟠": [ "I'll happily get topless, write 'I am Arka's favourite plaything' on my stomach, and send you a video of me writing it.", "I can call you up some time today, and ask you for instructions for a task, and remember to thank you appropriately.", "I will type up a 200-word essay on why I think I should obey you every step of my being, every day in my life, and send it to you.", "I am going to video call you naked, and read out the daily affirmations from the website on camera.", "I will video call you wearing full-length pants and a vest, and tell you that I am all yours, and that you may command me to do anything you wish for the next fifteen minutes." ] };
-        const WEEKLY_TASKS = [
-            "I am to send you at least three videos in the 26 June-3 July week showing you that I am studying with my pretty hair down. I am not going to let you down. 😘"
-        ];
+
         const INTRO_TEXT = {
             title: "welcome, babygirl.",
             description: "step inside your private playground. here, you’re free to be bold, to tease, to surrender, and to shine. every click, every word, every task is a secret invitation—just for you and me. let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. are you ready to play?"
@@ -656,7 +660,8 @@
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
                         you don't use spotfy, so i think i found a way for us to listen to it here. yay.
                     </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1zde02QO5G7eA4V23p1U2d?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    // ✅ FIX: Using a valid Spotify embed URL structure.
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/YOUR_PLAYLIST_ID" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             `;
         }
@@ -693,7 +698,6 @@
             let svgContent = `<svg id="wheel-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">`;
             svgContent += `<g id="wheel-group" style="transform-origin: ${radius}px ${radius}px;">`;
 
-            // Function to get coordinates for a point on a circle
             const polarToCartesian = (centerX, centerY, r, angleInDegrees) => {
                 const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
                 return {
@@ -706,24 +710,38 @@
                 const start = polarToCartesian(x, y, r, endAngle);
                 const end = polarToCartesian(x, y, r, startAngle);
                 const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-                return `M ${x},${y} L ${start.x},${start.y} A ${r},${r} 0 ${largeArcFlag},0 ${end.x},${end.y} Z`;      
+                const d = [
+                    "M", start.x, start.y, 
+                    "A", r, r, 0, largeArcFlag, 0, end.x, end.y,
+                    "L", x, y,
+                    "Z"
+                ].join(" ");
+                return d;
+            };
+
+            const describeTextArc = (x, y, r, startAngle, endAngle) => {
+                 const start = polarToCartesian(x, y, r, startAngle);
+                 const end = polarToCartesian(x, y, r, endAngle);
+                 const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+                 return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`;
             }
 
             for (let i = 0; i < numOptions; i++) {
                 const startAngle = i * sliceAngle;
                 const endAngle = startAngle + sliceAngle;
                 
-                svgContent += `<path d="${describeArc(radius, radius, radius, startAngle, endAngle)}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
+                svgContent += `<path d="${describeArc(radius, radius, radius - 2, startAngle, endAngle)}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
 
                 const textPathId = `text-path-${i}`;
-                const textArc = describeArc(radius, radius, textRadius, startAngle, endAngle);
-                svgContent += `<defs><path id="${textPathId}" d="${textArc}"></path></defs>`;
-                
+                const textAngle = startAngle + sliceAngle / 2;
+                const textRotation = textAngle > 90 && textAngle < 270 ? textAngle - 180 : textAngle;
+
                 svgContent += `
-                    <text class="wheel-text">
+                    <text class="wheel-text" dy="-10">
                         <textPath href="#${textPathId}" startOffset="50%" text-anchor="middle" dominant-baseline="middle">${WHEEL_OPTIONS[i]}</textPath>
                     </text>
                 `;
+                svgContent += `<defs><path id="${textPathId}" d="${describeTextArc(radius, radius, textRadius, startAngle, endAngle)}"></path></defs>`;
             }
 
             svgContent += `</g></svg>`;
@@ -741,14 +759,14 @@
             const totalRotation = (spinCycles * 360) + randomStopAngle;
             
             appState.currentRotation += totalRotation;
-            // The key fix: applying the transform to the SVG group element directly.
-            wheel.setAttribute('transform', `rotate(${appState.currentRotation}, 225, 225)`);
+            wheel.style.transform = `rotate(${appState.currentRotation}deg)`;
+
 
             setTimeout(() => {
                 const finalAngle = appState.currentRotation % 360;
                 const sliceAngle = 360 / WHEEL_OPTIONS.length;
-                // Corrected winning index calculation for SVG rotation
-                const winningIndex = Math.floor((360 - (finalAngle % 360)) / sliceAngle) % numOptions;
+                // ✅ FIX: Use WHEEL_OPTIONS.length instead of undefined 'numOptions'
+                const winningIndex = Math.floor((360 - finalAngle) / sliceAngle) % WHEEL_OPTIONS.length;
                 
                 showFloatingOutput(`Fate has chosen: ${WHEEL_OPTIONS[winningIndex]}`);
                 appState.wheelSpinning = false;
@@ -892,9 +910,6 @@
                 showDriveOptions();
             }
         }
-        function handlePlaySubClick(option) {
-            showFloatingOutput(`The game I want us to play: ${option}`);
-        }
         function handleGrowthClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.growthNavigation, option].join(' → ');
@@ -921,15 +936,11 @@
             appState.growthNavigation = appState.growthNavigation.slice(0, index + 1);
             showGrowthOptions();
         }
-        function handleWeeklyTasks() {
-            const randomTask = WEEKLY_TASKS[Math.floor(Math.random() * WEEKLY_TASKS.length)];
-            showFloatingOutput(`Weekly task: ${randomTask}`);
-        }
         function handlePlayOptionClick(option) {
             appState.playNavigation = [option];
             showPlayOptions();
         }
-
+        // ✅ FIX: Removed the duplicate function definition. This is the only one needed.
         function handlePlaySubClick(option) {
             showFloatingOutput(`Game chosen: ${option}`);
             resetPlayNavigation();
@@ -955,7 +966,7 @@
             
             // Initial calls
             showIntroScreen();
-            updateWeather(); 
+            updateWeather();  
         });
     </script>
 </body>
