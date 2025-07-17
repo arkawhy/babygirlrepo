@@ -6,248 +6,250 @@
     <title>babygirl.</title>
     <link rel="icon" type="image/png" href="image.png">
     <style>
-        html, body {
-            height: 100%;
+        /* --- Core & Fonts --- */
+        :root {
+            --bg-dark: #100f13; /* A deeper, softer black */
+            --bg-content: #19181d; /* Slightly lighter for content area */
+            --primary-purple: #9b59b6; /* A sophisticated purple */
+            --primary-lavender: #d8c4e8; /* Soft lavender for highlights */
+            --text-light: #e0e0e0; /* Off-white for readability */
+            --text-dark: #100f13;
+            --font-heading: 'Garamond', 'Georgia', serif; /* Elegant serif for titles */
+            --font-body: 'Segoe UI', 'Roboto', sans-serif; /* Clean sans-serif for body */
+            --shadow: 0 10px 30px rgba(155, 89, 182, 0.15); /* A softer, more ambient shadow */
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background: #000;
-            color: #fff;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased; /* Smoother fonts on webkit browsers */
         }
-        .title-ribbon {
-            background: linear-gradient(135deg, #8A2BE2, #E6E6FA);
-            height: 80px;
+
+        /* --- Top & Bottom Ribbons --- */
+        .title-ribbon, .bottom-ribbon {
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
+            background: var(--bg-content);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             z-index: 100;
         }
+        .title-ribbon {
+            height: 70px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .bottom-ribbon {
+            height: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
+        }
+
         .main-title {
-            font-size: 2.8rem;
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
             font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
             cursor: pointer;
-            font-family: 'Georgia', serif;
-            letter-spacing: 3px;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-            text-align: center;
+            transition: letter-spacing 0.4s ease, color 0.4s ease;
         }
         .main-title:hover {
-            transform: scale(1.08);
-            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
+            letter-spacing: 4px;
+            color: var(--primary-lavender);
         }
+
+        /* --- Main Layout --- */
         .main-container {
-            flex: 1 0 auto;
+            flex: 1 1 auto;
             display: flex;
-            min-height: 0;
+            overflow: hidden; /* Prevents layout shifts */
         }
+
+        /* --- Sidebar Navigation --- */
         .sidebar {
-            width: 300px;
-            background: linear-gradient(135deg, #4B0082, #000);
-            padding: 25px 0;
+            width: 280px;
+            flex-shrink: 0;
+            background: var(--bg-dark);
+            padding: 20px 0;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            box-shadow: 5px 0 20px rgba(138, 43, 226, 0.25);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
+
         .tab {
-            padding: 22px 35px;
+            padding: 18px 30px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-bottom: 1px solid rgba(230, 230, 250, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
-        .tab::before {
-            content: '';
-            position: absolute;
-            left: -100%;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #8A2BE2, #E6E6FA);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: -1;
-        }
-        .tab:hover::before {
-            left: 0;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            color: rgba(255, 255, 255, 0.6);
         }
         .tab:hover {
-            transform: translateX(15px) scale(1.03);
-            color: #000;
-            font-weight: 600;
+            background: rgba(155, 89, 182, 0.1);
+            border-left-color: var(--primary-purple);
+            color: var(--text-light);
         }
         .tab.active {
-            background: linear-gradient(135deg, #8A2BE2, #E6E6FA);
-            color: #000;
+            background: rgba(155, 89, 182, 0.15);
+            border-left-color: var(--primary-purple);
+            color: var(--text-light);
             font-weight: 600;
-            transform: translateX(15px);
         }
+
         .tab-text {
-            position: relative;
-            z-index: 1;
-            font-size: 1.15rem;
+            font-size: 1rem;
+            font-weight: 500;
         }
+
+        /* --- Content Area --- */
         .content-area {
-            flex: 1;
-            padding: 35px;
-            background: #1a001a;
+            flex-grow: 1;
+            padding: 40px;
+            background: var(--bg-content);
             overflow-y: auto;
-            position: relative;
-            min-height: 0;
         }
+
         .intro-screen {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 60vh;
             text-align: center;
-            background: rgba(138, 43, 226, 0.12);
-            border-radius: 25px;
-            border: 2px solid rgba(230, 230, 250, 0.25);
-            margin: auto;
-            max-width: 700px;
-            margin-top: 60px;
+            min-height: calc(100vh - 200px); /* Fill the space better */
         }
         .intro-screen h2 {
-            font-size: 2.7rem;
-            margin-bottom: 24px;
-            color: #E6E6FA;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 8px #4b0082;
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-lavender);
+            font-weight: normal;
         }
         .intro-screen p {
-            font-size: 1.25rem;
-            line-height: 1.8;
-            opacity: 0.98;
+            font-size: 1.1rem;
             max-width: 600px;
-            margin: 0 auto 30px auto;
-            color: #fff;
+            opacity: 0.8;
         }
-        .task-card, .mind-option, .drive-option, .growth-option {
-            background: rgba(138, 43, 226, 0.25);
-            border: 2px solid rgba(230, 230, 250, 0.35);
-            border-radius: 18px;
+
+        .section-header {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-lavender);
+            font-weight: normal;
+        }
+
+        /* --- Reusable Cards & Options --- */
+        .task-card, .mind-option, .drive-option, .growth-option, .play-option {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
             padding: 25px;
-            margin: 18px 0;
+            margin: 15px 0;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-align: left;
         }
-        .task-card::before, .mind-option::before, .drive-option::before, .growth-option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #8A2BE2, #E6E6FA);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: -1;
+        .task-card:hover, .mind-option:hover, .drive-option:hover, .growth-option:hover, .play-option:hover {
+            transform: translateY(-5px);
+            background: rgba(155, 89, 182, 0.1);
+            border-color: var(--primary-purple);
+            box-shadow: var(--shadow);
         }
-        .task-card:hover::before, .mind-option:hover::before, .drive-option:hover::before, .growth-option:hover::before {
-            left: 0;
+        .play-sub-option {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 10px 0;
+            text-align: left;
         }
-        .task-card:hover, .mind-option:hover, .drive-option:hover, .growth-option:hover {
-            transform: translateY(-8px) scale(1.03);
-            color: #000;
-            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
-            background: #E6E6FA;
+        .play-sub-option:hover {
+            background: var(--primary-purple);
+            color: var(--text-dark);
+            transform: scale(1.02);
         }
-        .drive-breadcrumb, .growth-breadcrumb {
+
+        /* --- Breadcrumbs --- */
+        .drive-breadcrumb, .growth-breadcrumb, .play-breadcrumb {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 25px;
+            align-items: center;
             flex-wrap: wrap;
         }
         .breadcrumb-item {
-            background: rgba(75, 0, 130, 0.7);
-            padding: 10px 18px;
-            border-radius: 25px;
-            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            color: #fff;
+            transition: all 0.3s ease;
         }
         .breadcrumb-item:hover {
-            background: #8A2BE2;
-            transform: scale(1.08);
+            background: var(--primary-purple);
+            color: var(--text-dark);
         }
         .breadcrumb-separator {
-            color: #E6E6FA;
-            font-weight: bold;
-            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.4);
         }
-        .section-header {
-            color: #E6E6FA;
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-            font-weight: 300;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-        .bottom-ribbon {
-            height: 85px;
-            background: linear-gradient(135deg, #4B0082, #000);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 35px;
-            box-shadow: 0 -8px 20px rgba(138, 43, 226, 0.25);
-            flex-shrink: 0;
-            position: relative;
-        }
+
+        /* --- Footer Button --- */
         .bottom-btn {
-            background: linear-gradient(135deg, #8A2BE2, #E6E6FA);
+            background: var(--primary-purple);
             border: none;
-            color: #000;
-            padding: 16px 28px;
+            color: var(--text-dark);
+            padding: 15px 30px;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease;
         }
         .bottom-btn:hover {
-            transform: translateY(-4px) scale(1.08);
-            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(155, 89, 182, 0.3);
+            background: var(--primary-lavender);
         }
-        .weekly-tasks-btn {
-            max-width: 320px;
-            font-size: 1.15rem;
-            padding: 20px 35px;
-        }
+
+        /* --- Floating Output Popup --- */
         .floating-output {
             position: fixed;
-            bottom: 110px;
-            right: 35px;
-            background: rgba(75, 0, 130, 0.95);
-            color: #fff;
-            padding: 22px 28px;
-            border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
-            max-width: 380px;
-            transform: translateX(100%);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(230, 230, 250, 0.35);
+            bottom: 95px; /* Positioned above the footer */
+            right: 20px;
+            background: #2c2a31;
+            color: var(--text-light);
+            padding: 18px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            max-width: 350px;
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); /* Smooth spring-like transition */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
         }
         .floating-output.show {
-            transform: translateX(0);
+            transform: translateY(0) scale(1);
+            opacity: 1;
         }
-        @media (max-width: 1000px) {
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 900px) {
             .main-container {
                 flex-direction: column;
             }
@@ -256,76 +258,42 @@
                 height: auto;
                 flex-direction: row;
                 overflow-x: auto;
-                padding: 15px;
+                padding: 5px 0;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
+            }
+            .sidebar::-webkit-scrollbar {
+                display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
             }
             .tab {
-                min-width: 180px;
-                padding: 18px 25px;
+                flex: 0 0 auto; /* Allow tabs to scroll horizontally */
+                min-width: 150px;
+                text-align: center;
+                padding: 15px 20px;
+                border-left: none;
+                border-bottom: 4px solid transparent;
             }
-            .floating-output {
-                width: 90%;
-                right: 5%;
+            .tab:hover, .tab.active {
+                border-left: none;
+                border-bottom-color: var(--primary-purple);
+            }
+            .content-area {
+                padding: 25px;
+            }
+            .intro-screen h2, .section-header {
+                font-size: 2rem;
             }
             .main-title {
-                font-size: 2.2rem;
+                font-size: 1.8rem;
+            }
+            .floating-output {
+                width: calc(100% - 40px);
+                right: 20px;
+                bottom: 90px;
             }
         }
-        .play-sub-option:hover {
-    background: #8A2BE2 !important;
-    transform: scale(1.03);
-    box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3);
-}
-.play-breadcrumb {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
-.play-breadcrumb .breadcrumb-item {
-    background: rgba(75, 0, 130, 0.7);
-    padding: 10px 18px;
-    border-radius: 25px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    color: #fff;
-}
-.play-breadcrumb .breadcrumb-item:hover {
-    background: #8A2BE2;
-    transform: scale(1.08);
-}
-.play-breadcrumb .breadcrumb-separator {
-    color: #E6E6FA;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-.play-option {
-    background: rgba(138, 43, 226, 0.25);
-    border: 2px solid rgba(230, 230, 250, 0.35);
-    border-radius: 18px;
-    padding: 25px;
-    margin: 18px 0;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    font-size: 1.2rem;
-}
-.play-sub-option {
-    background: rgba(75, 0, 130, 0.7);
-    border-radius: 14px;
-    padding: 10px 15px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: #E6E6FA;
-    margin: 10px 0;
-}
-.play-sub-option:hover {
-    background: #8A2BE2 !important;
-    transform: scale(1.03);
-    box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3);
-}
     </style>
 </head>
 <body>
@@ -351,8 +319,7 @@
             </div>
         </nav>
         <main class="content-area" id="contentArea">
-            <!-- Content loads here -->
-        </main>
+            </main>
     </div>
     <footer class="bottom-ribbon">
         <button class="bottom-btn weekly-tasks-btn" id="weeklyTasksBtn">
@@ -458,30 +425,30 @@
                     "I'll ask you to send me one of the pictures I have sent you before. I'll replicate it, but with a blindfold on for you.",
                     "This will be a couple of side-profile fully shaved, full nudes for you. I shall place the camera to my left, prop my head up on an arm, and stretch the full length of my legs out for you to savour every inch of me, as I turn to face you. The second nude will be in the same position but turning the other way, for you to have a look at my ass.",
                     "I shall stay nude on a video call with you whenever I am free, and refer to you only as 'sir' throughout the call. If I fail to uphold my sincerity in the call, you're free to ask me to do anything you wish right there on the call.",
-                    "I'll wear nothing  but jeans and a vest, but drag the jeans down to my thighs. The vest will be rolled up to above my breasts. I will take one front profile picture, and one rear profile pciture, perfectly displaying my curves to you as they will be offered when you slide down my heans and lift my vest yourself."
+                    "I'll wear nothing  but jeans and a vest, but drag the jeans down to my thighs. The vest will be rolled up to above my breasts. I will take one front profile picture, and one rear profile pciture, perfectly displaying my curves to you as they will be offered when you slide down my heans and lift my vest yourself."
                 ]
             }
         };
         const PLAY_OPTIONS = {
-    "Mind-games🟢🟠": [
-        "I want to play Anything Can Be Used to Pick You Up with you. ",
-        "Please schedule a game of Chess with me sometime today. ",
-        "Play Seven Questions with me to decide how you wish to look at my body today. ",
-        "Can I ask you to please turn me on, entirely on text? I love it when you play with me on text!"
-    ],
-    "Remote Games 🟢🟠": [
-        "I will ask ChatGPT, 'What can I do to please my long-distance dominant boyfriend?', take a screenshot of the results to show them to you, and do the top two things suggested. ",
-        "I will take time out to play Adult Truth or Dare with you on any app you choose. ",
-        "Can we play some other online 1v1 game today?",
-        "I will carry out some research to find the best free or cheap adult games on Google Play Store, and then get you to play it with me."
-    ],
-    "Games for a good Submissive 🔴": [
-        "The moment I am free to get naked for you, I will ask you directly for a command, and immediately do as you say. ",
-        "I shall try to tease you while you are at work tomorrow by resorting to texts, photos, videos, or voice messages. ",
-        "I would like to try and play a game of endurance with you on video call, and take up the challenge to do what you say, for as long as you say. ",
-        "I'll get naked, put a blindfold on, and video call you, while assuming my standard kneeling-hands-behind position. I trust that you'll take the video call in surroundings which do not expose me. On the call, I am all yours to play with, of course." 
-    ]
-};
+            "Mind-games🟢🟠": [
+                "I want to play Anything Can Be Used to Pick You Up with you. ",
+                "Please schedule a game of Chess with me sometime today. ",
+                "Play Seven Questions with me to decide how you wish to look at my body today. ",
+                "Can I ask you to please turn me on, entirely on text? I love it when you play with me on text!"
+            ],
+            "Remote Games 🟢🟠": [
+                "I will ask ChatGPT, 'What can I do to please my long-distance dominant boyfriend?', take a screenshot of the results to show them to you, and do the top two things suggested. ",
+                "I will take time out to play Adult Truth or Dare with you on any app you choose. ",
+                "Can we play some other online 1v1 game today?",
+                "I will carry out some research to find the best free or cheap adult games on Google Play Store, and then get you to play it with me."
+            ],
+            "Games for a good Submissive 🔴": [
+                "The moment I am free to get naked for you, I will ask you directly for a command, and immediately do as you say. ",
+                "I shall try to tease you while you are at work tomorrow by resorting to texts, photos, videos, or voice messages. ",
+                "I would like to try and play a game of endurance with you on video call, and take up the challenge to do what you say, for as long as you say. ",
+                "I'll get naked, put a blindfold on, and video call you, while assuming my standard kneeling-hands-behind position. I trust that you'll take the video call in surroundings which do not expose me. On the call, I am all yours to play with, of course." 
+            ]
+        };
         // Growth tab uses the same structure as Drive for a flat, clickable UI
         const GROWTH_OPTIONS = JSON.parse(JSON.stringify(DRIVE_OPTIONS));
         GROWTH_OPTIONS.level1 = [
@@ -574,7 +541,7 @@
             currentTab: 'intro',
             driveNavigation: [],
             growthNavigation: [],
-            playNavigation: [] 
+            playNavigation: []
         };
         function showFloatingOutput(text) {
             const output = document.getElementById('floatingOutput');
@@ -669,34 +636,34 @@
             document.getElementById('contentArea').innerHTML = content;
         }
         function showPlayOptions() {
-    let content = `
-        <h2 class="section-header">How do you want to play, babygirl?😏</h2>
-    `;
-    if (appState.playNavigation.length === 0) {
-        // Show main options
-        content += Object.keys(PLAY_OPTIONS).map(option => `
-            <div class="play-option" onclick="handlePlayOptionClick('${option.replace(/'/g, "\\'")}')">
-                <span style="position: relative; z-index: 1;">${option}</span>
-            </div>
-        `).join('');
-    } else {
-        // Show sub-options for the selected main option
-        const selectedOption = appState.playNavigation[0];
-        content += `
-            <div class="play-breadcrumb">
-                <span class="breadcrumb-item" onclick="resetPlayNavigation()">Games</span>
-                <span class="breadcrumb-separator">→</span>
-                <span class="breadcrumb-item">${selectedOption}</span>
-            </div>
-        `;
-        content += PLAY_OPTIONS[selectedOption].map(subOption => `
-            <div class="play-sub-option" onclick="handlePlaySubClick('${subOption.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')">
-                ${subOption}
-            </div>
-        `).join('');
-    }
-    document.getElementById('contentArea').innerHTML = content;
-}
+            let content = `
+                <h2 class="section-header">How do you want to play, babygirl?😏</h2>
+            `;
+            if (appState.playNavigation.length === 0) {
+                // Show main options
+                content += Object.keys(PLAY_OPTIONS).map(option => `
+                    <div class="play-option" onclick="handlePlayOptionClick('${option.replace(/'/g, "\\'")}')">
+                        <span style="position: relative; z-index: 1;">${option}</span>
+                    </div>
+                `).join('');
+            } else {
+                // Show sub-options for the selected main option
+                const selectedOption = appState.playNavigation[0];
+                content += `
+                    <div class="play-breadcrumb">
+                        <span class="breadcrumb-item" onclick="resetPlayNavigation()">Games</span>
+                        <span class="breadcrumb-separator">→</span>
+                        <span class="breadcrumb-item">${selectedOption}</span>
+                    </div>
+                `;
+                content += PLAY_OPTIONS[selectedOption].map(subOption => `
+                    <div class="play-sub-option" onclick="handlePlaySubClick('${subOption.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')">
+                        ${subOption}
+                    </div>
+                `).join('');
+            }
+            document.getElementById('contentArea').innerHTML = content;
+        }
         function showGrowthOptions() {
             const breadcrumb = appState.growthNavigation.length > 0 ?
                 `<div class="growth-breadcrumb">
@@ -734,7 +701,7 @@
             document.getElementById('contentArea').innerHTML = content;
         }
         function handleTaskClick(task) {
-            showFloatingOutput(`Task added: ${task}`);
+            showFloatingOutput(`Affirmation chosen: ${task}`);
         }
         function handleMindClick(option) {
             showFloatingOutput(`What you've said is on your mind: ${option}`);
@@ -750,8 +717,8 @@
             }
         }
         function handlePlaySubClick(option) {
-    showFloatingOutput(`Game chosen: ${option}`);
-}
+            showFloatingOutput(`Game chosen: ${option}`);
+        }
         function handleGrowthClick(option, level) {
             if (level === 3) {
                 const fullPath = [...appState.growthNavigation, option].join(' → ');
@@ -783,19 +750,19 @@
             showFloatingOutput(`Weekly task: ${randomTask}`);
         }
         function handlePlayOptionClick(option) {
-    appState.playNavigation = [option];
-    showPlayOptions();
-}
+            appState.playNavigation = [option];
+            showPlayOptions();
+        }
 
-function handlePlaySubClick(option) {
-    showFloatingOutput(`Game chosen: ${option}`);
-    resetPlayNavigation(); // Optional: reset after choosing a sub-option, or leave as is for multiple selections
-}
+        function handlePlaySubClick(option) {
+            showFloatingOutput(`Game chosen: ${option}`);
+            resetPlayNavigation(); // Optional: reset after choosing a sub-option, or leave as is for multiple selections
+        }
 
-function resetPlayNavigation() {
-    appState.playNavigation = [];
-    showPlayOptions();
-}
+        function resetPlayNavigation() {
+            appState.playNavigation = [];
+            showPlayOptions();
+        }
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() {
@@ -806,11 +773,18 @@ function resetPlayNavigation() {
             document.getElementById('homeButton').addEventListener('click', function() {
                 showIntroScreen();
                 document.querySelectorAll('.tab').forEach(tab => {
-                    tab.classList.remove('active');
+                    // Make the first tab active again on home click
+                    if(tab.getAttribute('data-tab') === 'pending') {
+                       tab.classList.add('active');
+                    } else {
+                       tab.classList.remove('active');
+                    }
                 });
             });
             document.getElementById('weeklyTasksBtn').addEventListener('click', handleWeeklyTasks);
+            // Start on the intro screen, but keep the first tab visually active
             showIntroScreen();
+             document.querySelector('.tab[data-tab="pending"]').classList.add('active');
         });
     </script>
 </body>
