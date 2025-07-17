@@ -605,8 +605,8 @@
             "I am to send you at least three videos in the 26 June-3 July week showing you that I am studying with my pretty hair down. I am not going to let you down. 😘"
         ];
         const INTRO_TEXT = {
-            title: "Welcome, babygirl.",
-            description: "Step inside your private playground. Here, you’re free to be bold, to tease, to surrender, and to shine. Every click, every word, every task is a secret invitation—just for you and me. Let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. Are you ready to play?"
+            title: "welcome, babygirl.",
+            description: "step inside your private playground. here, you’re free to be bold, to tease, to surrender, and to shine. every click, every word, every task is a secret invitation—just for you and me. let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. are you ready to play?"
         };
         const appState = {
             currentTab: 'intro',
@@ -627,7 +627,7 @@
         function switchTab(tabName) {
             const vaultTab = document.querySelector('.tab[data-tab="vault"]');
             if (tabName === 'vault' && vaultTab.classList.contains('locked')) {
-                showFloatingOutput("The Vault is still locked. Be patient.");
+                showFloatingOutput("the vault is still locked, my love. wait for the countdown.");
                 return;
             }
 
@@ -677,9 +677,9 @@
             const contentArea = document.getElementById('contentArea');
             contentArea.innerHTML = `
                 <div style="text-align: center;">
-                    <h2 class="section-header">Our Shared Soundtrack</h2>
+                    <h2 class="section-header">happy headache</h2>
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
-                        This is our space for music. Add songs that remind you of us, songs you love, or songs you want me to hear. This playlist belongs to both of us.
+                        you don't listen to it on spotfy, so it will not do the website any harm if you don't listen to it on here as well. i love you so.
                     </p>
                     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
@@ -688,9 +688,9 @@
         function showSpinWheel() {
             const content = `
                 <div style="text-align: center;">
-                    <h2 class="section-header">Feeling Lucky?</h2>
+                    <h2 class="section-header">you're my lady luck, btw.</h2>
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
-                        Leave tonight's little adventure to fate. Spin the wheel and see what surprise Lady Luck has in store for you.
+                        still, if you want, we can leave it to the fates for once.
                     </p>
                 </div>
                 <div class="wheel-container">
@@ -735,7 +735,7 @@
         }
         function showPendingTasks() {
             const content = `
-                <h2 class="section-header">Some things you should never forget♥</h2>
+                <h2 class="section-header">some things you should never forget♥</h2>
                 ${PENDING_TASKS.map(task => `
                     <div class="task-card" onclick="handleTaskClick('${task.replace(/'/g, "\\'")}')">
                         <span style="position: relative; z-index: 1;">${task}</span>
@@ -746,7 +746,7 @@
         }
         function showMindOptions() {
             const content = `
-                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h2>
+                <h2 class="section-header">hey, hottie. how would you like for us to itneract today?</h2>
                 ${MIND_OPTIONS.map(option => `
                     <div class="mind-option" onclick="handleMindClick('${option.replace(/'/g, "\\'")}')">
                         <span style="position: relative; z-index: 1;">${option}</span>
@@ -765,7 +765,7 @@
                     `).join('')}
                 </div>` : '';
             let content = `
-                <h2 class="section-header">Hey, cutie. Do you wish to drive for a while?</h2>
+                <h2 class="section-header">so you wish to show yourself to me. how indecent of you. i love it</h2>
                 ${breadcrumb}
             `;
             if (appState.driveNavigation.length === 0) {
@@ -793,7 +793,7 @@
         }
         function showPlayOptions() {
             let content = `
-                <h2 class="section-header">How do you want to play, babygirl?😏</h2>
+                <h2 class="section-header">in case you're bored, here's some us-themed games.</h2>
             `;
             if (appState.playNavigation.length === 0) {
                 content += Object.keys(PLAY_OPTIONS).map(option => `
@@ -805,7 +805,7 @@
                 const selectedOption = appState.playNavigation[0];
                 content += `
                     <div class="play-breadcrumb">
-                        <span class="breadcrumb-item" onclick="resetPlayNavigation()">Games</span>
+                        <span class="breadcrumb-item" onclick="resetPlayNavigation()">games</span>
                         <span class="breadcrumb-separator">→</span>
                         <span class="breadcrumb-item">${selectedOption}</span>
                     </div>
@@ -828,7 +828,7 @@
                     `).join('')}
                 </div>` : '';
             let content = `
-                <h2 class="section-header">Let's focus on your growth, babygirl 🌱</h2>
+                <h2 class="section-header">shut out everything else, and just follow instructions to grow. isn't it simple?</h2>
                 ${breadcrumb}
             `;
             if (appState.growthNavigation.length === 0) {
