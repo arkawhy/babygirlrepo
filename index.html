@@ -201,6 +201,7 @@
         #wheel-group {
             /* This is what the javascript will rotate */
             transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center;
         }
         .wheel-text {
             font-family: var(--font-body);
@@ -653,7 +654,7 @@
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
                         you don't use spotfy, so i think i found a way for us to listen to it here. yay.
                     </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5YQpt2i9y1g2YdYXmC0J1P?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5YQCM5eX1nB462R1L2b4tK?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             `;
         }
@@ -688,38 +689,49 @@
             const textRadius = radius * 0.65;
 
             let svgContent = `<svg id="wheel-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">`;
-            svgContent += `<g id="wheel-group" transform="translate(${radius},${radius})">`;
+            svgContent += `<g id="wheel-group" style="transform-origin: center;">`;
 
             // Function to get coordinates for a point on a circle
-            const getCoords = (angle, r) => {
-                const rad = (angle - 90) * Math.PI / 180;
-                return [radius + r * Math.cos(rad), radius + r * Math.sin(rad)];
+            const polarToCartesian = (centerX, centerY, r, angleInDegrees) => {
+                const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+                return {
+                    x: centerX + (r * Math.cos(angleInRadians)),
+                    y: centerY + (r * Math.sin(angleInRadians))
+                };
             };
+            
+            const describeArc = (x, y, r, startAngle, endAngle) => {
+                const start = polarToCartesian(x, y, r, endAngle);
+                const end = polarToCartesian(x, y, r, startAngle);
+                const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+                const d = [
+                    "M", x, y, 
+                    "L", start.x, start.y, 
+                    "A", r, r, 0, largeArcFlag, 0, end.x, end.y,
+                    "Z"
+                ].join(" ");
+                return d;       
+            }
 
             for (let i = 0; i < numOptions; i++) {
                 const startAngle = i * sliceAngle;
                 const endAngle = startAngle + sliceAngle;
 
                 // Path for the slice color
-                const [startX, startY] = getCoords(startAngle, radius);
-                const [endX, endY] = getCoords(endAngle, radius);
-                const largeArcFlag = sliceAngle > 180 ? 1 : 0;
-                
-                const slicePath = `M ${radius},${radius} L ${startX},${startY} A ${radius},${radius} 0 ${largeArcFlag},1 ${endX},${endY} Z`;
-                svgContent += `<path d="${slicePath}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
+                svgContent += `<path d="${describeArc(radius, radius, radius, startAngle, endAngle)}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
 
                 // Path for the text to follow
                 const textPathId = `text-path-${i}`;
-                const [textStartX, textStartY] = getCoords(startAngle + 5, textRadius); // +5 for padding
-                const [textEndX, textEndY] = getCoords(endAngle - 5, textRadius); // -5 for padding
-
-                const textArc = `M ${textStartX},${textStartY} A ${textRadius},${textRadius} 0 0,1 ${textEndX},${textEndY}`;
-                svgContent += `<path id="${textPathId}" d="${textArc}" fill="none"></path>`;
+                svgContent += `
+                    <defs>
+                        <path id="${textPathId}" d="${describeArc(radius, radius, textRadius, startAngle, endAngle)}"></path>
+                    </defs>
+                `;
                 
                 // Text element
                 svgContent += `
-                    <text class="wheel-text">
-                        <textPath href="#${textPathId}" startOffset="50%" text-anchor="middle">${WHEEL_OPTIONS[i]}</textPath>
+                    <text class="wheel-text" dy="-5">
+                        <textPath href="#${textPathId}" startOffset="50%" text-anchor="middle" dominant-baseline="middle">${WHEEL_OPTIONS[i]}</textPath>
                     </text>
                 `;
             }
@@ -739,7 +751,8 @@
             const totalRotation = (spinCycles * 360) + randomStopAngle;
             
             appState.currentRotation += totalRotation;
-            wheel.style.transform = `rotate(${appState.currentRotation}deg)`;
+            // The key fix: applying the transform to the SVG group element directly.
+            wheel.setAttribute('transform', `rotate(${appState.currentRotation}, 225, 225)`);
 
             setTimeout(() => {
                 const finalAngle = appState.currentRotation % 360;
