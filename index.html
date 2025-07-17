@@ -768,7 +768,7 @@
                 // ✅ FIX: Use WHEEL_OPTIONS.length instead of undefined 'numOptions'
                 const winningIndex = Math.floor((360 - finalAngle) / sliceAngle) % WHEEL_OPTIONS.length;
                 
-                showFloatingOutput(`Fate has chosen: ${WHEEL_OPTIONS[winningIndex]}`);
+                showFloatingOutput(`and the winner is... ${WHEEL_OPTIONS[winningIndex]}`);
                 appState.wheelSpinning = false;
                 document.getElementById('spinBtn').disabled = false;
             }, 5000); // Must match CSS transition duration
