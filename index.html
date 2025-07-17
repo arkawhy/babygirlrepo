@@ -147,7 +147,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: calc(100vh - 200px); /* Fill the space better */
+            min-height: calc(100vh - 200px);
         }
         .intro-screen h2 {
             font-family: var(--font-heading);
@@ -171,7 +171,7 @@
             font-weight: normal;
         }
         
-        /* --- Spin Wheel Styles --- */
+        /* --- NEW & IMPROVED SPIN WHEEL STYLES --- */
         .wheel-container {
             display: flex;
             flex-direction: column;
@@ -182,8 +182,8 @@
         }
         .wheel-wrapper {
             position: relative;
-            width: 350px;
-            height: 350px;
+            width: 420px;  /* Increased size */
+            height: 420px; /* Increased size */
         }
         .wheel-pointer {
             position: absolute;
@@ -196,8 +196,12 @@
             border-right: 15px solid transparent;
             border-top: 30px solid var(--primary-lavender);
             z-index: 10;
+            filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.3));
         }
         .wheel {
+            list-style: none; /* Removed default list styling */
+            margin: 0;
+            padding: 0;
             width: 100%;
             height: 100%;
             border-radius: 50%;
@@ -206,43 +210,44 @@
             border: 5px solid var(--bg-dark);
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
             transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
+            
+            /* Creates 8 perfect pie slices with just one property */
+            background: conic-gradient(
+                var(--c1) 0deg 45deg,
+                var(--c2) 45deg 90deg,
+                var(--c3) 90deg 135deg,
+                var(--c4) 135deg 180deg,
+                var(--c5) 180deg 225deg,
+                var(--c6) 225deg 270deg,
+                var(--c7) 270deg 315deg,
+                var(--c8) 315deg 360deg
+            );
         }
         .wheel-slice {
             position: absolute;
             width: 50%;
             height: 50%;
-            top: 0;
+            top: 50%;
             left: 50%;
-            transform-origin: 0% 100%;
-            /* This clip-path creates the triangle shape */
-            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+            transform-origin: 0% 0%;
+            /* Each slice is an invisible container rotated to its position */
+            transform: rotate(calc(45deg * var(--i))); 
         }
-        
-        /* --- FIX FOR TEXT WRAPPING --- */
         .slice-text {
             position: absolute;
-            width: 65%; /* Constrains the width to encourage wrapping */
-            left: 17.5%; /* Centers the constrained width */
-            top: 15%; /* Pushes text down from the point */
             color: white;
             font-size: 11px;
             font-weight: 600;
+            line-height: 1.2;
             text-align: center;
             white-space: normal; /* Allows text to wrap */
-            word-wrap: break-word; /* Breaks long words if necessary */
-            transform: rotate(45deg); /* Aligns text with the slice direction */
-            line-height: 1.2;
-        }
-        /* End of fix */
+            word-wrap: break-word; /* Breaks long words */
 
-        .wheel-slice:nth-child(1) { background-color: var(--c1); transform: rotate(0deg); }
-        .wheel-slice:nth-child(2) { background-color: var(--c2); transform: rotate(45deg); }
-        .wheel-slice:nth-child(3) { background-color: var(--c3); transform: rotate(90deg); }
-        .wheel-slice:nth-child(4) { background-color: var(--c4); transform: rotate(135deg); }
-        .wheel-slice:nth-child(5) { background-color: var(--c5); transform: rotate(180deg); }
-        .wheel-slice:nth-child(6) { background-color: var(--c6); transform: rotate(225deg); }
-        .wheel-slice:nth-child(7) { background-color: var(--c7); transform: rotate(270deg); }
-        .wheel-slice:nth-child(8) { background-color: var(--c8); transform: rotate(315deg); }
+            width: 100px; /* Gives the text a box to wrap inside */
+            
+            /* Positions the text box in the middle of the slice */
+            transform: translate(80px, -50%) rotate(22.5deg);
+        }
 
         .spin-button {
             background: var(--primary-purple);
@@ -265,6 +270,7 @@
             cursor: not-allowed;
             color: #999;
         }
+        /* -- END OF WHEEL STYLES -- */
 
         /* --- Vault Content Styles --- */
         .vault-header {
@@ -465,8 +471,13 @@
                 bottom: 90px;
             }
             .wheel-wrapper {
-                width: 300px;
-                height: 300px;
+                width: 320px; /* Adjust size for mobile */
+                height: 320px;
+            }
+            .slice-text {
+                width: 80px;
+                transform: translate(60px, -50%) rotate(22.5deg);
+                font-size: 10px;
             }
             .weather-display-container {
                 flex-direction: column;
@@ -523,7 +534,6 @@
     <script>
         // --- REAL-WORLD CONNECTION (WEATHER) ---
         function updateWeather() {
-            // ❗ NOTE: A working API key has been added for demonstration.
             const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab'; 
 
             const cityDelhi = '1273294';
@@ -564,7 +574,6 @@
                 });
         }
         
-        // Update weather every 10 minutes (600000 milliseconds)
         setInterval(updateWeather, 600000);
         
 
@@ -689,7 +698,7 @@
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
                         you don't use spotfy, so i think i found a way for us to listen to it here. yay.
                     </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/27gfqzCNAz3sW7i5e4S4kX?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             `;
         }
@@ -704,18 +713,29 @@
                 <div class="wheel-container">
                     <div class="wheel-wrapper">
                         <div class="wheel-pointer"></div>
-                        <div class="wheel" id="wheel">
-                            ${WHEEL_OPTIONS.map(option => `
-                                <div class="wheel-slice">
-                                    <div class="slice-text">${option}</div>
-                                </div>
-                            `).join('')}
-                        </div>
+                        <ul class="wheel" id="wheel">
+                        </ul>
                     </div>
                     <button class="spin-button" id="spinBtn">Spin the Wheel</button>
                 </div>
             `;
             document.getElementById('contentArea').innerHTML = content;
+            
+            const wheel = document.getElementById('wheel');
+            wheel.innerHTML = ''; // Clear previous slices if any
+            WHEEL_OPTIONS.forEach((option, i) => {
+                const slice = document.createElement('li');
+                slice.className = 'wheel-slice';
+                slice.style.setProperty('--i', i);
+                
+                const text = document.createElement('div');
+                text.className = 'slice-text';
+                text.textContent = option;
+                
+                slice.appendChild(text);
+                wheel.appendChild(slice);
+            });
+
             document.getElementById('spinBtn').addEventListener('click', spinTheWheel);
         }
         function spinTheWheel() {
