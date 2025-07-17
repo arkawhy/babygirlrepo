@@ -201,7 +201,6 @@
         #wheel-group {
             /* This is what the javascript will rotate */
             transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
-            transform-origin: center;
         }
         .wheel-text {
             font-family: var(--font-body);
@@ -654,7 +653,7 @@
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
                         you don't use spotfy, so i think i found a way for us to listen to it here. yay.
                     </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5YQCM5eX1nB462R1L2b4tK?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1zde02QO5G7eA4V23p1U2d?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             `;
         }
@@ -686,12 +685,10 @@
             const sliceAngle = 360 / numOptions;
             const size = 450;
             const radius = size / 2;
-            const textRadius = radius * 0.65;
-
+            
             let svgContent = `<svg id="wheel-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">`;
-            svgContent += `<g id="wheel-group" style="transform-origin: center;">`;
+            svgContent += `<g id="wheel-group" style="transform-origin: ${radius}px ${radius}px;">`;
 
-            // Function to get coordinates for a point on a circle
             const polarToCartesian = (centerX, centerY, r, angleInDegrees) => {
                 const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
                 return {
@@ -704,33 +701,23 @@
                 const start = polarToCartesian(x, y, r, endAngle);
                 const end = polarToCartesian(x, y, r, startAngle);
                 const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-                const d = [
-                    "M", x, y, 
-                    "L", start.x, start.y, 
-                    "A", r, r, 0, largeArcFlag, 0, end.x, end.y,
-                    "Z"
-                ].join(" ");
-                return d;       
+                return `M ${x},${y} L ${start.x},${start.y} A ${r},${r} 0 ${largeArcFlag},0 ${end.x},${end.y} Z`;      
             }
+            
+            const textRadius = radius * 0.75; // Position text further out
 
             for (let i = 0; i < numOptions; i++) {
                 const startAngle = i * sliceAngle;
                 const endAngle = startAngle + sliceAngle;
-
-                // Path for the slice color
+                
                 svgContent += `<path d="${describeArc(radius, radius, radius, startAngle, endAngle)}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
 
-                // Path for the text to follow
                 const textPathId = `text-path-${i}`;
-                svgContent += `
-                    <defs>
-                        <path id="${textPathId}" d="${describeArc(radius, radius, textRadius, startAngle, endAngle)}"></path>
-                    </defs>
-                `;
+                const textArc = describeArc(radius, radius, textRadius, startAngle, endAngle);
+                svgContent += `<defs><path id="${textPathId}" d="${textArc}"></path></defs>`;
                 
-                // Text element
                 svgContent += `
-                    <text class="wheel-text" dy="-5">
+                    <text class="wheel-text">
                         <textPath href="#${textPathId}" startOffset="50%" text-anchor="middle" dominant-baseline="middle">${WHEEL_OPTIONS[i]}</textPath>
                     </text>
                 `;
@@ -751,13 +738,13 @@
             const totalRotation = (spinCycles * 360) + randomStopAngle;
             
             appState.currentRotation += totalRotation;
-            // The key fix: applying the transform to the SVG group element directly.
-            wheel.setAttribute('transform', `rotate(${appState.currentRotation}, 225, 225)`);
+            wheel.setAttribute('transform', `rotate(${appState.currentRotation})`);
 
             setTimeout(() => {
                 const finalAngle = appState.currentRotation % 360;
                 const sliceAngle = 360 / WHEEL_OPTIONS.length;
-                const winningIndex = Math.floor((360 - finalAngle + sliceAngle / 2) % 360 / sliceAngle);
+                // Corrected winning index calculation for SVG rotation
+                const winningIndex = Math.floor((360 - (finalAngle % 360)) / sliceAngle) % numOptions;
                 
                 showFloatingOutput(`Fate has chosen: ${WHEEL_OPTIONS[winningIndex]}`);
                 appState.wheelSpinning = false;
