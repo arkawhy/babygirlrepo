@@ -8,15 +8,15 @@
     <style>
         /* --- Core & Fonts --- */
         :root {
-            --bg-dark: #100f13; /* A deeper, softer black */
-            --bg-content: #19181d; /* Slightly lighter for content area */
-            --primary-purple: #9b59b6; /* A sophisticated purple */
-            --primary-lavender: #d8c4e8; /* Soft lavender for highlights */
-            --text-light: #e0e0e0; /* Off-white for readability */
+            --bg-dark: #100f13;
+            --bg-content: #19181d;
+            --primary-purple: #9b59b6;
+            --primary-lavender: #d8c4e8;
+            --text-light: #e0e0e0;
             --text-dark: #100f13;
-            --font-heading: 'Garamond', 'Georgia', serif; /* Elegant serif for titles */
-            --font-body: 'Segoe UI', 'Roboto', sans-serif; /* Clean sans-serif for body */
-            --shadow: 0 10px 30px rgba(155, 89, 182, 0.15); /* A softer, more ambient shadow */
+            --font-heading: 'Garamond', 'Georgia', serif;
+            --font-body: 'Segoe UI', 'Roboto', sans-serif;
+            --shadow: 0 10px 30px rgba(155, 89, 182, 0.15);
         }
 
         html {
@@ -27,7 +27,8 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background: var(--bg-dark);
+            /* MODIFICATION: Added a subtle radial gradient for depth */
+            background: radial-gradient(ellipse at center, var(--bg-content) 0%, var(--bg-dark) 70%);
             color: var(--text-light);
             font-family: var(--font-body);
             line-height: 1.7;
@@ -106,6 +107,10 @@
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
             color: rgba(255, 255, 255, 0.6);
+            /* MODIFICATION: Added flex properties for icon alignment */
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         .tab:not(.locked):hover {
             background: rgba(155, 89, 182, 0.1);
@@ -123,6 +128,23 @@
             cursor: not-allowed;
             background-image: linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.02) 75%, transparent 75%, transparent);
             background-size: 40px 40px;
+        }
+
+        /* NEW: Styles for sidebar icons */
+        .tab-icon {
+            width: 20px;
+            height: 20px;
+            stroke-width: 1.5;
+            stroke: rgba(255, 255, 255, 0.6);
+            fill: none;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .tab:hover .tab-icon,
+        .tab.active .tab-icon {
+            stroke: var(--primary-lavender);
+            transform: scale(1.1);
         }
 
         .tab-text {
@@ -144,7 +166,10 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: calc(100vh - 200px); /* Adjust based on header/footer */
+            min-height: calc(100vh - 200px);
+            /* MODIFICATION: Added for positioning orb */
+            position: relative;
+            overflow: hidden;
         }
         .intro-screen h2 {
             font-family: var(--font-heading);
@@ -152,11 +177,31 @@
             margin-bottom: 20px;
             color: var(--primary-lavender);
             font-weight: normal;
+            position: relative; z-index: 1; /* Keep text on top */
         }
         .intro-screen p {
             font-size: 1.1rem;
             max-width: 600px;
             opacity: 0.8;
+            position: relative; z-index: 1; /* Keep text on top */
+        }
+        
+        /* NEW: Glowing orb for the intro screen */
+        .glowing-orb {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(155, 89, 182, 0.2) 0%, rgba(155, 89, 182, 0) 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: 0;
+            animation: pulse 10s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(0.9); opacity: 0.5; }
         }
 
         .section-header {
@@ -184,7 +229,7 @@
         }
         .wheel-pointer {
             position: absolute;
-            top: -5px; /* Positioned above the wheel */
+            top: -5px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
@@ -452,40 +497,48 @@
     </header>
     <div class="main-container">
         <nav class="sidebar">
+            <!-- MODIFICATION: Added SVG icons to each tab -->
             <div class="tab" data-tab="pending">
+                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                 <span class="tab-text">daily affirmations</span>
             </div>
             <div class="tab" data-tab="mind">
-                <span class="tab-text">mostly interactive stuff, left upto you to choose</span>
+                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                <span class="tab-text">mostly interactive stuff...</span>
             </div>
             <div class="tab" data-tab="luck">
+                <svg class="tab-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                 <span class="tab-text">my lady luck</span>
             </div>
             <div class="tab" data-tab="playlist">
+                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
                 <span class="tab-text">slow dance</span>
             </div>
             <div class="tab" data-tab="play">
+                <svg class="tab-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 <span class="tab-text">games?</span>
             </div>
             <div class="tab" data-tab="drive">
+                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                 <span class="tab-text">mango milkshakes.</span>
             </div>
             <div class="tab" data-tab="growth">
-                <span class="tab-text">test the limits of your obedience, and grow</span>
+                <svg class="tab-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span class="tab-text">test the limits of your...</span>
             </div>
             <div class="tab locked" data-tab="vault">
+                <svg class="tab-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 <span class="tab-text">the vault</span>
             </div>
         </nav>
         <main class="content-area" id="contentArea">
-            </main>
+            <!-- Content will be injected here by JavaScript -->
+        </main>
     </div>
     <footer class="bottom-ribbon">
         <div class="weather-display-container">
-            <div class="weather-display" id="weather-delhi">
-            </div>
-            <div class="weather-display" id="weather-kolkata">
-            </div>
+            <div class="weather-display" id="weather-delhi"></div>
+            <div class="weather-display" id="weather-kolkata"></div>
         </div>
     </footer>
     <div class="floating-output" id="floatingOutput"></div>
@@ -493,14 +546,9 @@
     <script>
         // --- REAL-WORLD CONNECTION (WEATHER) ---
         function updateWeather() {
-            // 🚨 CRITICAL: Your API key should NOT be stored here. 
-            // This is a major security risk.
-            // Create a backend server or serverless function to make API calls securely.
-            const apiKey = 'YOUR_API_KEY_HERE'; 
-
+            const apiKey = 'YOUR_API_KEY_HERE'; // Use a backend proxy for security
             const cityDelhi = '1273294';
             const cityKolkata = '1275004';
-
             if (apiKey !== 'YOUR_API_KEY_HERE') {
                 fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city', apiKey);
                 fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city', apiKey);
@@ -510,9 +558,7 @@
         function fetchWeatherForCity(cityId, elementId, locationName, apiKey) {
             const weatherElement = document.getElementById(elementId);
             if (!weatherElement) return;
-
             const url = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${apiKey}&units=metric`;
-            
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
@@ -526,8 +572,7 @@
                                 <img src="https://openweathermap.org/img/wn/${icon}.png" alt="${desc}">
                                 <div class="weather-temp">${temp}°C</div>
                                 <div class="weather-desc">${desc}</div>
-                            </div>
-                        `;
+                            </div>`;
                     } else {
                          weatherElement.innerHTML = `<div class="weather-location">${locationName}</div><div>Error loading weather</div>`;
                     }
@@ -537,21 +582,17 @@
                     weatherElement.innerHTML = `<div class="weather-location">${locationName}</div><div>Error loading weather</div>`;
                 });
         }
-        
-        setInterval(updateWeather, 600000); // Update every 10 minutes
+        setInterval(updateWeather, 600000);
 
         // --- VAULT COUNTDOWN ---
         const vaultTargetDate = new Date("October 27, 2025 00:00:00").getTime();
-
         const countdownInterval = setInterval(function() {
             const now = new Date().getTime();
             const distance = vaultTargetDate - now;
-
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
             if (distance > 0) {
                 document.getElementById("countdownTimer").innerHTML = `the vault opens in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
             } else {
@@ -559,25 +600,23 @@
                 document.getElementById("countdownTimer").innerHTML = "the vault is open!";
                 const vaultTab = document.querySelector('.tab[data-tab="vault"]');
                 vaultTab.classList.remove('locked');
-                vaultTab.querySelector('.tab-text').innerHTML = "the vault";
             }
         }, 1000);
         
-        // --- Editable content ---
+        // --- Content Data ---
         const PENDING_TASKS = [ "I'll remember that you love me, no matter what I do, for I am your submissive babygirl, your personal princess.", "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and you're going to help me every step of the way.", "I am going to try to keep up with my weekly passive task.", "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay." ];
         const MIND_OPTIONS = [ "I think I can work in an interview today. 😋", "Maybe I can take you along for a trip to the shower? 🚿", "I'd love a little one-on-one video call, maybe. 💞", "Can you just teach me how to dirty-talk well with you? 😙" ];
-        const WHEEL_OPTIONS = [ "Smile-vid", "WriteSpicy", "Silhouette", "Pink", "Mango Milkshake", "WristName", "Outfit?", "Milkshake-Mango" ];
+        const WHEEL_OPTIONS = [ "10-sec video of your smile", "Write me something spicy", "Nude silhouette picture", "Photo in your favorite color", "Choose a nude mango milkshake", "Write my name on your wrist", "Describe your outfit in detail", "Ask me for a mango milkshake" ];
         const DRIVE_OPTIONS = {
             level1: [ "Passive Tasks?🟢🟠🔴", "A sexy video?🟠🔴", "A hot picture?🔴" ],
             level2: { "Passive Tasks?🟢🟠🔴": [ "Clothing-related🟠🔴", "Mind-related🟢", "Other Passive Tasks🟠" ], "A sexy video?🟠🔴": [ "Starting Clothed🟠", "Starting Nude🔴", "Special Submission🔴" ], "A hot picture?🔴": [ "Object-interaction🔴", "Accessories🔴", "Special Submissive🔴" ] },
-            level3: { "Clothing-related🟠🔴": [ "I will ensure that we get to strip down together at least once this week, once you come back from work in the evening, on video call.", "I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free, and you wish to check in.", "For any two consecutive days of the week, I am going to be sending you videos of me changing any garment: whether it's wearing socks, putting on a towel, taking off a bra, or any other garment added to or subtracted from my body.", "I am going to be showing off my wet, hot self to you three days this week by toweling down after my shower for you on camera live, or in a video. I shall end the video by either wrapping myself in said towel, or entirely nude for your delight.", "I am going to get you to buy me hot lingerie, and wear it on a video call for you two days this week." ], "Mind-related🟢": [ "I am going to make it a point to not say anything negative about me for the next 24 hours.", "I know I look hot with my hair down. I will send you at least three separate videos throughout the week showing you that I am studying with my hair down.", "Every night this week before going to bed, I am going to tell you what I like most about myself, and I would love it if you praised me for it too.", "Every night before going to bed, I am going to call you up and ask you to baby me. And then, you're going to baby me!" ], "Other Passive Tasks🟠": [ "I'll voluntarily learn how to truly talk like a submissive with you at least once every day this week.", "I'll send you a voice note affirming my submission to you, every night of this week, along with my good night text.", "I'll write anything, anywhere, on my body to confirm my willingness to obey you, and show you suitable proof of it, thrice this week.", "I am going to stay shaved throughout this week: absolutely hairless from below my neck. Any active tasks during this week will happily bear proof of the same. :)", "Three days this week, I am going to keep my hair down, and the other four days, I am going to keep it tied up in a high ponytail. I will send you pictures throughout the week affirming that I have, in fact, kept up with your instructions." ], "Starting Clothed🟠": [ "I will start out standing, wearing only a vest and panties, and then lower my panties to my thighs to present my pussy to you, all the while smiling at you.", "I will start out standing, wearing only a vest and panties, and then lower my vest to my stomach to present my breasts to you, all the while smiling at you.", "I'll begin wearing a towel covering my breasts and pussy and my hair tied up: I will first lower the towel to release my breasts, smile at you, and then let my hair down.", "Let me start out wearing my black vest and my dark panties. I'll turn around, take the vest off and lower my panties to my thighs; and then I'll turn back around to face you, bashful and pretty as I always am in these videos.", "I will wear nothing but a tshirt. In the video, I will be kneeling with my knees drawn close together initially, and then I will stretch out my arms up above my head, while also widening the gap between my legs. My arms come to rest behind me in my natural submissive pose." ], "Starting Nude🔴": [ "Please let me be naked on video for you, standing upright and saying how much I love being your good girl, and then turning around to present my ass to you.", "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in front of you. I'll stand back up and then give you a little twirl so you can appreciate every inch of me.", "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each.", "Starting off nude and kneeling up, I'll place my hands behind my head and jut my beautiful tits out for you. Then, I am going to kneel down and sit on my heels, and slowly widen my thighs for you to have a visual taste of what I have waiting for you. ", "I will send you a video of me soaping myself in the shower/bathroom. The camera will be roughly at stomach height, and I will give you full view to whatever part of my body I am soaping, front or back." ], "Special Submission🔴": [ "I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.", "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission.", "I'll get fully naked for you, and then start the video with my hands behind me and hair down, spectacles on. I'll then affirm my submission to you by saying as much, and assure you of my obedience to do anything you say.", "I am going to position the camera in a way that I can be in the frame lying nude on my back on any surface: floor, or bed. I have leeway to do what I wish with the rest of my body to look like my hottest self for you, but my hands rest on my eyes, shutting them out, and my lips form a naughty grin.", "I wear nothing but my bra, with the straps lowered to my sides. I start out standing in front of the camera, turning around to unclasp the bra slowly, then coming to a full turn facing the camera again, hands behind me, still clasping the bra." ], "Object-interaction🔴": [ "I'll strip down completely, and take a pic of me sitting in a chair and smiling in a mirror selfie, hair down, with an arm loosely held behind me and draped over the back of the chair, my legs wide apart for you to savour what's in between.", "Since you love teaching me, maybe I can take a mirror selfie with a book held up to my face, my hair down, wearing nothing but panties, and every other inch of me on display for you", "I'll take a photo of me lying nude on the bed, the camera placed just above my breasts and pointing at my feet. I am going to give you a a clear view of how your baby looks naked, from right between my boobs, all the way down to my pussy and legs.", "This is a special kneeling picture for you: I shall kneel naked, but wrapped in a bedsheet. The bedsheet curls around my arms and leaves enough of my breasts bare, but nothing below the stomach, with a slight glimpse of my delicious legs anywhere I wish.", "I would like to give you a simple nude of me with my bra in my mouth, me leaning forward and resting on my hands and knees, everything else on full display for you." ], "Accessories🔴": [ "I'd love to send you an upper-half profile topless picture of me without my glasses, hair tied up tight, wearing eyeliner and basic makeup. I love being pretty for you!", "I think I'll put on the longest socks I can find, along with any cap I may have, and wear nothing else as I send you a mirror selfie, the phone just covering my face, the other hand behind me. If I cannot find the cap, you may have to make do with just the rest.", "I'll put on any earrings I can find, turn my head slightly to show them to you, while clicking a mirror selfie wearing nothing but my panties, pulled down to my thighs, legs close together and one foot slightly in front of the other.", "I'll go out and buy stickers: the small, cutesy ones available at most stationery shops. Then, I am going to send you a nude front profile, standing upright and hands clasped behind me, with my breasts covered in at least ten stickers, but my pussy untouched and uncovered.", "My hands will be RIGHT in front of the camera, obscuring everything else from view, as I put a wristwatch on. Once I am done, I withdraw my hands, revealing my nude form, standing prettily in front of the camera and on wonderful display for you." ], "Special Submissive🔴": [ "I remember how much you liked it on that one video call where I got naked for you, turned around with my palms on the wall in front of me above my head, my ass thrust you nicely for you. I'll send you two pictures of me in this pose: one with my legs wide apart, and one with them close together.", "I'll ask you to send me one of the pictures I have sent you before. I'll replicate it, but with a blindfold on for you.", "This will be a couple of side-profile fully shaved, full nudes for you. I shall place the camera to my left, prop my head up on an arm, and stretch the full length of my legs out for you to savour every inch of me, as I turn to face you. The second nude will be in the same position but turning the other way, for you to have a look at my ass.", "I shall stay nude on a video call with you whenever I am free, and refer to you only as 'sir' throughout the call. If I fail to uphold my sincerity in the call, you're free to ask me to do anything you wish right there on the call.", "I'll wear nothing  but jeans and a vest, but drag the jeans down to my thighs. The vest will be rolled up to above my breasts. I will take one front profile picture, and one rear profile pciture, perfectly displaying my curves to you as they will be offered when you slide down my heans and lift my vest yourself." ] }
+            level3: { "Clothing-related🟠🔴": [ "I will ensure that we get to strip down together at least once this week, once you come back from work in the evening, on video call.", "I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free, and you wish to check in.", "For any two consecutive days of the week, I am going to be sending you videos of me changing any garment: whether it's wearing socks, putting on a towel, taking off a bra, or any other garment added to or subtracted from my body.", "I am going to be showing off my wet, hot self to you three days this week by toweling down after my shower for you on camera live, or in a video. I shall end the video by either wrapping myself in said towel, or entirely nude for your delight.", "I am going to get you to buy me hot lingerie, and wear it on a video call for you two days this week." ], "Mind-related🟢": [ "I am going to make it a point to not say anything negative about me for the next 24 hours.", "I know I look hot with my hair down. I will send you at least three separate videos throughout the week showing you that I am studying with my hair down.", "Every night this week before going to bed, I am going to tell you what I like most about myself, and I would love it if you praised me for it too.", "Every night before going to bed, I am going to call you up and ask you to baby me. And then, you're going to baby me!" ], "Other Passive Tasks🟠": [ "I'll voluntarily learn how to truly talk like a submissive with you at least once every day this week.", "I'll send you a voice note affirming my submission to you, every night of this week, along with my good night text.", "I'll write anything, anywhere, on my body to confirm my willingness to obey you, and show you suitable proof of it, thrice this week.", "I am going to stay shaved throughout this week: absolutely hairless from below my neck. Any active tasks during this week will happily bear proof of the same. :)", "Three days this week, I am going to keep my hair down, and the other four days, I am going to keep it tied up in a high ponytail. I will send you pictures throughout the week affirming that I have, in fact, kept up with your instructions." ], "Starting Clothed🟠": [ "I will start out standing, wearing only a vest and panties, and then lower my panties to my thighs to present my pussy to you, all the while smiling at you.", "I will start out standing, wearing only a vest and panties, and then lower my vest to my stomach to present my breasts to you, all the while smiling at you.", "I'll begin wearing a towel covering my breasts and pussy and my hair tied up: I will first lower the towel to release my breasts, smile at you, and then let my hair down.", "Let me start out wearing my black vest and my dark panties. I'll turn around, take the vest off and lower my panties to my thighs; and then I'll turn back around to face you, bashful and pretty as I always am in these videos.", "I will wear nothing but a tshirt. In the video, I will be kneeling with my knees drawn close together initially, and then I will stretch out my arms up above my head, while also widening the gap between my legs. My arms come to rest behind me in my natural submissive pose." ], "Starting Nude🔴": [ "Please let me be naked on video for you, standing upright and saying how much I love being your good girl, and then turning around to present my ass to you.", "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in front of you. I'll stand back up and then give you a little twirl so you can appreciate every inch of me.", "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each.", "Starting off nude and kneeling up, I'll place my hands behind my head and jut my beautiful tits out for you. Then, I am going to kneel down and sit on my heels, and slowly widen my thighs for you to have a visual taste of what I have waiting for you. ", "I will send you a video of me soaping myself in the shower/bathroom. The camera will be roughly at stomach height, and I will give you full view to whatever part of my body I am soaping, front or back." ], "Special Submission🔴": [ "I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.", "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission.", "I'll get fully naked for you, and then start the video with my hands behind me and hair down, spectacles on. I'll then affirm my submission to you by saying as much, and assure you of my obedience to do anything you say.", "I am going to position the camera in a way that I can be in the frame lying nude on my back on any surface: floor, or bed. I have leeway to do what I wish with the rest of my body to look like my hottest self for you, but my hands rest on my eyes, shutting them out, and my lips form a naughty grin.", "I wear nothing but my bra, with the straps lowered to my sides. I start out standing in front of the camera, turning around to unclasp the bra slowly, then coming to a full turn facing the camera again, hands behind me, still clasping the bra." ], "Object-interaction🔴": [ "I'll strip down completely, and take a pic of me sitting in a chair and smiling in a mirror selfie, hair down, with an arm loosely held behind me and draped over the back of the chair, my legs wide apart for you to savour what's in between.", "Since you love teaching me, maybe I can take a mirror selfie with a book held up to my face, my hair down, wearing nothing but panties, and every other inch of me on display for you", "I'll take a photo of me lying nude on the bed, the camera placed just above my breasts and pointing at my feet. I am going to give you a a clear view of how your baby looks naked, from right between my boobs, all the way down to my pussy and legs.", "This is a special kneeling picture for you: I shall kneel naked, but wrapped in a bedsheet. The bedsheet curls around my arms and leaves enough of my breasts bare, but nothing below the stomach, with a slight glimpse of my delicious legs anywhere I wish.", "I would like to give you a simple nude of me with my bra in my mouth, me leaning forward and resting on my hands and knees, everything else on full display for you." ], "Accessories🔴": [ "I'd love to send you an upper-half profile topless picture of me without my glasses, hair tied up tight, wearing eyeliner and basic makeup. I love being pretty for you!", "I think I'll put on the longest socks I can find, along with any cap I may have, and wear nothing else as I send you a mirror selfie, the phone just covering my face, the other hand behind me. If I cannot find the cap, you may have to make do with just the rest.", "I'll put on any earrings I can find, turn my head slightly to show them to you, while clicking a mirror selfie wearing nothing but my panties, pulled down to my thighs, legs close together and one foot slightly in front of the other.", "I'll go out and buy stickers: the small, cutesy ones available at most stationery shops. Then, I am going to send you a nude front profile, standing upright and hands clasped behind me, with my breasts covered in at least ten stickers, but my pussy untouched and uncovered.", "My hands will be RIGHT in front of the camera, obscuring everything else from view, as I put a wristwatch on. Once I am done, I withdraw my hands, revealing my nude form, standing prettily in front of the camera and on wonderful display for you." ], "Special Submissive�": [ "I remember how much you liked it on that one video call where I got naked for you, turned around with my palms on the wall in front of me above my head, my ass thrust you nicely for you. I'll send you two pictures of me in this pose: one with my legs wide apart, and one with them close together.", "I'll ask you to send me one of the pictures I have sent you before. I'll replicate it, but with a blindfold on for you.", "This will be a couple of side-profile fully shaved, full nudes for you. I shall place the camera to my left, prop my head up on an arm, and stretch the full length of my legs out for you to savour every inch of me, as I turn to face you. The second nude will be in the same position but turning the other way, for you to have a look at my ass.", "I shall stay nude on a video call with you whenever I am free, and refer to you only as 'sir' throughout the call. If I fail to uphold my sincerity in the call, you're free to ask me to do anything you wish right there on the call.", "I'll wear nothing  but jeans and a vest, but drag the jeans down to my thighs. The vest will be rolled up to above my breasts. I will take one front profile picture, and one rear profile pciture, perfectly displaying my curves to you as they will be offered when you slide down my heans and lift my vest yourself." ] }
         };
         const PLAY_OPTIONS = {
             "Mind-games🟢🟠": [ "I want to play Anything Can Be Used to Pick You Up with you. ", "Please schedule a game of Chess with me sometime today. ", "Play Seven Questions with me to decide how you wish to look at my body today. ", "Can I ask you to please turn me on, entirely on text? I love it when you play with me on text!" ],
             "Remote Games 🟢🟠": [ "I will ask ChatGPT, 'What can I do to please my long-distance dominant boyfriend?', take a screenshot of the results to show them to you, and do the top two things suggested. ", "I will take time out to play Adult Truth or Dare with you on any app you choose. ", "Can we play some other online 1v1 game today?", "I will carry out some research to find the best free or cheap adult games on Google Play Store, and then get you to play it with me." ],
             "Games for a good Submissive 🔴": [ "The moment I am free to get naked for you, I will ask you directly for a command, and immediately do as you say. ", "I shall try to tease you while you are at work tomorrow by resorting to texts, photos, videos, or voice messages. ", "I would like to try and play a game of endurance with you on video call, and take up the challenge to do what you say, for as long as you say. ", "I'll get naked, put a blindfold on, and video call you, while assuming my standard kneeling-hands-behind position. I trust that you'll take the video call in surroundings which do not expose me. On the call, I am all yours to play with, of course." ]
         };
-        // ✅ BEST PRACTICE: Use structuredClone for a true deep copy.
         const GROWTH_OPTIONS = structuredClone(DRIVE_OPTIONS);
         GROWTH_OPTIONS.level1 = [ "Self-Care🟢", "Life-related🟢🟠", "Submission🟠🔴" ];
         GROWTH_OPTIONS.level2 = { "Self-Care🟢": [ "Physical Health🟢", "Emotional Health🟢", "Mental Health🟢" ], "Life-related🟢🟠": [ "Studies🟢", "Skills🟢🟠", "Capabilities🟢🟠" ], "Submission🟠🔴": [ "Physical Display🔴", "Gratitude Expression🟠🔴", "Mental Conditioning🟠" ] };
@@ -595,24 +634,22 @@
             wheelSpinning: false,
             currentRotation: 0
         };
+        
+        // --- Core App Logic & UI Rendering ---
         function showFloatingOutput(text) {
             const output = document.getElementById('floatingOutput');
             output.textContent = text;
             output.classList.add('show');
-            setTimeout(() => {
-                output.classList.remove('show');
-            }, 5000);
+            setTimeout(() => { output.classList.remove('show'); }, 5000);
         }
+
         function switchTab(tabName) {
             const vaultTab = document.querySelector('.tab[data-tab="vault"]');
             if (tabName === 'vault' && vaultTab.classList.contains('locked')) {
                 showFloatingOutput("the vault is still locked, my love. wait for the countdown.");
                 return;
             }
-
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
             if (tabName !== 'drive') appState.driveNavigation = [];
             if (tabName !== 'growth') appState.growthNavigation = [];
@@ -630,17 +667,19 @@
                 default: showIntroScreen();
             }
         }
+
+        // MODIFICATION: Added glowing orb to intro screen
         function showIntroScreen() {
             document.getElementById('contentArea').innerHTML = `
                 <div class="intro-screen">
+                    <div class="glowing-orb"></div>
                     <h2>${INTRO_TEXT.title}</h2>
                     <p>${INTRO_TEXT.description}</p>
-                </div>
-            `;
+                </div>`;
         }
+        
         function showVaultContent() {
-             const contentArea = document.getElementById('contentArea');
-             contentArea.innerHTML = `
+             document.getElementById('contentArea').innerHTML = `
                 <div>
                     <h2 class="vault-header">Happy Birthday, My Love</h2>
                     <div class="vault-letter">
@@ -649,22 +688,20 @@
                         <p>This past year has been... [continue your letter here].</p>
                         <p>With all my heart,<br>Arka</p>
                     </div>
-                </div>
-            `;
+                </div>`;
         }
-         function showPlaylist() {
-            const contentArea = document.getElementById('contentArea');
-            contentArea.innerHTML = `
+
+        function showPlaylist() {
+            document.getElementById('contentArea').innerHTML = `
                 <div style="text-align: center;">
                     <h2 class="section-header">happy headache</h2>
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
                         you don't use spotfy, so i think i found a way for us to listen to it here. yay.
                     </p>
-                    // ✅ FIX: Using a valid Spotify embed URL structure.
                     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/YOUR_PLAYLIST_ID" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-            `;
+                </div>`;
         }
+
         function showSpinWheel() {
             const content = `
                 <div style="text-align: center;">
@@ -679,10 +716,8 @@
                         <div id="wheel-svg-container"></div>
                     </div>
                     <button class="spin-button" id="spinBtn">Spin the Wheel</button>
-                </div>
-            `;
+                </div>`;
             document.getElementById('contentArea').innerHTML = content;
-            
             buildSvgWheel();
             document.getElementById('spinBtn').addEventListener('click', spinTheWheel);
         }
@@ -694,56 +729,31 @@
             const size = 450;
             const radius = size / 2;
             const textRadius = radius * 0.65;
-
-            let svgContent = `<svg id="wheel-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">`;
-            svgContent += `<g id="wheel-group" style="transform-origin: ${radius}px ${radius}px;">`;
-
+            let svgContent = `<svg id="wheel-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg"><g id="wheel-group" style="transform-origin: ${radius}px ${radius}px;">`;
             const polarToCartesian = (centerX, centerY, r, angleInDegrees) => {
                 const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
-                return {
-                    x: centerX + (r * Math.cos(angleInRadians)),
-                    y: centerY + (r * Math.sin(angleInRadians))
-                };
+                return { x: centerX + (r * Math.cos(angleInRadians)), y: centerY + (r * Math.sin(angleInRadians)) };
             };
-            
             const describeArc = (x, y, r, startAngle, endAngle) => {
                 const start = polarToCartesian(x, y, r, endAngle);
                 const end = polarToCartesian(x, y, r, startAngle);
                 const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-                const d = [
-                    "M", start.x, start.y, 
-                    "A", r, r, 0, largeArcFlag, 0, end.x, end.y,
-                    "L", x, y,
-                    "Z"
-                ].join(" ");
-                return d;
+                return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 0 ${end.x} ${end.y} L ${x} ${y} Z`;
             };
-
             const describeTextArc = (x, y, r, startAngle, endAngle) => {
                  const start = polarToCartesian(x, y, r, startAngle);
                  const end = polarToCartesian(x, y, r, endAngle);
                  const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
                  return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`;
             }
-
             for (let i = 0; i < numOptions; i++) {
                 const startAngle = i * sliceAngle;
                 const endAngle = startAngle + sliceAngle;
-                
                 svgContent += `<path d="${describeArc(radius, radius, radius - 2, startAngle, endAngle)}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
-
                 const textPathId = `text-path-${i}`;
-                const textAngle = startAngle + sliceAngle / 2;
-                const textRotation = textAngle > 90 && textAngle < 270 ? textAngle - 180 : textAngle;
-
-                svgContent += `
-                    <text class="wheel-text" dy="-10">
-                        <textPath href="#${textPathId}" startOffset="50%" text-anchor="middle" dominant-baseline="middle">${WHEEL_OPTIONS[i]}</textPath>
-                    </text>
-                `;
                 svgContent += `<defs><path id="${textPathId}" d="${describeTextArc(radius, radius, textRadius, startAngle, endAngle)}"></path></defs>`;
+                svgContent += `<text class="wheel-text" dy="-10"><textPath href="#${textPathId}" startOffset="50%" text-anchor="middle">${WHEEL_OPTIONS[i]}</textPath></text>`;
             }
-
             svgContent += `</g></svg>`;
             document.getElementById('wheel-svg-container').innerHTML = svgContent;
         }
@@ -752,158 +762,79 @@
             if (appState.wheelSpinning) return;
             appState.wheelSpinning = true;
             document.getElementById('spinBtn').disabled = true;
-
             const wheel = document.getElementById('wheel-group');
-            const spinCycles = Math.floor(Math.random() * 4) + 5; // 5 to 8 full spins
+            const spinCycles = Math.floor(Math.random() * 4) + 5;
             const randomStopAngle = Math.floor(Math.random() * 360);
             const totalRotation = (spinCycles * 360) + randomStopAngle;
-            
             appState.currentRotation += totalRotation;
             wheel.style.transform = `rotate(${appState.currentRotation}deg)`;
-
-
             setTimeout(() => {
                 const finalAngle = appState.currentRotation % 360;
                 const sliceAngle = 360 / WHEEL_OPTIONS.length;
-                // ✅ FIX: Use WHEEL_OPTIONS.length instead of undefined 'numOptions'
                 const winningIndex = Math.floor((360 - finalAngle) / sliceAngle) % WHEEL_OPTIONS.length;
-                
-                showFloatingOutput(`and the winner is... ${WHEEL_OPTIONS[winningIndex]}`);
+                showFloatingOutput(`Fate has chosen: ${WHEEL_OPTIONS[winningIndex]}`);
                 appState.wheelSpinning = false;
                 document.getElementById('spinBtn').disabled = false;
-            }, 5000); // Must match CSS transition duration
+            }, 5000);
         }
+        
+        // --- Functions to render different content sections ---
         function showPendingTasks() {
-            const content = `
+            document.getElementById('contentArea').innerHTML = `
                 <h2 class="section-header">some things you should never forget♥</h2>
-                ${PENDING_TASKS.map(task => `
-                    <div class="task-card" onclick="handleTaskClick('${task.replace(/'/g, "\\'")}')">
-                        <span style="position: relative; z-index: 1;">${task}</span>
-                    </div>
-                `).join('')}
-            `;
-            document.getElementById('contentArea').innerHTML = content;
+                ${PENDING_TASKS.map(task => `<div class="task-card" onclick="handleTaskClick('${task.replace(/'/g, "\\'")}')"><span>${task}</span></div>`).join('')}`;
         }
         function showMindOptions() {
-            const content = `
+            document.getElementById('contentArea').innerHTML = `
                 <h2 class="section-header">hey, hottie. how would you like for us to itneract today?</h2>
-                ${MIND_OPTIONS.map(option => `
-                    <div class="mind-option" onclick="handleMindClick('${option.replace(/'/g, "\\'")}')">
-                        <span style="position: relative; z-index: 1;">${option}</span>
-                    </div>
-                `).join('')}
-            `;
-            document.getElementById('contentArea').innerHTML = content;
+                ${MIND_OPTIONS.map(option => `<div class="mind-option" onclick="handleMindClick('${option.replace(/'/g, "\\'")}')"><span>${option}</span></div>`).join('')}`;
         }
         function showDriveOptions() {
-            const breadcrumb = appState.driveNavigation.length > 0 ?
-                `<div class="drive-breadcrumb">
-                    <span class="breadcrumb-item" onclick="resetDriveNavigation()">Drive</span>
-                    ${appState.driveNavigation.map((item, index) => `
-                        <span class="breadcrumb-separator">→</span>
-                        <span class="breadcrumb-item" onclick="navigateDriveTo(${index})">${item}</span>
-                    `).join('')}
-                </div>` : '';
-            let content = `
-                <h2 class="section-header">so you wish to show yourself to me. how indecent of you. i love it</h2>
-                ${breadcrumb}
-            `;
+            const breadcrumb = appState.driveNavigation.length > 0 ? `<div class="drive-breadcrumb"><span class="breadcrumb-item" onclick="resetDriveNavigation()">Drive</span>${appState.driveNavigation.map((item, index) => `<span class="breadcrumb-separator">→</span><span class="breadcrumb-item" onclick="navigateDriveTo(${index})">${item}</span>`).join('')}</div>` : '';
+            let content = `<h2 class="section-header">so you wish to show yourself to me. how indecent of you. i love it</h2>${breadcrumb}`;
             if (appState.driveNavigation.length === 0) {
-                content += DRIVE_OPTIONS.level1.map(option => `
-                    <div class="drive-option" onclick="handleDriveClick('${option}', 1)">
-                        <span style="position: relative; z-index: 1;">${option}</span>
-                    </div>
-                `).join('');
+                content += DRIVE_OPTIONS.level1.map(option => `<div class="drive-option" onclick="handleDriveClick('${option}', 1)"><span>${option}</span></div>`).join('');
             } else if (appState.driveNavigation.length === 1) {
                 const level1Choice = appState.driveNavigation[0];
-                content += DRIVE_OPTIONS.level2[level1Choice].map(option => `
-                    <div class="drive-option" onclick="handleDriveClick('${option}', 2)">
-                        <span style="position: relative; z-index: 1;">${option}</span>
-                    </div>
-                `).join('');
+                content += DRIVE_OPTIONS.level2[level1Choice].map(option => `<div class="drive-option" onclick="handleDriveClick('${option}', 2)"><span>${option}</span></div>`).join('');
             } else if (appState.driveNavigation.length === 2) {
                 const level2Choice = appState.driveNavigation[1];
-                content += DRIVE_OPTIONS.level3[level2Choice].map(option => `
-                    <div class="drive-option" onclick="handleDriveClick('${option.replace(/'/g, "\\'")}', 3)">
-                        <span style="position: relative; z-index: 1;">${option}</span>
-                    </div>
-                `).join('');
+                content += DRIVE_OPTIONS.level3[level2Choice].map(option => `<div class="drive-option" onclick="handleDriveClick('${option.replace(/'/g, "\\'")}', 3)"><span>${option}</span></div>`).join('');
             }
             document.getElementById('contentArea').innerHTML = content;
         }
         function showPlayOptions() {
-            let content = `
-                <h2 class="section-header">in case you're bored, here's some us-themed games.</h2>
-            `;
+            let content = `<h2 class="section-header">in case you're bored, here's some us-themed games.</h2>`;
             if (appState.playNavigation.length === 0) {
-                content += Object.keys(PLAY_OPTIONS).map(option => `
-                    <div class="play-option" onclick="handlePlayOptionClick('${option.replace(/'/g, "\\'")}')">
-                        <span style="position: relative; z-index: 1;">${option}</span>
-                    </div>
-                `).join('');
+                content += Object.keys(PLAY_OPTIONS).map(option => `<div class="play-option" onclick="handlePlayOptionClick('${option.replace(/'/g, "\\'")}')"><span>${option}</span></div>`).join('');
             } else {
                 const selectedOption = appState.playNavigation[0];
-                content += `
-                    <div class="play-breadcrumb">
-                        <span class="breadcrumb-item" onclick="resetPlayNavigation()">games</span>
-                        <span class="breadcrumb-separator">→</span>
-                        <span class="breadcrumb-item">${selectedOption}</span>
-                    </div>
-                `;
-                content += PLAY_OPTIONS[selectedOption].map(subOption => `
-                    <div class="play-sub-option" onclick="handlePlaySubClick('${subOption.replace(/'/g, "\\'").replace(/"/g, '"')}')">
-                        ${subOption}
-                    </div>
-                `).join('');
+                content += `<div class="play-breadcrumb"><span class="breadcrumb-item" onclick="resetPlayNavigation()">games</span><span class="breadcrumb-separator">→</span><span class="breadcrumb-item">${selectedOption}</span></div>`;
+                content += PLAY_OPTIONS[selectedOption].map(subOption => `<div class="play-sub-option" onclick="handlePlaySubClick('${subOption.replace(/'/g, "\\'")}')">${subOption}</div>`).join('');
             }
             document.getElementById('contentArea').innerHTML = content;
         }
         function showGrowthOptions() {
-            const breadcrumb = appState.growthNavigation.length > 0 ?
-                `<div class="growth-breadcrumb">
-                    <span class="breadcrumb-item" onclick="resetGrowthNavigation()">Growth</span>
-                    ${appState.growthNavigation.map((item, index) => `
-                        <span class="breadcrumb-separator">→</span>
-                        <span class="breadcrumb-item" onclick="navigateGrowthTo(${index})">${item}</span>
-                    `).join('')}
-                </div>` : '';
-            let content = `
-                <h2 class="section-header">shut out everything else, and just follow instructions to grow. isn't it simple?</h2>
-                ${breadcrumb}
-            `;
+            const breadcrumb = appState.growthNavigation.length > 0 ? `<div class="growth-breadcrumb"><span class="breadcrumb-item" onclick="resetGrowthNavigation()">Growth</span>${appState.growthNavigation.map((item, index) => `<span class="breadcrumb-separator">→</span><span class="breadcrumb-item" onclick="navigateGrowthTo(${index})">${item}</span>`).join('')}</div>` : '';
+            let content = `<h2 class="section-header">shut out everything else, and just follow instructions to grow. isn't it simple?</h2>${breadcrumb}`;
             if (appState.growthNavigation.length === 0) {
-                content += GROWTH_OPTIONS.level1.map(option => `
-                    <div class="growth-option" onclick="handleGrowthClick('${option}', 1)">
-                        <span style="position: relative; z-index: 1;">${option}</span>
-                    </div>
-                `).join('');
+                content += GROWTH_OPTIONS.level1.map(option => `<div class="growth-option" onclick="handleGrowthClick('${option}', 1)"><span>${option}</span></div>`).join('');
             } else if (appState.growthNavigation.length === 1) {
                 const level1Choice = appState.growthNavigation[0];
-                content += GROWTH_OPTIONS.level2[level1Choice].map(option => `
-                    <div class="growth-option" onclick="handleGrowthClick('${option}', 2)">
-                        <span style="position: relative; z-index: 1;">${option}</span>
-                    </div>
-                `).join('');
+                content += GROWTH_OPTIONS.level2[level1Choice].map(option => `<div class="growth-option" onclick="handleGrowthClick('${option}', 2)"><span>${option}</span></div>`).join('');
             } else if (appState.growthNavigation.length === 2) {
                 const level2Choice = appState.growthNavigation[1];
-                content += GROWTH_OPTIONS.level3[level2Choice].map(option => `
-                    <div class="growth-option" onclick="handleGrowthClick('${option.replace(/'/g, "\\'")}', 3)">
-                        <span style="position: relative; z-index: 1;">${option}</span>
-                    </div>
-                `).join('');
+                content += GROWTH_OPTIONS.level3[level2Choice].map(option => `<div class="growth-option" onclick="handleGrowthClick('${option.replace(/'/g, "\\'")}', 3)"><span>${option}</span></div>`).join('');
             }
             document.getElementById('contentArea').innerHTML = content;
         }
-        function handleTaskClick(task) {
-            showFloatingOutput(`I've reminded myself that: ${task}`);
-        }
-        function handleMindClick(option) {
-            showFloatingOutput(`This is how I wish to interact with you today: ${option}`);
-        }
+
+        // --- Event Handlers & Navigation ---
+        function handleTaskClick(task) { showFloatingOutput(`I've reminded myself that: ${task}`); }
+        function handleMindClick(option) { showFloatingOutput(`This is how I wish to interact with you today: ${option}`); }
         function handleDriveClick(option, level) {
             if (level === 3) {
-                const fullPath = [...appState.driveNavigation, option].join(' → ');
-                showFloatingOutput(`How I plan to show myself to you today: ${fullPath}`);
+                showFloatingOutput(`How I plan to show myself to you today: ${[...appState.driveNavigation, option].join(' → ')}`);
                 resetDriveNavigation();
             } else {
                 appState.driveNavigation.push(option);
@@ -912,62 +843,40 @@
         }
         function handleGrowthClick(option, level) {
             if (level === 3) {
-                const fullPath = [...appState.growthNavigation, option].join(' → ');
-                showFloatingOutput(`How I wish to add to my growth today: ${fullPath}`);
+                showFloatingOutput(`How I wish to add to my growth today: ${[...appState.growthNavigation, option].join(' → ')}`);
                 resetGrowthNavigation();
             } else {
                 appState.growthNavigation.push(option);
                 showGrowthOptions();
             }
         }
-        function resetDriveNavigation() {
-            appState.driveNavigation = [];
-            showDriveOptions();
-        }
-        function resetGrowthNavigation() {
-            appState.growthNavigation = [];
-            showGrowthOptions();
-        }
-        function navigateDriveTo(index) {
-            appState.driveNavigation = appState.driveNavigation.slice(0, index + 1);
-            showDriveOptions();
-        }
-        function navigateGrowthTo(index) {
-            appState.growthNavigation = appState.growthNavigation.slice(0, index + 1);
-            showGrowthOptions();
-        }
         function handlePlayOptionClick(option) {
             appState.playNavigation = [option];
             showPlayOptions();
         }
-        // ✅ FIX: Removed the duplicate function definition. This is the only one needed.
         function handlePlaySubClick(option) {
             showFloatingOutput(`Game chosen: ${option}`);
             resetPlayNavigation();
         }
-
-        function resetPlayNavigation() {
-            appState.playNavigation = [];
-            showPlayOptions();
-        }
+        function resetDriveNavigation() { appState.driveNavigation = []; showDriveOptions(); }
+        function resetGrowthNavigation() { appState.growthNavigation = []; showGrowthOptions(); }
+        function resetPlayNavigation() { appState.playNavigation = []; showPlayOptions(); }
+        function navigateDriveTo(index) { appState.driveNavigation = appState.driveNavigation.slice(0, index + 1); showDriveOptions(); }
+        function navigateGrowthTo(index) { appState.growthNavigation = appState.growthNavigation.slice(0, index + 1); showGrowthOptions(); }
+        
+        // --- DOMContentLoaded Initializer ---
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabName = this.getAttribute('data-tab');
-                    switchTab(tabName);
-                });
+                tab.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
             });
-            document.getElementById('homeButton').addEventListener('click', function() {
+            document.getElementById('homeButton').addEventListener('click', () => {
                 showIntroScreen();
-                document.querySelectorAll('.tab').forEach(tab => {
-                    tab.classList.remove('active');
-                });
+                document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             });
-            
-            // Initial calls
             showIntroScreen();
             updateWeather();  
         });
     </script>
 </body>
 </html>
+�
