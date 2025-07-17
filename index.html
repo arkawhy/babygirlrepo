@@ -434,6 +434,9 @@
                 width: 320px;
                 height: 320px;
             }
+            .wheel-text {
+                font-size: 10px;
+            }
             .weather-display-container {
                 flex-direction: column;
                 gap: 10px;
@@ -685,10 +688,12 @@
             const sliceAngle = 360 / numOptions;
             const size = 450;
             const radius = size / 2;
-            
+            const textRadius = radius * 0.65;
+
             let svgContent = `<svg id="wheel-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">`;
             svgContent += `<g id="wheel-group" style="transform-origin: ${radius}px ${radius}px;">`;
 
+            // Function to get coordinates for a point on a circle
             const polarToCartesian = (centerX, centerY, r, angleInDegrees) => {
                 const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
                 return {
@@ -703,8 +708,6 @@
                 const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
                 return `M ${x},${y} L ${start.x},${start.y} A ${r},${r} 0 ${largeArcFlag},0 ${end.x},${end.y} Z`;      
             }
-            
-            const textRadius = radius * 0.75; // Position text further out
 
             for (let i = 0; i < numOptions; i++) {
                 const startAngle = i * sliceAngle;
@@ -738,7 +741,8 @@
             const totalRotation = (spinCycles * 360) + randomStopAngle;
             
             appState.currentRotation += totalRotation;
-            wheel.setAttribute('transform', `rotate(${appState.currentRotation})`);
+            // The key fix: applying the transform to the SVG group element directly.
+            wheel.setAttribute('transform', `rotate(${appState.currentRotation}, 225, 225)`);
 
             setTimeout(() => {
                 const finalAngle = appState.currentRotation % 360;
