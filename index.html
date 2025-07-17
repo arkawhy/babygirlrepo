@@ -27,12 +27,26 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background: radial-gradient(ellipse at center, var(--bg-content) 0%, var(--bg-dark) 70%);
+            background: var(--bg-dark); /* Fallback background */
             color: var(--text-light);
             font-family: var(--font-body);
             line-height: 1.7;
             margin: 0;
             -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow: hidden; /* Prevent scrollbars from mood effects */
+        }
+
+        /* --- Mood Overlay --- */
+        #mood-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            transition: background 0.5s ease;
         }
 
         /* --- Top & Bottom Ribbons --- */
@@ -153,7 +167,7 @@
         .content-area {
             flex-grow: 1;
             padding: 40px;
-            background: var(--bg-content);
+            background: transparent; /* Make it transparent to see body bg */
             overflow-y: auto;
         }
 
@@ -167,37 +181,20 @@
             position: relative;
             overflow: hidden;
         }
+        .intro-screen h2, .intro-screen p {
+            position: relative; z-index: 1;
+        }
         .intro-screen h2 {
             font-family: var(--font-heading);
             font-size: 3rem;
             margin-bottom: 20px;
             color: var(--primary-lavender);
             font-weight: normal;
-            position: relative; z-index: 1;
         }
         .intro-screen p {
             font-size: 1.1rem;
             max-width: 600px;
             opacity: 0.8;
-            position: relative; z-index: 1;
-        }
-        
-        /* MODIFICATION: Made the orb more visible */
-        .glowing-orb {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(155, 89, 182, 0.35) 0%, rgba(155, 89, 182, 0) 70%);
-            border-radius: 50%;
-            filter: blur(30px);
-            z-index: 0;
-            animation: pulse 8s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.6; }
-            50% { transform: scale(1.15); opacity: 0.9; }
-            100% { transform: scale(0.95); opacity: 0.6; }
         }
 
         .section-header {
@@ -209,71 +206,6 @@
             font-weight: normal;
         }
         
-        /* --- SVG SPIN WHEEL STYLES --- */
-        .wheel-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-        .wheel-wrapper {
-            position: relative;
-            width: 450px;
-            height: 450px;
-        }
-        .wheel-pointer {
-            position: absolute;
-            top: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 20px solid var(--primary-lavender);
-            z-index: 10;
-        }
-        #wheel-svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
-            border-radius: 50%;
-        }
-        #wheel-group {
-            transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .wheel-text {
-            font-family: var(--font-body);
-            font-size: 12px;
-            font-weight: 600;
-            fill: #fff;
-            letter-spacing: 0.5px;
-        }
-
-        .spin-button {
-            background: var(--primary-purple);
-            border: none;
-            color: var(--text-dark);
-            padding: 15px 40px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .spin-button:hover:not(:disabled) {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(155, 89, 182, 0.3);
-            background: var(--primary-lavender);
-        }
-        .spin-button:disabled {
-            background-color: #555;
-            cursor: not-allowed;
-            color: #999;
-        }
-
         /* --- Vault Content Styles --- */
         .vault-header {
             font-family: var(--font-heading);
@@ -304,10 +236,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-
         /* --- Reusable Cards & Options --- */
         .task-card, .mind-option, .drive-option, .growth-option, .play-option {
-            background: transparent;
+            background: rgba(25, 24, 29, 0.5); /* Slightly transparent */
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 25px;
@@ -315,6 +246,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: left;
+            backdrop-filter: blur(5px);
         }
         .task-card:hover, .mind-option:hover, .drive-option:hover, .growth-option:hover, .play-option:hover {
             transform: translateY(-5px);
@@ -336,59 +268,6 @@
             background: var(--primary-purple);
             color: var(--text-dark);
             transform: scale(1.02);
-        }
-
-        /* --- Breadcrumbs --- */
-        .drive-breadcrumb, .growth-breadcrumb, .play-breadcrumb {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .breadcrumb-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .breadcrumb-item:hover {
-            background: var(--primary-purple);
-            color: var(--text-dark);
-        }
-        .breadcrumb-separator {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* --- Footer --- */
-        .weather-display-container {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            align-items: center;
-        }
-        .weather-display {
-            text-align: center;
-        }
-        .weather-location {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-        .weather-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .weather-temp {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary-lavender);
-        }
-        .weather-desc {
-            font-size: 0.9rem;
-            text-transform: capitalize;
         }
 
         /* --- Floating Output Popup --- */
@@ -415,23 +294,99 @@
             opacity: 1;
         }
 
+        /* --- Mood Setter --- */
+        .mood-setter-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 8px;
+            background: rgba(25, 24, 29, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 8px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .mood-button {
+            background: transparent;
+            border: 1px solid transparent;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .mood-button svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-light);
+            transition: stroke 0.3s ease;
+        }
+        .mood-button:hover {
+            background: rgba(155, 89, 182, 0.2);
+        }
+        .mood-button.active {
+            border-color: var(--primary-lavender);
+        }
+        .mood-button.active svg {
+            stroke: var(--primary-lavender);
+        }
+
+        /* --- Mood Effects --- */
+        #mood-overlay > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .mood-default #mood-overlay #default-orb,
+        .mood-cozy #mood-overlay #cozy-glow,
+        .mood-dreamy #mood-overlay #dreamy-stars {
+            opacity: 1;
+        }
+
+        #default-orb {
+            background: radial-gradient(circle, rgba(155, 89, 182, 0.35) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 8s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.6; }
+            50% { transform: scale(1.15); opacity: 0.9; }
+            100% { transform: scale(0.95); opacity: 0.6; }
+        }
+
+        #cozy-glow {
+            background: radial-gradient(ellipse at 50% 150%, rgba(255, 100, 0, 0.4) 0%, transparent 70%);
+            animation: flicker 5s infinite linear;
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 0.5; transform: scale(1, 1); }
+            50% { opacity: 0.8; transform: scale(1.2, 1.1); }
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
         /* --- Mobile Responsiveness --- */
         @media (max-width: 900px) {
-            .title-ribbon {
-                padding: 0 15px;
-                flex-direction: column;
-                height: auto;
-                padding: 10px;
-                gap: 5px;
-            }
-            .countdown-timer {
-                font-size: 0.9rem;
-                width: 100%;
-                text-align: center;
-            }
-            .main-container {
-                flex-direction: column;
-            }
+            .mood-setter-container { bottom: 10px; left: 10px; }
+            .main-container { flex-direction: column; }
             .sidebar {
                 width: 100%;
                 height: auto;
@@ -443,9 +398,7 @@
                 -ms-overflow-style: none;
                 scrollbar-width: none;
             }
-            .sidebar::-webkit-scrollbar {
-                display: none;
-            }
+            .sidebar::-webkit-scrollbar { display: none; }
             .tab {
                 flex: 0 0 auto;
                 min-width: 150px;
@@ -458,35 +411,17 @@
                 border-left: none;
                 border-bottom-color: var(--primary-purple);
             }
-            .content-area {
-                padding: 25px;
-            }
-            .intro-screen h2, .section-header, .vault-header {
-                font-size: 2rem;
-            }
-            .main-title {
-                font-size: 1.8rem;
-            }
-            .floating-output {
-                width: calc(100% - 40px);
-                right: 20px;
-                bottom: 90px;
-            }
-            .wheel-wrapper {
-                width: 320px;
-                height: 320px;
-            }
-            .wheel-text {
-                font-size: 10px;
-            }
-            .weather-display-container {
-                flex-direction: column;
-                gap: 10px;
-            }
+            .content-area { padding: 25px; }
         }
     </style>
 </head>
-<body>
+<body class="mood-default">
+    <div id="mood-overlay">
+        <div id="default-orb"></div>
+        <div id="cozy-glow"></div>
+        <div id="dreamy-stars"></div>
+    </div>
+
     <header class="title-ribbon">
         <h1 class="main-title" id="homeButton">my babygirl.</h1>
         <div id="countdownTimer" class="countdown-timer"></div>
@@ -537,71 +472,24 @@
         </div>
     </footer>
     <div class="floating-output" id="floatingOutput"></div>
+    
+    <div class="mood-setter-container">
+        <button class="mood-button active" data-mood="default" title="Default">
+            <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <button class="mood-button" data-mood="cozy" title="Cozy">
+            <svg viewBox="0 0 24 24"><path d="M11.965 2.445A2.5 2.5 0 0 0 10.5 2a2.5 2.5 0 0 0-1.465.445C5.076 4.659 2.5 8.35 2.5 12.5 2.5 17.5 7.5 22 12.5 22s10-4.5 10-9.5c0-4.15-2.576-7.841-6.535-10.055z"></path></svg>
+        </button>
+        <button class="mood-button" data-mood="dreamy" title="Dreamy">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        </button>
+    </div>
 
     <script>
-        // --- REAL-WORLD CONNECTION (WEATHER) ---
-        function updateWeather() {
-            const apiKey = 'YOUR_API_KEY_HERE'; // Use a backend proxy for security
-            const cityDelhi = '1273294';
-            const cityKolkata = '1275004';
-            if (apiKey !== 'YOUR_API_KEY_HERE') {
-                fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city', apiKey);
-                fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city', apiKey);
-            }
-        }
-
-        function fetchWeatherForCity(cityId, elementId, locationName, apiKey) {
-            const weatherElement = document.getElementById(elementId);
-            if (!weatherElement) return;
-            const url = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${apiKey}&units=metric`;
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.cod === 200) {
-                        const icon = data.weather[0].icon;
-                        const temp = Math.round(data.main.temp);
-                        const desc = data.weather[0].description;
-                        weatherElement.innerHTML = `
-                            <div class="weather-location">${locationName}</div>
-                            <div class="weather-info">
-                                <img src="https://openweathermap.org/img/wn/${icon}.png" alt="${desc}">
-                                <div class="weather-temp">${temp}°C</div>
-                                <div class="weather-desc">${desc}</div>
-                            </div>`;
-                    } else {
-                         weatherElement.innerHTML = `<div class="weather-location">${locationName}</div><div>Error loading weather</div>`;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching weather:', error);
-                    weatherElement.innerHTML = `<div class="weather-location">${locationName}</div><div>Error loading weather</div>`;
-                });
-        }
-        setInterval(updateWeather, 600000);
-
-        // --- VAULT COUNTDOWN ---
-        const vaultTargetDate = new Date("October 27, 2025 00:00:00").getTime();
-        const countdownInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = vaultTargetDate - now;
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            if (distance > 0) {
-                document.getElementById("countdownTimer").innerHTML = `the vault opens in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-            } else {
-                clearInterval(countdownInterval);
-                document.getElementById("countdownTimer").innerHTML = "the vault is open!";
-                const vaultTab = document.querySelector('.tab[data-tab="vault"]');
-                vaultTab.classList.remove('locked');
-            }
-        }, 1000);
-        
         // --- Content Data ---
         const PENDING_TASKS = [ "I'll remember that you love me, no matter what I do, for I am your submissive babygirl, your personal princess.", "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and you're going to help me every step of the way.", "I am going to try to keep up with my weekly passive task.", "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay." ];
         const MIND_OPTIONS = [ "I think I can work in an interview today. 😋", "Maybe I can take you along for a trip to the shower? 🚿", "I'd love a little one-on-one video call, maybe. 💞", "Can you just teach me how to dirty-talk well with you? 😙" ];
-        const WHEEL_OPTIONS = [ "10-sec video of my smile", "I'll get you to write me something spicy", "Nude silhouette picture of me, against a light", "A photo of me wearing pink, in any form", "I'll choose a mango milkshake from the website", "I'll write your name on my wrist", "I will describe my outfit in detail", "I will ask you for a mango milkshake" ];
+        const WHEEL_OPTIONS = [ "10-sec video of your smile", "Write me something spicy", "Nude silhouette picture", "Photo in your favorite color", "Choose a nude mango milkshake", "Write my name on your wrist", "Describe your outfit in detail", "Ask me for a mango milkshake" ];
         const DRIVE_OPTIONS = {
             level1: [ "Passive Tasks?🟢🟠🔴", "A sexy video?🟠🔴", "A hot picture?🔴" ],
             level2: { "Passive Tasks?🟢🟠🔴": [ "Clothing-related🟠🔴", "Mind-related🟢", "Other Passive Tasks🟠" ], "A sexy video?🟠🔴": [ "Starting Clothed🟠", "Starting Nude🔴", "Special Submission🔴" ], "A hot picture?🔴": [ "Object-interaction🔴", "Accessories🔴", "Special Submissive🔴" ] },
@@ -615,8 +503,7 @@
         const GROWTH_OPTIONS = structuredClone(DRIVE_OPTIONS);
         GROWTH_OPTIONS.level1 = [ "Self-Care🟢", "Life-related🟢🟠", "Submission🟠🔴" ];
         GROWTH_OPTIONS.level2 = { "Self-Care🟢": [ "Physical Health🟢", "Emotional Health🟢", "Mental Health🟢" ], "Life-related🟢🟠": [ "Studies🟢", "Skills🟢🟠", "Capabilities🟢🟠" ], "Submission🟠🔴": [ "Physical Display🔴", "Gratitude Expression🟠🔴", "Mental Conditioning🟠" ] };
-        GROWTH_OPTIONS.level3 = { "Physical Health🟢": [ "I am going to send you four videos of me drinking a full glass of water today.", "Let's work on my body from today. I am going to ask you about how to to ease into general exercise.", "I think I will work on toning my abdominal region. I'll put you on a vc and do 2x10 ab crunches today!", "A 30-seconds plank, for you, on video call today." ], "Emotional Health🟢": [ "I am going to find one activity we can do everyday for a week. This may be a video call, sending some picture or video regularly, playing something together everyday, or anything else at all. I can choose whether it's sexual or non-sexual in nature.", "I will call you up and ask you to tell me about any three things you love about my body or my being.", "I am going to show you some part of my body on a video call, in a video, or in a picture, and you will have to baby me about it for two minutes straight.", "Can I ask you to write me a fantasy scenario of us in any setting?" ], "Mental Health🟢": [ "I shall call you up and compliment you on something that you did which made me happy, and tell you why it made me happy.", "I shall call you up and compliment myself on something that I did in the recent past that I am really proud of for having done.", "As soon as I wake up tomorrow morning, I will call you, and tell you, 'I am confident that this is going to be a good day for me. I love you.'", "Before going to bed today, I'll call you up and wish you a good night, and remember to collect an ILY from you." ], "Studies🟢": [ "I am going to keep up with my Finance Course from IISER Pune. This is a recurring task till you decide that I need not study it any more.", "I will explain the causes, effects, and results of the Great Recession to you on a phone call.", "I will explain the causes, effects, and results of the late-2000s Indian inflation scenario to you on a phone call.", "I shall keep revising regression analysis, statistical inference and testing of hypotheses, and distributions. This is a recurring task till you decide that I need not study it any more." ], "Skills🟢�": [ "I will write you a 500-word essay on an introduction of myself.", "I am going to schedule an interview with you, either one where I remain clothed throughout, or one where I start out clothed and keep losing garments for every mistake I make.", "After suitably consulting me, I shall enroll myself in a MicroMasters course or its equivalent." ], "Capabilities🟢🟠": [ "I will be doing a hundred jumping jacks for better breathing and lung capacity, while keeping you on video call. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked.", "I am going to write a 500-word essay on how I picture a day in my life at college during Masters, by hand in a copy, and send you a PDF of it.", "I'll perform 10 time-controlled squats with you on video call. Please do the controlling of the time for me. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked." ], "Physical Display🔴": [ "I will duly present myself to you in the most natural of my poses: fully nude, kneeling with my hair down, spectacles off, eyes lowered and hands clasped behind me. I am allowed to choose to do as much in a photo, video, or on a video call.", "I will duly present myself to you with my bra in my mouth, wearing nothing at all, feet close together and hands behind me, hair down. I shall be standing upright and fully on display for you.", "I will duly present my ass to you by perfectly displaying my curves, in a photo, video, or on a video call.", "I will learn three new submissive positions from you on a video call.", "I will send you a video of using veet on my arms/legs, but I am fully naked for you." ], "Gratitude Expression🟠🔴": [ "I'll be sending you a voice message clearly expressing my gratitude at being your submissive. ", "I shall text you once today saying, 'Sir, I just wanted to remind you that I am all yours,' but not in these exact same words.", "I will use 'sir' with you throughout today, including in at least one video where I am just as clothed or naked as you want me to be.", "I'll video call you today, strip naked, and thank you for any non-sexual thing I feel I need to express my gratitude for.", "I will ask you what you think of me, my being and my body, and thank you suitably when you compliment be redoubtably." ], "Mental Conditioning🟠": [ "I'll happily get topless, write 'I am Arka's favourite plaything' on my stomach, and send you a video of me writing it.", "I can call you up some time today, and ask you for instructions for a task, and remember to thank you appropriately.", "I will type up a 200-word essay on why I think I should obey you every step of my being, every day in my life, and send it to you.", "I am going to video call you naked, and read out the daily affirmations from the website on camera.", "I will video call you wearing full-length pants and a vest, and tell you that I am all yours, and that you may command me to do anything you wish for the next fifteen minutes." ] };
-
+        GROWTH_OPTIONS.level3 = { "Physical Health🟢": [ "I am going to send you four videos of me drinking a full glass of water today.", "Let's work on my body from today. I am going to ask you about how to to ease into general exercise.", "I think I will work on toning my abdominal region. I'll put you on a vc and do 2x10 ab crunches today!", "A 30-seconds plank, for you, on video call today." ], "Emotional Health🟢": [ "I am going to find one activity we can do everyday for a week. This may be a video call, sending some picture or video regularly, playing something together everyday, or anything else at all. I can choose whether it's sexual or non-sexual in nature.", "I will call you up and ask you to tell me about any three things you love about my body or my being.", "I am going to show you some part of my body on a video call, in a video, or in a picture, and you will have to baby me about it for two minutes straight.", "Can I ask you to write me a fantasy scenario of us in any setting?" ], "Mental Health🟢": [ "I shall call you up and compliment you on something that you did which made me happy, and tell you why it made me happy.", "I shall call you up and compliment myself on something that I did in the recent past that I am really proud of for having done.", "As soon as I wake up tomorrow morning, I will call you, and tell you, 'I am confident that this is going to be a good day for me. I love you.'", "Before going to bed today, I'll call you up and wish you a good night, and remember to collect an ILY from you." ], "Studies🟢": [ "I am going to keep up with my Finance Course from IISER Pune. This is a recurring task till you decide that I need not study it any more.", "I will explain the causes, effects, and results of the Great Recession to you on a phone call.", "I will explain the causes, effects, and results of the late-2000s Indian inflation scenario to you on a phone call.", "I shall keep revising regression analysis, statistical inference and testing of hypotheses, and distributions. This is a recurring task till you decide that I need not study it any more." ], "Skills🟢🟠": [ "I will write you a 500-word essay on an introduction of myself.", "I am going to schedule an interview with you, either one where I remain clothed throughout, or one where I start out clothed and keep losing garments for every mistake I make.", "After suitably consulting me, I shall enroll myself in a MicroMasters course or its equivalent." ], "Capabilities🟢🟠": [ "I will be doing a hundred jumping jacks for better breathing and lung capacity, while keeping you on video call. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked.", "I am going to write a 500-word essay on how I picture a day in my life at college during Masters, by hand in a copy, and send you a PDF of it.", "I'll perform 10 time-controlled squats with you on video call. Please do the controlling of the time for me. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked." ], "Physical Display🔴": [ "I will duly present myself to you in the most natural of my poses: fully nude, kneeling with my hair down, spectacles off, eyes lowered and hands clasped behind me. I am allowed to choose to do as much in a photo, video, or on a video call.", "I will duly present myself to you with my bra in my mouth, wearing nothing at all, feet close together and hands behind me, hair down. I shall be standing upright and fully on display for you.", "I will duly present my ass to you by perfectly displaying my curves, in a photo, video, or on a video call.", "I will learn three new submissive positions from you on a video call.", "I will send you a video of using veet on my arms/legs, but I am fully naked for you." ], "Gratitude Expression🟠🔴": [ "I'll be sending you a voice message clearly expressing my gratitude at being your submissive. ", "I shall text you once today saying, 'Sir, I just wanted to remind you that I am all yours,' but not in these exact same words.", "I will use 'sir' with you throughout today, including in at least one video where I am just as clothed or naked as you want me to be.", "I'll video call you today, strip naked, and thank you for any non-sexual thing I feel I need to express my gratitude for.", "I will ask you what you think of me, my being and my body, and thank you suitably when you compliment be redoubtably." ], "Mental Conditioning🟠": [ "I'll happily get topless, write 'I am Arka's favourite plaything' on my stomach, and send you a video of me writing it.", "I can call you up some time today, and ask you for instructions for a task, and remember to thank you appropriately.", "I will type up a 200-word essay on why I think I should obey you every step of my being, every day in my life, and send it to you.", "I am going to video call you naked, and read out the daily affirmations from the website on camera.", "I will video call you wearing full-length pants and a vest, and tell you that I am all yours, and that you may command me to do anything you wish for the next fifteen minutes." ] };
         const INTRO_TEXT = {
             title: "welcome, babygirl.",
             description: "step inside your private playground. here, you’re free to be bold, to tease, to surrender, and to shine. every click, every word, every task is a secret invitation—just for you and me. let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. are you ready to play?"
@@ -629,7 +516,7 @@
             wheelSpinning: false,
             currentRotation: 0
         };
-        
+
         // --- Core App Logic & UI Rendering ---
         function showFloatingOutput(text) {
             const output = document.getElementById('floatingOutput');
@@ -666,7 +553,6 @@
         function showIntroScreen() {
             document.getElementById('contentArea').innerHTML = `
                 <div class="intro-screen">
-                    <div class="glowing-orb"></div>
                     <h2>${INTRO_TEXT.title}</h2>
                     <p>${INTRO_TEXT.description}</p>
                 </div>`;
@@ -766,13 +652,12 @@
                 const finalAngle = appState.currentRotation % 360;
                 const sliceAngle = 360 / WHEEL_OPTIONS.length;
                 const winningIndex = Math.floor((360 - finalAngle) / sliceAngle) % WHEEL_OPTIONS.length;
-                showFloatingOutput(`and the winner is...: ${WHEEL_OPTIONS[winningIndex]}`);
+                showFloatingOutput(`Fate has chosen: ${WHEEL_OPTIONS[winningIndex]}`);
                 appState.wheelSpinning = false;
                 document.getElementById('spinBtn').disabled = false;
             }, 5000);
         }
         
-        // --- Functions to render different content sections ---
         function showPendingTasks() {
             document.getElementById('contentArea').innerHTML = `
                 <h2 class="section-header">some things you should never forget♥</h2>
@@ -823,7 +708,6 @@
             document.getElementById('contentArea').innerHTML = content;
         }
 
-        // --- Event Handlers & Navigation ---
         function handleTaskClick(task) { showFloatingOutput(`I've reminded myself that: ${task}`); }
         function handleMindClick(option) { showFloatingOutput(`This is how I wish to interact with you today: ${option}`); }
         function handleDriveClick(option, level) {
@@ -858,7 +742,36 @@
         function navigateDriveTo(index) { appState.driveNavigation = appState.driveNavigation.slice(0, index + 1); showDriveOptions(); }
         function navigateGrowthTo(index) { appState.growthNavigation = appState.growthNavigation.slice(0, index + 1); showGrowthOptions(); }
         
-        // --- DOMContentLoaded Initializer ---
+        function setMood(mood) {
+            document.body.className = `mood-${mood}`;
+            document.querySelectorAll('.mood-button').forEach(button => {
+                button.classList.toggle('active', button.dataset.mood === mood);
+            });
+            if (mood === 'dreamy') {
+                createStars(50);
+            } else {
+                const starsContainer = document.getElementById('dreamy-stars');
+                if(starsContainer) starsContainer.innerHTML = '';
+            }
+        }
+
+        function createStars(count) {
+            const container = document.getElementById('dreamy-stars');
+            if (!container) return;
+            container.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 2 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                container.appendChild(star);
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
@@ -867,10 +780,18 @@
                 showIntroScreen();
                 document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             });
+            
+            document.querySelectorAll('.mood-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    setMood(button.dataset.mood);
+                });
+            });
+
             showIntroScreen();
-            updateWeather();  
+            updateWeather();
+            setMood('default');
         });
+
     </script>
 </body>
 </html>
-�
