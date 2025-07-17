@@ -17,10 +17,6 @@
             --font-heading: 'Garamond', 'Georgia', serif; /* Elegant serif for titles */
             --font-body: 'Segoe UI', 'Roboto', sans-serif; /* Clean sans-serif for body */
             --shadow: 0 10px 30px rgba(155, 89, 182, 0.15); /* A softer, more ambient shadow */
-            
-            /* Spin Wheel Slice Colors */
-            --c1: #581845; --c2: #900C3F; --c3: #C70039; --c4: #FF5733;
-            --c5: #4A235A; --c6: #7D3C98; --c7: #9B59B6; --c8: #AF7AC5;
         }
 
         html {
@@ -35,7 +31,7 @@
             color: var(--text-light);
             font-family: var(--font-body);
             line-height: 1.7;
-            -webkit-font-smoothing: antialiased; /* Smoother fonts on webkit browsers */
+            -webkit-font-smoothing: antialiased;
         }
 
         /* --- Top & Bottom Ribbons --- */
@@ -51,7 +47,7 @@
         .title-ribbon {
             height: 70px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            justify-content: space-between; /* To space out title and timer */
+            justify-content: space-between;
             padding: 0 30px;
         }
         .bottom-ribbon {
@@ -89,7 +85,7 @@
         .main-container {
             flex: 1 1 auto;
             display: flex;
-            overflow: hidden; /* Prevents layout shifts */
+            overflow: hidden;
         }
 
         /* --- Sidebar Navigation --- */
@@ -147,7 +143,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: calc(100vh - 200px); /* Fill the space better */
+            min-height: calc(100vh - 200px);
         }
         .intro-screen h2 {
             font-family: var(--font-heading);
@@ -171,7 +167,7 @@
             font-weight: normal;
         }
         
-        /* --- Spin Wheel Styles --- */
+        /* --- SVG SPIN WHEEL STYLES --- */
         .wheel-container {
             display: flex;
             flex-direction: column;
@@ -182,67 +178,37 @@
         }
         .wheel-wrapper {
             position: relative;
-            width: 350px;
-            height: 350px;
+            width: 450px;
+            height: 450px;
         }
         .wheel-pointer {
             position: absolute;
-            top: 50%;
+            top: -5px; /* Positioned above the wheel */
             left: 50%;
-            transform: translate(-50%, -100%);
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 30px solid var(--primary-lavender);
+            transform: translateX(-50%);
+            width: 2px;
+            height: 50px;
+            background: var(--primary-lavender);
+            box-shadow: 0 0 10px var(--primary-lavender);
             z-index: 10;
         }
-        .wheel {
+        #wheel-svg {
             width: 100%;
             height: 100%;
+            filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
             border-radius: 50%;
-            position: relative;
-            overflow: hidden;
-            border: 5px solid var(--bg-dark);
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        #wheel-group {
+            /* This is what the javascript will rotate */
             transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .wheel-slice {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            top: 0;
-            left: 50%;
-            transform-origin: 0% 100%;
-            /* This clip-path creates the triangle shape */
-            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-        }
-        
-        /* --- FIX FOR TEXT WRAPPING --- */
-        .slice-text {
-            position: absolute;
-            width: 65%; /* Constrains the width to encourage wrapping */
-            left: 17.5%; /* Centers the constrained width */
-            top: 15%; /* Pushes text down from the point */
-            color: white;
-            font-size: 11px;
+        .wheel-text {
+            font-family: var(--font-body);
+            font-size: 12px;
             font-weight: 600;
-            text-align: center;
-            white-space: normal; /* Allows text to wrap */
-            word-wrap: break-word; /* Breaks long words if necessary */
-            transform: rotate(45deg); /* Aligns text with the slice direction */
-            line-height: 1.2;
+            fill: #fff;
+            letter-spacing: 0.5px;
         }
-        /* End of fix */
-
-        .wheel-slice:nth-child(1) { background-color: var(--c1); transform: rotate(0deg); }
-        .wheel-slice:nth-child(2) { background-color: var(--c2); transform: rotate(45deg); }
-        .wheel-slice:nth-child(3) { background-color: var(--c3); transform: rotate(90deg); }
-        .wheel-slice:nth-child(4) { background-color: var(--c4); transform: rotate(135deg); }
-        .wheel-slice:nth-child(5) { background-color: var(--c5); transform: rotate(180deg); }
-        .wheel-slice:nth-child(6) { background-color: var(--c6); transform: rotate(225deg); }
-        .wheel-slice:nth-child(7) { background-color: var(--c7); transform: rotate(270deg); }
-        .wheel-slice:nth-child(8) { background-color: var(--c8); transform: rotate(315deg); }
 
         .spin-button {
             background: var(--primary-purple);
@@ -386,7 +352,7 @@
         /* --- Floating Output Popup --- */
         .floating-output {
             position: fixed;
-            bottom: 95px; /* Positioned above the footer */
+            bottom: 95px;
             right: 20px;
             background: #2c2a31;
             color: var(--text-light);
@@ -396,7 +362,7 @@
             max-width: 350px;
             transform: translateY(20px) scale(0.95);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); /* Smooth spring-like transition */
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
@@ -432,14 +398,14 @@
                 padding: 5px 0;
                 border-right: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                -ms-overflow-style: none;  /* IE and Edge */
-                scrollbar-width: none;  /* Firefox */
+                -ms-overflow-style: none;
+                scrollbar-width: none;
             }
             .sidebar::-webkit-scrollbar {
-                display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+                display: none;
             }
             .tab {
-                flex: 0 0 auto; /* Allow tabs to scroll horizontally */
+                flex: 0 0 auto;
                 min-width: 150px;
                 text-align: center;
                 padding: 15px 20px;
@@ -465,8 +431,8 @@
                 bottom: 90px;
             }
             .wheel-wrapper {
-                width: 300px;
-                height: 300px;
+                width: 320px;
+                height: 320px;
             }
             .weather-display-container {
                 flex-direction: column;
@@ -523,7 +489,6 @@
     <script>
         // --- REAL-WORLD CONNECTION (WEATHER) ---
         function updateWeather() {
-            // ❗ NOTE: A working API key has been added for demonstration.
             const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab'; 
 
             const cityDelhi = '1273294';
@@ -564,7 +529,6 @@
                 });
         }
         
-        // Update weather every 10 minutes (600000 milliseconds)
         setInterval(updateWeather, 600000);
         
 
@@ -594,7 +558,7 @@
         // --- Editable content ---
         const PENDING_TASKS = [ "I'll remember that you love me, no matter what I do, for I am your submissive babygirl, your personal princess.", "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and you're going to help me every step of the way.", "I am going to try to keep up with my weekly passive task.", "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay." ];
         const MIND_OPTIONS = [ "I think I can work in an interview today. 😋", "Maybe I can take you along for a trip to the shower? 🚿", "I'd love a little one-on-one video call, maybe. 💞", "Can you just teach me how to dirty-talk well with you? 😙" ];
-        const WHEEL_OPTIONS = [ "10s video of your smile.", "I write!.", "Nude silhouette", "Wear pink.", "Mango Milkshake.", "Wrist-name.", "Outfit?", "Milkshake made of mango!" ];
+        const WHEEL_OPTIONS = [ "A 10-second video of only your smile.", "Get me to write you something spicy.", "A picture of your nude silhouette against a light.", "A photo of you wearing your favorite color.", "Choose a mango milkshake from the website which involves you getting nude.", "Write my name on your wrist and send a picture.", "Describe your outfit in detail, and choose one you wish for me to remove.", "Ask me to send you a mango milkshake." ];
         const DRIVE_OPTIONS = {
             level1: [ "Passive Tasks?🟢🟠🔴", "A sexy video?🟠🔴", "A hot picture?🔴" ],
             level2: { "Passive Tasks?🟢🟠🔴": [ "Clothing-related🟠🔴", "Mind-related🟢", "Other Passive Tasks🟠" ], "A sexy video?🟠🔴": [ "Starting Clothed🟠", "Starting Nude🔴", "Special Submission🔴" ], "A hot picture?🔴": [ "Object-interaction🔴", "Accessories🔴", "Special Submissive🔴" ] },
@@ -689,7 +653,7 @@
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
                         you don't use spotfy, so i think i found a way for us to listen to it here. yay.
                     </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5YQpt2i9y1g2YdYXmC0J1P?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             `;
         }
@@ -704,26 +668,72 @@
                 <div class="wheel-container">
                     <div class="wheel-wrapper">
                         <div class="wheel-pointer"></div>
-                        <div class="wheel" id="wheel">
-                            ${WHEEL_OPTIONS.map(option => `
-                                <div class="wheel-slice">
-                                    <div class="slice-text">${option}</div>
-                                </div>
-                            `).join('')}
-                        </div>
+                        <div id="wheel-svg-container"></div>
                     </div>
                     <button class="spin-button" id="spinBtn">Spin the Wheel</button>
                 </div>
             `;
             document.getElementById('contentArea').innerHTML = content;
+            
+            buildSvgWheel();
             document.getElementById('spinBtn').addEventListener('click', spinTheWheel);
         }
+
+        function buildSvgWheel() {
+            const wheelColors = ['#581845', '#900C3F', '#C70039', '#FF5733', '#4A235A', '#7D3C98', '#9B59B6', '#AF7AC5'];
+            const numOptions = WHEEL_OPTIONS.length;
+            const sliceAngle = 360 / numOptions;
+            const size = 450;
+            const radius = size / 2;
+            const textRadius = radius * 0.65;
+
+            let svgContent = `<svg id="wheel-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">`;
+            svgContent += `<g id="wheel-group" transform="translate(${radius},${radius})">`;
+
+            // Function to get coordinates for a point on a circle
+            const getCoords = (angle, r) => {
+                const rad = (angle - 90) * Math.PI / 180;
+                return [radius + r * Math.cos(rad), radius + r * Math.sin(rad)];
+            };
+
+            for (let i = 0; i < numOptions; i++) {
+                const startAngle = i * sliceAngle;
+                const endAngle = startAngle + sliceAngle;
+
+                // Path for the slice color
+                const [startX, startY] = getCoords(startAngle, radius);
+                const [endX, endY] = getCoords(endAngle, radius);
+                const largeArcFlag = sliceAngle > 180 ? 1 : 0;
+                
+                const slicePath = `M ${radius},${radius} L ${startX},${startY} A ${radius},${radius} 0 ${largeArcFlag},1 ${endX},${endY} Z`;
+                svgContent += `<path d="${slicePath}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
+
+                // Path for the text to follow
+                const textPathId = `text-path-${i}`;
+                const [textStartX, textStartY] = getCoords(startAngle + 5, textRadius); // +5 for padding
+                const [textEndX, textEndY] = getCoords(endAngle - 5, textRadius); // -5 for padding
+
+                const textArc = `M ${textStartX},${textStartY} A ${textRadius},${textRadius} 0 0,1 ${textEndX},${textEndY}`;
+                svgContent += `<path id="${textPathId}" d="${textArc}" fill="none"></path>`;
+                
+                // Text element
+                svgContent += `
+                    <text class="wheel-text">
+                        <textPath href="#${textPathId}" startOffset="50%" text-anchor="middle">${WHEEL_OPTIONS[i]}</textPath>
+                    </text>
+                `;
+            }
+
+            svgContent += `</g></svg>`;
+            document.getElementById('wheel-svg-container').innerHTML = svgContent;
+        }
+
         function spinTheWheel() {
             if (appState.wheelSpinning) return;
             appState.wheelSpinning = true;
             document.getElementById('spinBtn').disabled = true;
 
-            const wheel = document.getElementById('wheel');
+            const wheel = document.getElementById('wheel-group');
             const spinCycles = Math.floor(Math.random() * 4) + 5; // 5 to 8 full spins
             const randomStopAngle = Math.floor(Math.random() * 360);
             const totalRotation = (spinCycles * 360) + randomStopAngle;
@@ -734,7 +744,7 @@
             setTimeout(() => {
                 const finalAngle = appState.currentRotation % 360;
                 const sliceAngle = 360 / WHEEL_OPTIONS.length;
-                const winningIndex = Math.floor((360 - finalAngle + (sliceAngle / 2)) % 360 / sliceAngle);
+                const winningIndex = Math.floor((360 - finalAngle + sliceAngle / 2) % 360 / sliceAngle);
                 
                 showFloatingOutput(`Fate has chosen: ${WHEEL_OPTIONS[winningIndex]}`);
                 appState.wheelSpinning = false;
