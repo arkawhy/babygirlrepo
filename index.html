@@ -478,7 +478,7 @@
                 <span class="tab-text">daily affirmations</span>
             </div>
             <div class="tab" data-tab="mind">
-                <span class="tab-text">what's on your mind?</span>
+                <span class="tab-text">interactive stuff, largely. you decide.</span>
             </div>
             <div class="tab" data-tab="luck">
                 <span class="tab-text">my lady luck</span>
@@ -634,7 +634,7 @@
         function switchTab(tabName) {
             const vaultTab = document.querySelector('.tab[data-tab="vault"]');
             if (tabName === 'vault' && vaultTab.classList.contains('locked')) {
-                showFloatingOutput("The Vault is still locked. Be patient.");
+                showFloatingOutput("easy, cutiecry. vault's locked still, watch the countdown.");
                 return;
             }
 
@@ -686,7 +686,7 @@
                 <div style="text-align: center;">
                     <h2 class="section-header">happy headache🍀💤</h2>
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
-                        This is more a feature for me than for you, because you wouldn't listen to the playlist anyway, but here it is.
+                        this is more a feature for me than for you, because you wouldn't listen to the playlist anyway, but here it is.
                     </p>
                     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4vy1nKzIatI2lfvLIw3P0F?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
@@ -695,9 +695,9 @@
         function showSpinWheel() {
             const content = `
                 <div style="text-align: center;">
-                    <h2 class="section-header">Feeling Lucky?</h2>
+                    <h2 class="section-header">you're my lady luck, btw.</h2>
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
-                        Leave tonight's little adventure to fate. Spin the wheel and see what surprise Lady Luck has in store for you.
+                        but for once, let's leave it to the fates.
                     </p>
                 </div>
                 <div class="wheel-container">
@@ -753,7 +753,7 @@
         }
         function showMindOptions() {
             const content = `
-                <h2 class="section-header">Hi, hottie. What do you want to do for me today?</h2>
+                <h2 class="section-header">hey there, hottie. what's on your mind'?</h2>
                 ${MIND_OPTIONS.map(option => `
                     <div class="mind-option" onclick="handleMindClick('${option.replace(/'/g, "\\'")}')">
                         <span style="position: relative; z-index: 1;">${option}</span>
