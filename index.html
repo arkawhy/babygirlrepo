@@ -521,8 +521,8 @@
             const cityDelhi = '1273294';
             const cityKolkata = '1275004';
 
-            fetchWeatherForCity(cityDelhi, 'weather-delhi', 'My World (Delhi)', apiKey);
-            fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'Your World (Kolkata)', apiKey);
+            fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city', apiKey);
+            fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city', apiKey);
         }
 
         function fetchWeatherForCity(cityId, elementId, locationName, apiKey) {
@@ -573,13 +573,13 @@
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             if (distance > 0) {
-                document.getElementById("countdownTimer").innerHTML = `Vault Unlocks In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                document.getElementById("countdownTimer").innerHTML = `the vault opens in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
             } else {
                 clearInterval(countdownInterval);
-                document.getElementById("countdownTimer").innerHTML = "The Vault is Open";
+                document.getElementById("countdownTimer").innerHTML = "the vault is open!";
                 const vaultTab = document.querySelector('.tab[data-tab="vault"]');
                 vaultTab.classList.remove('locked');
-                vaultTab.querySelector('.tab-text').innerHTML = "The Vault 🔓";
+                vaultTab.querySelector('.tab-text').innerHTML = "the vault";
             }
         }, 1000);
         
