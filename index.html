@@ -682,19 +682,18 @@
     <script>
         // --- REAL-WORLD CONNECTION (WEATHER) ---
         function updateWeather() {
-            // ---    ACTION REQUIRED    ---
-            // To make the weather widget work, replace the placeholder text below
-            // with your own free API key from openweathermap.org
-            const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab';
-            const cityDelhi = '1273294';
-            const cityKolkata = '1275004';
-            if (apiKey && apiKey !== 'bb0b89c915f6aa455fb9e567ea0438ab') {
-                fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city, delhi', apiKey);
-                fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city, kolkata', apiKey);
-            } else {
-                document.getElementById('weather-delhi').innerHTML = `<div class="weather-location">Weather widget requires setup</div>`;
-            }
-        }
+    // To make the weather widget work, replace the placeholder text below
+    // with your own free API key from openweathermap.org
+    const apiKey = 'bb0b8c915f6aa455fb9e567ea0438ab';
+    const cityDelhi = '1273294';
+    const cityKolkata = '1275004';
+
+    // The only check you need now is if the key exists.
+    if (apiKey) {
+        fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city, delhi', apiKey);
+        fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city, kolkata', apiKey);
+    }
+}
 
         function fetchWeatherForCity(cityId, elementId, locationName, apiKey) {
             const weatherElement = document.getElementById(elementId);
