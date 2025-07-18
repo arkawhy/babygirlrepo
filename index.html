@@ -17,6 +17,7 @@
             --font-heading: 'Garamond', 'Georgia', serif;
             --font-body: 'Segoe UI', 'Roboto', sans-serif;
             --shadow: 0 10px 30px rgba(155, 89, 182, 0.15);
+            --sparkle-color: var(--primary-purple);
         }
 
         /* --- Light Theme Variables --- */
@@ -28,6 +29,7 @@
             --text-light: #6D4C41; /* Rich Brown for text */
             --text-dark: #ffffff; /* White text for buttons */
             --shadow: 0 10px 30px rgba(217, 76, 120, 0.2);
+            --sparkle-color: var(--primary-lavender);
         }
 
         html {
@@ -45,6 +47,8 @@
             margin: 0;
             -webkit-font-smoothing: antialiased;
             transition: background 0.5s ease, color 0.5s ease;
+            overflow: hidden; /* Hide scrollbars from sparkle elements */
+            cursor: none; /* Hide the default cursor */
         }
         
         /* --- Sparkly Background for Light Theme --- */
@@ -57,6 +61,51 @@
             background: linear-gradient(270deg, #FADADD, #FFF5F7, #F5E6CC);
             background-size: 600% 600%;
             animation: soft-shimmer 20s ease infinite;
+        }
+        
+        /* --- VISUAL EFFECTS --- */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-lavender);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: width 0.2s, height 0.2s;
+        }
+        .sparkle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background-color: var(--sparkle-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            animation: fade-out 1s forwards;
+        }
+        .heart {
+            position: fixed;
+            font-size: 24px;
+            color: var(--sparkle-color);
+            pointer-events: none;
+            z-index: 9999;
+            animation: float-up 1.2s forwards;
+        }
+        @keyframes fade-out {
+            to {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+        @keyframes float-up {
+            to {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
         }
 
         /* --- Top & Bottom Ribbons --- */
@@ -96,7 +145,7 @@
             letter-spacing: 2px;
             color: var(--text-light);
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            cursor: pointer;
+            cursor: none;
             transition: letter-spacing 0.4s ease, color 0.4s ease;
         }
         .main-title:hover {
@@ -146,7 +195,7 @@
 
         .tab {
             padding: 18px 30px;
-            cursor: pointer;
+            cursor: none;
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
             color: var(--text-light);
@@ -313,7 +362,7 @@
             color: var(--text-dark);
             padding: 15px 40px;
             border-radius: 30px;
-            cursor: pointer;
+            cursor: none;
             font-size: 1.1rem;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -367,7 +416,7 @@
             border-radius: 8px;
             padding: 25px;
             margin: 15px 0;
-            cursor: pointer;
+            cursor: none;
             transition: all 0.3s ease;
             text-align: left;
         }
@@ -382,7 +431,7 @@
             border-radius: 8px;
             padding: 15px 20px;
             font-size: 0.95rem;
-            cursor: pointer;
+            cursor: none;
             transition: all 0.2s ease;
             margin: 10px 0;
             text-align: left;
@@ -406,7 +455,7 @@
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 0.9rem;
-            cursor: pointer;
+            cursor: none;
             transition: all 0.3s ease;
         }
         .breadcrumb-item:hover {
@@ -479,7 +528,7 @@
             align-items: center;
         }
         .theme-toggle {
-            cursor: pointer;
+            cursor: none;
         }
         .theme-toggle .tab-icon {
             stroke: var(--primary-purple);
@@ -635,9 +684,9 @@
             const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab'; 
             const cityDelhi = '1273294';
             const cityKolkata = '1275004';
-            if (apiKey && apiKey !== 'bb0b89c915f6aa455fb9e567ea0438ab') {
-                fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city', apiKey);
-                fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city', apiKey);
+            if (apiKey && apiKey !== 'Ybb0b89c915f6aa455fb9e567ea0438ab') {
+                fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city, delhi', apiKey);
+                fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city, kolkata', apiKey);
             }
         }
 
@@ -1073,6 +1122,49 @@
         
         // --- DOMContentLoaded Initializer ---
         document.addEventListener('DOMContentLoaded', function() {
+            // --- VISUAL EFFECTS SETUP ---
+            const cursorDot = document.createElement('div');
+            cursorDot.className = 'cursor-dot';
+            document.body.appendChild(cursorDot);
+            
+            window.addEventListener('mousemove', e => {
+                // Update cursor dot position
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
+
+                // Create a sparkle for the trail
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = `${e.clientX}px`;
+                sparkle.style.top = `${e.clientY}px`;
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1000);
+            });
+            
+            window.addEventListener('click', e => {
+                // Create a heart burst on click
+                for (let i = 0; i < 5; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '♥';
+                    heart.style.left = `${e.clientX}px`;
+                    heart.style.top = `${e.clientY}px`;
+                    const randomX = (Math.random() - 0.5) * 80;
+                    const randomY = (Math.random() - 0.5) * 80;
+                    heart.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 1200);
+                }
+            });
+
+
+            document.querySelectorAll('.tab, .main-title, .spin-button, .task-card, .mind-option, .drive-option, .growth-option, .play-option, .play-sub-option, .breadcrumb-item, .theme-toggle').forEach(el => {
+                el.addEventListener('mouseenter', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(2)');
+                el.addEventListener('mouseleave', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(1)');
+            });
+
+
+            // --- CORE APP LISTENERS ---
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
             });
@@ -1091,7 +1183,6 @@
                 document.body.classList.toggle('light-theme');
                 const isLight = document.body.classList.contains('light-theme');
                 themeIcon.innerHTML = isLight ? sunIconPath : moonIconPath;
-                // If on the luck tab, rebuild the wheel with new colors
                 if (appState.currentTab === 'luck') {
                     buildSvgWheel();
                 }
