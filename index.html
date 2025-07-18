@@ -19,6 +19,17 @@
             --shadow: 0 10px 30px rgba(155, 89, 182, 0.15);
         }
 
+        /* --- Light Theme Variables --- */
+        body.light-theme {
+            --bg-dark: #fdf6e9; /* Light cream */
+            --bg-content: #fff9f0; /* Lighter cream */
+            --primary-purple: #e57373; /* Soft red */
+            --primary-lavender: #f06292; /* Pink */
+            --text-light: #5d4037; /* Dark brown for text */
+            --text-dark: #ffffff; /* White text for buttons */
+            --shadow: 0 10px 30px rgba(229, 115, 115, 0.2);
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -33,6 +44,7 @@
             line-height: 1.7;
             margin: 0;
             -webkit-font-smoothing: antialiased;
+            transition: background 0.5s ease, color 0.5s ease;
         }
 
         /* --- Top & Bottom Ribbons --- */
@@ -44,19 +56,27 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             z-index: 100;
+            transition: background 0.5s ease;
         }
         .title-ribbon {
             height: 70px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             justify-content: space-between;
             padding: 0 30px;
         }
+        body.light-theme .title-ribbon {
+            border-bottom-color: rgba(0, 0, 0, 0.08);
+        }
         .bottom-ribbon {
             min-height: 80px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
             flex-shrink: 0;
             padding: 10px 20px;
         }
+        body.light-theme .bottom-ribbon {
+            border-top-color: rgba(0, 0, 0, 0.08);
+        }
+
 
         .main-title {
             font-family: var(--font-heading);
@@ -77,7 +97,7 @@
             font-family: 'Courier New', Courier, monospace;
             font-size: 1.1rem;
             color: var(--primary-lavender);
-            background: rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.05);
             padding: 5px 15px;
             border-radius: 5px;
         }
@@ -97,7 +117,11 @@
             padding: 20px 0;
             display: flex;
             flex-direction: column;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            transition: background 0.5s ease;
+        }
+         body.light-theme .sidebar {
+            border-right-color: rgba(0, 0, 0, 0.08);
         }
 
         .tab {
@@ -105,43 +129,45 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--text-light);
+            opacity: 0.6;
             display: flex;
             align-items: center;
             gap: 15px;
         }
         .tab:not(.locked):hover {
-            background: rgba(155, 89, 182, 0.1);
+            background: rgba(0, 0, 0, 0.05);
             border-left-color: var(--primary-purple);
-            color: var(--text-light);
+            opacity: 1;
         }
         .tab.active {
-            background: rgba(155, 89, 182, 0.15);
+            background: rgba(0, 0, 0, 0.08);
             border-left-color: var(--primary-purple);
-            color: var(--text-light);
+            opacity: 1;
             font-weight: 600;
         }
         .tab.locked {
-            color: rgba(255, 255, 255, 0.3);
+            color: var(--text-light);
+            opacity: 0.3;
             cursor: not-allowed;
-            background-image: linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.02) 75%, transparent 75%, transparent);
-            background-size: 40px 40px;
         }
 
         .tab-icon {
             width: 20px;
             height: 20px;
             stroke-width: 1.5;
-            stroke: rgba(255, 255, 255, 0.6);
+            stroke: var(--text-light);
+            opacity: 0.7;
             fill: none;
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
-
+        
         .tab:hover .tab-icon,
         .tab.active .tab-icon {
             stroke: var(--primary-lavender);
             transform: scale(1.1);
+            opacity: 1;
         }
 
         .tab-text {
@@ -155,6 +181,7 @@
             padding: 40px;
             background: var(--bg-content);
             overflow-y: auto;
+            transition: background 0.5s ease;
         }
 
         .intro-screen {
@@ -186,12 +213,17 @@
             position: absolute;
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(155, 89, 182, 0.35) 0%, rgba(155, 89, 182, 0) 70%);
+            background: radial-gradient(circle, var(--primary-purple) 0%, rgba(255, 255, 255, 0) 70%);
+            opacity: 0.2;
             border-radius: 50%;
             filter: blur(30px);
             z-index: 0;
             animation: pulse 8s infinite ease-in-out;
         }
+        body.light-theme .glowing-orb {
+             opacity: 0.4;
+        }
+
 
         @keyframes pulse {
             0% { transform: scale(0.95); opacity: 0.6; }
@@ -247,9 +279,13 @@
             font-family: var(--font-body);
             font-size: 12px;
             font-weight: 600;
-            fill: #fff;
+            fill: var(--text-dark);
             letter-spacing: 0.5px;
         }
+        body.light-theme .wheel-text {
+            fill: #fff;
+        }
+
 
         .spin-button {
             background: var(--primary-purple);
@@ -264,7 +300,7 @@
         }
         .spin-button:hover:not(:disabled) {
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(155, 89, 182, 0.3);
+            box-shadow: var(--shadow);
             background: var(--primary-lavender);
         }
         .spin-button:disabled {
@@ -285,7 +321,7 @@
         .vault-letter {
             max-width: 800px;
             margin: 0 auto 40px auto;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.1);
             padding: 30px;
             border-left: 3px solid var(--primary-purple);
             animation: fadeIn 2s ease;
@@ -307,7 +343,7 @@
         /* --- Reusable Cards & Options --- */
         .task-card, .mind-option, .drive-option, .growth-option, .play-option {
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             padding: 25px;
             margin: 15px 0;
@@ -317,12 +353,12 @@
         }
         .task-card:hover, .mind-option:hover, .drive-option:hover, .growth-option:hover, .play-option:hover {
             transform: translateY(-5px);
-            background: rgba(155, 89, 182, 0.1);
+            background: rgba(0, 0, 0, 0.05);
             border-color: var(--primary-purple);
             box-shadow: var(--shadow);
         }
         .play-sub-option {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.05);
             border-radius: 8px;
             padding: 15px 20px;
             font-size: 0.95rem;
@@ -346,7 +382,7 @@
             flex-wrap: wrap;
         }
         .breadcrumb-item {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.05);
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 0.9rem;
@@ -358,7 +394,8 @@
             color: var(--text-dark);
         }
         .breadcrumb-separator {
-            color: rgba(255, 255, 255, 0.4);
+            color: var(--text-light);
+            opacity: 0.4;
         }
 
         /* --- Footer --- */
@@ -395,7 +432,7 @@
             position: fixed;
             bottom: 95px;
             right: 20px;
-            background: #2c2a31;
+            background: var(--bg-dark);
             color: var(--text-light);
             padding: 18px 25px;
             border-radius: 12px;
@@ -404,8 +441,7 @@
             transform: translateY(20px) scale(0.95);
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             z-index: 1000;
             font-size: 0.95rem;
         }
@@ -413,6 +449,27 @@
             transform: translateY(0) scale(1);
             opacity: 1;
         }
+
+        /* --- THEME TOGGLE --- */
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .theme-toggle {
+            cursor: pointer;
+        }
+        .theme-toggle .tab-icon {
+            stroke: var(--primary-purple);
+            opacity: 0.8;
+        }
+        .theme-toggle:hover .tab-icon {
+             opacity: 1;
+             transform: scale(1.1) rotate(15deg);
+        }
+
 
         /* --- Mobile Responsiveness --- */
         @media (max-width: 900px) {
@@ -438,9 +495,12 @@
                 overflow-x: auto;
                 padding: 5px 0;
                 border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
                 -ms-overflow-style: none;
                 scrollbar-width: none;
+            }
+            body.light-theme .sidebar {
+                border-bottom-color: rgba(0, 0, 0, 0.08);
             }
             .sidebar::-webkit-scrollbar {
                 display: none;
@@ -456,6 +516,10 @@
             .tab:not(.locked):hover, .tab.active {
                 border-left-color: transparent;
                 border-bottom-color: var(--primary-purple);
+            }
+            .sidebar-footer {
+                margin-top: 0;
+                padding: 0 20px;
             }
             .content-area {
                 padding: 25px;
@@ -524,6 +588,13 @@
                 <svg class="tab-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 <span class="tab-text">the vault</span>
             </div>
+            <div class="sidebar-footer">
+                <div class="theme-toggle" id="themeToggle">
+                    <svg class="tab-icon" viewBox="0 0 24 24" id="themeIcon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+            </div>
         </nav>
         <main class="content-area" id="contentArea">
             </main>
@@ -541,10 +612,10 @@
         function updateWeather() {
             // IMPORTANT: Replace 'YOUR_API_KEY_HERE' with your actual OpenWeatherMap API key.
             // For security in a real application, it's best to use a backend proxy to hide the key.
-            const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab'; 
+            const apiKey = 'YOUR_API_KEY_HERE'; 
             const cityDelhi = '1273294';
             const cityKolkata = '1275004';
-            if (apiKey && apiKey !== 'bb0b89c915f6aa455fb9e567ea0438ab') {
+            if (apiKey && apiKey !== 'YOUR_API_KEY_HERE') {
                 fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city', apiKey);
                 fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city', apiKey);
             }
@@ -723,7 +794,10 @@
         }
 
         function buildSvgWheel() {
-            const wheelColors = ['#581845', '#900C3F', '#C70039', '#FF5733', '#4A235A', '#7D3C98', '#9B59B6', '#AF7AC5'];
+            const wheelColorsDark = ['#581845', '#900C3F', '#C70039', '#FF5733', '#4A235A', '#7D3C98', '#9B59B6', '#AF7AC5'];
+            const wheelColorsLight = ['#ffcdd2', '#f8bbd0', '#e1bee7', '#d1c4e9', '#c5cae9', '#bbdefb', '#b3e5fc', '#b2ebf2'];
+            const wheelColors = document.body.classList.contains('light-theme') ? wheelColorsLight : wheelColorsDark;
+
             const numOptions = WHEEL_OPTIONS.length;
             const sliceAngle = 360 / numOptions;
             const size = 450;
@@ -756,7 +830,7 @@
                 svgContent += `<path d="${describeArc(radius, radius, radius - 2, startAngle, endAngle)}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
                 const textPathId = `text-path-${i}`;
                 svgContent += `<defs><path id="${textPathId}" d="${describeTextArc(radius, radius, textRadius, startAngle, endAngle)}"></path></defs>`;
-                svgContent += `<text class="wheel-text" dy="-5"><textPath href="#${textPathId}" startOffset="50%" text-anchor="middle">${WHEEL_OPTIONS[i]}</textPath></text>`;
+                svgContent += `<text class="wheel-text"><textPath href="#${textPathId}" startOffset="50%" text-anchor="middle">${WHEEL_OPTIONS[i]}</textPath></text>`;
             }
             svgContent += `</g></svg>`;
             document.getElementById('wheel-svg-container').innerHTML = svgContent;
@@ -986,6 +1060,23 @@
                 showIntroScreen();
                 document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             });
+
+            // --- THEME TOGGLE LOGIC ---
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const sunIconPath = `<path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle>`;
+            const moonIconPath = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>`;
+
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-theme');
+                const isLight = document.body.classList.contains('light-theme');
+                themeIcon.innerHTML = isLight ? sunIconPath : moonIconPath;
+                // If on the luck tab, rebuild the wheel with new colors
+                if (appState.currentTab === 'luck') {
+                    buildSvgWheel();
+                }
+            });
+
             showIntroScreen();
             updateWeather();  
         });
