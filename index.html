@@ -182,7 +182,6 @@
             position: relative; z-index: 1;
         }
         
-        /* MODIFICATION: Made the orb more visible */
         .glowing-orb {
             position: absolute;
             width: 400px;
@@ -702,7 +701,7 @@
                     <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
                         you don't use spotify, so i think i found a way for us to listen to it here. yay.
                     </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4vy1nKzIatI2lfvLIw3P0F" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/5" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>`;
         }
 
@@ -751,7 +750,6 @@
                 const start = polarToCartesian(x, y, r, startAngle);
                 const end = polarToCartesian(x, y, r, endAngle);
                 const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-                // Swap start and end points for text path to render right-side up
                 return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`;
             }
 
@@ -760,7 +758,6 @@
                 const endAngle = startAngle + sliceAngle;
                 svgContent += `<path d="${describeArc(radius, radius, radius - 2, startAngle, endAngle)}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
                 const textPathId = `text-path-${i}`;
-                const textAngle = startAngle + (sliceAngle / 2);
                 svgContent += `<defs><path id="${textPathId}" d="${describeTextArc(radius, radius, textRadius, startAngle, endAngle)}"></path></defs>`;
                 svgContent += `<text class="wheel-text" dy="-5"><textPath href="#${textPathId}" startOffset="50%" text-anchor="middle">${WHEEL_OPTIONS[i]}</textPath></text>`;
             }
@@ -791,7 +788,7 @@
             }, 5000); // Corresponds to CSS transition time
         }
         
-        // --- Generic renderer for card-like options ---
+        // --- Renderer for simple card-like options ---
         function renderOptions(container, title, options, className, clickHandler) {
             container.innerHTML = `<h2 class="section-header">${title}</h2>`;
             options.forEach(optionText => {
@@ -823,13 +820,14 @@
             );
         }
         
-        // --- Generic renderer for breadcrumb-based navigation ---
-        function renderNavigation(config) {
-            const { contentArea, header, appStateKey, optionsData, classNames } = config;
+        // --- Renderer for Drive/Growth cascading navigation ---
+        function renderCascadingNavigation(config) {
+            const { contentArea, header, appStateKey, optionsData, classNames, resetNav, navigateTo, clickHandler } = config;
             const navigationPath = appState[appStateKey];
 
             contentArea.innerHTML = `<h2 class="section-header">${header}</h2>`;
 
+            // Render breadcrumbs
             if (navigationPath.length > 0) {
                 const breadcrumbContainer = document.createElement('div');
                 breadcrumbContainer.className = classNames.breadcrumb;
@@ -837,7 +835,7 @@
                 const rootItem = document.createElement('span');
                 rootItem.className = 'breadcrumb-item';
                 rootItem.textContent = classNames.root;
-                rootItem.addEventListener('click', config.resetNav);
+                rootItem.addEventListener('click', resetNav);
                 breadcrumbContainer.appendChild(rootItem);
 
                 navigationPath.forEach((item, index) => {
@@ -845,35 +843,43 @@
                     const breadcrumbItem = document.createElement('span');
                     breadcrumbItem.className = 'breadcrumb-item';
                     breadcrumbItem.textContent = item;
-                    breadcrumbItem.addEventListener('click', () => config.navigateTo(index));
+                    breadcrumbItem.addEventListener('click', () => navigateTo(index));
                     breadcrumbContainer.appendChild(breadcrumbItem);
                 });
                 contentArea.appendChild(breadcrumbContainer);
             }
 
+            // Determine which options to show based on the path
             let optionsToShow = [];
-            let currentLevelData = optionsData;
-            navigationPath.forEach(step => {
-                currentLevelData = currentLevelData?.[step];
-            });
-            optionsToShow = Array.isArray(currentLevelData) ? currentLevelData : Object.keys(currentLevelData || {});
+            const level = navigationPath.length;
+
+            if (level === 0) {
+                optionsToShow = optionsData.level1 || [];
+            } else if (level === 1) {
+                const key = navigationPath[0];
+                optionsToShow = optionsData.level2?.[key] || [];
+            } else if (level === 2) {
+                const key = navigationPath[1];
+                optionsToShow = optionsData.level3?.[key] || [];
+            }
             
-            const level = navigationPath.length + 1;
+            // Render the options
+            const clickLevel = level + 1; 
             optionsToShow.forEach(optionText => {
                 const optionEl = document.createElement('div');
                 optionEl.className = classNames.option;
                 optionEl.innerHTML = `<span>${optionText}</span>`;
-                optionEl.addEventListener('click', () => config.clickHandler(optionText, level));
+                optionEl.addEventListener('click', () => clickHandler(optionText, clickLevel));
                 contentArea.appendChild(optionEl);
             });
         }
-
+        
         function showDriveOptions() {
-            renderNavigation({
+            renderCascadingNavigation({
                 contentArea: document.getElementById('contentArea'),
                 header: "so you wish to show yourself to me. how indecent of you. i love it",
                 appStateKey: 'driveNavigation',
-                optionsData: { level1: DRIVE_OPTIONS.level1, ...DRIVE_OPTIONS.level2, ...DRIVE_OPTIONS.level3 },
+                optionsData: DRIVE_OPTIONS,
                 classNames: { breadcrumb: 'drive-breadcrumb', option: 'drive-option', root: 'Drive' },
                 resetNav: resetDriveNavigation,
                 navigateTo: navigateDriveTo,
@@ -882,11 +888,11 @@
         }
         
         function showGrowthOptions() {
-            renderNavigation({
+            renderCascadingNavigation({
                 contentArea: document.getElementById('contentArea'),
                 header: "shut out everything else, and just follow instructions to grow. isn't it simple?",
                 appStateKey: 'growthNavigation',
-                optionsData: { level1: GROWTH_OPTIONS.level1, ...GROWTH_OPTIONS.level2, ...GROWTH_OPTIONS.level3 },
+                optionsData: GROWTH_OPTIONS,
                 classNames: { breadcrumb: 'growth-breadcrumb', option: 'growth-option', root: 'Growth' },
                 resetNav: resetGrowthNavigation,
                 navigateTo: navigateGrowthTo,
@@ -964,8 +970,15 @@
         function resetDriveNavigation() { appState.driveNavigation = []; showDriveOptions(); }
         function resetGrowthNavigation() { appState.growthNavigation = []; showGrowthOptions(); }
         function resetPlayNavigation() { appState.playNavigation = []; showPlayOptions(); }
-        function navigateDriveTo(index) { appState.driveNavigation.splice(index + 1); showDriveOptions(); }
-        function navigateGrowthTo(index) { appState.growthNavigation.splice(index + 1); showGrowthOptions(); }
+
+        function navigateDriveTo(index) { 
+            appState.driveNavigation = appState.driveNavigation.slice(0, index + 1); 
+            showDriveOptions(); 
+        }
+        function navigateGrowthTo(index) { 
+            appState.growthNavigation = appState.growthNavigation.slice(0, index + 1); 
+            showGrowthOptions(); 
+        }
         
         // --- DOMContentLoaded Initializer ---
         document.addEventListener('DOMContentLoaded', function() {
