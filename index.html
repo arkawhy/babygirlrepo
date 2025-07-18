@@ -984,11 +984,11 @@
 
         function getWelcomeMessage() {
             const hour = new Date().getHours();
-            if (hour >= 5 && hour < 12) {
+            if (hour >= 0 && hour < 10) {
                 return INTRO_TEXT.morning;
-            } else if (hour >= 12 && hour < 18) {
+            } else if (hour >= 10 && hour < 16) {
                 return INTRO_TEXT.afternoon;
-            } else if (hour >= 18 && hour < 22) {
+            } else if (hour >= 16 && hour < 20) {
                 return INTRO_TEXT.evening;
             } else {
                 return INTRO_TEXT.night;
