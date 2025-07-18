@@ -1156,7 +1156,7 @@
                 const sliceAngle = 360 / WHEEL_OPTIONS.length;
                 const winningIndex = Math.floor((360 - finalAngle + (sliceAngle / 2)) % 360 / sliceAngle);
                 
-                showFloatingOutput(`And the winner is...: ${WHEEL_OPTIONS[winningIndex]}`);
+                showFloatingOutput(`((drumroll): ${WHEEL_OPTIONS[winningIndex]}`);
                 appState.wheelSpinning = false;
                 document.getElementById('spinBtn').disabled = false;
             }, 5000); // Corresponds to CSS transition time
