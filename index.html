@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>babygirl.</title>
-    <link rel="icon" type="image/png" href="image.png">
+    <link rel="icon" type="image/svg+xml" href="favicon-dark.svg">
     <style>
         /* --- Core & Fonts --- */
         :root {
@@ -149,7 +149,7 @@
             color: var(--text-light);
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
             cursor: none;
-            transition: letter-spacing: 0.4s ease, color 0.4s ease;
+            transition: letter-spacing 0.4s ease, color 0.4s ease;
         }
         .main-title:hover {
             letter-spacing: 4px;
@@ -273,6 +273,10 @@
             color: var(--primary-lavender);
             font-weight: normal;
             position: relative; z-index: 1;
+        }
+        /* --- THIS IS THE NEWLY ADDED RULE --- */
+        body.light-theme .intro-screen h2 {
+            color: var(--primary-purple); /* Use the darker pink for better contrast */
         }
         .intro-screen p {
             font-size: 1.1rem;
@@ -839,69 +843,69 @@
             "I will ask you for a mango milkshake"
         ];
         const DRIVE_OPTIONS = {
-            level1: [ "Passive Tasks?   ", "A sexy video?  ", "A hot picture? " ],
+            level1: [ "Passive Tasks?🟢🟠🔴", "A sexy video?🟠🔴", "A hot picture?🔴" ],
             level2: {
-                "Passive Tasks?   ": [ "Clothing-related  ", "Mind-related ", "Other Passive Tasks " ],
-                "A sexy video?  ": [ "Starting Clothed ", "Starting Nude ", "Special Submission " ],
-                "A hot picture? ": [ "Object-interaction ", "Accessories ", "Special Submissive " ]
+                "Passive Tasks?🟢🟠🔴": [ "Clothing-related🟠🔴", "Mind-related🟢", "Other Passive Tasks🟠" ],
+                "A sexy video?🟠🔴": [ "Starting Clothed🟠", "Starting Nude🔴", "Special Submission🔴" ],
+                "A hot picture?🔴": [ "Object-interaction🔴", "Accessories🔴", "Special Submissive🔴" ]
             },
             level3: {
-                "Clothing-related  ": [
+                "Clothing-related🟠🔴": [
                     "I will ensure that we get to strip down together at least once this week, once you come back from work in the evening, on video call.",
                     "I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free, and you wish to check in.",
                     "For any two consecutive days of the week, I am going to be sending you videos of me changing any garment: whether it's wearing socks, putting on a towel, taking off a bra, or any other garment added to or subtracted from my body.",
                     "I am going to be showing off my wet, hot self to you three days this week by toweling down after my shower for you on camera live, or in a video. I shall end the video by either wrapping myself in said towel, or entirely nude for your delight.",
                     "I am going to get you to buy me hot lingerie, and wear it on a video call for you two days this week."
                 ],
-                "Mind-related ": [
+                "Mind-related🟢": [
                     "I am going to make it a point to not say anything negative about me for the next 24 hours.",
                     "I know I look hot with my hair down. I will send you at least three separate videos throughout the week showing you that I am studying with my hair down.",
                     "Every night this week before going to bed, I am going to tell you what I like most about myself, and I would love it if you praised me for it too.",
                     "Every night before going to bed, I am going to call you up and ask you to baby me. And then, you're going to baby me!"
                 ],
-                "Other Passive Tasks ": [
+                "Other Passive Tasks🟠": [
                     "I'll voluntarily learn how to truly talk like a submissive with you at least once every day this week.",
                     "I'll send you a voice note affirming my submission to you, every night of this week, along with my good night text.",
                     "I'll write anything, anywhere, on my body to confirm my willingness to obey you, and show you suitable proof of it, thrice this week.",
                     "I am going to stay shaved throughout this week: absolutely hairless from below my neck. Any active tasks during this week will happily bear proof of the same. :)",
                     "Three days this week, I am going to keep my hair down, and the other four days, I am going to keep it tied up in a high ponytail. I will send you pictures throughout the week affirming that I have, in fact, kept up with your instructions."
                 ],
-                "Starting Clothed ": [
+                "Starting Clothed🟠": [
                     "I will start out standing, wearing only a vest and panties, and then lower my panties to my thighs to present my pussy to you, all the while smiling at you.",
                     "I will start out standing, wearing only a vest and panties, and then lower my vest to my stomach to present my breasts to you, all the while smiling at you.",
                     "I'll begin wearing a towel covering my breasts and pussy and my hair tied up: I will first lower the towel to release my breasts, smile at you, and then let my hair down.",
                     "Let me start out wearing my black vest and my dark panties. I'll turn around, take the vest off and lower my panties to my thighs; and then I'll turn back around to face you, bashful and pretty as I always am in these videos.",
                     "I will wear nothing but a tshirt. In the video, I will be kneeling with my knees drawn close together initially, and then I will stretch out my arms up above my head, while also widening the gap between my legs. My arms come to rest behind me in my natural submissive pose."
                 ],
-                "Starting Nude ": [
+                "Starting Nude🔴": [
                     "Please let me be naked on video for you, standing upright and saying how much I love being your good girl, and then turning around to present my ass to you.",
                     "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in front of you. I'll stand back up and then give you a little twirl so you can appreciate every inch of me.",
                     "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each.",
                     "Starting off nude and kneeling up, I'll place my hands behind my head and jut my beautiful tits out for you. Then, I am going to kneel down and sit on my heels, and slowly widen my thighs for you to have a visual taste of what I have waiting for you. ",
                     "I will send you a video of me soaping myself in the shower/bathroom. The camera will be roughly at stomach height, and I will give you full view to whatever part of my body I am soaping, front or back."
                 ],
-                "Special Submission ": [
+                "Special Submission🔴": [
                     "I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.",
                     "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission.",
                     "I'll get fully naked for you, and then start the video with my hands behind me and hair down, spectacles on. I'll then affirm my submission to you by saying as much, and assure you of my obedience to do anything you say.",
                     "I am going to position the camera in a way that I can be in the frame lying nude on my back on any surface: floor, or bed. I have leeway to do what I wish with the rest of my body to look like my hottest self for you, but my hands rest on my eyes, shutting them out, and my lips form a naughty grin.",
                     "I wear nothing but my bra, with the straps lowered to my sides. I start out standing in front of the camera, turning around to unclasp the bra slowly, then coming to a full turn facing the camera again, hands behind me, still clasping the bra."
                 ],
-                "Object-interaction ": [
+                "Object-interaction🔴": [
                     "I'll strip down completely, and take a pic of me sitting in a chair and smiling in a mirror selfie, hair down, with an arm loosely held behind me and draped over the back of the chair, my legs wide apart for you to savour what's in between.",
                     "Since you love teaching me, maybe I can take a mirror selfie with a book held up to my face, my hair down, wearing nothing but panties, and every other inch of me on display for you",
                     "I'll take a photo of me lying nude on the bed, the camera placed just above my breasts and pointing at my feet. I am going to give you a a clear view of how your baby looks naked, from right between my boobs, all the way down to my pussy and legs.",
                     "This is a special kneeling picture for you: I shall kneel naked, but wrapped in a bedsheet. The bedsheet curls around my arms and leaves enough of my breasts bare, but nothing below the stomach, with a slight glimpse of my delicious legs anywhere I wish.",
                     "I would like to give you a simple nude of me with my bra in my mouth, me leaning forward and resting on my hands and knees, everything else on full display for you."
                 ],
-                "Accessories ": [
+                "Accessories🔴": [
                     "I'd love to send you an upper-half profile topless picture of me without my glasses, hair tied up tight, wearing eyeliner and basic makeup. I love being pretty for you!",
                     "I think I'll put on the longest socks I can find, along with any cap I may have, and wear nothing else as I send you a mirror selfie, the phone just covering my face, the other hand behind me. If I cannot find the cap, you may have to make do with just the rest.",
                     "I'll put on any earrings I can find, turn my head slightly to show them to you, while clicking a mirror selfie wearing nothing but my panties, pulled down to my thighs, legs close together and one foot slightly in front of the other.",
                     "I'll go out and buy stickers: the small, cutesy ones available at most stationery shops. Then, I am going to send you a nude front profile, standing upright and hands clasped behind me, with my breasts covered in at least ten stickers, but my pussy untouched and uncovered.",
                     "My hands will be RIGHT in front of the camera, obscuring everything else from view, as I put a wristwatch on. Once I am done, I withdraw my hands, revealing my nude form, standing prettily in front of the camera and on wonderful display for you."
                 ],
-                "Special Submissive ": [
+                "Special Submissive🔴": [
                     "I remember how much you liked it on that one video call where I got naked for you, turned around with my palms on the wall in front of me above my head, my ass thrust you nicely for you. I'll send you two pictures of me in this pose: one with my legs wide apart, and one with them close together.",
                     "I'll ask you to send me one of the pictures I have sent you before. I'll replicate it, but with a blindfold on for you.",
                     "This will be a couple of side-profile fully shaved, full nudes for you. I shall place the camera to my left, prop my head up on an arm, and stretch the full length of my legs out for you to savour every inch of me, as I turn to face you. The second nude will be in the same position but turning the other way, for you to have a look at my ass.",
@@ -911,19 +915,19 @@
             }
         };
         const PLAY_OPTIONS = {
-            "Mind-games  ": [
+            "Mind-games🟢🟠": [
                 "I want to play Anything Can Be Used to Pick You Up with you. ",
                 "Please schedule a game of Chess with me sometime today. ",
                 "Play Seven Questions with me to decide how you wish to look at my body today. ",
                 "Can I ask you to please turn me on, entirely on text? I love it when you play with me on text!"
             ],
-            "Remote Games   ": [
+            "Remote Games 🟢🟠": [
                 "I will ask ChatGPT, 'What can I do to please my long-distance dominant boyfriend?', take a screenshot of the results to show them to you, and do the top two things suggested. ",
                 "I will take time out to play Adult Truth or Dare with you on any app you choose. ",
                 "Can we play some other online 1v1 game today?",
                 "I will carry out some research to find the best free or cheap adult games on Google Play Store, and then get you to play it with me."
             ],
-            "Games for a good Submissive  ": [
+            "Games for a good Submissive 🔴": [
                 "The moment I am free to get naked for you, I will ask you directly for a command, and immediately do as you say. ",
                 "I shall try to tease you while you are at work tomorrow by resorting to texts, photos, videos, or voice messages. ",
                 "I would like to try and play a game of endurance with you on video call, and take up the challenge to do what you say, for as long as you say. ",
@@ -931,62 +935,62 @@
             ]
         };
         const GROWTH_OPTIONS = structuredClone(DRIVE_OPTIONS);
-        GROWTH_OPTIONS.level1 = [ "Self-Care ", "Life-related  ", "Submission  " ];
+        GROWTH_OPTIONS.level1 = [ "Self-Care🟢", "Life-related🟢🟠", "Submission🟠🔴" ];
         GROWTH_OPTIONS.level2 = {
-            "Self-Care ": [ "Physical Health ", "Emotional Health ", "Mental Health " ],
-            "Life-related  ": [ "Studies ", "Skills  ", "Capabilities  " ],
-            "Submission  ": [ "Physical Display ", "Gratitude Expression  ", "Mental Conditioning " ]
+            "Self-Care🟢": [ "Physical Health🟢", "Emotional Health🟢", "Mental Health🟢" ],
+            "Life-related🟢🟠": [ "Studies🟢", "Skills🟢🟠", "Capabilities🟢🟠" ],
+            "Submission🟠🔴": [ "Physical Display🔴", "Gratitude Expression🟠🔴", "Mental Conditioning🟠" ]
         };
         GROWTH_OPTIONS.level3 = {
-            "Physical Health ": [
+            "Physical Health🟢": [
                 "I am going to send you four videos of me drinking a full glass of water today.",
                 "Let's work on my body from today. I am going to ask you about how to to ease into general exercise.",
                 "I think I will work on toning my abdominal region. I'll put you on a vc and do 2x10 ab crunches today!",
                 "A 30-seconds plank, for you, on video call today."
             ],
-            "Emotional Health ": [
+            "Emotional Health🟢": [
                 "I am going to find one activity we can do everyday for a week. This may be a video call, sending some picture or video regularly, playing something together everyday, or anything else at all. I can choose whether it's sexual or non-sexual in nature.",
                 "I will call you up and ask you to tell me about any three things you love about my body or my being.",
                 "I am going to show you some part of my body on a video call, in a video, or in a picture, and you will have to baby me about it for two minutes straight.",
                 "Can I ask you to write me a fantasy scenario of us in any setting?"
             ],
-            "Mental Health ": [
+            "Mental Health🟢": [
                 "I shall call you up and compliment you on something that you did which made me happy, and tell you why it made me happy.",
                 "I shall call you up and compliment myself on something that I did in the recent past that I am really proud of for having done.",
                 "As soon as I wake up tomorrow morning, I will call you, and tell you, 'I am confident that this is going to be a good day for me. I love you.'",
                 "Before going to bed today, I'll call you up and wish you a good night, and remember to collect an ILY from you."
             ],
-            "Studies ": [
+            "Studies🟢": [
                 "I am going to keep up with my Finance Course from IISER Pune. This is a recurring task till you decide that I need not study it any more.",
                 "I will explain the causes, effects, and results of the Great Recession to you on a phone call.",
                 "I will explain the causes, effects, and results of the late-2000s Indian inflation scenario to you on a phone call.",
                 "I shall keep revising regression analysis, statistical inference and testing of hypotheses, and distributions. This is a recurring task till you decide that I need not study it any more."
             ],
-            "Skills  ": [
+            "Skills🟢🟠": [
                 "I will write you a 500-word essay on an introduction of myself.",
                 "I am going to schedule an interview with you, either one where I remain clothed throughout, or one where I start out clothed and keep losing garments for every mistake I make.",
                 "After suitably consulting me, I shall enroll myself in a MicroMasters course or its equivalent."
             ],
-            "Capabilities  ": [
+            "Capabilities🟢🟠": [
                 "I will be doing a hundred jumping jacks for better breathing and lung capacity, while keeping you on video call. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked.",
                 "I am going to write a 500-word essay on how I picture a day in my life at college during Masters, by hand in a copy, and send you a PDF of it.",
                 "I'll perform 10 time-controlled squats with you on video call. Please do the controlling of the time for me. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked."
             ],
-            "Physical Display ": [
+            "Physical Display🔴": [
                 "I will duly present myself to you in the most natural of my poses: fully nude, kneeling with my hair down, spectacles off, eyes lowered and hands clasped behind me. I am allowed to choose to do as much in a photo, video, or on a video call.",
                 "I will duly present myself to you with my bra in my mouth, wearing nothing at all, feet close together and hands behind me, hair down. I shall be standing upright and fully on display for you.",
                 "I will duly present my ass to you by perfectly displaying my curves, in a photo, video, or on a video call.",
                 "I will learn three new submissive positions from you on a video call.",
                 "I will send you a video of using veet on my arms/legs, but I am fully naked for you."
             ],
-            "Gratitude Expression  ": [
+            "Gratitude Expression🟠🔴": [
                 "I'll be sending you a voice message clearly expressing my gratitude at being your submissive. ",
                 "I shall text you once today saying, 'Sir, I just wanted to remind you that I am all yours,' but not in these exact same words.",
                 "I will use 'sir' with you throughout today, including in at least one video where I am just as clothed or naked as you want me to be.",
                 "I'll video call you today, strip naked, and thank you for any non-sexual thing I feel I need to express my gratitude for.",
                 "I will ask you what you think of me, my being and my body, and thank you suitably when you compliment be redoubtably."
             ],
-            "Mental Conditioning ": [
+            "Mental Conditioning🟠": [
                 "I'll happily get topless, write 'I am Arka's favourite plaything' on my stomach, and send you a video of me writing it.",
                 "I can call you up some time today, and ask you for instructions for a task, and remember to thank you appropriately.",
                 "I will type up a 200-word essay on why I think I should obey you every step of my being, every day in my life, and send it to you.",
@@ -1156,7 +1160,7 @@
                 const sliceAngle = 360 / WHEEL_OPTIONS.length;
                 const winningIndex = Math.floor((360 - finalAngle + (sliceAngle / 2)) % 360 / sliceAngle);
                 
-                showFloatingOutput(`((drumroll): ${WHEEL_OPTIONS[winningIndex]}`);
+                showFloatingOutput(`And the winner is...: ${WHEEL_OPTIONS[winningIndex]}`);
                 appState.wheelSpinning = false;
                 document.getElementById('spinBtn').disabled = false;
             }, 5000); // Corresponds to CSS transition time
@@ -1416,6 +1420,14 @@
                 document.body.classList.toggle('light-theme');
                 const isLight = document.body.classList.contains('light-theme');
                 themeIcon.innerHTML = isLight ? sunIconPath : moonIconPath;
+
+                const favicon = document.querySelector("link[rel='icon']");
+                if (isLight) {
+                    favicon.href = 'favicon-light.svg';
+                } else {
+                    favicon.href = 'favicon-dark.svg';
+                }
+
                 if (appState.currentTab === 'luck') {
                     buildSvgWheel();
                 }
