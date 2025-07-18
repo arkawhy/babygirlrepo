@@ -1323,11 +1323,10 @@
                         const heart = document.createElement('div');
                         heart.className = 'heart';
                         heart.innerHTML = '♥';
-                        heart.style.left = `${e.clientX}px`;
-                        heart.style.top = `${e.clientY}px`;
-                        const randomX = (Math.random() - 0.5) * 80;
-                        const randomY = (Math.random() - 0.5) * 80;
-                        heart.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                        const randomX = (Math.random() - 0.5) * 90;
+                        const randomY = (Math.random() - 0.5) * 90;
+                        heart.style.left = `${e.clientX + randomX}px`;
+                        heart.style.top = `${e.clientY + randomY}px`;
                         document.body.appendChild(heart);
                         setTimeout(() => heart.remove(), 1200);
                     }
