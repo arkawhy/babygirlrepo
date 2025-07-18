@@ -675,16 +675,19 @@
         </div>
     </footer>
     <div class="floating-output" id="floatingOutput"></div>
+    
+    <audio id="click-sound-light" src="https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-zapsplat/zapsplat_multimedia_button_click_fast_short_002_79286.mp3" preload="auto"></audio>
+    <audio id="click-sound-dark" src="https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-zapsplat/zapsplat_multimedia_button_click_soft_001_79275.mp3" preload="auto"></audio>
+
 
     <script>
         // --- REAL-WORLD CONNECTION (WEATHER) ---
         function updateWeather() {
-            // IMPORTANT: Replace 'YOUR_API_KEY_HERE' with your actual OpenWeatherMap API key.
-            // For security in a real application, it's best to use a backend proxy to hide the key.
+            // This key is for demonstration purposes. Replace with your own for a production environment.
             const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab'; 
             const cityDelhi = '1273294';
             const cityKolkata = '1275004';
-            if (apiKey && apiKey !== 'bb0b89c915f6aa455fb9e567ea0438ab') {
+            if (apiKey) {
                 fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city, delhi', apiKey);
                 fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city, kolkata', apiKey);
             }
@@ -1122,6 +1125,10 @@
         
         // --- DOMContentLoaded Initializer ---
         document.addEventListener('DOMContentLoaded', function() {
+             // --- CLICK SOUND SETUP ---
+            const lightClickSound = document.getElementById('click-sound-light');
+            const darkClickSound = document.getElementById('click-sound-dark');
+
             // --- VISUAL EFFECTS SETUP ---
             const cursorDot = document.createElement('div');
             cursorDot.className = 'cursor-dot';
@@ -1142,6 +1149,15 @@
             });
             
             window.addEventListener('click', e => {
+                // Play click sound based on theme
+                if (document.body.classList.contains('light-theme')) {
+                    lightClickSound.currentTime = 0;
+                    lightClickSound.play();
+                } else {
+                    darkClickSound.currentTime = 0;
+                    darkClickSound.play();
+                }
+
                 // Create a heart burst on click
                 for (let i = 0; i < 5; i++) {
                     const heart = document.createElement('div');
@@ -1157,7 +1173,6 @@
                 }
             });
 
-
             document.querySelectorAll('.tab, .main-title, .spin-button, .task-card, .mind-option, .drive-option, .growth-option, .play-option, .play-sub-option, .breadcrumb-item, .theme-toggle').forEach(el => {
                 el.addEventListener('mouseenter', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(2)');
                 el.addEventListener('mouseleave', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(1)');
@@ -1166,9 +1181,13 @@
 
             // --- CORE APP LISTENERS ---
             document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
+                tab.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Prevents the window click from firing twice
+                    switchTab(this.getAttribute('data-tab'));
+                });
             });
-            document.getElementById('homeButton').addEventListener('click', () => {
+            document.getElementById('homeButton').addEventListener('click', (event) => {
+                event.stopPropagation();
                 showIntroScreen();
                 document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             });
@@ -1179,7 +1198,8 @@
             const sunIconPath = `<path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle>`;
             const moonIconPath = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>`;
 
-            themeToggle.addEventListener('click', () => {
+            themeToggle.addEventListener('click', (event) => {
+                event.stopPropagation();
                 document.body.classList.toggle('light-theme');
                 const isLight = document.body.classList.contains('light-theme');
                 themeIcon.innerHTML = isLight ? sunIconPath : moonIconPath;
