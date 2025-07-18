@@ -21,13 +21,13 @@
 
         /* --- Light Theme Variables --- */
         body.light-theme {
-            --bg-dark: #fdf6e9; /* Light cream */
-            --bg-content: #fff9f0; /* Lighter cream */
-            --primary-purple: #e57373; /* Soft red */
-            --primary-lavender: #f06292; /* Pink */
-            --text-light: #5d4037; /* Dark brown for text */
+            --bg-dark: #FADADD; /* Soft Pink Beige */
+            --bg-content: #FFF5F7; /* Very Light Pink */
+            --primary-purple: #D94C78; /* Dark Pink */
+            --primary-lavender: #F48FB1; /* Soft Pink */
+            --text-light: #6D4C41; /* Rich Brown for text */
             --text-dark: #ffffff; /* White text for buttons */
-            --shadow: 0 10px 30px rgba(229, 115, 115, 0.2);
+            --shadow: 0 10px 30px rgba(217, 76, 120, 0.2);
         }
 
         html {
@@ -45,6 +45,18 @@
             margin: 0;
             -webkit-font-smoothing: antialiased;
             transition: background 0.5s ease, color 0.5s ease;
+        }
+        
+        /* --- Sparkly Background for Light Theme --- */
+        @keyframes soft-shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        body.light-theme {
+            background: linear-gradient(270deg, #FADADD, #FFF5F7, #F5E6CC);
+            background-size: 600% 600%;
+            animation: soft-shimmer 20s ease infinite;
         }
 
         /* --- Top & Bottom Ribbons --- */
@@ -77,7 +89,6 @@
             border-top-color: rgba(0, 0, 0, 0.08);
         }
 
-
         .main-title {
             font-family: var(--font-heading);
             font-size: 2.2rem;
@@ -91,6 +102,15 @@
         .main-title:hover {
             letter-spacing: 4px;
             color: var(--primary-lavender);
+        }
+
+        /* Sparkle effect for title in light mode */
+        @keyframes text-sparkle {
+            0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--primary-lavender), 0 0 20px var(--primary-lavender); }
+            50% { text-shadow: 0 0 10px #fff, 0 0 20px var(--primary-lavender), 0 0 30px var(--primary-lavender); }
+        }
+        body.light-theme .main-title {
+            animation: text-sparkle 3s ease-in-out infinite;
         }
 
         .countdown-timer {
@@ -283,7 +303,7 @@
             letter-spacing: 0.5px;
         }
         body.light-theme .wheel-text {
-            fill: #fff;
+            fill: var(--text-light);
         }
 
 
@@ -795,7 +815,7 @@
 
         function buildSvgWheel() {
             const wheelColorsDark = ['#581845', '#900C3F', '#C70039', '#FF5733', '#4A235A', '#7D3C98', '#9B59B6', '#AF7AC5'];
-            const wheelColorsLight = ['#ffcdd2', '#f8bbd0', '#e1bee7', '#d1c4e9', '#c5cae9', '#bbdefb', '#b3e5fc', '#b2ebf2'];
+            const wheelColorsLight = ['#F8BBD0', '#F48FB1', '#F06292', '#EC407A', '#E91E63', '#D81B60', '#C2185B', '#AD1457'];
             const wheelColors = document.body.classList.contains('light-theme') ? wheelColorsLight : wheelColorsDark;
 
             const numOptions = WHEEL_OPTIONS.length;
