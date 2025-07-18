@@ -274,7 +274,6 @@
             font-weight: normal;
             position: relative; z-index: 1;
         }
-        /* --- THIS IS THE NEWLY ADDED RULE --- */
         body.light-theme .intro-screen h2 {
             color: var(--primary-purple); /* Use the darker pink for better contrast */
         }
@@ -752,74 +751,15 @@
     <div id="fullscreen-btn"></div>
 
     <script>
-        // --- REAL-WORLD CONNECTION (WEATHER) ---
-        function updateWeather() {
-            const apiKey = 'bb0b8c915f6aa455fb9e567ea0438ab'; // Replace with your actual key if needed
-            const cityDelhi = '1273294';
-            const cityKolkata = '1275004';
-
-            if (apiKey) {
-                fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city, delhi', apiKey);
-                fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city, kolkata', apiKey);
-            }
-        }
-
-        function fetchWeatherForCity(cityId, elementId, locationName, apiKey) {
-            const weatherElement = document.getElementById(elementId);
-            if (!weatherElement) return;
-            const url = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${apiKey}&units=metric`;
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.cod === 200) {
-                        const icon = data.weather[0].icon;
-                        const temp = Math.round(data.main.temp);
-                        const desc = data.weather[0].description;
-                        weatherElement.innerHTML = `
-                            <div class="weather-location">${locationName}</div>
-                            <div class="weather-info">
-                                <img src="https://openweathermap.org/img/wn/${icon}.png" alt="${desc}">
-                                <div class="weather-temp">${temp}°C</div>
-                                <div class="weather-desc">${desc}</div>
-                            </div>`;
-                    } else {
-                         weatherElement.innerHTML = `<div class="weather-location">${locationName}</div><div>Error: ${data.message}</div>`;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching weather:', error);
-                    weatherElement.innerHTML = `<div class="weather-location">${locationName}</div><div>Could not load weather</div>`;
-                });
-        }
-        setInterval(updateWeather, 600000); // Update every 10 minutes
-
-        // --- VAULT COUNTDOWN ---
-        const vaultTargetDate = new Date("October 27, 2025 00:00:00").getTime();
-        const countdownInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = vaultTargetDate - now;
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            const countdownEl = document.getElementById("countdownTimer");
-            if (!countdownEl) return;
-
-            if (distance > 0) {
-                countdownEl.innerHTML = `the vault opens in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-            } else {
-                clearInterval(countdownInterval);
-                countdownEl.innerHTML = "the vault is open!";
-                const vaultTab = document.querySelector('.tab[data-tab="vault"]');
-                if(vaultTab) vaultTab.classList.remove('locked');
-            }
-        }, 1000);
-        
         // --- Content Data ---
+        const INTRO_TEXT = {
+            default: "welcome, babygirl.",
+            morning: "good morning, sunshine.",
+            afternoon: "hope you're having a lovely day.",
+            evening: "welcome home, babygirl.",
+            night: "thinking of you...",
+            description: "step inside your private playground. here, you're free to be bold, to tease, to surrender, and to shine. every click, every word, every task is a secret invitation—just for you and me. let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. are you ready to play?"
+        };
         const PENDING_TASKS = [
             "I'll remember that you love me, no matter what I do, for I am your submissive babygirl, your personal princess.",
             "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and you're going to help me every step of the way.",
@@ -998,11 +938,6 @@
                 "I will video call you wearing full-length pants and a vest, and tell you that I am all yours, and that you may command me to do anything you wish for the next fifteen minutes."
             ]
         };
-
-        const INTRO_TEXT = {
-            title: "welcome, babygirl.",
-            description: "step inside your private playground. here, you're free to be bold, to tease, to surrender, and to shine. every click, every word, every task is a secret invitation—just for you and me. let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. are you ready to play?"
-        };
         const appState = {
             currentTab: 'intro',
             driveNavigation: [],
@@ -1047,11 +982,24 @@
             }
         }
 
+        function getWelcomeMessage() {
+            const hour = new Date().getHours();
+            if (hour >= 5 && hour < 12) {
+                return INTRO_TEXT.morning;
+            } else if (hour >= 12 && hour < 18) {
+                return INTRO_TEXT.afternoon;
+            } else if (hour >= 18 && hour < 22) {
+                return INTRO_TEXT.evening;
+            } else {
+                return INTRO_TEXT.night;
+            }
+        }
+
         function showIntroScreen() {
             document.getElementById('contentArea').innerHTML = `
                 <div class="intro-screen">
                     <div class="glowing-orb"></div>
-                    <h2>${INTRO_TEXT.title}</h2>
+                    <h2>${getWelcomeMessage()}</h2>
                     <p>${INTRO_TEXT.description}</p>
                 </div>`;
         }
