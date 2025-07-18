@@ -1,1203 +1,1206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>babygirl.</title>
-    <link rel="icon" type="image/png" href="image.png">
-    <style>
-        /* --- Core & Fonts --- */
-        :root {
-            --bg-dark: #100f13;
-            --bg-content: #19181d;
-            --primary-purple: #9b59b6;
-            --primary-lavender: #d8c4e8;
-            --text-light: #e0e0e0;
-            --text-dark: #100f13;
-            --font-heading: 'Garamond', 'Georgia', serif;
-            --font-body: 'Segoe UI', 'Roboto', sans-serif;
-            --shadow: 0 10px 30px rgba(155, 89, 182, 0.15);
-            --sparkle-color: var(--primary-purple);
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>babygirl.</title>
+    <link rel="icon" type="image/png" href="image.png">
+    <style>
+        /* --- Core & Fonts --- */
+        :root {
+            --bg-dark: #100f13;
+            --bg-content: #19181d;
+            --primary-purple: #9b59b6;
+            --primary-lavender: #d8c4e8;
+            --text-light: #e0e0e0;
+            --text-dark: #100f13;
+            --font-heading: 'Garamond', 'Georgia', serif;
+            --font-body: 'Segoe UI', 'Roboto', sans-serif;
+            --shadow: 0 10px 30px rgba(155, 89, 182, 0.15);
+            --sparkle-color: var(--primary-purple);
+        }
 
-        /* --- Light Theme Variables --- */
-        body.light-theme {
-            --bg-dark: #FADADD; /* Soft Pink Beige */
-            --bg-content: #FFF5F7; /* Very Light Pink */
-            --primary-purple: #D94C78; /* Dark Pink */
-            --primary-lavender: #F48FB1; /* Soft Pink */
-            --text-light: #6D4C41; /* Rich Brown for text */
-            --text-dark: #ffffff; /* White text for buttons */
-            --shadow: 0 10px 30px rgba(217, 76, 120, 0.2);
-            --sparkle-color: var(--primary-lavender);
-        }
+        /* --- Light Theme Variables --- */
+        body.light-theme {
+            --bg-dark: #FADADD; /* Soft Pink Beige */
+            --bg-content: #FFF5F7; /* Very Light Pink */
+            --primary-purple: #D94C78; /* Dark Pink */
+            --primary-lavender: #F48FB1; /* Soft Pink */
+            --text-light: #6D4C41; /* Rich Brown for text */
+            --text-dark: #ffffff; /* White text for buttons */
+            --shadow: 0 10px 30px rgba(217, 76, 120, 0.2);
+            --sparkle-color: var(--primary-lavender);
+        }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html {
+            scroll-behavior: smooth;
+        }
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background: radial-gradient(ellipse at center, var(--bg-content) 0%, var(--bg-dark) 70%);
-            color: var(--text-light);
-            font-family: var(--font-body);
-            line-height: 1.7;
-            margin: 0;
-            -webkit-font-smoothing: antialiased;
-            transition: background 0.5s ease, color 0.5s ease;
-            overflow: hidden; /* Hide scrollbars from sparkle elements */
-            cursor: none; /* Hide the default cursor */
-        }
-        
-        /* --- Sparkly Background for Light Theme --- */
-        @keyframes soft-shimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        body.light-theme {
-            background: linear-gradient(270deg, #FADADD, #FFF5F7, #F5E6CC);
-            background-size: 600% 600%;
-            animation: soft-shimmer 20s ease infinite;
-        }
-        
-        /* --- VISUAL EFFECTS --- */
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--primary-lavender);
-            border-radius: 50%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9999;
-            transition: width 0.2s, height 0.2s;
-        }
-        .sparkle {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background-color: var(--sparkle-color);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            animation: fade-out 1s forwards;
-        }
-        .heart {
-            position: fixed;
-            font-size: 24px;
-            color: var(--sparkle-color);
-            pointer-events: none;
-            z-index: 9999;
-            animation: float-up 1.2s forwards;
-        }
-        @keyframes fade-out {
-            to {
-                transform: scale(0);
-                opacity: 0;
-            }
-        }
-        @keyframes float-up {
-            to {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: radial-gradient(ellipse at center, var(--bg-content) 0%, var(--bg-dark) 70%);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.5s ease, color 0.5s ease;
+            overflow: hidden; /* Hide scrollbars from sparkle elements */
+            cursor: none; /* Hide the default cursor */
+        }
+        
+        /* --- Sparkly Background for Light Theme --- */
+        @keyframes soft-shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        body.light-theme {
+            background: linear-gradient(270deg, #FADADD, #FFF5F7, #F5E6CC);
+            background-size: 600% 600%;
+            animation: soft-shimmer 20s ease infinite;
+        }
+        
+        /* --- VISUAL EFFECTS --- */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-lavender);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: width 0.2s, height 0.2s;
+        }
+        .sparkle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background-color: var(--sparkle-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            animation: fade-out 1s forwards;
+        }
+        .heart {
+            position: fixed;
+            font-size: 24px;
+            color: var(--sparkle-color);
+            pointer-events: none;
+            z-index: 9999;
+            animation: float-up 1.2s forwards;
+        }
+        @keyframes fade-out {
+            to {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+        @keyframes float-up {
+            to {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
 
-        /* --- Top & Bottom Ribbons --- */
-        .title-ribbon, .bottom-ribbon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-content);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 100;
-            transition: background 0.5s ease;
-        }
-        .title-ribbon {
-            height: 70px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            justify-content: space-between;
-            padding: 0 30px;
-        }
-        body.light-theme .title-ribbon {
-            border-bottom-color: rgba(0, 0, 0, 0.08);
-        }
-        .bottom-ribbon {
-            min-height: 80px;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            flex-shrink: 0;
-            padding: 10px 20px;
-        }
-        body.light-theme .bottom-ribbon {
-            border-top-color: rgba(0, 0, 0, 0.08);
-        }
+        /* --- Top & Bottom Ribbons --- */
+        .title-ribbon, .bottom-ribbon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-content);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 100;
+            transition: background 0.5s ease;
+        }
+        .title-ribbon {
+            height: 70px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+        body.light-theme .title-ribbon {
+            border-bottom-color: rgba(0, 0, 0, 0.08);
+        }
+        .bottom-ribbon {
+            min-height: 80px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+            padding: 10px 20px;
+        }
+        body.light-theme .bottom-ribbon {
+            border-top-color: rgba(0, 0, 0, 0.08);
+        }
 
-        .main-title {
-            font-family: var(--font-heading);
-            font-size: 2.2rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            color: var(--text-light);
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            cursor: none;
-            transition: letter-spacing 0.4s ease, color 0.4s ease;
-        }
-        .main-title:hover {
-            letter-spacing: 4px;
-            color: var(--primary-lavender);
-        }
+        .main-title {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            cursor: none;
+            transition: letter-spacing 0.4s ease, color 0.4s ease;
+        }
+        .main-title:hover {
+            letter-spacing: 4px;
+            color: var(--primary-lavender);
+        }
 
-        /* Sparkle effect for title in light mode */
-        @keyframes text-sparkle {
-            0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--primary-lavender), 0 0 20px var(--primary-lavender); }
-            50% { text-shadow: 0 0 10px #fff, 0 0 20px var(--primary-lavender), 0 0 30px var(--primary-lavender); }
-        }
-        body.light-theme .main-title {
-            animation: text-sparkle 3s ease-in-out infinite;
-        }
+        /* Sparkle effect for title in light mode */
+        @keyframes text-sparkle {
+            0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--primary-lavender), 0 0 20px var(--primary-lavender); }
+            50% { text-shadow: 0 0 10px #fff, 0 0 20px var(--primary-lavender), 0 0 30px var(--primary-lavender); }
+        }
+        body.light-theme .main-title {
+            animation: text-sparkle 3s ease-in-out infinite;
+        }
 
-        .countdown-timer {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.1rem;
-            color: var(--primary-lavender);
-            background: rgba(0,0,0,0.05);
-            padding: 5px 15px;
-            border-radius: 5px;
-        }
+        .countdown-timer {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+            color: var(--primary-lavender);
+            background: rgba(0,0,0,0.05);
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
 
-        /* --- Main Layout --- */
-        .main-container {
-            flex: 1 1 auto;
-            display: flex;
-            overflow: hidden;
-        }
+        /* --- Main Layout --- */
+        .main-container {
+            flex: 1 1 auto;
+            display: flex;
+            overflow: hidden;
+        }
 
-        /* --- Sidebar Navigation --- */
-        .sidebar {
-            width: 280px;
-            flex-shrink: 0;
-            background: var(--bg-dark);
-            padding: 20px 0;
-            display: flex;
-            flex-direction: column;
-            border-right: 1px solid rgba(0, 0, 0, 0.05);
-            transition: background 0.5s ease;
-        }
-         body.light-theme .sidebar {
-            border-right-color: rgba(0, 0, 0, 0.08);
-        }
+        /* --- Sidebar Navigation --- */
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            background: var(--bg-dark);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            transition: background 0.5s ease;
+        }
+         body.light-theme .sidebar {
+            border-right-color: rgba(0, 0, 0, 0.08);
+        }
 
-        .tab {
-            padding: 18px 30px;
-            cursor: none;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-            color: var(--text-light);
-            opacity: 0.6;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .tab:not(.locked):hover {
-            background: rgba(0, 0, 0, 0.05);
-            border-left-color: var(--primary-purple);
-            opacity: 1;
-        }
-        .tab.active {
-            background: rgba(0, 0, 0, 0.08);
-            border-left-color: var(--primary-purple);
-            opacity: 1;
-            font-weight: 600;
-        }
-        .tab.locked {
-            color: var(--text-light);
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
+        .tab {
+            padding: 18px 30px;
+            cursor: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            color: var(--text-light);
+            opacity: 0.6;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .tab:not(.locked):hover {
+            background: rgba(0, 0, 0, 0.05);
+            border-left-color: var(--primary-purple);
+            opacity: 1;
+        }
+        .tab.active {
+            background: rgba(0, 0, 0, 0.08);
+            border-left-color: var(--primary-purple);
+            opacity: 1;
+            font-weight: 600;
+        }
+        .tab.locked {
+            color: var(--text-light);
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
 
-        .tab-icon {
-            width: 20px;
-            height: 20px;
-            stroke-width: 1.5;
-            stroke: var(--text-light);
-            opacity: 0.7;
-            fill: none;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-        
-        .tab:hover .tab-icon,
-        .tab.active .tab-icon {
-            stroke: var(--primary-lavender);
-            transform: scale(1.1);
-            opacity: 1;
-        }
+        .tab-icon {
+            width: 20px;
+            height: 20px;
+            stroke-width: 1.5;
+            stroke: var(--text-light);
+            opacity: 0.7;
+            fill: none;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .tab:hover .tab-icon,
+        .tab.active .tab-icon {
+            stroke: var(--primary-lavender);
+            transform: scale(1.1);
+            opacity: 1;
+        }
 
-        .tab-text {
-            font-size: 1rem;
-            font-weight: 500;
-        }
+        .tab-text {
+            font-size: 1rem;
+      _B_P_       font-weight: 500;
+        }
 
-        /* --- Content Area --- */
-        .content-area {
-            flex-grow: 1;
-            padding: 40px;
-            background: var(--bg-content);
-            overflow-y: auto;
-            transition: background 0.5s ease;
-        }
+        /* --- Content Area --- */
+        .content-area {
+            flex-grow: 1;
+            padding: 40px;
+            background: var(--bg-content);
+            overflow-y: auto;
+            transition: background 0.5s ease;
+        }
 
-        .intro-screen {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: calc(100vh - 200px);
-            position: relative;
-            overflow: hidden;
-        }
-        .intro-screen h2 {
-            font-family: var(--font-heading);
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--primary-lavender);
-            font-weight: normal;
-            position: relative; z-index: 1;
-        }
-        .intro-screen p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            opacity: 0.8;
-            position: relative; z-index: 1;
-        }
-        
-        .glowing-orb {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--primary-purple) 0%, rgba(255, 255, 255, 0) 70%);
-            opacity: 0.2;
-            border-radius: 50%;
-            filter: blur(30px);
-            z-index: 0;
-            animation: pulse 8s infinite ease-in-out;
-        }
-        body.light-theme .glowing-orb {
-             opacity: 0.4;
-        }
-
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.6; }
-            50% { transform: scale(1.15); opacity: 0.9; }
-            100% { transform: scale(0.95); opacity: 0.6; }
-        }
-
-        .section-header {
-            font-family: var(--font-heading);
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 40px;
-            color: var(--primary-lavender);
-            font-weight: normal;
-        }
-        
-        /* --- SVG SPIN WHEEL STYLES --- */
-        .wheel-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-        .wheel-wrapper {
-            position: relative;
-            width: 450px;
-            height: 450px;
-        }
-        .wheel-pointer {
-            position: absolute;
-            top: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 20px solid var(--primary-lavender);
-            z-index: 10;
-        }
-        #wheel-svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
-            border-radius: 50%;
-        }
-        #wheel-group {
-            transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .wheel-text {
-            font-family: var(--font-body);
-            font-size: 12px;
-            font-weight: 600;
-            fill: var(--text-dark);
-            letter-spacing: 0.5px;
-        }
-        body.light-theme .wheel-text {
-            fill: var(--text-light);
-        }
+        .intro-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: calc(100vh - 200px);
+            position: relative;
+            overflow: hidden;
+        }
+        .intro-screen h2 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-lavender);
+            font-weight: normal;
+            position: relative; z-index: 1;
+        }
+        .intro-screen p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            opacity: 0.8;
+            position: relative; z-index: 1;
+        }
+        
+        .glowing-orb {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--primary-purple) 0%, rgba(255, 255, 255, 0) 70%);
+            opacity: 0.2;
+            border-radius: 50%;
+            filter: blur(30px);
+            z-index: 0;
+            animation: pulse 8s infinite ease-in-out;
+        }
+        body.light-theme .glowing-orb {
+             opacity: 0.4;
+        }
 
 
-        .spin-button {
-            background: var(--primary-purple);
-            border: none;
-            color: var(--text-dark);
-            padding: 15px 40px;
-            border-radius: 30px;
-            cursor: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .spin-button:hover:not(:disabled) {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: var(--shadow);
-            background: var(--primary-lavender);
-        }
-        .spin-button:disabled {
-            background-color: #555;
-            cursor: not-allowed;
-            color: #999;
-        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.6; }
+            50% { transform: scale(1.15); opacity: 0.9; }
+            100% { transform: scale(0.95); opacity: 0.6; }
+        }
 
-        /* --- Vault Content Styles --- */
-        .vault-header {
-            font-family: var(--font-heading);
-            font-size: 3.5rem;
-            text-align: center;
-            color: var(--primary-lavender);
-            margin-bottom: 30px;
-            animation: fadeIn 1.5s ease;
-        }
-        .vault-letter {
-            max-width: 800px;
-            margin: 0 auto 40px auto;
-            background: rgba(0,0,0,0.1);
-            padding: 30px;
-            border-left: 3px solid var(--primary-purple);
-            animation: fadeIn 2s ease;
-        }
-        .vault-letter p {
-            font-family: var(--font-body);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5em;
-            opacity: 0.9;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-
-        /* --- Reusable Cards & Options --- */
-        .task-card, .mind-option, .drive-option, .growth-option, .play-option {
-            background: transparent;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 25px;
-            margin: 15px 0;
-            cursor: none;
-            transition: all 0.3s ease;
-            text-align: left;
-        }
-        .task-card:hover, .mind-option:hover, .drive-option:hover, .growth-option:hover, .play-option:hover {
-            transform: translateY(-5px);
-            background: rgba(0, 0, 0, 0.05);
-            border-color: var(--primary-purple);
-            box-shadow: var(--shadow);
-        }
-        .play-sub-option {
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 8px;
-            padding: 15px 20px;
-            font-size: 0.95rem;
-            cursor: none;
-            transition: all 0.2s ease;
-            margin: 10px 0;
-            text-align: left;
-        }
-        .play-sub-option:hover {
-            background: var(--primary-purple);
-            color: var(--text-dark);
-            transform: scale(1.02);
-        }
-
-        /* --- Breadcrumbs --- */
-        .drive-breadcrumb, .growth-breadcrumb, .play-breadcrumb {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .breadcrumb-item {
-            background: rgba(0, 0, 0, 0.05);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            cursor: none;
-            transition: all 0.3s ease;
-        }
-        .breadcrumb-item:hover {
-            background: var(--primary-purple);
-            color: var(--text-dark);
-        }
-        .breadcrumb-separator {
-            color: var(--text-light);
-            opacity: 0.4;
-        }
-
-        /* --- Footer --- */
-        .weather-display-container {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            align-items: center;
-        }
-        .weather-display {
-            text-align: center;
-        }
-        .weather-location {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-        .weather-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .weather-temp {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary-lavender);
-        }
-        .weather-desc {
-            font-size: 0.9rem;
-            text-transform: capitalize;
-        }
-
-        /* --- Floating Output Popup --- */
-        .floating-output {
-            position: fixed;
-            bottom: 95px;
-            right: 20px;
-            background: var(--bg-dark);
-            color: var(--text-light);
-            padding: 18px 25px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            max-width: 350px;
-            transform: translateY(20px) scale(0.95);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            font-size: 0.95rem;
-        }
-        .floating-output.show {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-        }
-
-        /* --- THEME TOGGLE --- */
-        .sidebar-footer {
-            margin-top: auto;
-            padding: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .theme-toggle {
-            cursor: none;
-        }
-        .theme-toggle .tab-icon {
-            stroke: var(--primary-purple);
-            opacity: 0.8;
-        }
-        .theme-toggle:hover .tab-icon {
-             opacity: 1;
-             transform: scale(1.1) rotate(15deg);
-        }
+        .section-header {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-lavender);
+            font-weight: normal;
+        }
+        
+        /* --- SVG SPIN WHEEL STYLES --- */
+        .wheel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .wheel-wrapper {
+            position: relative;
+            width: 450px;
+            height: 450px;
+        }
+        .wheel-pointer {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 20px solid var(--primary-lavender);
+            z-index: 10;
+        }
+        #wheel-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
+            border-radius: 50%;
+        }
+        #wheel-group {
+            transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .wheel-text {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            fill: var(--text-dark);
+            letter-spacing: 0.5px;
+        }
+        body.light-theme .wheel-text {
+            fill: var(--text-light);
+        }
 
 
-        /* --- Mobile Responsiveness --- */
-        @media (max-width: 900px) {
-            .title-ribbon {
-                padding: 0 15px;
-                flex-direction: column;
-                height: auto;
-                padding: 10px;
-                gap: 5px;
-            }
-            .countdown-timer {
-                font-size: 0.9rem;
-                width: 100%;
-                text-align: center;
-            }
-            .main-container {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                flex-direction: row;
-                overflow-x: auto;
-                padding: 5px 0;
-                border-right: none;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
-            body.light-theme .sidebar {
-                border-bottom-color: rgba(0, 0, 0, 0.08);
-            }
-            .sidebar::-webkit-scrollbar {
-                display: none;
-            }
-            .tab {
-                flex: 0 0 auto;
-                min-width: 150px;
-                justify-content: center;
-                padding: 15px 20px;
-                border-left: none;
-                border-bottom: 4px solid transparent;
-            }
-            .tab:not(.locked):hover, .tab.active {
-                border-left-color: transparent;
-                border-bottom-color: var(--primary-purple);
-            }
-            .sidebar-footer {
-                margin-top: 0;
-                padding: 0 20px;
-            }
-            .content-area {
-                padding: 25px;
-            }
-            .bottom-ribbon {
-                height: auto;
-                padding-bottom: 20px;
-            }
-            .intro-screen h2, .section-header, .vault-header {
-                font-size: 2rem;
-            }
-            .main-title {
-                font-size: 1.8rem;
-            }
-            .floating-output {
-                width: calc(100% - 40px);
-                right: 20px;
-                bottom: 90px;
-            }
-            .wheel-wrapper {
-                width: 320px;
-                height: 320px;
-            }
-            .wheel-text {
-                font-size: 10px;
-            }
-            .weather-display-container {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-    </style>
+        .spin-button {
+            background: var(--primary-purple);
+            border: none;
+            color: var(--text-dark);
+            padding: 15px 40px;
+            border-radius: 30px;
+            cursor: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .spin-button:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow);
+            background: var(--primary-lavender);
+        }
+        .spin-button:disabled {
+            background-color: #555;
+      _B_P_       cursor: not-allowed;
+            color: #999;
+        }
+
+        /* --- Vault Content Styles --- */
+        .vault-header {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            text-align: center;
+            color: var(--primary-lavender);
+            margin-bottom: 30px;
+            animation: fadeIn 1.5s ease;
+        }
+        .vault-letter {
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            background: rgba(0,0,0,0.1);
+            padding: 30px;
+            border-left: 3px solid var(--primary-purple);
+            animation: fadeIn 2s ease;
+        }
+        .vault-letter p {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5em;
+            opacity: 0.9;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* --- Reusable Cards & Options --- */
+        .task-card, .mind-option, .drive-option, .growth-option, .play-option {
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 15px 0;
+            cursor: none;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+        .task-card:hover, .mind-option:hover, .drive-option:hover, .growth-option:hover, .play-option:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-purple);
+            box-shadow: var(--shadow);
+        }
+        .play-sub-option {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-size: 0.95rem;
+            cursor: none;
+            transition: all 0.2s ease;
+            margin: 10px 0;
+            text-align: left;
+        }
+        .play-sub-option:hover {
+            background: var(--primary-purple);
+            color: var(--text-dark);
+            transform: scale(1.02);
+        }
+
+        /* --- Breadcrumbs --- */
+        .drive-breadcrumb, .growth-breadcrumb, .play-breadcrumb {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .breadcrumb-item {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: none;
+            transition: all 0.3s ease;
+        }
+        .breadcrumb-item:hover {
+            background: var(--primary-purple);
+            color: var(--text-dark);
+        }
+        .breadcrumb-separator {
+            color: var(--text-light);
+            opacity: 0.4;
+        }
+
+        /* --- Footer --- */
+        .weather-display-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            align-items: center;
+        }
+        .weather-display {
+            text-align: center;
+        }
+        .weather-location {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        .weather-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .weather-temp {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-lavender);
+        }
+        .weather-desc {
+            font-size: 0.9rem;
+            text-transform: capitalize;
+        }
+
+        /* --- Floating Output Popup --- */
+        .floating-output {
+            position: fixed;
+            bottom: 95px;
+            right: 20px;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 18px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            max-width: 350px;
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            font-size: 0.95rem;
+        }
+        .floating-output.show {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        /* --- THEME TOGGLE --- */
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .theme-toggle {
+            cursor: none;
+        }
+        .theme-toggle .tab-icon {
+            stroke: var(--primary-purple);
+            opacity: 0.8;
+        }
+        .theme-toggle:hover .tab-icon {
+             opacity: 1;
+             transform: scale(1.1) rotate(15deg);
+        }
+
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 900px) {
+            .title-ribbon {
+                padding: 0 15px;
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+                gap: 5px;
+            }
+            .countdown-timer {
+                font-size: 0.9rem;
+                width: 100%;
+                text-align: center;
+            }
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 5px 0;
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            body.light-theme .sidebar {
+                border-bottom-color: rgba(0, 0, 0, 0.08);
+            }
+            .sidebar::-webkit-scrollbar {
+                display: none;
+            }
+            .tab {
+                flex: 0 0 auto;
+                min-width: 150px;
+                justify-content: center;
+                padding: 15px 20px;
+                border-left: none;
+                border-bottom: 4px solid transparent;
+            }
+            .tab:not(.locked):hover, .tab.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--primary-purple);
+            }
+            .sidebar-footer {
+                margin-top: 0;
+                padding: 0 20px;
+            }
+            .content-area {
+                padding: 25px;
+            }
+            .bottom-ribbon {
+                height: auto;
+                padding-bottom: 20px;
+            }
+            .intro-screen h2, .section-header, .vault-header {
+                font-size: 2rem;
+            }
+            .main-title {
+                font-size: 1.8rem;
+            }
+            .floating-output {
+                width: calc(100% - 40px);
+                right: 20px;
+                bottom: 90px;
+            }
+            .wheel-wrapper {
+                width: 320px;
+                height: 320px;
+            }
+            .wheel-text {
+                font-size: 10px;
+            }
+            .weather-display-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header class="title-ribbon">
-        <h1 class="main-title" id="homeButton">my babygirl.</h1>
-        <div id="countdownTimer" class="countdown-timer"></div>
-    </header>
-    <div class="main-container">
-        <nav class="sidebar">
-            <div class="tab" data-tab="pending">
-                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                <span class="tab-text">daily affirmations</span>
-            </div>
-            <div class="tab" data-tab="mind">
-                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                <span class="tab-text">mostly interactive stuff.</span>
-            </div>
-            <div class="tab" data-tab="luck">
-                <svg class="tab-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                <span class="tab-text">my lady luck</span>
-            </div>
-            <div class="tab" data-tab="playlist">
-                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-                <span class="tab-text">slow dance</span>
-            </div>
-            <div class="tab" data-tab="play">
-                <svg class="tab-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                <span class="tab-text">games?</span>
-            </div>
-            <div class="tab" data-tab="drive">
-                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                <span class="tab-text">mango milkshakes.</span>
-            </div>
-            <div class="tab" data-tab="growth">
-                <svg class="tab-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span class="tab-text">test your limits</span>
-            </div>
-            <div class="tab locked" data-tab="vault">
-                <svg class="tab-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span class="tab-text">the vault</span>
-            </div>
-            <div class="sidebar-footer">
-                <div class="theme-toggle" id="themeToggle">
-                    <svg class="tab-icon" viewBox="0 0 24 24" id="themeIcon">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                </div>
-            </div>
-        </nav>
-        <main class="content-area" id="contentArea">
-            </main>
-    </div>
-    <footer class="bottom-ribbon">
-        <div class="weather-display-container">
-            <div class="weather-display" id="weather-delhi"></div>
-            <div class="weather-display" id="weather-kolkata"></div>
-        </div>
-    </footer>
-    <div class="floating-output" id="floatingOutput"></div>
+    <header class="title-ribbon">
+        <h1 class="main-title" id="homeButton">my babygirl.</h1>
+        <div id="countdownTimer" class="countdown-timer"></div>
+    </header>
+    <div class="main-container">
+        <nav class="sidebar">
+            <div class="tab" data-tab="pending">
+                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <span class="tab-text">daily affirmations</span>
+            </div>
+            <div class="tab" data-tab="mind">
+                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                <span class="tab-text">mostly interactive stuff.</span>
+            </div>
+            <div class="tab" data-tab="luck">
+                <svg class="tab-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <span class="tab-text">my lady luck</span>
+            </div>
+            <div class="tab" data-tab="playlist">
+                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                <span class="tab-text">slow dance</span>
+            </div>
+            <div class="tab" data-tab="play">
+                <svg class="tab-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span class="tab-text">games?</span>
+            </div>
+            <div class="tab" data-tab="drive">
+                <svg class="tab-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <span class="tab-text">mango milkshakes.</span>
+            </div>
+            <div class="tab" data-tab="growth">
+                <svg class="tab-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span class="tab-text">test your limits</span>
+            </div>
+            <div class="tab locked" data-tab="vault">
+                <svg class="tab-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span class="tab-text">the vault</span>
+            </div>
+            <div class="sidebar-footer">
+                <div class="theme-toggle" id="themeToggle">
+                    <svg class="tab-icon" viewBox="0 0 24 24" id="themeIcon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+            </div>
+        </nav>
+        <main class="content-area" id="contentArea">
+            </main>
+    </div>
+    <footer class="bottom-ribbon">
+        <div class="weather-display-container">
+            <div class="weather-display" id="weather-delhi"></div>
+            <div class="weather-display" id="weather-kolkata"></div>
+        </div>
+    </footer>
+    <div class="floating-output" id="floatingOutput"></div>
 
-    <script>
-        // --- REAL-WORLD CONNECTION (WEATHER) ---
-        function updateWeather() {
-            // NOTE: This is a public, shared key for demonstration. 
-            // For a real application, it's best to sign up for your own free key at OpenWeatherMap.
-            const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab'; 
-            const cityDelhi = '1273294';
-            const cityKolkata = '1275004';
-            if (apiKey) { // This check is now corrected
-                fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city, delhi', apiKey);
-                fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city, kolkata', apiKey);
-            }
-        }
+    <script>
+        // --- REAL-WORLD CONNECTION (WEATHER) ---
+        function updateWeather() {
+            // --- ⚠️ ACTION REQUIRED ⚠️ ---
+            // To make the weather widget work, replace the placeholder text below
+            // with your own free API key from openweathermap.org
+            const apiKey = 'bb0b89c915f6aa455fb9e567ea0438ab';
+            const cityDelhi = '1273294';
+            const cityKolkata = '1275004';
+            if (apiKey && apiKey !== 'bb0b89c915f6aa455fb9e567ea0438ab') {
+                fetchWeatherForCity(cityDelhi, 'weather-delhi', 'this is what it is like in my city, delhi', apiKey);
+                fetchWeatherForCity(cityKolkata, 'weather-kolkata', 'this is what it is like in your city, kolkata', apiKey);
+            } else {
+                document.getElementById('weather-delhi').innerHTML = `<div class="weather-location">Weather widget requires setup</div>`;
+            }
+        }
 
-        function fetchWeatherForCity(cityId, elementId, locationName, apiKey) {
-            const weatherElement = document.getElementById(elementId);
-            if (!weatherElement) return;
-            const url = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${apiKey}&units=metric`;
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.cod === 200) {
-                        const icon = data.weather[0].icon;
-                        const temp = Math.round(data.main.temp);
-                        const desc = data.weather[0].description;
-                        weatherElement.innerHTML = `
-                            <div class="weather-location">${locationName}</div>
-                            <div class="weather-info">
-                                <img src="https://openweathermap.org/img/wn/${icon}.png" alt="${desc}">
-                                <div class="weather-temp">${temp}°C</div>
-                                <div class="weather-desc">${desc}</div>
-                            </div>`;
-                    } else {
-                         weatherElement.innerHTML = `<div class="weather-location">${locationName}</div><div>Error: ${data.message}</div>`;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching weather:', error);
-                    weatherElement.innerHTML = `<div class="weather-location">${locationName}</div><div>Could not load weather</div>`;
-                });
-        }
-        setInterval(updateWeather, 600000); // Update every 10 minutes
+        function fetchWeatherForCity(cityId, elementId, locationName, apiKey) {
+            const weatherElement = document.getElementById(elementId);
+            if (!weatherElement) return;
+            const url = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${apiKey}&units=metric`;
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.cod === 200) {
+                        const icon = data.weather[0].icon;
+                        const temp = Math.round(data.main.temp);
+                        const desc = data.weather[0].description;
+                        weatherElement.innerHTML = `
+                            <div class="weather-location">${locationName}</div>
+                            <div class="weather-info">
+                                <img src="https://openweathermap.org/img/wn/${icon}.png" alt="${desc}">
+                                <div class="weather-temp">${temp}°C</div>
+                                <div class="weather-desc">${desc}</div>
+                            </div>`;
+                    } else {
+                         weatherElement.innerHTML = `<div class="weather-location">${locationName}</div><div>Error: ${data.message}</div>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching weather:', error);
+                    weatherElement.innerHTML = `<div class="weather-location">${locationName}</div><div>Could not load weather</div>`;
+                });
+        }
+        setInterval(updateWeather, 600000); // Update every 10 minutes
 
-        // --- VAULT COUNTDOWN ---
-        const vaultTargetDate = new Date("October 27, 2025 00:00:00").getTime();
-        const countdownInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = vaultTargetDate - now;
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            const countdownEl = document.getElementById("countdownTimer");
-            if (!countdownEl) return;
+        // --- VAULT COUNTDOWN ---
+        const vaultTargetDate = new Date("October 27, 2025 00:00:00").getTime();
+        const countdownInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = vaultTargetDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            const countdownEl = document.getElementById("countdownTimer");
+            if (!countdownEl) return;
 
-            if (distance > 0) {
-                countdownEl.innerHTML = `the vault opens in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-            } else {
-                clearInterval(countdownInterval);
-                countdownEl.innerHTML = "the vault is open!";
-                const vaultTab = document.querySelector('.tab[data-tab="vault"]');
-                if(vaultTab) vaultTab.classList.remove('locked');
-            }
-        }, 1000);
-        
-        // --- Content Data ---
-        const PENDING_TASKS = [ "I'll remember that you love me, no matter what I do, for I am your submissive babygirl, your personal princess.", "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and you're going to help me every step of the way.", "I am going to try to keep up with my weekly passive task.", "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay." ];
-        const MIND_OPTIONS = [ "I think I can work in an interview today. 😋", "Maybe I can take you along for a trip to the shower? 🚿", "I'd love a little one-on-one video call, maybe. 💞", "Can you just teach me how to dirty-talk well with you? 😙" ];
-        const WHEEL_OPTIONS = [ "10-sec video of my smile", "I'll get you to write me something spicy", "Nude silhouette picture of me, against a light", "A photo of me wearing pink, in any form", "I'll choose a mango milkshake from the website", "I'll write your name on my wrist", "I will describe my outfit in detail", "I will ask you for a mango milkshake" ];
-        const DRIVE_OPTIONS = {
-            level1: [ "Passive Tasks?🟢🟠🔴", "A sexy video?🟠🔴", "A hot picture?🔴" ],
-            level2: { "Passive Tasks?🟢🟠🔴": [ "Clothing-related🟠🔴", "Mind-related🟢", "Other Passive Tasks🟠" ], "A sexy video?🟠🔴": [ "Starting Clothed🟠", "Starting Nude🔴", "Special Submission🔴" ], "A hot picture?🔴": [ "Object-interaction🔴", "Accessories🔴", "Special Submissive🔴" ] },
-            level3: { "Clothing-related🟠🔴": [ "I will ensure that we get to strip down together at least once this week, once you come back from work in the evening, on video call.", "I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free, and you wish to check in.", "For any two consecutive days of the week, I am going to be sending you videos of me changing any garment: whether it's wearing socks, putting on a towel, taking off a bra, or any other garment added to or subtracted from my body.", "I am going to be showing off my wet, hot self to you three days this week by toweling down after my shower for you on camera live, or in a video. I shall end the video by either wrapping myself in said towel, or entirely nude for your delight.", "I am going to get you to buy me hot lingerie, and wear it on a video call for you two days this week." ], "Mind-related🟢": [ "I am going to make it a point to not say anything negative about me for the next 24 hours.", "I know I look hot with my hair down. I will send you at least three separate videos throughout the week showing you that I am studying with my hair down.", "Every night this week before going to bed, I am going to tell you what I like most about myself, and I would love it if you praised me for it too.", "Every night before going to bed, I am going to call you up and ask you to baby me. And then, you're going to baby me!" ], "Other Passive Tasks🟠": [ "I'll voluntarily learn how to truly talk like a submissive with you at least once every day this week.", "I'll send you a voice note affirming my submission to you, every night of this week, along with my good night text.", "I'll write anything, anywhere, on my body to confirm my willingness to obey you, and show you suitable proof of it, thrice this week.", "I am going to stay shaved throughout this week: absolutely hairless from below my neck. Any active tasks during this week will happily bear proof of the same. :)", "Three days this week, I am going to keep my hair down, and the other four days, I am going to keep it tied up in a high ponytail. I will send you pictures throughout the week affirming that I have, in fact, kept up with your instructions." ], "Starting Clothed🟠": [ "I will start out standing, wearing only a vest and panties, and then lower my panties to my thighs to present my pussy to you, all the while smiling at you.", "I will start out standing, wearing only a vest and panties, and then lower my vest to my stomach to present my breasts to you, all the while smiling at you.", "I'll begin wearing a towel covering my breasts and pussy and my hair tied up: I will first lower the towel to release my breasts, smile at you, and then let my hair down.", "Let me start out wearing my black vest and my dark panties. I'll turn around, take the vest off and lower my panties to my thighs; and then I'll turn back around to face you, bashful and pretty as I always am in these videos.", "I will wear nothing but a tshirt. In the video, I will be kneeling with my knees drawn close together initially, and then I will stretch out my arms up above my head, while also widening the gap between my legs. My arms come to rest behind me in my natural submissive pose." ], "Starting Nude🔴": [ "Please let me be naked on video for you, standing upright and saying how much I love being your good girl, and then turning around to present my ass to you.", "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in front of you. I'll stand back up and then give you a little twirl so you can appreciate every inch of me.", "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each.", "Starting off nude and kneeling up, I'll place my hands behind my head and jut my beautiful tits out for you. Then, I am going to kneel down and sit on my heels, and slowly widen my thighs for you to have a visual taste of what I have waiting for you. ", "I will send you a video of me soaping myself in the shower/bathroom. The camera will be roughly at stomach height, and I will give you full view to whatever part of my body I am soaping, front or back." ], "Special Submission🔴": [ "I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.", "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission.", "I'll get fully naked for you, and then start the video with my hands behind me and hair down, spectacles on. I'll then affirm my submission to you by saying as much, and assure you of my obedience to do anything you say.", "I am going to position the camera in a way that I can be in the frame lying nude on my back on any surface: floor, or bed. I have leeway to do what I wish with the rest of my body to look like my hottest self for you, but my hands rest on my eyes, shutting them out, and my lips form a naughty grin.", "I wear nothing but my bra, with the straps lowered to my sides. I start out standing in front of the camera, turning around to unclasp the bra slowly, then coming to a full turn facing the camera again, hands behind me, still clasping the bra." ], "Object-interaction🔴": [ "I'll strip down completely, and take a pic of me sitting in a chair and smiling in a mirror selfie, hair down, with an arm loosely held behind me and draped over the back of the chair, my legs wide apart for you to savour what's in between.", "Since you love teaching me, maybe I can take a mirror selfie with a book held up to my face, my hair down, wearing nothing but panties, and every other inch of me on display for you", "I'll take a photo of me lying nude on the bed, the camera placed just above my breasts and pointing at my feet. I am going to give you a a clear view of how your baby looks naked, from right between my boobs, all the way down to my pussy and legs.", "This is a special kneeling picture for you: I shall kneel naked, but wrapped in a bedsheet. The bedsheet curls around my arms and leaves enough of my breasts bare, but nothing below the stomach, with a slight glimpse of my delicious legs anywhere I wish.", "I would like to give you a simple nude of me with my bra in my mouth, me leaning forward and resting on my hands and knees, everything else on full display for you." ], "Accessories🔴": [ "I'd love to send you an upper-half profile topless picture of me without my glasses, hair tied up tight, wearing eyeliner and basic makeup. I love being pretty for you!", "I think I'll put on the longest socks I can find, along with any cap I may have, and wear nothing else as I send you a mirror selfie, the phone just covering my face, the other hand behind me. If I cannot find the cap, you may have to make do with just the rest.", "I'll put on any earrings I can find, turn my head slightly to show them to you, while clicking a mirror selfie wearing nothing but my panties, pulled down to my thighs, legs close together and one foot slightly in front of the other.", "I'll go out and buy stickers: the small, cutesy ones available at most stationery shops. Then, I am going to send you a nude front profile, standing upright and hands clasped behind me, with my breasts covered in at least ten stickers, but my pussy untouched and uncovered.", "My hands will be RIGHT in front of the camera, obscuring everything else from view, as I put a wristwatch on. Once I am done, I withdraw my hands, revealing my nude form, standing prettily in front of the camera and on wonderful display for you." ], "Special Submissive🔴": [ "I remember how much you liked it on that one video call where I got naked for you, turned around with my palms on the wall in front of me above my head, my ass thrust you nicely for you. I'll send you two pictures of me in this pose: one with my legs wide apart, and one with them close together.", "I'll ask you to send me one of the pictures I have sent you before. I'll replicate it, but with a blindfold on for you.", "This will be a couple of side-profile fully shaved, full nudes for you. I shall place the camera to my left, prop my head up on an arm, and stretch the full length of my legs out for you to savour every inch of me, as I turn to face you. The second nude will be in the same position but turning the other way, for you to have a look at my ass.", "I shall stay nude on a video call with you whenever I am free, and refer to you only as 'sir' throughout the call. If I fail to uphold my sincerity in the call, you're free to ask me to do anything you wish right there on the call.", "I'll wear nothing  but jeans and a vest, but drag the jeans down to my thighs. The vest will be rolled up to above my breasts. I will take one front profile picture, and one rear profile pciture, perfectly displaying my curves to you as they will be offered when you slide down my heans and lift my vest yourself." ] }
-        };
-        const PLAY_OPTIONS = {
-            "Mind-games🟢🟠": [ "I want to play Anything Can Be Used to Pick You Up with you. ", "Please schedule a game of Chess with me sometime today. ", "Play Seven Questions with me to decide how you wish to look at my body today. ", "Can I ask you to please turn me on, entirely on text? I love it when you play with me on text!" ],
-            "Remote Games 🟢🟠": [ "I will ask ChatGPT, 'What can I do to please my long-distance dominant boyfriend?', take a screenshot of the results to show them to you, and do the top two things suggested. ", "I will take time out to play Adult Truth or Dare with you on any app you choose. ", "Can we play some other online 1v1 game today?", "I will carry out some research to find the best free or cheap adult games on Google Play Store, and then get you to play it with me." ],
-            "Games for a good Submissive 🔴": [ "The moment I am free to get naked for you, I will ask you directly for a command, and immediately do as you say. ", "I shall try to tease you while you are at work tomorrow by resorting to texts, photos, videos, or voice messages. ", "I would like to try and play a game of endurance with you on video call, and take up the challenge to do what you say, for as long as you say. ", "I'll get naked, put a blindfold on, and video call you, while assuming my standard kneeling-hands-behind position. I trust that you'll take the video call in surroundings which do not expose me. On the call, I am all yours to play with, of course." ]
-        };
-        const GROWTH_OPTIONS = structuredClone(DRIVE_OPTIONS);
-        GROWTH_OPTIONS.level1 = [ "Self-Care🟢", "Life-related🟢🟠", "Submission🟠🔴" ];
-        GROWTH_OPTIONS.level2 = { "Self-Care🟢": [ "Physical Health🟢", "Emotional Health🟢", "Mental Health🟢" ], "Life-related🟢🟠": [ "Studies🟢", "Skills🟢🟠", "Capabilities🟢🟠" ], "Submission🟠🔴": [ "Physical Display🔴", "Gratitude Expression🟠🔴", "Mental Conditioning🟠" ] };
-        GROWTH_OPTIONS.level3 = { "Physical Health🟢": [ "I am going to send you four videos of me drinking a full glass of water today.", "Let's work on my body from today. I am going to ask you about how to to ease into general exercise.", "I think I will work on toning my abdominal region. I'll put you on a vc and do 2x10 ab crunches today!", "A 30-seconds plank, for you, on video call today." ], "Emotional Health🟢": [ "I am going to find one activity we can do everyday for a week. This may be a video call, sending some picture or video regularly, playing something together everyday, or anything else at all. I can choose whether it's sexual or non-sexual in nature.", "I will call you up and ask you to tell me about any three things you love about my body or my being.", "I am going to show you some part of my body on a video call, in a video, or in a picture, and you will have to baby me about it for two minutes straight.", "Can I ask you to write me a fantasy scenario of us in any setting?" ], "Mental Health🟢": [ "I shall call you up and compliment you on something that you did which made me happy, and tell you why it made me happy.", "I shall call you up and compliment myself on something that I did in the recent past that I am really proud of for having done.", "As soon as I wake up tomorrow morning, I will call you, and tell you, 'I am confident that this is going to be a good day for me. I love you.'", "Before going to bed today, I'll call you up and wish you a good night, and remember to collect an ILY from you." ], "Studies🟢": [ "I am going to keep up with my Finance Course from IISER Pune. This is a recurring task till you decide that I need not study it any more.", "I will explain the causes, effects, and results of the Great Recession to you on a phone call.", "I will explain the causes, effects, and results of the late-2000s Indian inflation scenario to you on a phone call.", "I shall keep revising regression analysis, statistical inference and testing of hypotheses, and distributions. This is a recurring task till you decide that I need not study it any more." ], "Skills🟢🟠": [ "I will write you a 500-word essay on an introduction of myself.", "I am going to schedule an interview with you, either one where I remain clothed throughout, or one where I start out clothed and keep losing garments for every mistake I make.", "After suitably consulting me, I shall enroll myself in a MicroMasters course or its equivalent." ], "Capabilities🟢🟠": [ "I will be doing a hundred jumping jacks for better breathing and lung capacity, while keeping you on video call. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked.", "I am going to write a 500-word essay on how I picture a day in my life at college during Masters, by hand in a copy, and send you a PDF of it.", "I'll perform 10 time-controlled squats with you on video call. Please do the controlling of the time for me. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked." ], "Physical Display🔴": [ "I will duly present myself to you in the most natural of my poses: fully nude, kneeling with my hair down, spectacles off, eyes lowered and hands clasped behind me. I am allowed to choose to do as much in a photo, video, or on a video call.", "I will duly present myself to you with my bra in my mouth, wearing nothing at all, feet close together and hands behind me, hair down. I shall be standing upright and fully on display for you.", "I will duly present my ass to you by perfectly displaying my curves, in a photo, video, or on a video call.", "I will learn three new submissive positions from you on a video call.", "I will send you a video of using veet on my arms/legs, but I am fully naked for you." ], "Gratitude Expression🟠🔴": [ "I'll be sending you a voice message clearly expressing my gratitude at being your submissive. ", "I shall text you once today saying, 'Sir, I just wanted to remind you that I am all yours,' but not in these exact same words.", "I will use 'sir' with you throughout today, including in at least one video where I am just as clothed or naked as you want me to be.", "I'll video call you today, strip naked, and thank you for any non-sexual thing I feel I need to express my gratitude for.", "I will ask you what you think of me, my being and my body, and thank you suitably when you compliment be redoubtably." ], "Mental Conditioning🟠": [ "I'll happily get topless, write 'I am Arka's favourite plaything' on my stomach, and send you a video of me writing it.", "I can call you up some time today, and ask you for instructions for a task, and remember to thank you appropriately.", "I will type up a 200-word essay on why I think I should obey you every step of my being, every day in my life, and send it to you.", "I am going to video call you naked, and read out the daily affirmations from the website on camera.", "I will video call you wearing full-length pants and a vest, and tell you that I am all yours, and that you may command me to do anything you wish for the next fifteen minutes." ] };
+            if (distance > 0) {
+                countdownEl.innerHTML = `the vault opens in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                clearInterval(countdownInterval);
+                countdownEl.innerHTML = "the vault is open!";
+                const vaultTab = document.querySelector('.tab[data-tab="vault"]');
+                if(vaultTab) vaultTab.classList.remove('locked');
+            }
+        }, 1000);
+        
+        // --- Content Data ---
+        const PENDING_TASKS = [ "I'll remember that you love me, no matter what I do, for I am your submissive babygirl, your personal princess.", "I'll remember that I am going to keep trying to be the best version of me, no matter what happens, and you're going to help me every step of the way.", "I am going to try to keep up with my weekly passive task.", "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay." ];
+        const MIND_OPTIONS = [ "I think I can work in an interview today. 😋", "Maybe I can take you along for a trip to the shower? 🚿", "I'd love a little one-on-one video call, maybe. 💞", "Can you just teach me how to dirty-talk well with you? 😙" ];
+        const WHEEL_OPTIONS = [ "10-sec video of my smile", "I'll get you to write me something spicy", "Nude silhouette picture of me, against a light", "A photo of me wearing pink, in any form", "I'll choose a mango milkshake from the website", "I'll write your name on my wrist", "I will describe my outfit in detail", "I will ask you for a mango milkshake" ];
+        const DRIVE_OPTIONS = {
+            level1: [ "Passive Tasks?🟢🟠🔴", "A sexy video?🟠🔴", "A hot picture?🔴" ],
+            level2: { "Passive Tasks?🟢🟠🔴": [ "Clothing-related🟠🔴", "Mind-related🟢", "Other Passive Tasks🟠" ], "A sexy video?🟠🔴": [ "Starting Clothed🟠", "Starting Nude🔴", "Special Submission🔴" ], "A hot picture?🔴": [ "Object-interaction🔴", "Accessories🔴", "Special Submissive🔴" ] },
+            level3: { "Clothing-related🟠🔴": [ "I will ensure that we get to strip down together at least once this week, once you come back from work in the evening, on video call.", "I know I look hot in my pink and nude bras. I'll wear only these for the next two days: you can check in any time I am free, and you wish to check in.", "For any two consecutive days of the week, I am going to be sending you videos of me changing any garment: whether it's wearing socks, putting on a towel, taking off a bra, or any other garment added to or subtracted from my body.", "I am going to be showing off my wet, hot self to you three days this week by toweling down after my shower for you on camera live, or in a video. I shall end the video by either wrapping myself in said towel, or entirely nude for your delight.", "I am going to get you to buy me hot lingerie, and wear it on a video call for you two days this week." ], "Mind-related🟢": [ "I am going to make it a point to not say anything negative about me for the next 24 hours.", "I know I look hot with my hair down. I will send you at least three separate videos throughout the week showing you that I am studying with my hair down.", "Every night this week before going to bed, I am going to tell you what I like most about myself, and I would love it if you praised me for it too.", "Every night before going to bed, I am going to call you up and ask you to baby me. And then, you're going to baby me!" ], "Other Passive Tasks🟠": [ "I'll voluntarily learn how to truly talk like a submissive with you at least once every day this week.", "I'll send you a voice note affirming my submission to you, every night of this week, along with my good night text.", "I'll write anything, anywhere, on my body to confirm my willingness to obey you, and show you suitable proof of it, thrice this week.", "I am going to stay shaved throughout this week: absolutely hairless from below my neck. Any active tasks during this week will happily bear proof of the same. :)", "Three days this week, I am going to keep my hair down, and the other four days, I am going to keep it tied up in a high ponytail. I will send you pictures throughout the week affirming that I have, in fact, kept up with your instructions." ], "Starting Clothed🟠": [ "I will start out standing, wearing only a vest and panties, and then lower my panties to my thighs to present my pussy to you, all the while smiling at you.", "I will start out standing, wearing only a vest and panties, and then lower my vest to my stomach to present my breasts to you, all the while smiling at you.", "I'll begin wearing a towel covering my breasts and pussy and my hair tied up: I will first lower the towel to release my breasts, smile at you, and then let my hair down.", "Let me start out wearing my black vest and my dark panties. I'll turn around, take the vest off and lower my panties to my thighs; and then I'll turn back around to face you, bashful and pretty as I always am in these videos.", "I will wear nothing but a tshirt. In the video, I will be kneeling with my knees drawn close together initially, and then I will stretch out my arms up above my head, while also widening the gap between my legs. My arms come to rest behind me in my natural submissive pose." ], "Starting Nude🔴": [ "Please let me be naked on video for you, standing upright and saying how much I love being your good girl, and then turning around to present my ass to you.", "I'll start out naked, pull up a chair and sit in it, and then wear my pendant in front of you. I'll stand back up and then give you a little twirl so you can appreciate every inch of me.", "I would love to role-play an Instagram vlogger and give you a nice introduction to all the various spots of interest on my body, and hope to draw your attention to each.", "Starting off nude and kneeling up, I'll place my hands behind my head and jut my beautiful tits out for you. Then, I am going to kneel down and sit on my heels, and slowly widen my thighs for you to have a visual taste of what I have waiting for you. ", "I will send you a video of me soaping myself in the shower/bathroom. The camera will be roughly at stomach height, and I will give you full view to whatever part of my body I am soaping, front or back." ], "Special Submission🔴": [ "I will get topless for you, and send you a top-half-only video of me putting on eyeliner, because I know it makes me look prettier still, and you love it so.", "I'll start out in my black bra and dark panties, my hair tied up. I will begin by turning around, letting my hair and panties down, and taking my bra off. I'll turn back around after five seconds, and push my hair to my front, hands clasped in front in submission.", "I'll get fully naked for you, and then start the video with my hands behind me and hair down, spectacles on. I'll then affirm my submission to you by saying as much, and assure you of my obedience to do anything you say.", "I am going to position the camera in a way that I can be in the frame lying nude on my back on any surface: floor, or bed. I have leeway to do what I wish with the rest of my body to look like my hottest self for you, but my hands rest on my eyes, shutting them out, and my lips form a naughty grin.", "I wear nothing but my bra, with the straps lowered to my sides. I start out standing in front of the camera, turning around to unclasp the bra slowly, then coming to a full turn facing the camera again, hands behind me, still clasping the bra." ], "Object-interaction🔴": [ "I'll strip down completely, and take a pic of me sitting in a chair and smiling in a mirror selfie, hair down, with an arm loosely held behind me and draped over the back of the chair, my legs wide apart for you to savour what's in between.", "Since you love teaching me, maybe I can take a mirror selfie with a book held up to my face, my hair down, wearing nothing but panties, and every other inch of me on display for you", "I'll take a photo of me lying nude on the bed, the camera placed just above my breasts and pointing at my feet. I am going to give you a a clear view of how your baby looks naked, from right between my boobs, all the way down to my pussy and legs.", "This is a special kneeling picture for you: I shall kneel naked, but wrapped in a bedsheet. The bedsheet curls around my arms and leaves enough of my breasts bare, but nothing below the stomach, with a slight glimpse of my delicious legs anywhere I wish.", "I would like to give you a simple nude of me with my bra in my mouth, me leaning forward and resting on my hands and knees, everything else on full display for you." ], "Accessories🔴": [ "I'd love to send you an upper-half profile topless picture of me without my glasses, hair tied up tight, wearing eyeliner and basic makeup. I love being pretty for you!", "I think I'll put on the longest socks I can find, along with any cap I may have, and wear nothing else as I send you a mirror selfie, the phone just covering my face, the other hand behind me. If I cannot find the cap, you may have to make do with just the rest.", "I'll put on any earrings I can find, turn my head slightly to show them to you, while clicking a mirror selfie wearing nothing but my panties, pulled down to my thighs, legs close together and one foot slightly in front of the other.", "I'll go out and buy stickers: the small, cutesy ones available at most stationery shops. Then, I am going to send you a nude front profile, standing upright and hands clasped behind me, with my breasts covered in at least ten stickers, but my pussy untouched and uncovered.", "My hands will be RIGHT in front of the camera, obscuring everything else from view, as I put a wristwatch on. Once I am done, I withdraw my hands, revealing my nude form, standing prettily in front of the camera and on wonderful display for you." ], "Special Submissive🔴": [ "I remember how much you liked it on that one video call where I got naked for you, turned around with my palms on the wall in front of me above my head, my ass thrust you nicely for you. I'll send you two pictures of me in this pose: one with my legs wide apart, and one with them close together.", "I'll ask you to send me one of the pictures I have sent you before. I'll replicate it, but with a blindfold on for you.", "This will be a couple of side-profile fully shaved, full nudes for you. I shall place the camera to my left, prop my head up on an arm, and stretch the full length of my legs out for you to savour every inch of me, as I turn to face you. The second nude will be in the same position but turning the other way, for you to have a look at my ass.", "I shall stay nude on a video call with you whenever I am free, and refer to you only as 'sir' throughout the call. If I fail to uphold my sincerity in the call, you're free to ask me to do anything you wish right there on the call.", "I'll wear nothing  but jeans and a vest, but drag the jeans down to my thighs. The vest will be rolled up to above my breasts. I will take one front profile picture, and one rear profile pciture, perfectly displaying my curves to you as they will be offered when you slide down my heans and lift my vest yourself." ] }
+        };
+        const PLAY_OPTIONS = {
+            "Mind-games🟢🟠": [ "I want to play Anything Can Be Used to Pick You Up with you. ", "Please schedule a game of Chess with me sometime today. ", "Play Seven Questions with me to decide how you wish to look at my body today. ", "Can I ask you to please turn me on, entirely on text? I love it when you play with me on text!" ],
+            "Remote Games 🟢🟠": [ "I will ask ChatGPT, 'What can I do to please my long-distance dominant boyfriend?', take a screenshot of the results to show them to you, and do the top two things suggested. ", "I will take time out to play Adult Truth or Dare with you on any app you choose. ", "Can we play some other online 1v1 game today?", "I will carry out some research to find the best free or cheap adult games on Google Play Store, and then get you to play it with me." ],
+            "Games for a good Submissive 🔴": [ "The moment I am free to get naked for you, I will ask you directly for a command, and immediately do as you say. ", "I shall try to tease you while you are at work tomorrow by resorting to texts, photos, videos, or voice messages. ", "I would like to try and play a game of endurance with you on video call, and take up the challenge to do what you say, for as long as you say. ", "I'll get naked, put a blindfold on, and video call you, while assuming my standard kneeling-hands-behind position. I trust that you'll take the video call in surroundings which do not expose me. On the call, I am all yours to play with, of course." ]
+        };
+        const GROWTH_OPTIONS = structuredClone(DRIVE_OPTIONS);
+        GROWTH_OPTIONS.level1 = [ "Self-Care🟢", "Life-related🟢🟠", "Submission🟠🔴" ];
+        GROWTH_OPTIONS.level2 = { "Self-Care🟢": [ "Physical Health🟢", "Emotional Health🟢", "Mental Health🟢" ], "Life-related🟢🟠": [ "Studies🟢", "Skills🟢🟠", "Capabilities🟢🟠" ], "Submission🟠🔴": [ "Physical Display🔴", "Gratitude Expression🟠🔴", "Mental Conditioning🟠" ] };
+        GROWTH_OPTIONS.level3 = { "Physical Health🟢": [ "I am going to send you four videos of me drinking a full glass of water today.", "Let's work on my body from today. I am going to ask you about how to to ease into general exercise.", "I think I will work on toning my abdominal region. I'll put you on a vc and do 2x10 ab crunches today!", "A 30-seconds plank, for you, on video call today." ], "Emotional Health🟢": [ "I am going to find one activity we can do everyday for a week. This may be a video call, sending some picture or video regularly, playing something together everyday, or anything else at all. I can choose whether it's sexual or non-sexual in nature.", "I will call you up and ask you to tell me about any three things you love about my body or my being.", "I am going to show you some part of my body on a video call, in a video, or in a picture, and you will have to baby me about it for two minutes straight.", "Can I ask you to write me a fantasy scenario of us in any setting?" ], "Mental Health🟢": [ "I shall call you up and compliment you on something that you did which made me happy, and tell you why it made me happy.", "I shall call you up and compliment myself on something that I did in the recent past that I am really proud of for having done.", "As soon as I wake up tomorrow morning, I will call you, and tell you, 'I am confident that this is going to be a good day for me. I love you.'", "Before going to bed today, I'll call you up and wish you a good night, and remember to collect an ILY from you." ], "Studies🟢": [ "I am going to keep up with my Finance Course from IISER Pune. This is a recurring task till you decide that I need not study it any more.", "I will explain the causes, effects, and results of the Great Recession to you on a phone call.", "I will explain the causes, effects, and results of the late-2000s Indian inflation scenario to you on a phone call.", "I shall keep revising regression analysis, statistical inference and testing of hypotheses, and distributions. This is a recurring task till you decide that I need not study it any more." ], "Skills🟢🟠": [ "I will write you a 500-word essay on an introduction of myself.", "I am going to schedule an interview with you, either one where I remain clothed throughout, or one where I start out clothed and keep losing garments for every mistake I make.", "After suitably consulting me, I shall enroll myself in a MicroMasters course or its equivalent." ], "Capabilities🟢🟠": [ "I will be doing a hundred jumping jacks for better breathing and lung capacity, while keeping you on video call. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked.", "I am going to write a 500-word essay on how I picture a day in my life at college during Masters, by hand in a copy, and send you a PDF of it.", "I'll perform 10 time-controlled squats with you on video call. Please do the controlling of the time for me. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked." ], "Physical Display🔴": [ "I will duly present myself to you in the most natural of my poses: fully nude, kneeling with my hair down, spectacles off, eyes lowered and hands clasped behind me. I am allowed to choose to do as much in a photo, video, or on a video call.", "I will duly present myself to you with my bra in my mouth, wearing nothing at all, feet close together and hands behind me, hair down. I shall be standing upright and fully on display for you.", "I will duly present my ass to you by perfectly displaying my curves, in a photo, video, or on a video call.", "I will learn three new submissive positions from you on a video call.", "I will send you a video of using veet on my arms/legs, but I am fully naked for you." ], "Gratitude Expression🟠🔴": [ "I'll be sending you a voice message clearly expressing my gratitude at being your submissive. ", "I shall text you once today saying, 'Sir, I just wanted to remind you that I am all yours,' but not in these exact same words.", "I will use 'sir' with you throughout today, including in at least one video where I am just as clothed or naked as you want me to be.", "I'll video call you today, strip naked, and thank you for any non-sexual thing I feel I need to express my gratitude for.", "I will ask you what you think of me, my being and my body, and thank you suitably when you compliment be redoubtably." ], "Mental Conditioning🟠": [ "I'll happily get topless, write 'I am Arka's favourite plaything' on my stomach, and send you a video of me writing it.", "I can call you up some time today, and ask you for instructions for a task, and remember to thank you appropriately.", "I will type up a 200-word essay on why I think I should obey you every step of my being, every day in my life, and send it to you.", "I am going to video call you naked, and read out the daily affirmations from the website on camera.", "I will video call you wearing full-length pants and a vest, and tell you that I am all yours, and that you may command me to do anything you wish for the next fifteen minutes." ] };
 
-        const INTRO_TEXT = {
-            title: "welcome, babygirl.",
-            description: "step inside your private playground. here, you’re free to be bold, to tease, to surrender, and to shine. every click, every word, every task is a secret invitation—just for you and me. let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. are you ready to play?"
-        };
-        const appState = {
-            currentTab: 'intro',
-            driveNavigation: [],
-            growthNavigation: [],
-            playNavigation: [],
-            wheelSpinning: false,
-            currentRotation: 0
-        };
-        
-        // --- Core App Logic & UI Rendering ---
-        function showFloatingOutput(text) {
-            const output = document.getElementById('floatingOutput');
-            output.textContent = text;
-            output.classList.add('show');
-            setTimeout(() => { output.classList.remove('show'); }, 5000);
-        }
+        const INTRO_TEXT = {
+            title: "welcome, babygirl.",
+            description: "step inside your private playground. here, you’re free to be bold, to tease, to surrender, and to shine. every click, every word, every task is a secret invitation—just for you and me. let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. are you ready to play?"
+        };
+        const appState = {
+            currentTab: 'intro',
+            driveNavigation: [],
+            growthNavigation: [],
+            playNavigation: [],
+            wheelSpinning: false,
+            currentRotation: 0
+        };
+        
+        // --- Core App Logic & UI Rendering ---
+        function showFloatingOutput(text) {
+            const output = document.getElementById('floatingOutput');
+            output.textContent = text;
+            output.classList.add('show');
+            setTimeout(() => { output.classList.remove('show'); }, 5000);
+        }
 
-        function switchTab(tabName) {
-            const vaultTab = document.querySelector('.tab[data-tab="vault"]');
-            if (tabName === 'vault' && vaultTab.classList.contains('locked')) {
-                showFloatingOutput("the vault is still locked, my love. wait for the countdown.");
-                return;
-            }
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelector(`[data-tab="${tabName}"]`)?.classList.add('active');
-            
-            if (tabName !== 'drive') appState.driveNavigation = [];
-            if (tabName !== 'growth') appState.growthNavigation = [];
-            if (tabName !== 'play') appState.playNavigation = [];
-            
-            appState.currentTab = tabName;
-            switch (tabName) {
-                case 'pending': showPendingTasks(); break;
-                case 'mind': showMindOptions(); break;
-                case 'luck': showSpinWheel(); break;
-                case 'playlist': showPlaylist(); break;
-                case 'drive': showDriveOptions(); break;
-                case 'growth': showGrowthOptions(); break;
-                case 'play': showPlayOptions(); break;
-                case 'vault': showVaultContent(); break;
-                default: showIntroScreen();
-            }
-        }
+        function switchTab(tabName) {
+            const vaultTab = document.querySelector('.tab[data-tab="vault"]');
+            if (tabName === 'vault' && vaultTab.classList.contains('locked')) {
+                showFloatingOutput("the vault is still locked, my love. wait for the countdown.");
+                return;
+            }
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector(`[data-tab="${tabName}"]`)?.classList.add('active');
+            
+            if (tabName !== 'drive') appState.driveNavigation = [];
+            if (tabName !== 'growth') appState.growthNavigation = [];
+            if (tabName !== 'play') appState.playNavigation = [];
+            
+            appState.currentTab = tabName;
+            switch (tabName) {
+                case 'pending': showPendingTasks(); break;
+                case 'mind': showMindOptions(); break;
+                case 'luck': showSpinWheel(); break;
+                case 'playlist': showPlaylist(); break;
+                case 'drive': showDriveOptions(); break;
+                case 'growth': showGrowthOptions(); break;
+                case 'play': showPlayOptions(); break;
+                case 'vault': showVaultContent(); break;
+                default: showIntroScreen();
+            }
+        }
 
-        function showIntroScreen() {
-            document.getElementById('contentArea').innerHTML = `
-                <div class="intro-screen">
-                    <div class="glowing-orb"></div>
-                    <h2>${INTRO_TEXT.title}</h2>
-                    <p>${INTRO_TEXT.description}</p>
-                </div>`;
-        }
-        
-        function showVaultContent() {
-             document.getElementById('contentArea').innerHTML = `
-                <div>
-                    <h2 class="vault-header">Happy Birthday, My Love</h2>
-                    <div class="vault-letter">
-                        <p>My Dearest,</p>
-                        <p>If you're reading this, it means the wait is over. Happy birthday, my beautiful girl. I wanted to give you something more than just a gift; I wanted to give you a space filled with our memories and my love for you.</p>
-                        <p>This past year has been... [continue your letter here].</p>
-                        <p>With all my heart,<br>Arka</p>
-                    </div>
-                </div>`;
-        }
+        function showIntroScreen() {
+            document.getElementById('contentArea').innerHTML = `
+                <div class="intro-screen">
+                    <div class="glowing-orb"></div>
+                    <h2>${INTRO_TEXT.title}</h2>
+                    <p>${INTRO_TEXT.description}</p>
+                </div>`;
+        }
+        
+        function showVaultContent() {
+             document.getElementById('contentArea').innerHTML = `
+                <div>
+                    <h2 class="vault-header">Happy Birthday, My Love</h2>
+                    <div class="vault-letter">
+                        <p>My Dearest,</p>
+                        <p>If you're reading this, it means the wait is over. Happy birthday, my beautiful girl. I wanted to give you something more than just a gift; I wanted to give you a space filled with our memories and my love for you.</p>
+                        <p>This past year has been... [continue your letter here].</p>
+                        <p>With all my heart,<br>Arka</p>
+                    </div>
+                </div>`;
+        }
 
-        function showPlaylist() {
-            document.getElementById('contentArea').innerHTML = `
-                <div style="text-align: center;">
-                    <h2 class="section-header">happy headache</h2>
-                    <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
-                        you don't use spotify, so i think i found a way for us to listen to it here. yay.
-                    </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4WYpdgoIcn6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>`;
-        }
+        function showPlaylist() {
+            document.getElementById('contentArea').innerHTML = `
+                <div style="text-align: center;">
+                    <h2 class="section-header">happy headache</h2>
+                    <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
+                        you don't use spotify, so i think i found a way for us to listen to it here. yay.
+                    </p>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4WYpdgoIcn6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>`;
+        }
 
-        function showSpinWheel() {
-            const content = `
-                <div style="text-align: center;">
-                    <h2 class="section-header">you're my lady luck, btw.</h2>
-                    <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
-                        still, if you want, we can leave it to the fates for once.
-                    </p>
-                </div>
-                <div class="wheel-container">
-                    <div class="wheel-wrapper">
-                        <div class="wheel-pointer"></div>
-                        <div id="wheel-svg-container"></div>
-                    </div>
-                    <button class="spin-button" id="spinBtn">Spin the Wheel</button>
-                </div>`;
-            document.getElementById('contentArea').innerHTML = content;
-            buildSvgWheel();
-            document.getElementById('spinBtn').addEventListener('click', spinTheWheel);
-        }
+        function showSpinWheel() {
+            const content = `
+                <div style="text-align: center;">
+                    <h2 class="section-header">you're my lady luck, btw.</h2>
+                    <p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">
+                        still, if you want, we can leave it to the fates for once.
+                    </p>
+                </div>
+                <div class="wheel-container">
+                    <div class="wheel-wrapper">
+                        <div class="wheel-pointer"></div>
+                        <div id="wheel-svg-container"></div>
+                    </div>
+                    <button class="spin-button" id="spinBtn">Spin the Wheel</button>
+                </div>`;
+            document.getElementById('contentArea').innerHTML = content;
+            buildSvgWheel();
+            document.getElementById('spinBtn').addEventListener('click', spinTheWheel);
+        }
 
-        function buildSvgWheel() {
-            const wheelColorsDark = ['#581845', '#900C3F', '#C70039', '#FF5733', '#4A235A', '#7D3C98', '#9B59B6', '#AF7AC5'];
-            const wheelColorsLight = ['#F8BBD0', '#F48FB1', '#F06292', '#EC407A', '#E91E63', '#D81B60', '#C2185B', '#AD1457'];
-            const wheelColors = document.body.classList.contains('light-theme') ? wheelColorsLight : wheelColorsDark;
+        function buildSvgWheel() {
+            const wheelColorsDark = ['#581845', '#900C3F', '#C70039', '#FF5733', '#4A235A', '#7D3C98', '#9B59B6', '#AF7AC5'];
+            const wheelColorsLight = ['#F8BBD0', '#F48FB1', '#F06292', '#EC407A', '#E91E63', '#D81B60', '#C2185B', '#AD1457'];
+            const wheelColors = document.body.classList.contains('light-theme') ? wheelColorsLight : wheelColorsDark;
 
-            const numOptions = WHEEL_OPTIONS.length;
-            const sliceAngle = 360 / numOptions;
-            const size = 450;
-            const radius = size / 2;
-            const textRadius = radius * 0.65;
-            let svgContent = `<svg id="wheel-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg"><g id="wheel-group" style="transform-origin: ${radius}px ${radius}px;">`;
-            
-            const polarToCartesian = (centerX, centerY, r, angleInDegrees) => {
-                const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
-                return { x: centerX + (r * Math.cos(angleInRadians)), y: centerY + (r * Math.sin(angleInRadians)) };
-            };
-            
-            const describeArc = (x, y, r, startAngle, endAngle) => {
-                const start = polarToCartesian(x, y, r, endAngle);
-                const end = polarToCartesian(x, y, r, startAngle);
-                const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-                return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 0 ${end.x} ${end.y} L ${x} ${y} Z`;
-            };
+            const numOptions = WHEEL_OPTIONS.length;
+            const sliceAngle = 360 / numOptions;
+            const size = 450;
+            const radius = size / 2;
+            const textRadius = radius * 0.65;
+            let svgContent = `<svg id="wheel-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg"><g id="wheel-group" style="transform-origin: ${radius}px ${radius}px;">`;
+            
+            const polarToCartesian = (centerX, centerY, r, angleInDegrees) => {
+                const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+                return { x: centerX + (r * Math.cos(angleInRadians)), y: centerY + (r * Math.sin(angleInRadians)) };
+            };
+            
+            const describeArc = (x, y, r, startAngle, endAngle) => {
+                const start = polarToCartesian(x, y, r, endAngle);
+                const end = polarToCartesian(x, y, r, startAngle);
+                const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+                return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 0 ${end.x} ${end.y} L ${x} ${y} Z`;
+            };
 
-            const describeTextArc = (x, y, r, startAngle, endAngle) => {
-                const start = polarToCartesian(x, y, r, startAngle);
-                const end = polarToCartesian(x, y, r, endAngle);
-                const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-                return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`;
-            }
+            const describeTextArc = (x, y, r, startAngle, endAngle) => {
+                const start = polarToCartesian(x, y, r, startAngle);
+                const end = polarToCartesian(x, y, r, endAngle);
+                const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+                return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`;
+            }
 
-            for (let i = 0; i < numOptions; i++) {
-                const startAngle = i * sliceAngle;
-                const endAngle = startAngle + sliceAngle;
-                svgContent += `<path d="${describeArc(radius, radius, radius - 2, startAngle, endAngle)}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
-                const textPathId = `text-path-${i}`;
-                svgContent += `<defs><path id="${textPathId}" d="${describeTextArc(radius, radius, textRadius, startAngle, endAngle)}"></path></defs>`;
-                svgContent += `<text class="wheel-text"><textPath href="#${textPathId}" startOffset="50%" text-anchor="middle">${WHEEL_OPTIONS[i]}</textPath></text>`;
-            }
-            svgContent += `</g></svg>`;
-            document.getElementById('wheel-svg-container').innerHTML = svgContent;
-        }
+            for (let i = 0; i < numOptions; i++) {
+                const startAngle = i * sliceAngle;
+                const endAngle = startAngle + sliceAngle;
+                svgContent += `<path d="${describeArc(radius, radius, radius - 2, startAngle, endAngle)}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
+                const textPathId = `text-path-${i}`;
+                svgContent += `<defs><path id="${textPathId}" d="${describeTextArc(radius, radius, textRadius, startAngle, endAngle)}"></path></defs>`;
+                svgContent += `<text class="wheel-text"><textPath href="#${textPathId}" startOffset="50%" text-anchor="middle">${WHEEL_OPTIONS[i]}</textPath></text>`;
+            }
+            svgContent += `</g></svg>`;
+            document.getElementById('wheel-svg-container').innerHTML = svgContent;
+        }
 
-        function spinTheWheel() {
-            if (appState.wheelSpinning) return;
-            appState.wheelSpinning = true;
-            document.getElementById('spinBtn').disabled = true;
-            const wheel = document.getElementById('wheel-group');
-            const spinCycles = Math.floor(Math.random() * 4) + 5; // 5 to 8 cycles
-            const randomStopAngle = Math.floor(Math.random() * 360);
-            const totalRotation = (spinCycles * 360) + randomStopAngle;
-            
-            appState.currentRotation += totalRotation;
-            wheel.style.transform = `rotate(${appState.currentRotation}deg)`;
-            
-            setTimeout(() => {
-                const finalAngle = appState.currentRotation % 360;
-                const sliceAngle = 360 / WHEEL_OPTIONS.length;
-                const winningIndex = Math.floor((360 - finalAngle + (sliceAngle / 2)) % 360 / sliceAngle);
-                
-                showFloatingOutput(`And the winner is...: ${WHEEL_OPTIONS[winningIndex]}`);
-                appState.wheelSpinning = false;
-                document.getElementById('spinBtn').disabled = false;
-            }, 5000); // Corresponds to CSS transition time
-        }
-        
-        // --- Renderer for simple card-like options ---
-        function renderOptions(container, title, options, className, clickHandler) {
-            container.innerHTML = `<h2 class="section-header">${title}</h2>`;
-            options.forEach(optionText => {
-                const card = document.createElement('div');
-                card.className = className;
-                card.innerHTML = `<span>${optionText}</span>`;
-                card.addEventListener('click', () => clickHandler(optionText));
-                container.appendChild(card);
-            });
-        }
+        function spinTheWheel() {
+            if (appState.wheelSpinning) return;
+            appState.wheelSpinning = true;
+            document.getElementById('spinBtn').disabled = true;
+            const wheel = document.getElementById('wheel-group');
+            const spinCycles = Math.floor(Math.random() * 4) + 5; // 5 to 8 cycles
+            const randomStopAngle = Math.floor(Math.random() * 360);
+            const totalRotation = (spinCycles * 360) + randomStopAngle;
+            
+            appState.currentRotation += totalRotation;
+            wheel.style.transform = `rotate(${appState.currentRotation}deg)`;
+            
+            setTimeout(() => {
+                const finalAngle = appState.currentRotation % 360;
+                const sliceAngle = 360 / WHEEL_OPTIONS.length;
+                const winningIndex = Math.floor((360 - finalAngle + (sliceAngle / 2)) % 360 / sliceAngle);
+                
+                showFloatingOutput(`And the winner is...: ${WHEEL_OPTIONS[winningIndex]}`);
+                appState.wheelSpinning = false;
+                document.getElementById('spinBtn').disabled = false;
+            }, 5000); // Corresponds to CSS transition time
+        }
+        
+        // --- Renderer for simple card-like options ---
+        function renderOptions(container, title, options, className, clickHandler) {
+            container.innerHTML = `<h2 class="section-header">${title}</h2>`;
+            options.forEach(optionText => {
+                const card = document.createElement('div');
+                card.className = className;
+                card.innerHTML = `<span>${optionText}</span>`;
+                card.addEventListener('click', () => clickHandler(optionText));
+                container.appendChild(card);
+            });
+        }
 
-        function showPendingTasks() {
-            renderOptions(
-                document.getElementById('contentArea'),
-                "some things you should never forget♥",
-                PENDING_TASKS,
-                'task-card',
-                handleTaskClick
-            );
-        }
+        function showPendingTasks() {
+            renderOptions(
+                document.getElementById('contentArea'),
+                "some things you should never forget♥",
+                PENDING_TASKS,
+                'task-card',
+                handleTaskClick
+            );
+        }
 
-        function showMindOptions() {
-            renderOptions(
-                document.getElementById('contentArea'),
-                "hey, hottie. how would you like for us to interact today?",
-                MIND_OPTIONS,
-                'mind-option',
-                handleMindClick
-            );
-        }
-        
-        // --- Renderer for Drive/Growth cascading navigation ---
-        function renderCascadingNavigation(config) {
-            const { contentArea, header, appStateKey, optionsData, classNames, resetNav, navigateTo, clickHandler } = config;
-            const navigationPath = appState[appStateKey];
+        function showMindOptions() {
+            renderOptions(
+                document.getElementById('contentArea'),
+                "hey, hottie. how would you like for us to interact today?",
+                MIND_OPTIONS,
+                'mind-option',
+                handleMindClick
+            );
+        }
+        
+        // --- Renderer for Drive/Growth cascading navigation ---
+        function renderCascadingNavigation(config) {
+            const { contentArea, header, appStateKey, optionsData, classNames, resetNav, navigateTo, clickHandler } = config;
+            const navigationPath = appState[appStateKey];
 
-            contentArea.innerHTML = `<h2 class="section-header">${header}</h2>`;
+            contentArea.innerHTML = `<h2 class="section-header">${header}</h2>`;
 
-            // Render breadcrumbs
-            if (navigationPath.length > 0) {
-                const breadcrumbContainer = document.createElement('div');
-                breadcrumbContainer.className = classNames.breadcrumb;
+            // Render breadcrumbs
+            if (navigationPath.length > 0) {
+                const breadcrumbContainer = document.createElement('div');
+                breadcrumbContainer.className = classNames.breadcrumb;
 
-                const rootItem = document.createElement('span');
-                rootItem.className = 'breadcrumb-item';
-                rootItem.textContent = classNames.root;
-                rootItem.addEventListener('click', resetNav);
-                breadcrumbContainer.appendChild(rootItem);
+                const rootItem = document.createElement('span');
+                rootItem.className = 'breadcrumb-item';
+                rootItem.textContent = classNames.root;
+                rootItem.addEventListener('click', resetNav);
+                breadcrumbContainer.appendChild(rootItem);
 
-                navigationPath.forEach((item, index) => {
-                    breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator">→</span>`;
-                    const breadcrumbItem = document.createElement('span');
-                    breadcrumbItem.className = 'breadcrumb-item';
-                    breadcrumbItem.textContent = item;
-                    breadcrumbItem.addEventListener('click', () => navigateTo(index));
-                    breadcrumbContainer.appendChild(breadcrumbItem);
-                });
-                contentArea.appendChild(breadcrumbContainer);
-            }
+                navigationPath.forEach((item, index) => {
+                    breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator">→</span>`;
+                    const breadcrumbItem = document.createElement('span');
+                    breadcrumbItem.className = 'breadcrumb-item';
+          _B_P_           breadcrumbItem.textContent = item;
+                    breadcrumbItem.addEventListener('click', () => navigateTo(index));
+                    breadcrumbContainer.appendChild(breadcrumbItem);
+                });
+                contentArea.appendChild(breadcrumbContainer);
+            }
 
-            // Determine which options to show based on the path
-            let optionsToShow = [];
-            const level = navigationPath.length;
+            // Determine which options to show based on the path
+            let optionsToShow = [];
+            const level = navigationPath.length;
 
-            if (level === 0) {
-                optionsToShow = optionsData.level1 || [];
-            } else if (level === 1) {
-                const key = navigationPath[0];
-                optionsToShow = optionsData.level2?.[key] || [];
-            } else if (level === 2) {
-                const key = navigationPath[1];
-                optionsToShow = optionsData.level3?.[key] || [];
-            }
-            
-            // Render the options
-            const clickLevel = level + 1; 
-            optionsToShow.forEach(optionText => {
-                const optionEl = document.createElement('div');
-                optionEl.className = classNames.option;
-                optionEl.innerHTML = `<span>${optionText}</span>`;
-                optionEl.addEventListener('click', () => clickHandler(optionText, clickLevel));
-                contentArea.appendChild(optionEl);
-            });
-        }
-        
-        function showDriveOptions() {
-            renderCascadingNavigation({
-                contentArea: document.getElementById('contentArea'),
-                header: "so you wish to show yourself to me. how indecent of you. i love it",
-                appStateKey: 'driveNavigation',
-                optionsData: DRIVE_OPTIONS,
-                classNames: { breadcrumb: 'drive-breadcrumb', option: 'drive-option', root: 'Drive' },
-                resetNav: resetDriveNavigation,
-                navigateTo: navigateDriveTo,
-                clickHandler: handleDriveClick
-            });
-        }
-        
-        function showGrowthOptions() {
-            renderCascadingNavigation({
-                contentArea: document.getElementById('contentArea'),
-                header: "shut out everything else, and just follow instructions to grow. isn't it simple?",
-                appStateKey: 'growthNavigation',
-                optionsData: GROWTH_OPTIONS,
-                classNames: { breadcrumb: 'growth-breadcrumb', option: 'growth-option', root: 'Growth' },
-                resetNav: resetGrowthNavigation,
-                navigateTo: navigateGrowthTo,
-                clickHandler: handleGrowthClick
-            });
-        }
+            if (level === 0) {
+                optionsToShow = optionsData.level1 || [];
+            } else if (level === 1) {
+                const key = navigationPath[0];
+                optionsToShow = optionsData.level2?.[key] || [];
+            } else if (level === 2) {
+                const key = navigationPath[1];
+                optionsToShow = optionsData.level3?.[key] || [];
+            }
+            
+            // Render the options
+            const clickLevel = level + 1; 
+            optionsToShow.forEach(optionText => {
+                const optionEl = document.createElement('div');
+                optionEl.className = classNames.option;
+                optionEl.innerHTML = `<span>${optionText}</span>`;
+                optionEl.addEventListener('click', () => clickHandler(optionText, clickLevel));
+                contentArea.appendChild(optionEl);
+            });
+        }
+        
+        function showDriveOptions() {
+            renderCascadingNavigation({
+                contentArea: document.getElementById('contentArea'),
+                header: "so you wish to show yourself to me. how indecent of you. i love it",
+                appStateKey: 'driveNavigation',
+                optionsData: DRIVE_OPTIONS,
+                classNames: { breadcrumb: 'drive-breadcrumb', option: 'drive-option', root: 'Drive' },
+                resetNav: resetDriveNavigation,
+                navigateTo: navigateDriveTo,
+                clickHandler: handleDriveClick
+            });
+        }
+        
+        function showGrowthOptions() {
+            renderCascadingNavigation({
+                contentArea: document.getElementById('contentArea'),
+                header: "shut out everything else, and just follow instructions to grow. isn't it simple?",
+                appStateKey: 'growthNavigation',
+                optionsData: GROWTH_OPTIONS,
+                classNames: { breadcrumb: 'growth-breadcrumb', option: 'growth-option', root: 'Growth' },
+                resetNav: resetGrowthNavigation,
+                navigateTo: navigateGrowthTo,
+                clickHandler: handleGrowthClick
+            });
+        }
 
-        function showPlayOptions() {
-            const contentArea = document.getElementById('contentArea');
-            contentArea.innerHTML = `<h2 class="section-header">in case you're bored, here's some us-themed games.</h2>`;
-            
-            if (appState.playNavigation.length === 0) {
-                Object.keys(PLAY_OPTIONS).forEach(option => {
-                    const optionEl = document.createElement('div');
-                    optionEl.className = 'play-option';
-                    optionEl.innerHTML = `<span>${option}</span>`;
-                    optionEl.addEventListener('click', () => handlePlayOptionClick(option));
-                    contentArea.appendChild(optionEl);
-                });
-            } else {
-                const selectedOption = appState.playNavigation[0];
-                const breadcrumbContainer = document.createElement('div');
-                breadcrumbContainer.className = 'play-breadcrumb';
+        function showPlayOptions() {
+            const contentArea = document.getElementById('contentArea');
+            contentArea.innerHTML = `<h2 class="section-header">in case you're bored, here's some us-themed games.</h2>`;
+            
+            if (appState.playNavigation.length === 0) {
+                Object.keys(PLAY_OPTIONS).forEach(option => {
+                    const optionEl = document.createElement('div');
+                    optionEl.className = 'play-option';
+                    optionEl.innerHTML = `<span>${option}</span>`;
+                    optionEl.addEventListener('click', () => handlePlayOptionClick(option));
+                    contentArea.appendChild(optionEl);
+                });
+            } else {
+                const selectedOption = appState.playNavigation[0];
+                const breadcrumbContainer = document.createElement('div');
+                breadcrumbContainer.className = 'play-breadcrumb';
 
-                const rootItem = document.createElement('span');
-                rootItem.className = 'breadcrumb-item';
-                rootItem.textContent = 'Games';
-                rootItem.addEventListener('click', resetPlayNavigation);
-                breadcrumbContainer.appendChild(rootItem);
+                const rootItem = document.createElement('span');
+                rootItem.className = 'breadcrumb-item';
+                rootItem.textContent = 'Games';
+                rootItem.addEventListener('click', resetPlayNavigation);
+                breadcrumbContainer.appendChild(rootItem);
 
-                breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator">→</span><span class="breadcrumb-item">${selectedOption}</span>`;
-                contentArea.appendChild(breadcrumbContainer);
-                
-                (PLAY_OPTIONS[selectedOption] || []).forEach(subOption => {
-                    const subOptionEl = document.createElement('div');
-                    subOptionEl.className = 'play-sub-option';
-                    subOptionEl.textContent = subOption;
-                    subOptionEl.addEventListener('click', () => handlePlaySubClick(subOption));
-                    contentArea.appendChild(subOptionEl);
-                });
-            }
-        }
+                breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator">→</span><span class="breadcrumb-item">${selectedOption}</span>`;
+                contentArea.appendChild(breadcrumbContainer);
+                
+                (PLAY_OPTIONS[selectedOption] || []).forEach(subOption => {
+                    const subOptionEl = document.createElement('div');
+                    subOptionEl.className = 'play-sub-option';
+                    subOptionEl.textContent = subOption;
+                    subOptionEl.addEventListener('click', () => handlePlaySubClick(subOption));
+                    contentArea.appendChild(subOptionEl);
+                });
+            }
+        }
 
-        // --- Event Handlers & Navigation ---
-        function handleTaskClick(task) { showFloatingOutput(`I've reminded myself that: ${task}`); }
-        function handleMindClick(option) { showFloatingOutput(`This is how I wish to interact with you today: ${option}`); }
-        
-        function handleDriveClick(option, level) {
-            if (level === 3) {
-                showFloatingOutput(`How I plan to show myself to you today: ${[...appState.driveNavigation, option].join(' → ')}`);
-                resetDriveNavigation();
-            } else {
-                appState.driveNavigation.push(option);
-                showDriveOptions();
-            }
-        }
-        function handleGrowthClick(option, level) {
-            if (level === 3) {
-                showFloatingOutput(`How I wish to add to my growth today: ${[...appState.growthNavigation, option].join(' → ')}`);
-                resetGrowthNavigation();
-            } else {
-                appState.growthNavigation.push(option);
-                showGrowthOptions();
-            }
-        }
-        function handlePlayOptionClick(option) {
-            appState.playNavigation = [option];
-            showPlayOptions();
-        }
-        function handlePlaySubClick(option) {
-            showFloatingOutput(`Game chosen: ${option}`);
-            resetPlayNavigation();
-        }
-        
-        function resetDriveNavigation() { appState.driveNavigation = []; showDriveOptions(); }
-        function resetGrowthNavigation() { appState.growthNavigation = []; showGrowthOptions(); }
-        function resetPlayNavigation() { appState.playNavigation = []; showPlayOptions(); }
+        // --- Event Handlers & Navigation ---
+        function handleTaskClick(task) { showFloatingOutput(`I've reminded myself that: ${task}`); }
+        function handleMindClick(option) { showFloatingOutput(`This is how I wish to interact with you today: ${option}`); }
+        
+        function handleDriveClick(option, level) {
+            if (level === 3) {
+                showFloatingOutput(`How I plan to show myself to you today: ${[...appState.driveNavigation, option].join(' → ')}`);
+                resetDriveNavigation();
+            } else {
+                appState.driveNavigation.push(option);
+                showDriveOptions();
+            }
+        }
+        function handleGrowthClick(option, level) {
+            if (level === 3) {
+                showFloatingOutput(`How I wish to add to my growth today: ${[...appState.growthNavigation, option].join(' → ')}`);
+                resetGrowthNavigation();
+            } else {
+                appState.growthNavigation.push(option);
+                showGrowthOptions();
+            }
+        }
+        function handlePlayOptionClick(option) {
+            appState.playNavigation = [option];
+            showPlayOptions();
+        }
+        function handlePlaySubClick(option) {
+            showFloatingOutput(`Game chosen: ${option}`);
+            resetPlayNavigation();
+        }
+        
+        function resetDriveNavigation() { appState.driveNavigation = []; showDriveOptions(); }
+        function resetGrowthNavigation() { appState.growthNavigation = []; showGrowthOptions(); }
+        function resetPlayNavigation() { appState.playNavigation = []; showPlayOptions(); }
 
-        function navigateDriveTo(index) { 
-            appState.driveNavigation = appState.driveNavigation.slice(0, index + 1); 
-            showDriveOptions(); 
-        }
-        function navigateGrowthTo(index) { 
-            appState.growthNavigation = appState.growthNavigation.slice(0, index + 1); 
-            showGrowthOptions(); 
-        }
-        
-        // --- DOMContentLoaded Initializer ---
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- VISUAL EFFECTS SETUP ---
-            const cursorDot = document.createElement('div');
-            cursorDot.className = 'cursor-dot';
-            document.body.appendChild(cursorDot);
-            
-            let canCreateSparkle = true;
-            window.addEventListener('mousemove', e => {
-                cursorDot.style.left = `${e.clientX}px`;
-                cursorDot.style.top = `${e.clientY}px`;
+        function navigateDriveTo(index) { 
+            appState.driveNavigation = appState.driveNavigation.slice(0, index + 1); 
+            showDriveOptions(); 
+        }
+        function navigateGrowthTo(index) { 
+            appState.growthNavigation = appState.growthNavigation.slice(0, index + 1); 
+            showGrowthOptions(); 
+        }
+        
+        // --- DOMContentLoaded Initializer ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- VISUAL EFFECTS SETUP ---
+            const cursorDot = document.createElement('div');
+            cursorDot.className = 'cursor-dot';
+            document.body.appendChild(cursorDot);
+            
+            let canCreateSparkle = true;
+            window.addEventListener('mousemove', e => {
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
 
-                if (canCreateSparkle) {
-                    canCreateSparkle = false;
-                    const sparkle = document.createElement('div');
-                    sparkle.className = 'sparkle';
-                    sparkle.style.left = `${e.clientX}px`;
-                    sparkle.style.top = `${e.clientY}px`;
-                    document.body.appendChild(sparkle);
-                    setTimeout(() => sparkle.remove(), 1000);
-                    setTimeout(() => canCreateSparkle = true, 50);
-                }
-            });
-            
-            document.querySelectorAll('a, button, .tab, .main-title, .spin-button, .task-card, .mind-option, .drive-option, .growth-option, .play-option, .play-sub-option, .breadcrumb-item, .theme-toggle').forEach(el => {
-                el.addEventListener('mouseenter', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(2)');
-                el.addEventListener('mouseleave', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(1)');
-                el.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    for (let i = 0; i < 5; i++) {
-                        const heart = document.createElement('div');
-                        heart.className = 'heart';
-                        heart.innerHTML = '♥';
-                        heart.style.left = `${e.clientX}px`;
-                        heart.style.top = `${e.clientY}px`;
-                        const randomX = (Math.random() - 0.5) * 80;
-                        const randomY = (Math.random() - 0.5) * 80;
-                        heart.style.transform = `translate(${randomX}px, ${randomY}px)`;
-                        document.body.appendChild(heart);
-                        setTimeout(() => heart.remove(), 1200);
-                    }
-                });
-            });
+                if (canCreateSparkle) {
+                    canCreateSparkle = false;
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.style.left = `${e.clientX}px`;
+                    sparkle.style.top = `${e.clientY}px`;
+                    document.body.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 1000);
+                    setTimeout(() => canCreateSparkle = true, 50);
+                }
+            });
+            
+            document.querySelectorAll('a, button, .tab, .main-title, .spin-button, .task-card, .mind-option, .drive-option, .growth-option, .play-option, .play-sub-option, .breadcrumb-item, .theme-toggle').forEach(el => {
+                el.addEventListener('mouseenter', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(2)');
+                el.addEventListener('mouseleave', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(1)');
+                el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    for (let i = 0; i < 5; i++) {
+                        const heart = document.createElement('div');
+                        heart.className = 'heart';
+                        heart.innerHTML = '♥';
+                        heart.style.left = `${e.clientX}px`;
+                        heart.style.top = `${e.clientY}px`;
+                        const randomX = (Math.random() - 0.5) * 80;
+                        const randomY = (Math.random() - 0.5) * 80;
+                        heart.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                        document.body.appendChild(heart);
+                        setTimeout(() => heart.remove(), 1200);
+                    }
+                });
+            });
 
-            // --- CORE APP LISTENERS ---
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
-            });
-            document.getElementById('homeButton').addEventListener('click', () => {
-                showIntroScreen();
-                document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            });
+            // --- CORE APP LISTENERS ---
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
+            });
+            document.getElementById('homeButton').addEventListener('click', () => {
+                showIntroScreen();
+                document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            });
 
-            // --- THEME TOGGLE LOGIC ---
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = document.getElementById('themeIcon');
-            const sunIconPath = `<path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle>`;
-            const moonIconPath = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>`;
+            // --- THEME TOGGLE LOGIC ---
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const sunIconPath = `<path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle>`;
+            const moonIconPath = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>`;
 
-            themeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('light-theme');
-                const isLight = document.body.classList.contains('light-theme');
-                themeIcon.innerHTML = isLight ? sunIconPath : moonIconPath;
-                if (appState.currentTab === 'luck') {
-                    buildSvgWheel();
-                }
-            });
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-theme');
+                const isLight = document.body.classList.contains('light-theme');
+                themeIcon.innerHTML = isLight ? sunIconPath : moonIconPath;
+                if (appState.currentTab === 'luck') {
+                    buildSvgWheel();
+                }
+            });
 
-            showIntroScreen();
-            updateWeather();  
-        });
-    </script>
+            showIntroScreen();
+            updateWeather();  
+        });
+    </script>
 </body>
 </html>
