@@ -474,74 +474,105 @@
             opacity: 0.4;
         }
 
-        /* --- REVISED: Horizontal Timeline Section --- */
+        /* --- REVISED: SVG Path Timeline Section --- */
         .timeline-section {
             padding: 50px 0;
-            /* No background needed, it's inside the content-area now */
+            overflow-x: auto;
+            scrollbar-width: none; /* Hide scrollbar for the section */
         }
+        .timeline-section::-webkit-scrollbar { display: none; }
+
         .timeline {
-            display: flex; /* Makes items go side-by-side */
-            overflow-x: auto; /* Enables horizontal scrolling if items overflow */
-            padding: 20px;
-            gap: 30px; /* Space between timeline items */
             position: relative;
-            margin: 0 -20px; /* Allow timeline to bleed to edges of content area padding */
-            /* Add a subtle scrollbar */
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary-purple) transparent;
+            width: 1200px;
+            height: 480px;
+            margin: 0 auto;
         }
-        .timeline::-webkit-scrollbar { height: 6px; }
-        .timeline::-webkit-scrollbar-track { background: transparent; }
-        .timeline::-webkit-scrollbar-thumb { background-color: var(--primary-purple); border-radius: 3px; }
+
+        .timeline-path-svg {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 250px;
+            overflow: visible;
+        }
+        
+        .timeline-path {
+            stroke-dasharray: 2000; /* A sufficiently large value */
+            stroke-dashoffset: 2000;
+            animation: draw-path 4s cubic-bezier(0.65, 0, 0.35, 1) forwards 0.5s;
+        }
+
+        @keyframes draw-path {
+            to { stroke-dashoffset: 0; }
+        }
 
         .timeline-item {
-            flex: 0 0 300px; /* Each item will have a fixed width */
+            position: absolute;
+            width: 260px;
             opacity: 0;
-            animation: fadeIn 1s ease-in-out forwards;
             transform: translateY(20px);
+            animation: fadeIn 0.6s ease-out forwards;
         }
-        /* Stagger the animation */
-        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
-        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
-        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
-        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
 
-        /* Remove old pseudo-elements for vertical line and dots */
-        .timeline::after,
-        .timeline-item::after {
-            content: none;
+        .timeline-item::after { /* This is the dot on the path */
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: var(--bg-dark);
+            border: 5px solid var(--primary-purple);
+            border-radius: 50%;
+            z-index: 5;
+            transition: transform 0.3s ease;
         }
+        
+        .timeline-item:hover::after {
+            transform: scale(1.3);
+        }
+
+        /* --- Manual Positioning for each item and its dot --- */
+        /* Peak 1 */
+        .timeline-item:nth-child(1) { left: 165px; top: 250px; animation-delay: 1.5s; }
+        .timeline-item:nth-child(1)::after { top: -35px; left: 50%; transform: translateX(-50%); }
+
+        /* Trough 1 */
+        .timeline-item:nth-child(2) { left: 450px; top: 50px; animation-delay: 2.0s; }
+        .timeline-item:nth-child(2)::after { bottom: -35px; left: 50%; transform: translateX(-50%); }
+        
+        /* Peak 2 */
+        .timeline-item:nth-child(3) { left: 715px; top: 250px; animation-delay: 2.5s; }
+        .timeline-item:nth-child(3)::after { top: -35px; left: 50%; transform: translateX(-50%); }
+
+        /* Trough 2 */
+        .timeline-item:nth-child(4) { left: 980px; top: 50px; animation-delay: 3.0s; }
+        .timeline-item:nth-child(4)::after { bottom: -35px; left: 50%; transform: translateX(-50%); }
+
 
         .timeline-content {
-            background: var(--bg-dark); /* Use a slightly different background for contrast */
-            border-radius: 8px;
             padding: 20px;
+            background: var(--bg-dark);
+            border-radius: 8px;
             box-shadow: var(--shadow);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            border-top: 4px solid var(--primary-lavender);
-            transition: all 0.3s ease;
+            text-align: center;
         }
-        .timeline-content:hover {
-             transform: translateY(-5px);
-        }
-
         .timeline-content h3 {
-            margin-top: 0;
-            font-family: var(--font-heading);
-            color: var(--primary-lavender);
-            font-size: 1.5rem;
-            font-weight: normal;
+             font-size: 1.4rem;
+             margin-top: 0;
+             color: var(--primary-lavender);
         }
         .timeline-content .date {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0.7;
             margin-bottom: 10px;
             display: block;
         }
         .timeline-content p {
-            flex-grow: 1; /* Makes description text fill available space */
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0;
         }
 
         /* --- Footer --- */
@@ -760,14 +791,10 @@
                 gap: 10px;
             }
             
-            /* REVISED: Timeline Mobile Styles */
             .timeline {
-                gap: 20px;
-                padding: 10px;
-                margin: 0 -10px;
-            }
-            .timeline-item {
-                flex: 0 0 250px; /* Slightly smaller cards on mobile */
+                transform: scale(0.8);
+                transform-origin: top left;
+                margin-left: -80px;
             }
         }
     </style>
@@ -1087,6 +1114,10 @@
                 <section class="timeline-section">
                     <h2 class="section-header">biggest steps taken by my babygirl so far</h2>
                     <div class="timeline">
+                        <svg class="timeline-path-svg" viewBox="0 0 1250 250">
+                            <path class="timeline-path" d="M 50 125 C 200 25, 350 225, 575 125 S 850 25, 1075 125" stroke="var(--primary-purple)" stroke-width="4" fill="none"/>
+                        </svg>
+
                         <div class="timeline-item">
                             <div class="timeline-content">
                                 <h3>nervous affirmation</h3>
@@ -1095,7 +1126,7 @@
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <div class="timeline-content">
+                             <div class="timeline-content">
                                 <h3>halfway to ownership</h3>
                                 <span class="date">May 26, 2023</span>
                                 <p>wore nothing but blue jeans and panties while sitting on my lap. enticing me with half the goods, and promising so much more</p>
@@ -1108,8 +1139,8 @@
                                 <p>let me have my way with you, delightfully naked, for the first time ever</p>
                             </div>
                         </div>
-                        <div class="timeline-item">
-                            <div class="timeline-content">
+                         <div class="timeline-item">
+                             <div class="timeline-content">
                                 <h3>what's it gonna be?</h3>
                                 <span class="date">August 2025</span>
                                 <p>what else of the wondrous bounty your body and mind is may i soon lay claim to?</p>
