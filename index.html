@@ -320,19 +320,24 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* --- REVISED: SVG Free-Float Timeline Section --- */
+        /* --- REVISED: Horizontally Scrollable SVG Timeline --- */
         .timeline-section {
             padding: 50px 0;
-            overflow-x: auto;
-            scrollbar-width: none;
+            overflow-x: auto; /* Enables horizontal scrolling */
+            /* Add a subtle scrollbar for the section */
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-purple) transparent;
         }
-        .timeline-section::-webkit-scrollbar { display: none; }
+        .timeline-section::-webkit-scrollbar { height: 6px; }
+        .timeline-section::-webkit-scrollbar-track { background: transparent; }
+        .timeline-section::-webkit-scrollbar-thumb { background-color: var(--primary-purple); border-radius: 3px; }
+
 
         .timeline {
             position: relative;
-            width: 1400px; /* Increased width for more spacing */
-            height: 500px;
-            margin: 0 auto;
+            width: 1400px; /* Wider to allow for more space between items */
+            height: 400px; 
+            padding-top: 50px; /* Space for items above the line */
         }
 
         .timeline-svg-container {
@@ -341,67 +346,60 @@
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: visible;
-        }
-
-        .timeline-path {
-            stroke: var(--primary-purple);
-            stroke-width: 3;
-            fill: none;
-            stroke-linecap: round;
+            overflow: visible; /* Allows dots/text to not be clipped */
         }
         
-        .timeline-main-path {
-            stroke-dasharray: 2500;
+        .timeline-path {
+            stroke-dasharray: 2500; 
             stroke-dashoffset: 2500;
             animation: draw-path 3s cubic-bezier(0.65, 0, 0.35, 1) forwards 0.5s;
         }
-
-        .timeline-branch-path {
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
-            animation: draw-path 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-        }
-
-        .timeline-dot {
-            fill: var(--primary-lavender);
-            stroke: var(--bg-dark);
-            stroke-width: 4px;
-            r: 0;
-            animation: pop-in 0.5s ease-out forwards;
-        }
-
+        
         @keyframes draw-path {
             to { stroke-dashoffset: 0; }
         }
-        @keyframes pop-in {
-            to { r: 8; }
-        }
 
-        /* Animation delays for branches */
-        #branch-1 .timeline-branch-path, #branch-1 .timeline-dot { animation-delay: 2.0s; }
-        #branch-2 .timeline-branch-path, #branch-2 .timeline-dot { animation-delay: 2.5s; }
-        #branch-3 .timeline-branch-path, #branch-3 .timeline-dot { animation-delay: 3.0s; }
-        #branch-4 .timeline-branch-path, #branch-4 .timeline-dot { animation-delay: 3.5s; }
-        
         .timeline-item {
             position: absolute;
-            width: 300px;
+            width: 280px;
             opacity: 0;
             animation: fadeIn 1s ease-out forwards;
         }
-        
-        /* Positioning and animation delays for text blocks */
-        #item-1 { top: 20px; left: 100px; animation-delay: 2.2s; text-align: center; }
-        #item-2 { top: 320px; left: 450px; animation-delay: 2.7s; text-align: center; }
-        #item-3 { top: 20px; left: 750px; animation-delay: 3.2s; text-align: center; }
-        #item-4 { top: 320px; left: 1050px; animation-delay: 3.7s; text-align: center; }
 
-        .timeline-content { /* This is now just a text container */
-            background: none;
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: var(--bg-dark);
+            border: 4px solid var(--primary-lavender);
+            border-radius: 50%;
+            z-index: 5;
+            transform: translate(-50%, -50%);
+            transition: transform 0.3s ease;
+        }
+        
+        .timeline-item:hover::after {
+            transform: translate(-50%, -50%) scale(1.3);
+            border-color: var(--primary-purple);
+        }
+
+        /* Position items and their corresponding dots on the SVG path */
+        #item-1 { top: 0px; left: 200px; animation-delay: 1.5s; }
+        #item-1::after { top: 198px; left: 50%; }
+
+        #item-2 { top: 240px; left: 470px; animation-delay: 2.0s; }
+        #item-2::after { top: -22px; left: 50%; }
+
+        #item-3 { top: 0px; left: 750px; animation-delay: 2.5s; }
+        #item-3::after { top: 198px; left: 50%; }
+        
+        #item-4 { top: 240px; left: 1050px; animation-delay: 3.0s; }
+        #item-4::after { top: -22px; left: 50%; }
+
+        .timeline-content {
             padding: 0;
-            box-shadow: none;
-            border: none;
+            text-align: center;
         }
 
         .timeline-content h3 {
@@ -410,7 +408,6 @@
              color: var(--primary-lavender);
              font-weight: normal;
              font-family: var(--font-heading);
-             text-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
         .timeline-content .date {
             font-size: 0.9rem;
@@ -553,12 +550,8 @@
                     <h2 class="section-header">biggest steps taken by my babygirl so far</h2>
                     <div class="timeline">
                         <div class="timeline-svg-container">
-                            <svg width="100%" height="100%" viewBox="0 0 1400 500">
-                                <path class="timeline-path timeline-main-path" d="M 50 250 C 200 450, 400 50, 600 250 S 900 450, 1150 250" />
-                                <g id="branch-1"><circle class="timeline-dot" cx="250" cy="358" /><path class="timeline-path timeline-branch-path" d="M 250 358 Q 250 150, 250 120" /></g>
-                                <g id="branch-2"><circle class="timeline-dot" cx="600" cy="250" /><path class="timeline-path timeline-branch-path" d="M 600 250 Q 600 350, 600 420" /></g>
-                                <g id="branch-3"><circle class="timeline-dot" cx="900" cy="142" /><path class="timeline-path timeline-branch-path" d="M 900 142 Q 900 50, 900 20" /></g>
-                                <g id="branch-4"><circle class="timeline-dot" cx="1150" cy="250" /><path class="timeline-path timeline-branch-path" d="M 1150 250 Q 1200 350, 1200 420" /></g>
+                             <svg width="100%" height="100%" viewBox="0 0 1400 400">
+                                <path class="timeline-path" d="M 50 200 C 200 50, 400 350, 600 200 S 800 50, 1000 200 S 1200 350, 1350 200" stroke="var(--primary-purple)" stroke-width="3" fill="none"/>
                             </svg>
                         </div>
                         <div class="timeline-item" id="item-1"><div class="timeline-content"><h3>nervous affirmation</h3><span class="date">january 19, 2023</span><p>you made me wait, but were beyond worth it</p></div></div>
@@ -568,7 +561,7 @@
                     </div>
                 </section>`;
         }
-
+        
         function getWelcomeMessage() {
             const hour = new Date().getHours();
             if (hour >= 0 && hour < 10) { return INTRO_TEXT.morning; }
@@ -766,6 +759,31 @@
         function navigateDriveTo(index) { appState.driveNavigation = appState.driveNavigation.slice(0, index + 1); showDriveOptions(); }
         function navigateGrowthTo(index) { appState.growthNavigation = appState.growthNavigation.slice(0, index + 1); showGrowthOptions(); }
         
+        function updateCountdown() {
+            const targetDate = new Date("2025-08-01T00:00:00").getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            const timerEl = document.getElementById('countdownTimer');
+            const vaultTab = document.querySelector('.tab[data-tab="vault"]');
+
+            if (difference <= 0) {
+                timerEl.innerHTML = "The Vault is Unlocked";
+                if (vaultTab) {
+                    vaultTab.classList.remove('locked');
+                }
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            const format = (num) => num.toString().padStart(2, '0');
+            timerEl.innerHTML = `${format(days)}:${format(hours)}:${format(minutes)}:${format(seconds)}`;
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             const cursorDot = document.createElement('div');
             cursorDot.className = 'cursor-dot';
@@ -848,7 +866,10 @@
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
             document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
             document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
+            
             showIntroScreen();
+            updateCountdown(); 
+            setInterval(updateCountdown, 1000);
         });
     </script>
 </body>
