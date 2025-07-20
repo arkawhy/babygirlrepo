@@ -247,6 +247,58 @@
             font-weight: 500;
         }
 
+        /* --- NEW: Sidebar Features --- */
+        .sidebar-features {
+            padding: 10px 30px 20px 30px;
+            margin-top: auto; /* Pushes this section to the bottom */
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .streak-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-light);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        .streak-counter:hover {
+            opacity: 1;
+            background: rgba(0,0,0,0.2);
+            color: var(--primary-lavender);
+        }
+        .streak-counter .streak-icon {
+            font-size: 1.2rem;
+        }
+        
+        .memory-polaroid {
+            background: #f4f4f4; /* Polaroid white, consistent for both themes */
+            border-radius: 4px;
+            padding: 10px 10px 25px 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transform: rotate(-3deg);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: none;
+        }
+        .memory-polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: var(--shadow);
+        }
+        .memory-polaroid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid var(--bg-content);
+        }
+
         /* --- Content Area --- */
         .content-area {
             flex-grow: 1;
@@ -322,9 +374,10 @@
         
         /* --- REVISED: Horizontally Scrollable SVG Timeline --- */
         .timeline-section {
-            padding: 50px 0;
-            overflow-x: auto; /* Enables horizontal scrolling */
-            /* Add a subtle scrollbar for the section */
+            padding-bottom: 50px;
+            overflow-x: auto;
+            width: 100%;
+            box-sizing: border-box;
             scrollbar-width: thin;
             scrollbar-color: var(--primary-purple) transparent;
         }
@@ -335,9 +388,9 @@
 
         .timeline {
             position: relative;
-            width: 1400px; /* Wider to allow for more space between items */
+            width: 1400px;
             height: 400px; 
-            padding-top: 50px; /* Space for items above the line */
+            padding-top: 50px;
         }
 
         .timeline-svg-container {
@@ -346,7 +399,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: visible; /* Allows dots/text to not be clipped */
+            overflow: visible;
         }
         
         .timeline-path {
@@ -384,7 +437,6 @@
             border-color: var(--primary-purple);
         }
 
-        /* Position items and their corresponding dots on the SVG path */
         #item-1 { top: 0px; left: 200px; animation-delay: 1.5s; }
         #item-1::after { top: 198px; left: 50%; }
 
@@ -452,7 +504,7 @@
         .weather-desc { font-size: 0.9rem; text-transform: capitalize; }
         .floating-output { position: fixed; bottom: 110px; right: 20px; background: var(--bg-dark); color: var(--text-light); padding: 18px 25px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); max-width: 350px; transform: translateY(20px) scale(0.95); opacity: 0; transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); border: 1px solid rgba(0, 0, 0, 0.1); z-index: 1000; font-size: 0.95rem; }
         .floating-output.show { transform: translateY(0) scale(1); opacity: 1; }
-        .sidebar-footer { margin-top: auto; padding: 20px 0; display: flex; justify-content: center; align-items: center; }
+        .sidebar-footer { padding: 20px 0; display: flex; justify-content: center; align-items: center; }
         .theme-toggle { cursor: none; }
         .theme-toggle .tab-icon { stroke: var(--primary-purple); opacity: 0.8; }
         .theme-toggle:hover .tab-icon { opacity: 1; transform: scale(1.1) rotate(15deg); }
@@ -487,6 +539,7 @@
             .wheel-text { font-size: 10px; }
             .weather-display-container { flex-direction: column; gap: 10px; }
             .timeline { transform: scale(0.8); transform-origin: top left; margin-left: -100px; height: 400px; }
+            .sidebar-features { margin-top: 20px; padding: 0 30px; } /* Adjust for mobile */
         }
     </style>
 </head>
@@ -505,7 +558,24 @@
             <div class="tab" data-tab="drive"><svg class="tab-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg><span class="tab-text">mango milkshakes.</span></div>
             <div class="tab" data-tab="growth"><svg class="tab-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span class="tab-text">test your limits</span></div>
             <div class="tab locked" data-tab="vault"><svg class="tab-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span class="tab-text">the vault</span></div>
-            <div class="sidebar-footer"><div class="theme-toggle" id="themeToggle"><svg class="tab-icon" viewBox="0 0 24 24" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
+            
+            <div class="sidebar-features">
+                <div class="streak-counter">
+                    <span class="streak-icon">🔥</span>
+                    <span id="streak-text">Devotion Streak: </span>
+                    <span id="streak-number">0</span>
+                </div>
+                <div class="memory-polaroid">
+                    <img id="polaroid-image" src="" alt="A special memory">
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <div class="theme-toggle" id="themeToggle">
+                    <svg class="tab-icon" viewBox="0 0 24 24" id="themeIcon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+            </div>
         </nav>
         <main class="content-area" id="contentArea"></main>
     </div>
@@ -519,6 +589,8 @@
     <div id="fullscreen-btn"></div>
 
     <script>
+        // --- ALL JAVASCRIPT IS CONTAINED HERE ---
+
         const INTRO_TEXT = {
             default: "hello, nistha.",
             morning: "good morning, sunshine.",
@@ -539,6 +611,12 @@
         GROWTH_OPTIONS.level3 = {"Physical Health ":["I am going to send you four videos of me drinking a full glass of water today.","Let's work on my body from today. I am going to ask you about how to to ease into general exercise.","I think I will work on toning my abdominal region. I'll put you on a vc and do 2x10 ab crunches today!","A 30-seconds plank, for you, on video call today."],"Emotional Health ":["I am going to find one activity we can do everyday for a week. This may be a video call, sending some picture or video regularly, playing something together everyday, or anything else at all. I can choose whether it's sexual or non-sexual in nature.","I will call you up and ask you to tell me about any three things you love about my body or my being.","I am going to show you some part of my body on a video call, in a video, or in a picture, and you will have to baby me about it for two minutes straight.","Can I ask you to write me a fantasy scenario of us in any setting?"],"Mental Health ":["I shall call you up and compliment you on something that you did which made me happy, and tell you why it made me happy.","I shall call you up and compliment myself on something that I did in the recent past that I am really proud of for having done.","As soon as I wake up tomorrow morning, I will call you, and tell you, 'I am confident that this is going to be a good day for me. I love you.'","Before going to bed today, I'll call you up and wish you a good night, and remember to collect an ILY from you."],"Studies ":["I am going to keep up with my Finance Course from IISER Pune. This is a recurring task till you decide that I need not study it any more.","I will explain the causes, effects, and results of the Great Recession to you on a phone call.","I will explain the causes, effects, and results of the late-2000s Indian inflation scenario to you on a phone call.","I shall keep revising regression analysis, statistical inference and testing of hypotheses, and distributions. This is a recurring task till you decide that I need not study it any more."],"Skills  ":["I will write you a 500-word essay on an introduction of myself.","I am going to schedule an interview with you, either one where I remain clothed throughout, or one where I start out clothed and keep losing garments for every mistake I make.","After suitably consulting me, I shall enroll myself in a MicroMasters course or its equivalent."],"Capabilities  ":["I will be doing a hundred jumping jacks for better breathing and lung capacity, while keeping you on video call. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked.","I am going to write a 500-word essay on how I picture a day in my life at college during Masters, by hand in a copy, and send you a PDF of it.","I'll perform 10 time-controlled squats with you on video call. Please do the controlling of the time for me. I may or may not be naked, depending on whether I am free and whether or not you want me to be naked."],"Physical Display ":["I will duly present myself to you in the most natural of my poses: fully nude, kneeling with my hair down, spectacles off, eyes lowered and hands clasped behind me. I am allowed to choose to do as much in a photo, video, or on a video call.","I will duly present myself to you with my bra in my mouth, wearing nothing at all, feet close together and hands behind me, hair down. I shall be standing upright and fully on display for you.","I will duly present my ass to you by perfectly displaying my curves, in a photo, video, or on a video call.","I will learn three new submissive positions from you on a video call.","I will send you a video of using veet on my arms/legs, but I am fully naked for you."],"Gratitude Expression  ":["I'll be sending you a voice message clearly expressing my gratitude at being your submissive. ","I shall text you once today saying, 'Sir, I just wanted to remind you that I am all yours,' but not in these exact same words.","I will use 'sir' with you throughout today, including in at least one video where I am just as clothed or naked as you want me to be.","I'll video call you today, strip naked, and thank you for any non-sexual thing I feel I need to express my gratitude for.","I will ask you what you think of me, my being and my body, and thank you suitably when you compliment be redoubtably."],"Mental Conditioning ":["I'll happily get topless, write 'I am Arka's favourite plaything' on my stomach, and send you a video of me writing it.","I can call you up some time today, and ask you for instructions for a task, and remember to thank you appropriately.","I will type up a 200-word essay on why I think I should obey you every step of my being, every day in my life, and send it to you.","I am going to video call you naked, and read out the daily affirmations from the website on camera.","I will video call you wearing full-length pants and a vest, and tell you that I am all yours, and that you may command me to do anything you wish for the next fifteen minutes."]};
         const appState = {currentTab:'intro',driveNavigation:[],growthNavigation:[],playNavigation:[],wheelSpinning:false,currentRotation:0};
 
+        const memoryImages = [
+            "image_placeholder_1.jpg",
+            "image_placeholder_2.png",
+            "image_placeholder_3.gif"
+        ];
+
         function showIntroScreen() {
             document.getElementById('contentArea').innerHTML = `
                 <div class="intro-screen">
@@ -555,7 +633,7 @@
                             </svg>
                         </div>
                         <div class="timeline-item" id="item-1"><div class="timeline-content"><h3>nervous affirmation</h3><span class="date">january 19, 2023</span><p>you made me wait, but were beyond worth it</p></div></div>
-                        <div class="timeline-item" id="item-2"><div class="timeline-content"><h3>halfway to ownership</h3><span class="date">May 26, 2023</span><p>wore nothing but blue jeans and panties while sitting on my lap. enticing me with half the goods, and promising so much more</p></div></div>
+                        <div class="timeline-item" id="item-2"><div class="timeline-content"><h3>halfway to ownership</h3><span class="date">May 26, 2023</span><p>wore nothing but blue jeans and panties while sitting on my lap, enticing me with half the goods, and promising so much more</p></div></div>
                         <div class="timeline-item" id="item-3"><div class="timeline-content"><h3>complete takeover of assets</h3><span class="date">March, 2024</span><p>let me have my way with you, delightfully naked, for the first time ever</p></div></div>
                         <div class="timeline-item" id="item-4"><div class="timeline-content"><h3>what's it gonna be?</h3><span class="date">August 2025</span><p>what else of the wondrous bounty your body and mind is may i soon lay claim to?</p></div></div>
                     </div>
@@ -760,28 +838,51 @@
         function navigateGrowthTo(index) { appState.growthNavigation = appState.growthNavigation.slice(0, index + 1); showGrowthOptions(); }
         
         function updateCountdown() {
-            const targetDate = new Date("2025-10-27T00:00:00").getTime();
+            const targetDate = new Date("2025-08-01T00:00:00").getTime();
             const now = new Date().getTime();
             const difference = targetDate - now;
-
             const timerEl = document.getElementById('countdownTimer');
             const vaultTab = document.querySelector('.tab[data-tab="vault"]');
-
             if (difference <= 0) {
-                timerEl.innerHTML = "The Vault is Unlocked";
-                if (vaultTab) {
-                    vaultTab.classList.remove('locked');
-                }
+                if (timerEl) timerEl.innerHTML = "The Vault is Unlocked";
+                if (vaultTab) vaultTab.classList.remove('locked');
                 return;
             }
-
             const days = Math.floor(difference / (1000 * 60 * 60 * 24));
             const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
             const format = (num) => num.toString().padStart(2, '0');
-            timerEl.innerHTML = `${format(days)}:${format(hours)}:${format(minutes)}:${format(seconds)}`;
+            if (timerEl) timerEl.innerHTML = `${format(days)}:${format(hours)}:${format(minutes)}:${format(seconds)}`;
+        }
+
+        function updateSidebarFeatures() {
+            // --- Polaroid Logic ---
+            const polaroidImg = document.getElementById('polaroid-image');
+            if (memoryImages.length > 0) {
+                const randomIndex = Math.floor(Math.random() * memoryImages.length);
+                polaroidImg.src = memoryImages[randomIndex];
+            }
+
+            // --- Streak Counter Logic ---
+            const streakEl = document.getElementById('streak-number');
+            const today = new Date().toDateString();
+            const storedData = JSON.parse(localStorage.getItem('devotionStreak')) || { count: 0, lastVisit: null };
+            
+            if (storedData.lastVisit !== today) {
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                
+                if (storedData.lastVisit === yesterday.toDateString()) {
+                    storedData.count++; // Continue the streak
+                } else {
+                    storedData.count = 1; // Reset or start the streak
+                }
+                storedData.lastVisit = today;
+                localStorage.setItem('devotionStreak', JSON.stringify(storedData));
+            }
+            
+            streakEl.textContent = storedData.count;
         }
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -870,6 +971,7 @@
             showIntroScreen();
             updateCountdown(); 
             setInterval(updateCountdown, 1000);
+            updateSidebarFeatures();
         });
     </script>
 </body>
