@@ -6,6 +6,7 @@
     <title>babygirl.</title>
     <link rel="icon" type="image/svg+xml" href="favicon-dark.svg">
     <style>
+        /* All CSS styles from your code are preserved here... */
         /* --- Core & Fonts --- */
         :root {
             --bg-dark: #100f13;
@@ -247,13 +248,40 @@
             font-weight: 500;
         }
 
-        /* --- NEW: Sidebar Features --- */
+        /* --- Sidebar Features --- */
         .sidebar-features {
             padding: 10px 30px 20px 30px;
-            margin-top: auto; /* Pushes this section to the bottom */
+            margin-top: auto;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
+        }
+
+        .profile-switcher {
+            font-size: 0.8rem;
+            text-align: center;
+            opacity: 0.6;
+            cursor: none;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: opacity 0.3s ease;
+        }
+        .profile-switcher:hover {
+            opacity: 1;
+        }
+        .profile-switcher span {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .profile-switcher strong {
+            color: var(--primary-lavender);
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .profile-switcher:hover strong {
+            background-color: rgba(255,255,255,0.1);
         }
 
         .streak-counter {
@@ -280,7 +308,7 @@
         }
         
         .memory-polaroid {
-            background: #f4f4f4; /* Polaroid white, consistent for both themes */
+            background: #f4f4f4;
             border-radius: 4px;
             padding: 10px 10px 25px 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
@@ -372,7 +400,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* --- REVISED: Horizontally Scrollable SVG Timeline --- */
         .timeline-section {
             padding-bottom: 50px;
             overflow-x: auto;
@@ -384,7 +411,6 @@
         .timeline-section::-webkit-scrollbar { height: 6px; }
         .timeline-section::-webkit-scrollbar-track { background: transparent; }
         .timeline-section::-webkit-scrollbar-thumb { background-color: var(--primary-purple); border-radius: 3px; }
-
 
         .timeline {
             position: relative;
@@ -474,7 +500,6 @@
             opacity: 0.9;
         }
        
-        /* --- ALL OTHER STYLES (UNCHANGED FROM ORIGINAL) --- */
         .wheel-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; margin-top: 20px; }
         .wheel-wrapper { position: relative; width: 450px; height: 450px; }
         .wheel-pointer { position: absolute; top: -5px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 20px solid var(--primary-lavender); z-index: 10; }
@@ -539,7 +564,7 @@
             .wheel-text { font-size: 10px; }
             .weather-display-container { flex-direction: column; gap: 10px; }
             .timeline { transform: scale(0.8); transform-origin: top left; margin-left: -100px; height: 400px; }
-            .sidebar-features { margin-top: 20px; padding: 0 30px; } /* Adjust for mobile */
+            .sidebar-features { margin-top: 20px; padding: 0 30px; }
         }
     </style>
 </head>
@@ -560,6 +585,10 @@
             <div class="tab locked" data-tab="vault"><svg class="tab-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span class="tab-text">the vault</span></div>
             
             <div class="sidebar-features">
+                 <div class="profile-switcher">
+                    <span>Tracking Visit For:</span>
+                    <strong id="currentUser" data-user="her">babygirl</strong>
+                </div>
                 <div class="streak-counter">
                     <span class="streak-icon">🔥</span>
                     <span id="streak-text">Devotion Streak: </span>
@@ -569,6 +598,7 @@
                     <img id="polaroid-image" src="" alt="A special memory">
                 </div>
             </div>
+
             <div class="sidebar-footer">
                 <div class="theme-toggle" id="themeToggle">
                     <svg class="tab-icon" viewBox="0 0 24 24" id="themeIcon">
@@ -612,20 +642,20 @@
         const appState = {currentTab:'intro',driveNavigation:[],growthNavigation:[],playNavigation:[],wheelSpinning:false,currentRotation:0};
 
         const memoryImages = [
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.28.56%20AM%20(1).jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.24%20AM%20(1).jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.28.56%20AM.jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.24%20AM.jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.25%20AM%20(1).jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.26%20AM%20(1).jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.26%20AM.jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.27%20AM%20(1).jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.27%20AM%20(2).jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.27%20AM.jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.28%20AM%20(1).jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.28%20AM%20(2).jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.28%20AM.jpeg",
-            "https://github.com/arkawhy/babygirlrepo/blob/main/WhatsApp%20Image%202025-07-20%20at%2010.30.29%20AM.jpeg"
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.28.56%20AM%20(1).jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.24%20AM%20(1).jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.28.56%20AM.jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.24%20AM.jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.25%20AM%20(1).jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.26%20AM%20(1).jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.26%20AM.jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.27%20AM%20(1).jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.27%20AM%20(2).jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.27%20AM.jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.28%20AM%20(1).jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.28%20AM%20(2).jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.28%20AM.jpeg",
+            "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.29%20AM.jpeg"
         ];
 
         function showIntroScreen() {
@@ -849,7 +879,7 @@
         function navigateGrowthTo(index) { appState.growthNavigation = appState.growthNavigation.slice(0, index + 1); showGrowthOptions(); }
         
         function updateCountdown() {
-            const targetDate = new Date("2025-10-27T00:00:00").getTime();
+            const targetDate = new Date("2025-08-01T00:00:00").getTime();
             const now = new Date().getTime();
             const difference = targetDate - now;
             const timerEl = document.getElementById('countdownTimer');
@@ -870,30 +900,36 @@
         function updateSidebarFeatures() {
             // --- Polaroid Logic ---
             const polaroidImg = document.getElementById('polaroid-image');
-            if (memoryImages.length > 0) {
+            if (polaroidImg && memoryImages.length > 0) {
                 const randomIndex = Math.floor(Math.random() * memoryImages.length);
                 polaroidImg.src = memoryImages[randomIndex];
             }
 
-            // --- Streak Counter Logic ---
-            const streakEl = document.getElementById('streak-number');
+            // --- Updated Streak Counter Logic ---
+            const currentUserEl = document.getElementById('currentUser');
+            if (!currentUserEl) return; 
+            
+            const currentUser = currentUserEl.dataset.user;
             const today = new Date().toDateString();
-            const storedData = JSON.parse(localStorage.getItem('devotionStreak')) || { count: 0, lastVisit: null };
+            const storageKey = currentUser === 'her' ? 'devotionStreakHer' : 'devotionStreakYou';
+            
+            const storedData = JSON.parse(localStorage.getItem(storageKey)) || { count: 0, lastVisit: null };
             
             if (storedData.lastVisit !== today) {
                 const yesterday = new Date();
                 yesterday.setDate(yesterday.getDate() - 1);
                 
                 if (storedData.lastVisit === yesterday.toDateString()) {
-                    storedData.count++; // Continue the streak
+                    storedData.count++;
                 } else {
-                    storedData.count = 1; // Reset or start the streak
+                    storedData.count = 1;
                 }
                 storedData.lastVisit = today;
-                localStorage.setItem('devotionStreak', JSON.stringify(storedData));
+                localStorage.setItem(storageKey, JSON.stringify(storedData));
             }
             
-            streakEl.textContent = storedData.count;
+            document.getElementById('streak-number').textContent = storedData.count;
+            document.getElementById('streak-text').textContent = currentUser === 'her' ? "Devotion Streak: " : "Visitor Streak: ";
         }
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -978,6 +1014,37 @@
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
             document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
             document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
+
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar) {
+                sidebar.addEventListener('click', function(e) {
+                    if (e.target.id === 'currentUser') {
+                        const userEl = e.target;
+                        if (userEl.dataset.user === 'her') {
+                            userEl.dataset.user = 'you';
+                            userEl.textContent = 'Arka';
+                            localStorage.setItem('currentUser', 'you');
+                        } else {
+                            userEl.dataset.user = 'her';
+                            userEl.textContent = 'babygirl';
+                            localStorage.setItem('currentUser', 'her');
+                        }
+                        updateSidebarFeatures();
+                    }
+                });
+            }
+            
+            const savedUser = localStorage.getItem('currentUser');
+            const currentUserEl = document.getElementById('currentUser');
+            if (savedUser && currentUserEl) {
+                if (savedUser === 'you') {
+                    currentUserEl.dataset.user = 'you';
+                    currentUserEl.textContent = 'Arka';
+                } else {
+                    currentUserEl.dataset.user = 'her';
+                    currentUserEl.textContent = 'babygirl';
+                }
+            }
             
             showIntroScreen();
             updateCountdown(); 
