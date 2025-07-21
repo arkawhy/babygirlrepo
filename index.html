@@ -128,7 +128,7 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             justify-content: space-between;
             padding: 0 30px;
-            flex-shrink: 0;
+            flex-shrink: 0; /* Prevent shrinking */
         }
         body.light-theme .title-ribbon {
             border-bottom-color: rgba(0, 0, 0, 0.08);
@@ -136,7 +136,7 @@
         .bottom-ribbon {
             min-height: 80px;
             border-top: 1px solid rgba(0, 0, 0, 0.05);
-            flex-shrink: 0;
+            flex-shrink: 0; /* Prevent shrinking */
             padding: 10px 20px;
         }
         body.light-theme .bottom-ribbon {
@@ -352,14 +352,15 @@
             overflow: hidden;
         }
         #tab-content-wrapper {
-            flex: 1 1 auto;
+            flex-grow: 1;
             overflow-y: auto;
             padding: 40px;
-            min-height: 0;
+            min-height: 0; /* FIX: Allows flex item to shrink properly */
         }
         #persistent-timeline-wrapper {
             flex-shrink: 0;
             border-top: 1px solid rgba(155, 89, 182, 0.3);
+            padding: 10px 40px 0 40px;
             background: var(--bg-content);
             transition: background 0.5s ease, border-top-color 0.5s ease;
         }
@@ -375,8 +376,9 @@
             align-items: center;
             text-align: center;
             position: relative;
-            overflow: visible; 
-            padding: 50px 0;
+            overflow: visible; /* FIX: Allows orb to be fully visible */
+            margin-bottom: 50px;
+            padding-top: 50px; /* FIX: Creates space for the orb */
         }
         .intro-screen h2 {
             font-family: var(--font-heading);
@@ -432,7 +434,7 @@
         }
         
         .timeline-section {
-             padding: 10px 40px 0 40px;
+             padding-bottom: 10px;
         }
 
         .timeline-scroll-wrapper {
@@ -580,7 +582,7 @@
             .tab:not(.locked):hover, .tab.active { border-left-color: transparent; border-bottom-color: var(--primary-purple); }
             .sidebar-footer { margin-top: 0; padding: 0 20px; }
             #tab-content-wrapper { padding: 25px; }
-            .timeline-section { padding: 20px 25px; }
+            #persistent-timeline-wrapper { padding: 20px 25px; }
             .bottom-ribbon { height: auto; padding-bottom: 20px; }
             .intro-screen h2, .section-header, .vault-header { font-size: 2rem; }
             .main-title { font-size: 1.8rem; }
@@ -662,10 +664,10 @@
             "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay."
         ];
         const MIND_OPTIONS = [
-            "I think I can work in an interview today.",
-            "Maybe I can take you along for a trip to the shower?",
-            "I'd love a little one-on-one video call, maybe.",
-            "Can you just teach me how to dirty-talk well with you?"
+            "I think I can work in an interview today. 😋",
+            "Maybe I can take you along for a trip to the shower? 🚿",
+            "I'd love a little one-on-one video call, maybe. 💞",
+            "Can you just teach me how to dirty-talk well with you? 😙"
         ];
         const WHEEL_OPTIONS = [
             "10-sec video of my smile",
@@ -999,8 +1001,7 @@
             document.getElementById('wheel-svg-container').innerHTML = svgContent;
         }
 
-        function spinTheWheel(e) {
-            e.stopPropagation();
+        function spinTheWheel() {
             if (appState.wheelSpinning) return;
             appState.wheelSpinning = true;
             document.getElementById('spinBtn').disabled = true;
@@ -1027,7 +1028,7 @@
                 card.className = className;
                 card.innerHTML = `<span>${optionText}</span>`;
                 card.addEventListener('click', (e) => {
-                    e.stopPropagation();
+                    e.stopPropagation(); // Keep stopPropagation for specific card clicks
                     clickHandler(optionText);
                 });
                 container.appendChild(card);
@@ -1235,25 +1236,15 @@
                 }
             });
 
-            // Add hover effects and manage specific click actions
-            const interactiveSelector = 'a, button, .tab, .main-title, .spin-button, .task-card, .mind-option, .drive-option, .growth-option, .play-option, .play-sub-option, .breadcrumb-item, .theme-toggle, .profile-switcher, .memory-polaroid, #fullscreen-btn';
-            
-            // Use event delegation on a parent for dynamically added elements
-            document.body.addEventListener('mouseenter', e => {
-                if (e.target.matches(interactiveSelector)) {
-                    cursorDot.style.transform = 'translate(-50%, -50%) scale(2)';
-                }
-            }, true);
-            document.body.addEventListener('mouseleave', e => {
-                if (e.target.matches(interactiveSelector)) {
-                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
-                }
-            }, true);
-            document.body.addEventListener('click', e => {
-                if (e.target.matches(interactiveSelector)) {
+            // Specific hover listeners for interactive elements
+            document.querySelectorAll('a, button, .tab, .main-title, .spin-button, .task-card, .mind-option, .drive-option, .growth-option, .play-option, .play-sub-option, .breadcrumb-item, .theme-toggle').forEach(el => {
+                el.addEventListener('mouseenter', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(2)');
+                el.addEventListener('mouseleave', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(1)');
+                // Stop propagation on specific interactive elements to prevent double heart explosions on cards etc.
+                el.addEventListener('click', function(e) {
                     e.stopPropagation();
-                }
-            }, true);
+                });
+            });
             
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
@@ -1301,26 +1292,29 @@
             document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
             document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
 
-            document.querySelector('.sidebar').addEventListener('click', function(e) {
-                const profileSwitcher = e.target.closest('.profile-switcher');
-                const polaroid = e.target.closest('.memory-polaroid');
-                
-                if (profileSwitcher) {
-                    const userEl = document.getElementById('currentUser');
-                    if (userEl.dataset.user === 'her') {
-                        userEl.dataset.user = 'you';
-                        userEl.textContent = 'Arka';
-                        localStorage.setItem('currentUser', 'you');
-                    } else {
-                        userEl.dataset.user = 'her';
-                        userEl.textContent = 'babygirl';
-                        localStorage.setItem('currentUser', 'her');
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar) {
+                sidebar.addEventListener('click', function(e) {
+                    if (e.target.id === 'currentUser') {
+                        const userEl = e.target;
+                        if (userEl.dataset.user === 'her') {
+                            userEl.dataset.user = 'you';
+                            userEl.textContent = 'Arka';
+                            localStorage.setItem('currentUser', 'you');
+                        } else {
+                            userEl.dataset.user = 'her';
+                            userEl.textContent = 'babygirl';
+                            localStorage.setItem('currentUser', 'her');
+                        }
+                        updateSidebarFeatures();
                     }
-                    updateSidebarFeatures();
-                } else if (polaroid) {
-                    shufflePolaroid();
+                });
+
+                const polaroidEl = sidebar.querySelector('.memory-polaroid');
+                if (polaroidEl) {
+                    polaroidEl.addEventListener('click', shufflePolaroid);
                 }
-            });
+            }
             
             const savedUser = localStorage.getItem('currentUser');
             const currentUserEl = document.getElementById('currentUser');
