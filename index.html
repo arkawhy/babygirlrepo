@@ -149,7 +149,7 @@
             color: var(--text-light);
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
             cursor: none;
-            transition: letter-spacing 0.4s ease, color 0.4s ease;
+            transition: letter-spacing: 0.4s ease, color 0.4s ease;
         }
         .main-title:hover {
             letter-spacing: 4px;
@@ -649,9 +649,9 @@
         const INTRO_TEXT = {
             default: "hello, nistha.",
             morning: "good morning, sunshine.",
-            afternoon: "hope you're having a lovely day, baby.",
-            evening: "tell me all about how your day went, sweetheart.",
-            night: "did you please me today? i bet you did. good girl.",
+            afternoon: "hope you're having a lovely day.",
+            evening: "tell me all about how your day went.",
+            night: "did you please me today? i bet you did.",
             description: "step inside your private playground. here, you're free to be bold, to tease, to surrender, and to shine. every click, every word, every task is a secret invitation—just for you and me. let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. are you ready to play?"
         };
         const PENDING_TASKS = [
@@ -661,10 +661,10 @@
             "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay."
         ];
         const MIND_OPTIONS = [
-            "I think I can work in an interview today. ",
-            "Maybe I can take you along for a trip to the shower? ",
-            "I'd love a little one-on-one video call, maybe. ",
-            "Can you just teach me how to dirty-talk well with you? "
+            "I think I can work in an interview today. 😋",
+            "Maybe I can take you along for a trip to the shower? 🚿",
+            "I'd love a little one-on-one video call, maybe. 💞",
+            "Can you just teach me how to dirty-talk well with you? 😙"
         ];
         const WHEEL_OPTIONS = [
             "10-sec video of my smile",
@@ -1024,7 +1024,10 @@
                 const card = document.createElement('div');
                 card.className = className;
                 card.innerHTML = `<span>${optionText}</span>`;
-                card.addEventListener('click', () => clickHandler(optionText));
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Keep stopPropagation for specific card clicks
+                    clickHandler(optionText);
+                });
                 container.appendChild(card);
             });
         }
@@ -1042,14 +1045,14 @@
                 const rootItem = document.createElement('span');
                 rootItem.className = 'breadcrumb-item';
                 rootItem.textContent = classNames.root;
-                rootItem.addEventListener('click', resetNav);
+                rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetNav(); });
                 breadcrumbContainer.appendChild(rootItem);
                 navigationPath.forEach((item, index) => {
                     breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator"> </span>`;
                     const breadcrumbItem = document.createElement('span');
                     breadcrumbItem.className = 'breadcrumb-item';
                     breadcrumbItem.textContent = item;
-                    breadcrumbItem.addEventListener('click', () => navigateTo(index));
+                    breadcrumbItem.addEventListener('click', (e) => { e.stopPropagation(); navigateTo(index); });
                     breadcrumbContainer.appendChild(breadcrumbItem);
                 });
                 contentArea.appendChild(breadcrumbContainer);
@@ -1064,7 +1067,10 @@
                 const optionEl = document.createElement('div');
                 optionEl.className = classNames.option;
                 optionEl.innerHTML = `<span>${optionText}</span>`;
-                optionEl.addEventListener('click', () => clickHandler(optionText, clickLevel));
+                optionEl.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    clickHandler(optionText, clickLevel);
+                });
                 contentArea.appendChild(optionEl);
             });
         }
@@ -1079,7 +1085,7 @@
                     const optionEl = document.createElement('div');
                     optionEl.className = 'play-option';
                     optionEl.innerHTML = `<span>${option}</span>`;
-                    optionEl.addEventListener('click', () => handlePlayOptionClick(option));
+                    optionEl.addEventListener('click', (e) => { e.stopPropagation(); handlePlayOptionClick(option); });
                     contentArea.appendChild(optionEl);
                 });
             } else {
@@ -1089,7 +1095,7 @@
                 const rootItem = document.createElement('span');
                 rootItem.className = 'breadcrumb-item';
                 rootItem.textContent = 'Games';
-                rootItem.addEventListener('click', resetPlayNavigation);
+                rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetPlayNavigation(); });
                 breadcrumbContainer.appendChild(rootItem);
                 breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator"> </span><span class="breadcrumb-item">${selectedOption}</span>`;
                 contentArea.appendChild(breadcrumbContainer);
@@ -1097,7 +1103,7 @@
                     const subOptionEl = document.createElement('div');
                     subOptionEl.className = 'play-sub-option';
                     subOptionEl.textContent = subOption;
-                    subOptionEl.addEventListener('click', () => handlePlaySubClick(subOption));
+                    subOptionEl.addEventListener('click', (e) => { e.stopPropagation(); handlePlaySubClick(subOption); });
                     contentArea.appendChild(subOptionEl);
                 });
             }
@@ -1211,24 +1217,32 @@
                     setTimeout(() => canCreateSparkle = true, 50);
                 }
             });
+
+            // Universal click listener for heart explosions
+            window.addEventListener('click', function(e) {
+                for (let i = 0; i < 5; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '♥';
+                    const randomX = (Math.random() - 0.5) * 90;
+                    const randomY = (Math.random() - 0.5) * 90;
+                    heart.style.left = `${e.clientX + randomX}px`;
+                    heart.style.top = `${e.clientY + randomY}px`;
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 1200);
+                }
+            });
+
+            // Specific hover listeners for interactive elements
             document.querySelectorAll('a, button, .tab, .main-title, .spin-button, .task-card, .mind-option, .drive-option, .growth-option, .play-option, .play-sub-option, .breadcrumb-item, .theme-toggle').forEach(el => {
                 el.addEventListener('mouseenter', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(2)');
                 el.addEventListener('mouseleave', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(1)');
+                // Stop propagation on specific interactive elements to prevent double heart explosions on cards etc.
                 el.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    for (let i = 0; i < 5; i++) {
-                        const heart = document.createElement('div');
-                        heart.className = 'heart';
-                        heart.innerHTML = '♥';
-                        const randomX = (Math.random() - 0.5) * 90;
-                        const randomY = (Math.random() - 0.5) * 90;
-                        heart.style.left = `${e.clientX + randomX}px`;
-                        heart.style.top = `${e.clientY + randomY}px`;
-                        document.body.appendChild(heart);
-                        setTimeout(() => heart.remove(), 1200);
-                    }
                 });
             });
+            
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
             });
