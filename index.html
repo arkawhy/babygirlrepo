@@ -37,7 +37,6 @@
         }
 
         body {
-            /* FIX: Removed fixed height and overflow to allow natural page scrolling */
             display: flex;
             flex-direction: column;
             background: radial-gradient(ellipse at center, var(--bg-content) 0%, var(--bg-dark) 70%);
@@ -47,8 +46,8 @@
             margin: 0;
             -webkit-font-smoothing: antialiased;
             transition: background 0.5s ease, color 0.5s ease;
-            cursor: none; /* Hide the default cursor */
-            min-height: 100vh; /* Ensure body is at least full height */
+            cursor: none;
+            min-height: 100vh;
         }
         
         /* --- Sparkly Background for Light Theme --- */
@@ -119,7 +118,7 @@
             justify-content: space-between;
             background: var(--bg-content);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            position: sticky; /* FIX: Make header sticky */
+            position: sticky;
             top: 0;
             z-index: 100;
             transition: background 0.5s ease;
@@ -178,9 +177,8 @@
             background: var(--bg-dark);
             border-right: 1px solid rgba(0, 0, 0, 0.05);
             transition: background 0.5s ease;
-            /* FIX: Make sidebar sticky and scrollable */
             position: sticky;
-            top: 70px; /* Height of the title-ribbon */
+            top: 70px;
             height: calc(100vh - 70px);
             display: flex;
             flex-direction: column;
@@ -200,7 +198,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            flex-shrink: 0; /* Prevent tabs from shrinking */
+            flex-shrink: 0;
         }
         .tab:not(.locked):hover {
             background: rgba(0, 0, 0, 0.05);
@@ -272,7 +270,7 @@
             font-weight: 600;
             padding: 4px 8px;
             border-radius: 4px;
-            transition: background-color 0.3s ease;
+            transition: background-color: 0.3s ease;
         }
         .profile-switcher:hover strong {
             background-color: rgba(255,255,255,0.1);
@@ -343,7 +341,6 @@
             padding: 40px;
         }
         
-        /* FIX: Timeline is no longer a fixed part of the flex layout, just a normal section */
         #persistent-timeline-wrapper {
             border-top: 1px solid rgba(155, 89, 182, 0.3);
             padding: 20px 0;
@@ -431,13 +428,9 @@
         .timeline-scroll-wrapper {
             overflow-x: auto;
             padding-bottom: 15px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary-purple) transparent;
+            scrollbar-color: rgba(155, 89, 182, 0.4) transparent;
         }
-        .timeline-scroll-wrapper::-webkit-scrollbar { height: 6px; }
-        .timeline-scroll-wrapper::-webkit-scrollbar-track { background: transparent; }
-        .timeline-scroll-wrapper::-webkit-scrollbar-thumb { background-color: var(--primary-purple); border-radius: 3px; }
-
+        
         .timeline {
             position: relative;
             width: 1400px;
@@ -488,10 +481,12 @@
             animation: fadeIn 1s ease-out forwards;
         }
         
-        #item-1 { top: -15px; left: 160px; animation-delay: 3.6s; }
-        #item-2 { top: 80px; left: 460px; animation-delay: 3.8s; }
-        #item-3 { top: -15px; left: 760px; animation-delay: 4.0s; }
-        #item-4 { top: 80px; left: 1060px; animation-delay: 4.2s; }
+        /* FIX: Adjusted item positions to prevent overlap */
+        #item-1 { top: -25px; left: 160px; animation-delay: 3.6s; }
+        #item-2 { top: 95px; left: 460px; animation-delay: 3.8s; }
+        #item-3 { top: -25px; left: 760px; animation-delay: 4.0s; }
+        #item-4 { top: 95px; left: 1060px; animation-delay: 4.2s; }
+
 
         .timeline-content {
             padding: 0;
@@ -548,18 +543,21 @@
         #fullscreen-btn { position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px; background: var(--bg-content); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1001; cursor: none; transition: all 0.3s ease; }
         #fullscreen-btn:hover { background: var(--primary-purple); transform: scale(1.1); }
         #fullscreen-btn svg { width: 20px; height: 20px; stroke: var(--primary-lavender); stroke-width: 2; }
-        html::-webkit-scrollbar, #tab-content-wrapper::-webkit-scrollbar, .sidebar::-webkit-scrollbar { width: 8px; }
-        html::-webkit-scrollbar-track, #tab-content-wrapper::-webkit-scrollbar-track, .sidebar::-webkit-scrollbar-track { background: var(--bg-content); }
-        html::-webkit-scrollbar-thumb, #tab-content-wrapper::-webkit-scrollbar-thumb, .sidebar::-webkit-scrollbar-thumb { background-color: var(--primary-purple); border-radius: 10px; border: 2px solid var(--bg-content); }
-        html::-webkit-scrollbar-thumb:hover, #tab-content-wrapper::-webkit-scrollbar-thumb:hover, .sidebar::-webkit-scrollbar-thumb:hover { background-color: var(--primary-lavender); }
-        body.light-theme ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        body.light-theme ::-webkit-scrollbar-thumb { border-color: var(--bg-dark); }
+        
+        /* FIX: Transparent Scrollbar Styles */
+        .sidebar { scrollbar-width: thin; scrollbar-color: rgba(155, 89, 182, 0.4) transparent; }
+        ::-webkit-scrollbar { width: 8px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: rgba(155, 89, 182, 0.3); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background-color: rgba(155, 89, 182, 0.5); }
+        body.light-theme ::-webkit-scrollbar-thumb { background-color: rgba(217, 76, 120, 0.3); }
+        body.light-theme ::-webkit-scrollbar-thumb:hover { background-color: rgba(217, 76, 120, 0.5); }
 
         /* --- Mobile Responsiveness --- */
         @media (max-width: 900px) {
             .main-container { flex-direction: column; }
             .sidebar {
-                position: relative; /* Un-stick sidebar on mobile */
+                position: relative;
                 top: 0;
                 height: auto;
                 width: 100%;
@@ -585,7 +583,7 @@
             .wheel-wrapper { width: 320px; height: 320px; }
             .wheel-text { font-size: 10px; }
             .timeline { transform: scale(0.8); transform-origin: top left; margin-left: -100px; height: 120px; }
-            .sidebar-features { display: none; } /* Hide features on mobile nav bar */
+            .sidebar-features { display: none; }
         }
     </style>
 </head>
@@ -793,7 +791,6 @@
             if (tabName !== 'play') appState.playNavigation = [];
             appState.currentTab = tabName;
             
-            // Clear content area and then render new content
             contentArea.innerHTML = ''; 
 
             switch (tabName) {
