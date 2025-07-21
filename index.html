@@ -355,12 +355,11 @@
             flex-grow: 1;
             overflow-y: auto;
             padding: 40px;
-            min-height: 0; /* FIX: Allows flex item to shrink properly */
+            min-height: 0; /* Critical for flex shrinking */
         }
         #persistent-timeline-wrapper {
             flex-shrink: 0;
             border-top: 1px solid rgba(155, 89, 182, 0.3);
-            padding: 10px 40px 0 40px;
             background: var(--bg-content);
             transition: background 0.5s ease, border-top-color 0.5s ease;
         }
@@ -434,7 +433,7 @@
         }
         
         .timeline-section {
-             padding-bottom: 10px;
+             padding: 10px 40px 0 40px;
         }
 
         .timeline-scroll-wrapper {
@@ -1001,7 +1000,8 @@
             document.getElementById('wheel-svg-container').innerHTML = svgContent;
         }
 
-        function spinTheWheel() {
+        function spinTheWheel(e) {
+            e.stopPropagation();
             if (appState.wheelSpinning) return;
             appState.wheelSpinning = true;
             document.getElementById('spinBtn').disabled = true;
@@ -1028,6 +1028,7 @@
                 card.className = className;
                 card.innerHTML = `<span>${optionText}</span>`;
                 card.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
                     clickHandler(optionText);
                 });
                 container.appendChild(card);
@@ -1047,14 +1048,14 @@
                 const rootItem = document.createElement('span');
                 rootItem.className = 'breadcrumb-item';
                 rootItem.textContent = classNames.root;
-                rootItem.addEventListener('click', (e) => { resetNav(); });
+                rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetNav(); });
                 breadcrumbContainer.appendChild(rootItem);
                 navigationPath.forEach((item, index) => {
                     breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator"> </span>`;
                     const breadcrumbItem = document.createElement('span');
                     breadcrumbItem.className = 'breadcrumb-item';
                     breadcrumbItem.textContent = item;
-                    breadcrumbItem.addEventListener('click', (e) => { navigateTo(index); });
+                    breadcrumbItem.addEventListener('click', (e) => { e.stopPropagation(); navigateTo(index); });
                     breadcrumbContainer.appendChild(breadcrumbItem);
                 });
                 contentArea.appendChild(breadcrumbContainer);
@@ -1070,6 +1071,7 @@
                 optionEl.className = classNames.option;
                 optionEl.innerHTML = `<span>${optionText}</span>`;
                 optionEl.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     clickHandler(optionText, clickLevel);
                 });
                 contentArea.appendChild(optionEl);
@@ -1086,7 +1088,7 @@
                     const optionEl = document.createElement('div');
                     optionEl.className = 'play-option';
                     optionEl.innerHTML = `<span>${option}</span>`;
-                    optionEl.addEventListener('click', (e) => { handlePlayOptionClick(option); });
+                    optionEl.addEventListener('click', (e) => { e.stopPropagation(); handlePlayOptionClick(option); });
                     contentArea.appendChild(optionEl);
                 });
             } else {
@@ -1096,7 +1098,7 @@
                 const rootItem = document.createElement('span');
                 rootItem.className = 'breadcrumb-item';
                 rootItem.textContent = 'Games';
-                rootItem.addEventListener('click', (e) => { resetPlayNavigation(); });
+                rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetPlayNavigation(); });
                 breadcrumbContainer.appendChild(rootItem);
                 breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator"> </span><span class="breadcrumb-item">${selectedOption}</span>`;
                 contentArea.appendChild(breadcrumbContainer);
@@ -1104,7 +1106,7 @@
                     const subOptionEl = document.createElement('div');
                     subOptionEl.className = 'play-sub-option';
                     subOptionEl.textContent = subOption;
-                    subOptionEl.addEventListener('click', (e) => { handlePlaySubClick(subOption); });
+                    subOptionEl.addEventListener('click', (e) => { e.stopPropagation(); handlePlaySubClick(subOption); });
                     contentArea.appendChild(subOptionEl);
                 });
             }
