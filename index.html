@@ -342,11 +342,29 @@
         /* --- Content Area --- */
         .content-area {
             flex-grow: 1;
-            padding: 40px;
             background: var(--bg-content);
-            overflow-y: auto;
             transition: background 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            overflow: hidden;
         }
+        #tab-content-wrapper {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 40px;
+        }
+        #persistent-timeline-wrapper {
+            flex-shrink: 0;
+            border-top: 1px solid rgba(155, 89, 182, 0.3);
+            padding: 10px 40px 0 40px;
+            background: var(--bg-content);
+            transition: background 0.5s ease, border-top-color 0.5s ease;
+        }
+        body.light-theme #persistent-timeline-wrapper {
+            border-top-color: rgba(217, 76, 120, 0.4);
+        }
+
 
         .intro-screen {
             display: flex;
@@ -354,7 +372,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: calc(100vh - 280px);
+            min-height: calc(100vh - 710px); /* Adjusted for persistent timeline */
             position: relative;
             overflow: hidden;
             margin-bottom: 50px;
@@ -413,7 +431,7 @@
         }
         
         .timeline-section {
-            padding-bottom: 50px;
+            /* padding-bottom removed to avoid double padding */
         }
 
         .timeline-scroll-wrapper {
@@ -542,10 +560,10 @@
         #fullscreen-btn { position: fixed; bottom: 100px; right: 30px; width: 40px; height: 40px; background: var(--bg-content); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1001; cursor: none; transition: all 0.3s ease; }
         #fullscreen-btn:hover { background: var(--primary-purple); transform: scale(1.1); }
         #fullscreen-btn svg { width: 20px; height: 20px; stroke: var(--primary-lavender); stroke-width: 2; }
-        html::-webkit-scrollbar, .content-area::-webkit-scrollbar { width: 8px; }
-        html::-webkit-scrollbar-track, .content-area::-webkit-scrollbar-track { background: var(--bg-content); }
-        html::-webkit-scrollbar-thumb, .content-area::-webkit-scrollbar-thumb { background-color: var(--primary-purple); border-radius: 10px; border: 2px solid var(--bg-content); }
-        html::-webkit-scrollbar-thumb:hover, .content-area::-webkit-scrollbar-thumb:hover { background-color: var(--primary-lavender); }
+        html::-webkit-scrollbar, #tab-content-wrapper::-webkit-scrollbar { width: 8px; }
+        html::-webkit-scrollbar-track, #tab-content-wrapper::-webkit-scrollbar-track { background: var(--bg-content); }
+        html::-webkit-scrollbar-thumb, #tab-content-wrapper::-webkit-scrollbar-thumb { background-color: var(--primary-purple); border-radius: 10px; border: 2px solid var(--bg-content); }
+        html::-webkit-scrollbar-thumb:hover, #tab-content-wrapper::-webkit-scrollbar-thumb:hover { background-color: var(--primary-lavender); }
         body.light-theme ::-webkit-scrollbar-track { background: var(--bg-dark); }
         body.light-theme ::-webkit-scrollbar-thumb { border-color: var(--bg-dark); }
 
@@ -560,7 +578,8 @@
             .tab { flex: 0 0 auto; min-width: 150px; justify-content: center; padding: 15px 20px; border-left: none; border-bottom: 4px solid transparent; }
             .tab:not(.locked):hover, .tab.active { border-left-color: transparent; border-bottom-color: var(--primary-purple); }
             .sidebar-footer { margin-top: 0; padding: 0 20px; }
-            .content-area { padding: 25px; }
+            #tab-content-wrapper { padding: 25px; }
+            #persistent-timeline-wrapper { padding: 20px 25px; }
             .bottom-ribbon { height: auto; padding-bottom: 20px; }
             .intro-screen h2, .section-header, .vault-header { font-size: 2rem; }
             .main-title { font-size: 1.8rem; }
@@ -664,13 +683,10 @@
             "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.29%20AM.jpeg"
         ];
         
-        function showIntroScreen() {
-            document.getElementById('contentArea').innerHTML = `
-                <div class="intro-screen">
-                    <div class="glowing-orb"></div>
-                    <h2>${getWelcomeMessage()}</h2>
-                    <p>${INTRO_TEXT.description}</p>
-                </div>
+        function renderTimeline() {
+            const timelineContainer = document.getElementById('persistent-timeline-wrapper');
+            if (!timelineContainer) return;
+            timelineContainer.innerHTML = `
                 <section class="timeline-section">
                     <h2 class="section-header">biggest steps taken by my babygirl so far</h2>
                     <div class="timeline-scroll-wrapper">
@@ -691,6 +707,15 @@
                         </div>
                     </div>
                 </section>`;
+        }
+
+        function showIntroScreen() {
+            document.getElementById('tab-content-wrapper').innerHTML = `
+                <div class="intro-screen">
+                    <div class="glowing-orb"></div>
+                    <h2>${getWelcomeMessage()}</h2>
+                    <p>${INTRO_TEXT.description}</p>
+                </div>`;
         }
         
         function getWelcomeMessage() {
@@ -734,16 +759,16 @@
         }
         
         function showVaultContent() {
-             document.getElementById('contentArea').innerHTML = `<div><h2 class="vault-header">Happy Birthday, My Love</h2><div class="vault-letter"><p>My Dearest,</p><p>If you're reading this, it means the wait is over. Happy birthday, my beautiful girl. I wanted to give you something more than just a gift; I wanted to give you a space filled with our memories and my love for you.</p><p>This past year has been... [continue your letter here].</p><p>With all my heart,<br>Arka</p></div></div>`;
+             document.getElementById('tab-content-wrapper').innerHTML = `<div><h2 class="vault-header">Happy Birthday, My Love</h2><div class="vault-letter"><p>My Dearest,</p><p>If you're reading this, it means the wait is over. Happy birthday, my beautiful girl. I wanted to give you something more than just a gift; I wanted to give you a space filled with our memories and my love for you.</p><p>This past year has been... [continue your letter here].</p><p>With all my heart,<br>Arka</p></div></div>`;
         }
 
         function showPlaylist() {
-            document.getElementById('contentArea').innerHTML = `<div style="text-align: center;"><h2 class="section-header">happy headache</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">you don't use spotify, so i think i found a way for us to listen to it here. yay.</p><iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4WYpdgoIcn6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`;
+            document.getElementById('tab-content-wrapper').innerHTML = `<div style="text-align: center;"><h2 class="section-header">happy headache</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">you don't use spotify, so i think i found a way for us to listen to it here. yay.</p><iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4WYpdgoIcn6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`;
         }
 
         function showSpinWheel() {
             const content = `<div style="text-align: center;"><h2 class="section-header">you're my lady luck, btw.</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">still, if you want, we can leave it to the fates for once.</p></div><div class="wheel-container"><div class="wheel-wrapper"><div class="wheel-pointer"></div><div id="wheel-svg-container"></div></div><button class="spin-button" id="spinBtn">Spin the Wheel</button></div>`;
-            document.getElementById('contentArea').innerHTML = content;
+            document.getElementById('tab-content-wrapper').innerHTML = content;
             buildSvgWheel();
             document.getElementById('spinBtn').addEventListener('click', spinTheWheel);
         }
@@ -804,8 +829,8 @@
             });
         }
 
-        function showPendingTasks() { renderOptions( document.getElementById('contentArea'), "some things you should never forget🤍 ", PENDING_TASKS, 'task-card', handleTaskClick ); }
-        function showMindOptions() { renderOptions( document.getElementById('contentArea'), "hey, hottie. how would you like for us to interact today?", MIND_OPTIONS, 'mind-option', handleMindClick ); }
+        function showPendingTasks() { renderOptions( document.getElementById('tab-content-wrapper'), "some things you should never forget🤍 ", PENDING_TASKS, 'task-card', handleTaskClick ); }
+        function showMindOptions() { renderOptions( document.getElementById('tab-content-wrapper'), "hey, hottie. how would you like for us to interact today?", MIND_OPTIONS, 'mind-option', handleMindClick ); }
         
         function renderCascadingNavigation(config) {
             const { contentArea, header, appStateKey, optionsData, classNames, resetNav, navigateTo, clickHandler } = config;
@@ -844,10 +869,10 @@
             });
         }
         
-        function showDriveOptions() { renderCascadingNavigation({ contentArea: document.getElementById('contentArea'), header: "so you wish to show yourself to me. how indecent of you. i love it.", appStateKey: 'driveNavigation', optionsData: DRIVE_OPTIONS, classNames: { breadcrumb: 'drive-breadcrumb', option: 'drive-option', root: 'Drive' }, resetNav: resetDriveNavigation, navigateTo: navigateDriveTo, clickHandler: handleDriveClick }); }
-        function showGrowthOptions() { renderCascadingNavigation({ contentArea: document.getElementById('contentArea'), header: "shut out everything else, and just follow instructions to grow. isn't it simple?", appStateKey: 'growthNavigation', optionsData: GROWTH_OPTIONS, classNames: { breadcrumb: 'growth-breadcrumb', option: 'growth-option', root: 'Growth' }, resetNav: resetGrowthNavigation, navigateTo: navigateGrowthTo, clickHandler: handleGrowthClick }); }
+        function showDriveOptions() { renderCascadingNavigation({ contentArea: document.getElementById('tab-content-wrapper'), header: "so you wish to show yourself to me. how indecent of you. i love it.", appStateKey: 'driveNavigation', optionsData: DRIVE_OPTIONS, classNames: { breadcrumb: 'drive-breadcrumb', option: 'drive-option', root: 'Drive' }, resetNav: resetDriveNavigation, navigateTo: navigateDriveTo, clickHandler: handleDriveClick }); }
+        function showGrowthOptions() { renderCascadingNavigation({ contentArea: document.getElementById('tab-content-wrapper'), header: "shut out everything else, and just follow instructions to grow. isn't it simple?", appStateKey: 'growthNavigation', optionsData: GROWTH_OPTIONS, classNames: { breadcrumb: 'growth-breadcrumb', option: 'growth-option', root: 'Growth' }, resetNav: resetGrowthNavigation, navigateTo: navigateGrowthTo, clickHandler: handleGrowthClick }); }
         function showPlayOptions() {
-            const contentArea = document.getElementById('contentArea');
+            const contentArea = document.getElementById('tab-content-wrapper');
             contentArea.innerHTML = `<h2 class="section-header">in case you're bored, here's some us-themed games.</h2>`;
             if (appState.playNavigation.length === 0) {
                 Object.keys(PLAY_OPTIONS).forEach(option => {
@@ -961,6 +986,13 @@
         }
         
         document.addEventListener('DOMContentLoaded', function() {
+            const contentArea = document.getElementById('contentArea');
+            contentArea.innerHTML = `
+                <div id="tab-content-wrapper"></div>
+                <div id="persistent-timeline-wrapper"></div>
+            `;
+            renderTimeline();
+            
             const cursorDot = document.createElement('div');
             cursorDot.className = 'cursor-dot';
             document.body.appendChild(cursorDot);
