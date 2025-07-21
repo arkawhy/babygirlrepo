@@ -37,7 +37,7 @@
         }
 
         body {
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             background: radial-gradient(ellipse at center, var(--bg-content) 0%, var(--bg-dark) 70%);
@@ -48,6 +48,7 @@
             -webkit-font-smoothing: antialiased;
             transition: background 0.5s ease, color 0.5s ease;
             cursor: none; /* Hide the default cursor */
+            overflow: hidden; /* Prevent body from scrolling */
         }
         
         /* --- Sparkly Background for Light Theme --- */
@@ -127,6 +128,7 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             justify-content: space-between;
             padding: 0 30px;
+            flex-shrink: 0; /* Prevent shrinking */
         }
         body.light-theme .title-ribbon {
             border-bottom-color: rgba(0, 0, 0, 0.08);
@@ -134,7 +136,7 @@
         .bottom-ribbon {
             min-height: 80px;
             border-top: 1px solid rgba(0, 0, 0, 0.05);
-            flex-shrink: 0;
+            flex-shrink: 0; /* Prevent shrinking */
             padding: 10px 20px;
         }
         body.light-theme .bottom-ribbon {
@@ -372,9 +374,9 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: calc(100vh - 710px); /* Adjusted for persistent timeline */
+            /* min-height removed */
             position: relative;
-            overflow: hidden;
+            overflow: visible; /* Changed from hidden */
             margin-bottom: 50px;
         }
         .intro-screen h2 {
@@ -431,7 +433,7 @@
         }
         
         .timeline-section {
-            /* padding-bottom removed to avoid double padding */
+             padding-bottom: 10px; /* Added padding */
         }
 
         .timeline-scroll-wrapper {
@@ -661,10 +663,10 @@
             "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay."
         ];
         const MIND_OPTIONS = [
-            "I think I can work in an interview today. ",
-            "Maybe I can take you along for a trip to the shower? ",
-            "I'd love a little one-on-one video call, maybe. ",
-            "Can you just teach me how to dirty-talk well with you? "
+            "I think I can work in an interview today. 😋",
+            "Maybe I can take you along for a trip to the shower? 🚿",
+            "I'd love a little one-on-one video call, maybe. 💞",
+            "Can you just teach me how to dirty-talk well with you? 😙"
         ];
         const WHEEL_OPTIONS = [
             "10-sec video of my smile",
