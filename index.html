@@ -926,9 +926,9 @@
         
         function getWelcomeMessage() {
             const hour = new Date().getHours();
-            if (hour >= 0 && hour < 10) { return INTRO_TEXT.morning; }
-            else if (hour >= 10 && hour < 16) { return INTRO_TEXT.afternoon; }
-            else if (hour >= 16 && hour < 20) { return INTRO_TEXT.evening; }
+            if (hour >= 5 && hour < 12) { return INTRO_TEXT.morning; }
+            else if (hour >= 12 && hour < 17) { return INTRO_TEXT.afternoon; }
+            else if (hour >= 17 && hour < 21) { return INTRO_TEXT.evening; }
             else { return INTRO_TEXT.night; }
         }
 
@@ -969,7 +969,7 @@
         }
 
         function showPlaylist() {
-            document.getElementById('tab-content-wrapper').innerHTML = `<div style="text-align: center;"><h2 class="section-header">happy headache</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">you don't use spotify, so i think i found a way for us to listen to it here. yay.</p><iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2M89A23OPSp9pGf2sO8t9t?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`;
+            document.getElementById('tab-content-wrapper').innerHTML = `<div style="text-align: center;"><h2 class="section-header">happy headache</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">you don't use spotify, so i think i found a way for us to listen to it here. yay.</p><iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/26P2LneS3a22X2eNU9UP4c?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`;
         }
 
         function showSpinWheel() {
@@ -1248,8 +1248,7 @@
                 el.addEventListener('mouseleave', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(1)');
             });
             
-            // FIX: The problematic generic click listener has been removed.
-            // Specific listeners below now have e.stopPropagation() added.
+            // FIX: Specific listeners below now have e.stopPropagation() added to ensure they fire correctly.
 
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function(e) {
@@ -1368,6 +1367,40 @@
             updateCountdown(); 
             setInterval(updateCountdown, 1000);
             updateSidebarFeatures();
+
+            const weatherApiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
+            const locations = {
+                delhi: { lat: 28.6139, lon: 77.2090, id: 'weather-delhi', name: 'Your Sky' },
+                kolkata: { lat: 22.5726, lon: 88.3639, id: 'weather-kolkata', name: `My Sky` }
+            };
+
+            function fetchWeather(location) {
+                fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${weatherApiKey}&units=metric`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const container = document.getElementById(location.id);
+                        if(container) {
+                            container.innerHTML = `
+                                <div class="weather-location">${location.name}</div>
+                                <div class="weather-info">
+                                    <div class="weather-temp">${Math.round(data.main.temp)}°C</div>
+                                    <div class="weather-desc">${data.weather[0].description}</div>
+                                </div>`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error(`Error fetching weather for ${location.name}:`, error)
+                        const container = document.getElementById(location.id);
+                        if(container) container.innerHTML = `<div class="weather-location">${location.name}: Weather unavailable</div>`;
+                    });
+            }
+
+            if (weatherApiKey !== 'YOUR_OPENWEATHERMAP_API_KEY') {
+                 Object.values(locations).forEach(fetchWeather);
+            } else {
+                console.warn("OpenWeatherMap API key is missing. Weather will not be displayed.");
+                document.getElementById('weather-delhi').innerHTML = `<div class="weather-location">Weather data requires API key</div>`;
+            }
         });
     </script>
 </body>
