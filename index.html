@@ -363,6 +363,7 @@
             padding: 10px 40px 0 40px;
             background: var(--bg-content);
             transition: background 0.5s ease, border-top-color 0.5s ease;
+            overflow: hidden; /* FIX: Added to contain scaled elements if needed */
         }
         body.light-theme #persistent-timeline-wrapper {
             border-top-color: rgba(217, 76, 120, 0.4);
@@ -376,9 +377,9 @@
             align-items: center;
             text-align: center;
             position: relative;
-            overflow: visible; /* FIX: Allows orb to be fully visible */
+            overflow: visible; 
             margin-bottom: 50px;
-            padding-top: 50px; /* FIX: Creates space for the orb */
+            padding-top: 50px; 
         }
         .intro-screen h2 {
             font-family: var(--font-heading);
@@ -450,8 +451,8 @@
         .timeline {
             position: relative;
             width: 1400px;
-            height: 400px; 
-            padding-top: 50px;
+            height: 200px; /* FIX: Reduced height */
+            padding-top: 30px; /* Adjusted padding */
         }
 
         .timeline-svg-container {
@@ -497,10 +498,11 @@
             animation: fadeIn 1s ease-out forwards;
         }
         
+        /* FIX: Adjusted item positions for new timeline height */
         #item-1 { top: -20px; left: 160px; animation-delay: 3.6s; }
-        #item-2 { top: 260px; left: 460px; animation-delay: 3.8s; }
+        #item-2 { top: 130px; left: 460px; animation-delay: 3.8s; }
         #item-3 { top: -20px; left: 760px; animation-delay: 4.0s; }
-        #item-4 { top: 260px; left: 1060px; animation-delay: 4.2s; }
+        #item-4 { top: 130px; left: 1060px; animation-delay: 4.2s; }
 
         .timeline-content {
             padding: 0;
@@ -582,7 +584,7 @@
             .tab:not(.locked):hover, .tab.active { border-left-color: transparent; border-bottom-color: var(--primary-purple); }
             .sidebar-footer { margin-top: 0; padding: 0 20px; }
             #tab-content-wrapper { padding: 25px; }
-            #persistent-timeline-wrapper { padding: 20px 25px; }
+            #persistent-timeline-wrapper { padding: 20px 25px; height: auto; } /* Mobile height adjustment */
             .bottom-ribbon { height: auto; padding-bottom: 20px; }
             .intro-screen h2, .section-header, .vault-header { font-size: 2rem; }
             .main-title { font-size: 1.8rem; }
@@ -591,7 +593,7 @@
             .wheel-wrapper { width: 320px; height: 320px; }
             .wheel-text { font-size: 10px; }
             .weather-display-container { flex-direction: column; gap: 10px; }
-            .timeline { transform: scale(0.8); transform-origin: top left; margin-left: -100px; height: 400px; }
+            .timeline { transform: scale(0.8); transform-origin: top left; margin-left: -100px; height: 200px; } /* Mobile scale uses new height */
             .sidebar-features { margin-top: 20px; padding: 0 30px; }
         }
     </style>
@@ -681,17 +683,17 @@
         ];
         const DRIVE_OPTIONS = {
             level1: [
-                "Passive Tasks?   ",
-                "A sexy video?  ",
+                "Passive Tasks?  ",
+                "A sexy video? ",
                 "A hot picture? "
             ],
             level2: {
-                "Passive Tasks?   ": [
+                "Passive Tasks?  ": [
                     "Clothing-related  ",
                     "Mind-related ",
                     "Other Passive Tasks "
                 ],
-                "A sexy video?  ": [
+                "A sexy video? ": [
                     "Starting Clothed ",
                     "Starting Nude ",
                     "Special Submission "
@@ -889,18 +891,19 @@
         function renderTimeline() {
             const timelineContainer = document.getElementById('persistent-timeline-wrapper');
             if (!timelineContainer) return;
+            // FIX: Halved all vertical coordinates and container heights to make the timeline smaller.
             timelineContainer.innerHTML = `
                 <section class="timeline-section">
                     <h2 class="section-header">biggest steps taken by my babygirl so far</h2>
                     <div class="timeline-scroll-wrapper">
                         <div class="timeline">
                             <div class="timeline-svg-container">
-                                <svg width="100%" height="100%" viewBox="0 0 1400 400">
-                                    <path class="timeline-path" d="M 50 200 C 200 50, 400 350, 600 200 S 800 50, 1000 200 S 1200 350, 1350 200" stroke="var(--primary-purple)" stroke-width="3" fill="none"/>
-                                    <circle id="dot-1" class="timeline-dot" cx="340" cy="198" />
-                                    <circle id="dot-2" class="timeline-dot" cx="610" cy="200" />
-                                    <circle id="dot-3" class="timeline-dot" cx="890" cy="115" />
-                                    <circle id="dot-4" class="timeline-dot" cx="1190" cy="308" />
+                                <svg width="100%" height="100%" viewBox="0 0 1400 200">
+                                    <path class="timeline-path" d="M 50 100 C 200 25, 400 175, 600 100 S 800 25, 1000 100 S 1200 175, 1350 100" stroke="var(--primary-purple)" stroke-width="3" fill="none"/>
+                                    <circle id="dot-1" class="timeline-dot" cx="340" cy="99" />
+                                    <circle id="dot-2" class="timeline-dot" cx="610" cy="100" />
+                                    <circle id="dot-3" class="timeline-dot" cx="890" cy="57.5" />
+                                    <circle id="dot-4" class="timeline-dot" cx="1190" cy="154" />
                                 </svg>
                             </div>
                             <div class="timeline-item" id="item-1"><div class="timeline-content"><h3>nervous affirmation</h3><span class="date">january 19, 2023</span><p>you made me wait, but were beyond worth it</p></div></div>
@@ -966,14 +969,17 @@
         }
 
         function showPlaylist() {
-            document.getElementById('tab-content-wrapper').innerHTML = `<div style="text-align: center;"><h2 class="section-header">happy headache</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">you don't use spotify, so i think i found a way for us to listen to it here. yay.</p><iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4WYpdgoIcn6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`;
+            document.getElementById('tab-content-wrapper').innerHTML = `<div style="text-align: center;"><h2 class="section-header">happy headache</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">you don't use spotify, so i think i found a way for us to listen to it here. yay.</p><iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2M89A23OPSp9pGf2sO8t9t?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`;
         }
 
         function showSpinWheel() {
             const content = `<div style="text-align: center;"><h2 class="section-header">you're my lady luck, btw.</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">still, if you want, we can leave it to the fates for once.</p></div><div class="wheel-container"><div class="wheel-wrapper"><div class="wheel-pointer"></div><div id="wheel-svg-container"></div></div><button class="spin-button" id="spinBtn">Spin the Wheel</button></div>`;
             document.getElementById('tab-content-wrapper').innerHTML = content;
             buildSvgWheel();
-            document.getElementById('spinBtn').addEventListener('click', spinTheWheel);
+            document.getElementById('spinBtn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                spinTheWheel();
+            });
         }
 
         function buildSvgWheel() {
@@ -1028,7 +1034,7 @@
                 card.className = className;
                 card.innerHTML = `<span>${optionText}</span>`;
                 card.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Keep stopPropagation for specific card clicks
+                    e.stopPropagation(); 
                     clickHandler(optionText);
                 });
                 container.appendChild(card);
@@ -1051,7 +1057,7 @@
                 rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetNav(); });
                 breadcrumbContainer.appendChild(rootItem);
                 navigationPath.forEach((item, index) => {
-                    breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator"> </span>`;
+                    breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator">/</span>`;
                     const breadcrumbItem = document.createElement('span');
                     breadcrumbItem.className = 'breadcrumb-item';
                     breadcrumbItem.textContent = item;
@@ -1100,7 +1106,7 @@
                 rootItem.textContent = 'Games';
                 rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetPlayNavigation(); });
                 breadcrumbContainer.appendChild(rootItem);
-                breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator"> </span><span class="breadcrumb-item">${selectedOption}</span>`;
+                breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator">/</span><span class="breadcrumb-item">${selectedOption}</span>`;
                 contentArea.appendChild(breadcrumbContainer);
                 (PLAY_OPTIONS[selectedOption] || []).forEach(subOption => {
                     const subOptionEl = document.createElement('div');
@@ -1114,8 +1120,8 @@
 
         function handleTaskClick(task) { showFloatingOutput(`I've reminded myself that: ${task}`); }
         function handleMindClick(option) { showFloatingOutput(`This is how I wish to interact with you today: ${option}`); }
-        function handleDriveClick(option, level) { if (level === 3) { showFloatingOutput(`How I plan to show myself to you today: ${[...appState.driveNavigation, option].join('   ')}`); resetDriveNavigation(); } else { appState.driveNavigation.push(option); showDriveOptions(); } }
-        function handleGrowthClick(option, level) { if (level === 3) { showFloatingOutput(`How I wish to add to my growth today: ${[...appState.growthNavigation, option].join('   ')}`); resetGrowthNavigation(); } else { appState.growthNavigation.push(option); showGrowthOptions(); } }
+        function handleDriveClick(option, level) { if (level === 3) { showFloatingOutput(`How I plan to show myself to you today: ${[...appState.driveNavigation, option].join(' / ')}`); resetDriveNavigation(); } else { appState.driveNavigation.push(option); showDriveOptions(); } }
+        function handleGrowthClick(option, level) { if (level === 3) { showFloatingOutput(`How I wish to add to my growth today: ${[...appState.growthNavigation, option].join(' / ')}`); resetGrowthNavigation(); } else { appState.growthNavigation.push(option); showGrowthOptions(); } }
         function handlePlayOptionClick(option) { appState.playNavigation = [option]; showPlayOptions(); }
         function handlePlaySubClick(option) { showFloatingOutput(`Game chosen: ${option}`); resetPlayNavigation(); }
         function resetDriveNavigation() { appState.driveNavigation = []; showDriveOptions(); }
@@ -1237,27 +1243,34 @@
             });
 
             // Specific hover listeners for interactive elements
-            document.querySelectorAll('a, button, .tab, .main-title, .spin-button, .task-card, .mind-option, .drive-option, .growth-option, .play-option, .play-sub-option, .breadcrumb-item, .theme-toggle').forEach(el => {
+            document.querySelectorAll('a, button, .tab, .main-title, .spin-button, .task-card, .mind-option, .drive-option, .growth-option, .play-option, .play-sub-option, .breadcrumb-item, .theme-toggle, .memory-polaroid').forEach(el => {
                 el.addEventListener('mouseenter', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(2)');
                 el.addEventListener('mouseleave', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(1)');
-                // Stop propagation on specific interactive elements to prevent double heart explosions on cards etc.
-                el.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
             });
             
+            // FIX: The problematic generic click listener has been removed.
+            // Specific listeners below now have e.stopPropagation() added.
+
             document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
+                tab.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    switchTab(this.getAttribute('data-tab'));
+                });
             });
-            document.getElementById('homeButton').addEventListener('click', () => {
+
+            document.getElementById('homeButton').addEventListener('click', (e) => {
+                e.stopPropagation();
                 showIntroScreen();
                 document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             });
+
             const themeToggle = document.getElementById('themeToggle');
             const themeIcon = document.getElementById('themeIcon');
             const sunIconPath = `<path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle>`;
             const moonIconPath = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>`;
-            themeToggle.addEventListener('click', () => {
+            
+            themeToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
                 document.body.classList.toggle('light-theme');
                 const isLight = document.body.classList.contains('light-theme');
                 themeIcon.innerHTML = isLight ? sunIconPath : moonIconPath;
@@ -1265,10 +1278,12 @@
                 favicon.href = isLight ? 'favicon-light.svg' : 'favicon-dark.svg';
                 if (appState.currentTab === 'luck') { buildSvgWheel(); }
             });
+
             const fullscreenBtn = document.getElementById('fullscreen-btn');
             const enterFullscreenIcon = `<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>`;
             const exitFullscreenIcon = `<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>`;
             fullscreenBtn.innerHTML = enterFullscreenIcon;
+
             function toggleFullScreen() {
                 const doc = document.documentElement;
                 if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
@@ -1283,10 +1298,16 @@
                     else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
                 }
             }
+
             function updateFullscreenIcon() {
                 fullscreenBtn.innerHTML = !document.fullscreenElement && !document.webkitFullscreenElement ? enterFullscreenIcon : exitFullscreenIcon;
             }
-            fullscreenBtn.addEventListener('click', toggleFullScreen);
+
+            fullscreenBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleFullScreen();
+            });
+
             document.addEventListener('fullscreenchange', updateFullscreenIcon);
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
             document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
@@ -1295,7 +1316,9 @@
             const sidebar = document.querySelector('.sidebar');
             if (sidebar) {
                 sidebar.addEventListener('click', function(e) {
+                    // This listener targets the specific strong element for the profile switcher
                     if (e.target.id === 'currentUser') {
+                        e.stopPropagation();
                         const userEl = e.target;
                         if (userEl.dataset.user === 'her') {
                             userEl.dataset.user = 'you';
@@ -1312,7 +1335,10 @@
 
                 const polaroidEl = sidebar.querySelector('.memory-polaroid');
                 if (polaroidEl) {
-                    polaroidEl.addEventListener('click', shufflePolaroid);
+                    polaroidEl.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        shufflePolaroid();
+                    });
                 }
             }
             
