@@ -37,7 +37,7 @@
         }
 
         body {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             background: radial-gradient(ellipse at center, var(--bg-content) 0%, var(--bg-dark) 70%);
@@ -48,7 +48,6 @@
             -webkit-font-smoothing: antialiased;
             transition: background 0.5s ease, color 0.5s ease;
             cursor: none; /* Hide the default cursor */
-            overflow: hidden; /* Prevent body from scrolling */
         }
         
         /* --- Sparkly Background for Light Theme --- */
@@ -128,7 +127,6 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             justify-content: space-between;
             padding: 0 30px;
-            flex-shrink: 0; /* Prevent shrinking */
         }
         body.light-theme .title-ribbon {
             border-bottom-color: rgba(0, 0, 0, 0.08);
@@ -136,7 +134,7 @@
         .bottom-ribbon {
             min-height: 80px;
             border-top: 1px solid rgba(0, 0, 0, 0.05);
-            flex-shrink: 0; /* Prevent shrinking */
+            flex-shrink: 0;
             padding: 10px 20px;
         }
         body.light-theme .bottom-ribbon {
@@ -151,7 +149,7 @@
             color: var(--text-light);
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
             cursor: none;
-            transition: letter-spacing 0.4s ease, color 0.4s ease;
+            transition: letter-spacing: 0.4s ease, color 0.4s ease;
         }
         .main-title:hover {
             letter-spacing: 4px;
@@ -374,9 +372,9 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: 50px; /* Reduced min-height */
+            min-height: calc(100vh - 710px); /* Adjusted for persistent timeline */
             position: relative;
-            overflow: visible; /* Changed from hidden */
+            overflow: hidden;
             margin-bottom: 50px;
         }
         .intro-screen h2 {
@@ -433,7 +431,7 @@
         }
         
         .timeline-section {
-             padding-bottom: 10px; /* Added padding */
+            /* padding-bottom removed to avoid double padding */
         }
 
         .timeline-scroll-wrapper {
@@ -651,9 +649,9 @@
         const INTRO_TEXT = {
             default: "hello, nistha.",
             morning: "good morning, sunshine.",
-            afternoon: "hope you're having a lovely day, baby.",
-            evening: "tell me all about how your day went, sweetheart.",
-            night: "did you please me today? i bet you did. good girl.",
+            afternoon: "hope you're having a lovely day.",
+            evening: "tell me all about how your day went.",
+            night: "did you please me today? i bet you did.",
             description: "step inside your private playground. here, you're free to be bold, to tease, to surrender, and to shine. every click, every word, every task is a secret invitation—just for you and me. let your desires show, let your devotion burn, and let’s make every moment on this page a little more wicked, a little more delicious, and a lot more unforgettable. are you ready to play?"
         };
         const PENDING_TASKS = [
