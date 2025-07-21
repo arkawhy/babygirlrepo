@@ -128,7 +128,7 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             justify-content: space-between;
             padding: 0 30px;
-            flex-shrink: 0; /* Prevent shrinking */
+            flex-shrink: 0;
         }
         body.light-theme .title-ribbon {
             border-bottom-color: rgba(0, 0, 0, 0.08);
@@ -136,7 +136,7 @@
         .bottom-ribbon {
             min-height: 80px;
             border-top: 1px solid rgba(0, 0, 0, 0.05);
-            flex-shrink: 0; /* Prevent shrinking */
+            flex-shrink: 0;
             padding: 10px 20px;
         }
         body.light-theme .bottom-ribbon {
@@ -151,7 +151,7 @@
             color: var(--text-light);
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
             cursor: none;
-            transition: letter-spacing 0.4s ease, color 0.4s ease;
+            transition: letter-spacing: 0.4s ease, color 0.4s ease;
         }
         .main-title:hover {
             letter-spacing: 4px;
@@ -352,10 +352,10 @@
             overflow: hidden;
         }
         #tab-content-wrapper {
-            flex-grow: 1;
+            flex: 1 1 auto;
             overflow-y: auto;
             padding: 40px;
-            min-height: 0; /* Critical for flex shrinking */
+            min-height: 0;
         }
         #persistent-timeline-wrapper {
             flex-shrink: 0;
@@ -376,8 +376,7 @@
             text-align: center;
             position: relative;
             overflow: visible; 
-            margin-bottom: 50px;
-            padding-top: 50px; 
+            padding-top: 50px;
         }
         .intro-screen h2 {
             font-family: var(--font-heading);
@@ -663,10 +662,10 @@
             "I'll remember that I can choose to do anything other than decided tasks too, or not do decided tasks, and that will be just okay."
         ];
         const MIND_OPTIONS = [
-            "I think I can work in an interview today.",
-            "Maybe I can take you along for a trip to the shower?",
-            "I'd love a little one-on-one video call, maybe.",
-            "Can you just teach me how to dirty-talk well with you?"
+            "I think I can work in an interview today. 😋",
+            "Maybe I can take you along for a trip to the shower? 🚿",
+            "I'd love a little one-on-one video call, maybe. 💞",
+            "Can you just teach me how to dirty-talk well with you? 😙"
         ];
         const WHEEL_OPTIONS = [
             "10-sec video of my smile",
@@ -1001,7 +1000,7 @@
         }
 
         function spinTheWheel(e) {
-            e.stopPropagation();
+            if (e) e.stopPropagation();
             if (appState.wheelSpinning) return;
             appState.wheelSpinning = true;
             document.getElementById('spinBtn').disabled = true;
@@ -1027,8 +1026,8 @@
                 const card = document.createElement('div');
                 card.className = className;
                 card.innerHTML = `<span>${optionText}</span>`;
-                card.addEventListener('click', (e) => {
-                    e.stopPropagation(); 
+                card.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     clickHandler(optionText);
                 });
                 container.appendChild(card);
@@ -1048,14 +1047,14 @@
                 const rootItem = document.createElement('span');
                 rootItem.className = 'breadcrumb-item';
                 rootItem.textContent = classNames.root;
-                rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetNav(); });
+                rootItem.addEventListener('click', function(e) { e.stopPropagation(); resetNav(); });
                 breadcrumbContainer.appendChild(rootItem);
                 navigationPath.forEach((item, index) => {
                     breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator"> </span>`;
                     const breadcrumbItem = document.createElement('span');
                     breadcrumbItem.className = 'breadcrumb-item';
                     breadcrumbItem.textContent = item;
-                    breadcrumbItem.addEventListener('click', (e) => { e.stopPropagation(); navigateTo(index); });
+                    breadcrumbItem.addEventListener('click', function(e) { e.stopPropagation(); navigateTo(index); });
                     breadcrumbContainer.appendChild(breadcrumbItem);
                 });
                 contentArea.appendChild(breadcrumbContainer);
@@ -1070,7 +1069,7 @@
                 const optionEl = document.createElement('div');
                 optionEl.className = classNames.option;
                 optionEl.innerHTML = `<span>${optionText}</span>`;
-                optionEl.addEventListener('click', (e) => {
+                optionEl.addEventListener('click', function(e) {
                     e.stopPropagation();
                     clickHandler(optionText, clickLevel);
                 });
@@ -1088,7 +1087,7 @@
                     const optionEl = document.createElement('div');
                     optionEl.className = 'play-option';
                     optionEl.innerHTML = `<span>${option}</span>`;
-                    optionEl.addEventListener('click', (e) => { e.stopPropagation(); handlePlayOptionClick(option); });
+                    optionEl.addEventListener('click', function(e) { e.stopPropagation(); handlePlayOptionClick(option); });
                     contentArea.appendChild(optionEl);
                 });
             } else {
@@ -1098,7 +1097,7 @@
                 const rootItem = document.createElement('span');
                 rootItem.className = 'breadcrumb-item';
                 rootItem.textContent = 'Games';
-                rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetPlayNavigation(); });
+                rootItem.addEventListener('click', function(e) { e.stopPropagation(); resetPlayNavigation(); });
                 breadcrumbContainer.appendChild(rootItem);
                 breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator"> </span><span class="breadcrumb-item">${selectedOption}</span>`;
                 contentArea.appendChild(breadcrumbContainer);
@@ -1106,7 +1105,7 @@
                     const subOptionEl = document.createElement('div');
                     subOptionEl.className = 'play-sub-option';
                     subOptionEl.textContent = subOption;
-                    subOptionEl.addEventListener('click', (e) => { e.stopPropagation(); handlePlaySubClick(subOption); });
+                    subOptionEl.addEventListener('click', function(e) { e.stopPropagation(); handlePlaySubClick(subOption); });
                     contentArea.appendChild(subOptionEl);
                 });
             }
@@ -1240,15 +1239,17 @@
             document.querySelectorAll('a, button, .tab, .main-title, .spin-button, .task-card, .mind-option, .drive-option, .growth-option, .play-option, .play-sub-option, .breadcrumb-item, .theme-toggle').forEach(el => {
                 el.addEventListener('mouseenter', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(2)');
                 el.addEventListener('mouseleave', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(1)');
-                el.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
+                // REMOVED stopPropagation from here to allow hearts on all clicks
             });
             
             document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
+                tab.addEventListener('click', function(e) { 
+                    e.stopPropagation(); // Add it back here for specific functions
+                    switchTab(this.getAttribute('data-tab')); 
+                });
             });
-            document.getElementById('homeButton').addEventListener('click', () => {
+            document.getElementById('homeButton').addEventListener('click', (e) => {
+                e.stopPropagation();
                 showIntroScreen();
                 document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             });
@@ -1256,7 +1257,8 @@
             const themeIcon = document.getElementById('themeIcon');
             const sunIconPath = `<path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle>`;
             const moonIconPath = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>`;
-            themeToggle.addEventListener('click', () => {
+            themeToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
                 document.body.classList.toggle('light-theme');
                 const isLight = document.body.classList.contains('light-theme');
                 themeIcon.innerHTML = isLight ? sunIconPath : moonIconPath;
@@ -1285,7 +1287,10 @@
             function updateFullscreenIcon() {
                 fullscreenBtn.innerHTML = !document.fullscreenElement && !document.webkitFullscreenElement ? enterFullscreenIcon : exitFullscreenIcon;
             }
-            fullscreenBtn.addEventListener('click', toggleFullScreen);
+            fullscreenBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleFullScreen();
+            });
             document.addEventListener('fullscreenchange', updateFullscreenIcon);
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
             document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
@@ -1294,8 +1299,8 @@
             const sidebar = document.querySelector('.sidebar');
             if (sidebar) {
                 sidebar.addEventListener('click', function(e) {
-                    if (e.target.id === 'currentUser') {
-                        const userEl = e.target;
+                    if (e.target.closest('.profile-switcher')) {
+                        const userEl = document.getElementById('currentUser');
                         if (userEl.dataset.user === 'her') {
                             userEl.dataset.user = 'you';
                             userEl.textContent = 'Arka';
@@ -1306,13 +1311,10 @@
                             localStorage.setItem('currentUser', 'her');
                         }
                         updateSidebarFeatures();
+                    } else if (e.target.closest('.memory-polaroid')) {
+                        shufflePolaroid();
                     }
                 });
-
-                const polaroidEl = sidebar.querySelector('.memory-polaroid');
-                if (polaroidEl) {
-                    polaroidEl.addEventListener('click', shufflePolaroid);
-                }
             }
             
             const savedUser = localStorage.getItem('currentUser');
