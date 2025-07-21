@@ -355,15 +355,15 @@
             flex-grow: 1;
             overflow-y: auto;
             padding: 40px;
-            min-height: 0; /* FIX: Allows flex item to shrink properly */
+            min-height: 0; /* Allows flex item to shrink properly */
         }
         #persistent-timeline-wrapper {
             flex-shrink: 0;
             border-top: 1px solid rgba(155, 89, 182, 0.3);
-            padding: 10px 40px 0 40px;
+            padding: 5px 40px 0 40px; /* Reduced padding */
             background: var(--bg-content);
             transition: background 0.5s ease, border-top-color 0.5s ease;
-            overflow: hidden; /* FIX: Added to contain scaled elements if needed */
+            overflow: hidden;
         }
         body.light-theme #persistent-timeline-wrapper {
             border-top-color: rgba(217, 76, 120, 0.4);
@@ -437,10 +437,16 @@
         .timeline-section {
              padding-bottom: 10px;
         }
+        
+        /* FIX: Specific selector to reduce size of timeline header ONLY */
+        #persistent-timeline-wrapper .section-header {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
 
         .timeline-scroll-wrapper {
             overflow-x: auto;
-            padding-bottom: 20px;
+            padding-bottom: 15px; /* Reduced padding */
             scrollbar-width: thin;
             scrollbar-color: var(--primary-purple) transparent;
         }
@@ -451,8 +457,8 @@
         .timeline {
             position: relative;
             width: 1400px;
-            height: 200px; /* FIX: Reduced height */
-            padding-top: 30px; /* Adjusted padding */
+            height: 120px; /* FIX: Drastically reduced height */
+            padding-top: 10px; /* FIX: Reduced padding */
         }
 
         .timeline-svg-container {
@@ -499,10 +505,10 @@
         }
         
         /* FIX: Adjusted item positions for new timeline height */
-        #item-1 { top: -20px; left: 160px; animation-delay: 3.6s; }
-        #item-2 { top: 130px; left: 460px; animation-delay: 3.8s; }
-        #item-3 { top: -20px; left: 760px; animation-delay: 4.0s; }
-        #item-4 { top: 130px; left: 1060px; animation-delay: 4.2s; }
+        #item-1 { top: -15px; left: 160px; animation-delay: 3.6s; }
+        #item-2 { top: 80px; left: 460px; animation-delay: 3.8s; }
+        #item-3 { top: -15px; left: 760px; animation-delay: 4.0s; }
+        #item-4 { top: 80px; left: 1060px; animation-delay: 4.2s; }
 
         .timeline-content {
             padding: 0;
@@ -510,21 +516,21 @@
         }
 
         .timeline-content h3 {
-             font-size: 1.6rem;
+             font-size: 1.4rem; /* Adjusted font size */
              margin: 0 0 5px 0;
              color: var(--primary-lavender);
              font-weight: normal;
              font-family: var(--font-heading);
         }
         .timeline-content .date {
-            font-size: 0.9rem;
+            font-size: 0.8rem; /* Adjusted font size */
             opacity: 0.7;
-            margin-bottom: 12px;
+            margin-bottom: 8px; /* Adjusted margin */
             display: block;
         }
         .timeline-content p {
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 0.9rem; /* Adjusted font size */
+            line-height: 1.5;
             margin: 0;
             opacity: 0.9;
         }
@@ -593,7 +599,7 @@
             .wheel-wrapper { width: 320px; height: 320px; }
             .wheel-text { font-size: 10px; }
             .weather-display-container { flex-direction: column; gap: 10px; }
-            .timeline { transform: scale(0.8); transform-origin: top left; margin-left: -100px; height: 200px; } /* Mobile scale uses new height */
+            .timeline { transform: scale(0.8); transform-origin: top left; margin-left: -100px; height: 120px; } /* Mobile scale uses new height */
             .sidebar-features { margin-top: 20px; padding: 0 30px; }
         }
     </style>
@@ -898,18 +904,18 @@
                     <div class="timeline-scroll-wrapper">
                         <div class="timeline">
                             <div class="timeline-svg-container">
-                                <svg width="100%" height="100%" viewBox="0 0 1400 200">
-                                    <path class="timeline-path" d="M 50 100 C 200 25, 400 175, 600 100 S 800 25, 1000 100 S 1200 175, 1350 100" stroke="var(--primary-purple)" stroke-width="3" fill="none"/>
-                                    <circle id="dot-1" class="timeline-dot" cx="340" cy="99" />
-                                    <circle id="dot-2" class="timeline-dot" cx="610" cy="100" />
-                                    <circle id="dot-3" class="timeline-dot" cx="890" cy="57.5" />
-                                    <circle id="dot-4" class="timeline-dot" cx="1190" cy="154" />
+                                <svg width="100%" height="100%" viewBox="0 0 1400 120">
+                                    <path class="timeline-path" d="M 50 60 C 200 15, 400 105, 600 60 S 800 15, 1000 60 S 1200 105, 1350 60" stroke="var(--primary-purple)" stroke-width="3" fill="none"/>
+                                    <circle id="dot-1" class="timeline-dot" cx="340" cy="59" />
+                                    <circle id="dot-2" class="timeline-dot" cx="610" cy="60" />
+                                    <circle id="dot-3" class="timeline-dot" cx="890" cy="34.5" />
+                                    <circle id="dot-4" class="timeline-dot" cx="1190" cy="92.4" />
                                 </svg>
                             </div>
                             <div class="timeline-item" id="item-1"><div class="timeline-content"><h3>nervous affirmation</h3><span class="date">january 19, 2023</span><p>you made me wait, but were beyond worth it</p></div></div>
-                            <div class="timeline-item" id="item-2"><div class="timeline-content"><h3>halfway to ownership</h3><span class="date">May 26, 2023</span><p>wore nothing but blue jeans and panties while sitting on my lap, enticing me with half the goods, and promising so much more</p></div></div>
-                            <div class="timeline-item" id="item-3"><div class="timeline-content"><h3>complete takeover of assets</h3><span class="date">March, 2024</span><p>let me have my way with you, delightfully naked, for the first time ever</p></div></div>
-                            <div class="timeline-item" id="item-4"><div class="timeline-content"><h3>what's it gonna be?</h3><span class="date">August 2025</span><p>what else of the wondrous bounty your body and mind is may i soon lay claim to?</p></div></div>
+                            <div class="timeline-item" id="item-2"><div class="timeline-content"><h3>halfway to ownership</h3><span class="date">May 26, 2023</span><p>wore nothing but blue jeans and panties while sitting on my lap</p></div></div>
+                            <div class="timeline-item" id="item-3"><div class="timeline-content"><h3>complete takeover</h3><span class="date">March, 2024</span><p>let me have my way with you, delightfully naked</p></div></div>
+                            <div class="timeline-item" id="item-4"><div class="timeline-content"><h3>what's next?</h3><span class="date">August 2025</span><p>what else may i soon lay claim to?</p></div></div>
                         </div>
                     </div>
                 </section>`;
@@ -969,7 +975,7 @@
         }
 
         function showPlaylist() {
-            document.getElementById('tab-content-wrapper').innerHTML = `<div style="text-align: center;"><h2 class="section-header">happy headache</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">you don't use spotify, so i think i found a way for us to listen to it here. yay.</p><iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/26P2LneS3a22X2eNU9UP4c?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`;
+            document.getElementById('tab-content-wrapper').innerHTML = `<div style="text-align: center;"><h2 class="section-header">happy headache</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">you don't use spotify, so i think i found a way for us to listen to it here. yay.</p><iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/3" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`;
         }
 
         function showSpinWheel() {
@@ -1248,8 +1254,6 @@
                 el.addEventListener('mouseleave', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(1)');
             });
             
-            // FIX: Specific listeners below now have e.stopPropagation() added to ensure they fire correctly.
-
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -1315,7 +1319,6 @@
             const sidebar = document.querySelector('.sidebar');
             if (sidebar) {
                 sidebar.addEventListener('click', function(e) {
-                    // This listener targets the specific strong element for the profile switcher
                     if (e.target.id === 'currentUser') {
                         e.stopPropagation();
                         const userEl = e.target;
