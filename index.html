@@ -296,8 +296,9 @@
             align-items: center;
             text-align: center;
             position: relative;
-            min-height: calc(100vh - 250px);
-            padding: 20px 0;
+            /* FIX: Centering adjustments */
+            min-height: calc(100vh - 120px); /* Adjust based on header/footer/timeline heights */
+            padding: 0;
             margin: 0;
         }
         .intro-screen h2 {
@@ -362,8 +363,6 @@
         #dot-4 { animation-delay: 2.5s; }
 
         .timeline-item { position: absolute; width: 280px; opacity: 0; animation: fadeIn 1s ease-out forwards; }
-        
-        /* FIX: All items are now positioned at the bottom */
         #item-1 { top: 95px; left: 160px; animation-delay: 3.6s; }
         #item-2 { top: 95px; left: 460px; animation-delay: 3.8s; }
         #item-3 { top: 95px; left: 760px; animation-delay: 4.0s; }
@@ -553,8 +552,17 @@
             "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.29%20AM.jpeg"
         ];
         
-        function renderTimeline() { const timelineContainer = document.getElementById('persistent-timeline-wrapper'); if (!timelineContainer) return; timelineContainer.innerHTML = `<section class="timeline-section"><h2 class="section-header">biggest steps taken by my babygirl so far</h2><div class="timeline-scroll-wrapper"><div class="timeline"><div class="timeline-svg-container"><svg width="100%" height="100%" viewBox="0 0 1400 120"><path class="timeline-path" d="M 50 60 C 200 15, 400 105, 600 60 S 800 15, 1000 60 S 1200 105, 1350 60" stroke="var(--primary-purple)" stroke-width="3" fill="none"/><circle id="dot-1" class="timeline-dot" cx="340" cy="59" /><circle id="dot-2" class="timeline-dot" cx="610" cy="60" /><circle id="dot-3" class="timeline-dot" cx="890" cy="34.5" /><circle id="dot-4" class="timeline-dot" cx="1190" cy="92.4" /></svg></div><div class="timeline-item" id="item-1"><div class="timeline-content"><h3>nervous affirmation</h3><span class="date">january 19, 2023</span><p>you made me wait, but were beyond worth it</p></div></div><div class="timeline-item" id="item-2"><div class="timeline-content"><h3>halfway to ownership</h3><span class="date">May 26, 2023</span><p>wore nothing but blue jeans and panties while sitting on my lap</p></div></div><div class="timeline-item" id="item-3"><div class="timeline-content"><h3>complete takeover</h3><span class="date">March, 2024</span><p>let me have my way with you, delightfully naked</p></div></div><div class="timeline-item" id="item-4"><div class="timeline-content"><h3>what's next?</h3><span class="date">August 2025</span><p>what else may i soon lay claim to?</p></div></div></div></div></section>`; }
-        function showIntroScreen() { document.getElementById('contentArea').innerHTML = `<div class="intro-screen"><div class="glowing-orb"></div><h2>${getWelcomeMessage()}</h2><p>${INTRO_TEXT.description}</p></div><div id="persistent-timeline-wrapper"></div>`; renderTimeline(); }
+        function renderTimeline() {
+            const timelineContainer = document.getElementById('persistent-timeline-wrapper');
+            if (!timelineContainer) return;
+            timelineContainer.innerHTML = `<section class="timeline-section"><h2 class="section-header">biggest steps taken by my babygirl so far</h2><div class="timeline-scroll-wrapper"><div class="timeline"><div class="timeline-svg-container"><svg width="100%" height="100%" viewBox="0 0 1400 120"><path class="timeline-path" d="M 50 60 C 200 15, 400 105, 600 60 S 800 15, 1000 60 S 1200 105, 1350 60" stroke="var(--primary-purple)" stroke-width="3" fill="none"/><circle id="dot-1" class="timeline-dot" cx="340" cy="59" /><circle id="dot-2" class="timeline-dot" cx="610" cy="60" /><circle id="dot-3" class="timeline-dot" cx="890" cy="34.5" /><circle id="dot-4" class="timeline-dot" cx="1190" cy="92.4" /></svg></div><div class="timeline-item" id="item-1"><div class="timeline-content"><h3>nervous affirmation</h3><span class="date">january 19, 2023</span><p>you made me wait, but were beyond worth it</p></div></div><div class="timeline-item" id="item-2"><div class="timeline-content"><h3>halfway to ownership</h3><span class="date">May 26, 2023</span><p>wore nothing but blue jeans and panties while sitting on my lap</p></div></div><div class="timeline-item" id="item-3"><div class="timeline-content"><h3>complete takeover</h3><span class="date">March, 2024</span><p>let me have my way with you, delightfully naked</p></div></div><div class="timeline-item" id="item-4"><div class="timeline-content"><h3>what's next?</h3><span class="date">August 2025</span><p>what else may i soon lay claim to?</p></div></div></div></div></section>`;
+        }
+
+        function showIntroScreen() {
+            document.getElementById('contentArea').innerHTML = `<div class="intro-screen"><div class="glowing-orb"></div><h2>${getWelcomeMessage()}</h2><p>${INTRO_TEXT.description}</p></div><div id="persistent-timeline-wrapper"></div>`;
+            renderTimeline();
+        }
+        
         function getWelcomeMessage() { const hour = new Date().getHours(); if (hour >= 5 && hour < 12) { return INTRO_TEXT.morning; } else if (hour >= 12 && hour < 17) { return INTRO_TEXT.afternoon; } else if (hour >= 17 && hour < 21) { return INTRO_TEXT.evening; } else { return INTRO_TEXT.night; } }
         function showFloatingOutput(text) { const output = document.getElementById('floatingOutput'); output.textContent = text; output.classList.add('show'); setTimeout(() => { output.classList.remove('show'); }, 5000); }
         function switchTab(tabName) { const contentArea = document.getElementById('contentArea'); const vaultTab = document.querySelector('.tab[data-tab="vault"]'); if (tabName === 'vault' && vaultTab.classList.contains('locked')) { showFloatingOutput("the vault is still locked, my love. wait for the countdown."); return; } document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active')); document.querySelector(`[data-tab="${tabName}"]`)?.classList.add('active'); if (tabName !== 'drive') appState.driveNavigation = []; if (tabName !== 'growth') appState.growthNavigation = []; if (tabName !== 'play') appState.playNavigation = []; appState.currentTab = tabName; contentArea.innerHTML = ''; switch (tabName) { case 'pending': showPendingTasks(); break; case 'mind': showMindOptions(); break; case 'luck': showSpinWheel(); break; case 'playlist': showPlaylist(); break; case 'drive': showDriveOptions(); break; case 'growth': showGrowthOptions(); break; case 'play': showPlayOptions(); break; case 'vault': showVaultContent(); break; default: showIntroScreen(); } }
