@@ -94,22 +94,8 @@
             z-index: 9999;
             animation: float-up 1.2s forwards;
         }
-        @keyframes fade-out {
-            to {
-                transform: scale(0);
-                opacity: 0;
-            }
-        }
-        @keyframes float-up {
-            from {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            to {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-        }
+        @keyframes fade-out { to { transform: scale(0); opacity: 0; } }
+        @keyframes float-up { from { opacity: 1; transform: translateY(0); } to { transform: translateY(-100px); opacity: 0; } }
 
         /* --- Top Ribbon --- */
         .title-ribbon {
@@ -200,22 +186,9 @@
             gap: 15px;
             flex-shrink: 0;
         }
-        .tab:not(.locked):hover {
-            background: rgba(0, 0, 0, 0.05);
-            border-left-color: var(--primary-purple);
-            opacity: 1;
-        }
-        .tab.active {
-            background: rgba(0, 0, 0, 0.08);
-            border-left-color: var(--primary-purple);
-            opacity: 1;
-            font-weight: 600;
-        }
-        .tab.locked {
-            color: var(--text-light);
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
+        .tab:not(.locked):hover { background: rgba(0, 0, 0, 0.05); border-left-color: var(--primary-purple); opacity: 1; }
+        .tab.active { background: rgba(0, 0, 0, 0.08); border-left-color: var(--primary-purple); opacity: 1; font-weight: 600; }
+        .tab.locked { color: var(--text-light); opacity: 0.3; cursor: not-allowed; }
 
         .tab-icon {
             width: 20px;
@@ -235,10 +208,7 @@
             opacity: 1;
         }
 
-        .tab-text {
-            font-size: 1rem;
-            font-weight: 500;
-        }
+        .tab-text { font-size: 1rem; font-weight: 500; }
 
         /* --- Sidebar Features --- */
         .sidebar-features {
@@ -258,13 +228,8 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
             transition: opacity 0.3s ease;
         }
-        .profile-switcher:hover {
-            opacity: 1;
-        }
-        .profile-switcher span {
-            display: block;
-            margin-bottom: 5px;
-        }
+        .profile-switcher:hover { opacity: 1; }
+        .profile-switcher span { display: block; margin-bottom: 5px; }
         .profile-switcher strong {
             color: var(--primary-lavender);
             font-weight: 600;
@@ -272,9 +237,7 @@
             border-radius: 4px;
             transition: background-color: 0.3s ease;
         }
-        .profile-switcher:hover strong {
-            background-color: rgba(255,255,255,0.1);
-        }
+        .profile-switcher:hover strong { background-color: rgba(255,255,255,0.1); }
 
         .streak-counter {
             display: flex;
@@ -290,11 +253,7 @@
             opacity: 0.7;
             transition: all 0.3s ease;
         }
-        .streak-counter:hover {
-            opacity: 1;
-            background: rgba(0,0,0,0.2);
-            color: var(--primary-lavender);
-        }
+        .streak-counter:hover { opacity: 1; background: rgba(0,0,0,0.2); color: var(--primary-lavender); }
         
         .memory-polaroid {
             background: #f4f4f4;
@@ -305,20 +264,9 @@
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             cursor: none;
         }
-        .memory-polaroid:hover {
-            transform: rotate(0deg) scale(1.05);
-            box-shadow: var(--shadow);
-        }
-        .memory-polaroid.shuffling {
-            transform: rotate(15deg) scale(0);
-            opacity: 0;
-        }
-        .memory-polaroid img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border: 1px solid var(--bg-content);
-        }
+        .memory-polaroid:hover { transform: rotate(0deg) scale(1.05); box-shadow: var(--shadow); }
+        .memory-polaroid.shuffling { transform: rotate(15deg) scale(0); opacity: 0; }
+        .memory-polaroid img { width: 100%; height: auto; display: block; border: 1px solid var(--bg-content); }
 
         .heartbeat {
             font-size: 2rem;
@@ -328,18 +276,10 @@
             margin: 0 auto;
         }
 
-        @keyframes pulse-heart {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
+        @keyframes pulse-heart { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
         /* --- Content Area --- */
-        .content-area {
-            flex-grow: 1;
-            background: var(--bg-content);
-            transition: background 0.5s ease;
-            padding: 40px;
-        }
+        .content-area { flex-grow: 1; background: var(--bg-content); transition: background 0.5s ease; padding: 40px; }
         
         #persistent-timeline-wrapper {
             border-top: 1px solid rgba(155, 89, 182, 0.3);
@@ -347,9 +287,7 @@
             margin-top: 60px;
             transition: background 0.5s ease, border-top-color 0.5s ease;
         }
-        body.light-theme #persistent-timeline-wrapper {
-            border-top-color: rgba(217, 76, 120, 0.4);
-        }
+        body.light-theme #persistent-timeline-wrapper { border-top-color: rgba(217, 76, 120, 0.4); }
 
         .intro-screen {
             display: flex;
@@ -358,9 +296,9 @@
             align-items: center;
             text-align: center;
             position: relative;
-            overflow: visible; 
-            margin-bottom: 50px;
-            padding-top: 50px; 
+            min-height: calc(100vh - 250px);
+            padding: 20px 0;
+            margin: 0;
         }
         .intro-screen h2 {
             font-family: var(--font-heading);
@@ -370,15 +308,8 @@
             font-weight: normal;
             position: relative; z-index: 1;
         }
-        body.light-theme .intro-screen h2 {
-            color: var(--primary-purple);
-        }
-        .intro-screen p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            opacity: 0.8;
-            position: relative; z-index: 1;
-        }
+        body.light-theme .intro-screen h2 { color: var(--primary-purple); }
+        .intro-screen p { font-size: 1.1rem; max-width: 600px; opacity: 0.8; position: relative; z-index: 1; }
         
         .glowing-orb {
             position: absolute;
@@ -391,15 +322,8 @@
             z-index: 0;
             animation: pulse 8s infinite ease-in-out;
         }
-        body.light-theme .glowing-orb {
-             opacity: 0.4;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.6; }
-            50% { transform: scale(1.15); opacity: 0.9; }
-            100% { transform: scale(0.95); opacity: 0.6; }
-        }
+        body.light-theme .glowing-orb { opacity: 0.4; }
+        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.6; } 50% { transform: scale(1.15); opacity: 0.9; } 100% { transform: scale(0.95); opacity: 0.6; } }
 
         .section-header {
             font-family: var(--font-heading);
@@ -410,50 +334,19 @@
             font-weight: normal;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        .timeline-section {
-             padding-bottom: 10px;
-        }
+        .timeline-section { padding-bottom: 10px; }
         
-        #persistent-timeline-wrapper .section-header {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
+        #persistent-timeline-wrapper .section-header { font-size: 1.5rem; margin-bottom: 10px; }
 
-        .timeline-scroll-wrapper {
-            overflow-x: auto;
-            padding-bottom: 15px;
-        }
+        .timeline-scroll-wrapper { overflow-x: auto; padding-bottom: 15px; }
         
-        .timeline {
-            position: relative;
-            width: 1400px;
-            height: 120px;
-            padding-top: 10px;
-        }
-
-        .timeline-svg-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: visible;
-        }
+        .timeline { position: relative; width: 1400px; height: 120px; padding-top: 10px; }
+        .timeline-svg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible; }
         
-        .timeline-path {
-            stroke-dasharray: 2500; 
-            stroke-dashoffset: 2500;
-            animation: draw-path 3s cubic-bezier(0.65, 0, 0.35, 1) forwards 0.5s;
-        }
-        
-        @keyframes draw-path {
-            to { stroke-dashoffset: 0; }
-        }
+        .timeline-path { stroke-dasharray: 2500; stroke-dashoffset: 2500; animation: draw-path 3s cubic-bezier(0.65, 0, 0.35, 1) forwards 0.5s; }
+        @keyframes draw-path { to { stroke-dashoffset: 0; } }
 
         .timeline-dot {
             fill: var(--primary-lavender);
@@ -462,22 +355,13 @@
             r: 0;
             animation: pop-in 0.5s ease-out forwards;
         }
-
-        @keyframes pop-in {
-            to { r: 8; }
-        }
-
+        @keyframes pop-in { to { r: 8; } }
         #dot-1 { animation-delay: 1.0s; }
         #dot-2 { animation-delay: 1.5s; }
         #dot-3 { animation-delay: 2.0s; }
         #dot-4 { animation-delay: 2.5s; }
 
-        .timeline-item {
-            position: absolute;
-            width: 280px;
-            opacity: 0;
-            animation: fadeIn 1s ease-out forwards;
-        }
+        .timeline-item { position: absolute; width: 280px; opacity: 0; animation: fadeIn 1s ease-out forwards; }
         
         /* FIX: All items are now positioned at the bottom */
         #item-1 { top: 95px; left: 160px; animation-delay: 3.6s; }
@@ -485,31 +369,10 @@
         #item-3 { top: 95px; left: 760px; animation-delay: 4.0s; }
         #item-4 { top: 95px; left: 1060px; animation-delay: 4.2s; }
 
-
-        .timeline-content {
-            padding: 0;
-            text-align: center;
-        }
-
-        .timeline-content h3 {
-             font-size: 1.4rem;
-             margin: 0 0 5px 0;
-             color: var(--primary-lavender);
-             font-weight: normal;
-             font-family: var(--font-heading);
-        }
-        .timeline-content .date {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            margin-bottom: 8px;
-            display: block;
-        }
-        .timeline-content p {
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin: 0;
-            opacity: 0.9;
-        }
+        .timeline-content { padding: 0; text-align: center; }
+        .timeline-content h3 { font-size: 1.4rem; margin: 0 0 5px 0; color: var(--primary-lavender); font-weight: normal; font-family: var(--font-heading); }
+        .timeline-content .date { font-size: 0.8rem; opacity: 0.7; margin-bottom: 8px; display: block; }
+        .timeline-content p { font-size: 0.9rem; line-height: 1.5; margin: 0; opacity: 0.9; }
         
         .wheel-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; margin-top: 20px; }
         .wheel-wrapper { position: relative; width: 450px; height: 450px; }
@@ -545,7 +408,7 @@
         /* FIX: Invisible Scrollbar Styles */
         .sidebar, .timeline-scroll-wrapper {
             scrollbar-width: none; /* For Firefox */
-            -ms-overflow-style: none; /* For Internet Explorer and Edge */
+            -ms-overflow-style: none;  /* For IE and Edge */
         }
         .sidebar::-webkit-scrollbar, .timeline-scroll-wrapper::-webkit-scrollbar {
             display: none; /* For Chrome, Safari, and Opera */
@@ -555,15 +418,8 @@
         @media (max-width: 900px) {
             .main-container { flex-direction: column; }
             .sidebar {
-                position: relative;
-                top: 0;
-                height: auto;
-                width: 100%;
-                flex-direction: row;
-                overflow-x: auto;
-                padding: 5px 0;
-                border-right: none;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                position: relative; top: 0; height: auto; width: 100%; flex-direction: row; overflow-x: auto;
+                padding: 5px 0; border-right: none; border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             }
             body.light-theme .sidebar { border-bottom-color: rgba(0, 0, 0, 0.08); }
             .tab { flex: 0 0 auto; min-width: 150px; justify-content: center; padding: 15px 20px; border-left: none; border-bottom: 4px solid transparent; }
@@ -697,241 +553,23 @@
             "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.29%20AM.jpeg"
         ];
         
-        function renderTimeline() {
-            const timelineContainer = document.getElementById('persistent-timeline-wrapper');
-            if (!timelineContainer) return;
-            timelineContainer.innerHTML = `
-                <section class="timeline-section">
-                    <h2 class="section-header">biggest steps taken by my babygirl so far</h2>
-                    <div class="timeline-scroll-wrapper">
-                        <div class="timeline">
-                            <div class="timeline-svg-container">
-                                <svg width="100%" height="100%" viewBox="0 0 1400 120">
-                                    <path class="timeline-path" d="M 50 60 C 200 15, 400 105, 600 60 S 800 15, 1000 60 S 1200 105, 1350 60" stroke="var(--primary-purple)" stroke-width="3" fill="none"/>
-                                    <circle id="dot-1" class="timeline-dot" cx="340" cy="59" />
-                                    <circle id="dot-2" class="timeline-dot" cx="610" cy="60" />
-                                    <circle id="dot-3" class="timeline-dot" cx="890" cy="34.5" />
-                                    <circle id="dot-4" class="timeline-dot" cx="1190" cy="92.4" />
-                                </svg>
-                            </div>
-                            <div class="timeline-item" id="item-1"><div class="timeline-content"><h3>nervous affirmation</h3><span class="date">january 19, 2023</span><p>you made me wait, but were beyond worth it</p></div></div>
-                            <div class="timeline-item" id="item-2"><div class="timeline-content"><h3>halfway to ownership</h3><span class="date">May 26, 2023</span><p>wore nothing but blue jeans and panties while sitting on my lap</p></div></div>
-                            <div class="timeline-item" id="item-3"><div class="timeline-content"><h3>complete takeover</h3><span class="date">March, 2024</span><p>let me have my way with you, delightfully naked</p></div></div>
-                            <div class="timeline-item" id="item-4"><div class="timeline-content"><h3>what's next?</h3><span class="date">August 2025</span><p>what else may i soon lay claim to?</p></div></div>
-                        </div>
-                    </div>
-                </section>`;
-        }
-
-        function showIntroScreen() {
-            document.getElementById('contentArea').innerHTML = `
-                <div class="intro-screen">
-                    <div class="glowing-orb"></div>
-                    <h2>${getWelcomeMessage()}</h2>
-                    <p>${INTRO_TEXT.description}</p>
-                </div>
-                <div id="persistent-timeline-wrapper"></div>`;
-            renderTimeline();
-        }
-        
-        function getWelcomeMessage() {
-            const hour = new Date().getHours();
-            if (hour >= 5 && hour < 12) { return INTRO_TEXT.morning; }
-            else if (hour >= 12 && hour < 17) { return INTRO_TEXT.afternoon; }
-            else if (hour >= 17 && hour < 21) { return INTRO_TEXT.evening; }
-            else { return INTRO_TEXT.night; }
-        }
-
-        function showFloatingOutput(text) {
-            const output = document.getElementById('floatingOutput');
-            output.textContent = text;
-            output.classList.add('show');
-            setTimeout(() => { output.classList.remove('show'); }, 5000);
-        }
-
-        function switchTab(tabName) {
-            const contentArea = document.getElementById('contentArea');
-            const vaultTab = document.querySelector('.tab[data-tab="vault"]');
-            if (tabName === 'vault' && vaultTab.classList.contains('locked')) {
-                showFloatingOutput("the vault is still locked, my love. wait for the countdown.");
-                return;
-            }
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelector(`[data-tab="${tabName}"]`)?.classList.add('active');
-            if (tabName !== 'drive') appState.driveNavigation = [];
-            if (tabName !== 'growth') appState.growthNavigation = [];
-            if (tabName !== 'play') appState.playNavigation = [];
-            appState.currentTab = tabName;
-            
-            contentArea.innerHTML = ''; 
-
-            switch (tabName) {
-                case 'pending': showPendingTasks(); break;
-                case 'mind': showMindOptions(); break;
-                case 'luck': showSpinWheel(); break;
-                case 'playlist': showPlaylist(); break;
-                case 'drive': showDriveOptions(); break;
-                case 'growth': showGrowthOptions(); break;
-                case 'play': showPlayOptions(); break;
-                case 'vault': showVaultContent(); break;
-                default: showIntroScreen();
-            }
-        }
-        
-        function showVaultContent() {
-             document.getElementById('contentArea').innerHTML = `<div><h2 class="vault-header">Happy Birthday, My Love</h2><div class="vault-letter"><p>My Dearest,</p><p>If you're reading this, it means the wait is over. Happy birthday, my beautiful girl. I wanted to give you something more than just a gift; I wanted to give you a space filled with our memories and my love for you.</p><p>This past year has been... [continue your letter here].</p><p>With all my heart,<br>Arka</p></div></div>`;
-        }
-
-        function showPlaylist() {
-            document.getElementById('contentArea').innerHTML = `<div style="text-align: center;"><h2 class="section-header">happy headache</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">you don't use spotify, so i think i found a way for us to listen to it here. yay.</p><iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1E4vj8Q9Z5AzA" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`;
-        }
-
-        function showSpinWheel() {
-            const content = `<div style="text-align: center;"><h2 class="section-header">you're my lady luck, btw.</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">still, if you want, we can leave it to the fates for once.</p></div><div class="wheel-container"><div class="wheel-wrapper"><div class="wheel-pointer"></div><div id="wheel-svg-container"></div></div><button class="spin-button" id="spinBtn">Spin the Wheel</button></div>`;
-            document.getElementById('contentArea').innerHTML = content;
-            buildSvgWheel();
-            document.getElementById('spinBtn').addEventListener('click', (e) => {
-                e.stopPropagation();
-                spinTheWheel();
-            });
-        }
-
-        function buildSvgWheel() {
-            const wheelColorsDark = ['#581845', '#900C3F', '#C70039', '#FF5733', '#4A235A', '#7D3C98', '#9B59B6', '#AF7AC5'];
-            const wheelColorsLight = ['#F8BBD0', '#F48FB1', '#F06292', '#EC407A', '#E91E63', '#D81B60', '#C2185B', '#AD1457'];
-            const wheelColors = document.body.classList.contains('light-theme') ? wheelColorsLight : wheelColorsDark;
-            const numOptions = WHEEL_OPTIONS.length;
-            const sliceAngle = 360 / numOptions;
-            const size = 450;
-            const radius = size / 2;
-            const textRadius = radius * 0.65;
-            let svgContent = `<svg id="wheel-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg"><g id="wheel-group" style="transform-origin: ${radius}px ${radius}px;">`;
-            const polarToCartesian = (centerX, centerY, r, angleInDegrees) => { const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0; return { x: centerX + (r * Math.cos(angleInRadians)), y: centerY + (r * Math.sin(angleInRadians)) }; };
-            const describeArc = (x, y, r, startAngle, endAngle) => { const start = polarToCartesian(x, y, r, endAngle); const end = polarToCartesian(x, y, r, startAngle); const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1"; return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 0 ${end.x} ${end.y} L ${x} ${y} Z`; };
-            const describeTextArc = (x, y, r, startAngle, endAngle) => { const start = polarToCartesian(x, y, r, startAngle); const end = polarToCartesian(x, y, r, endAngle); const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1"; return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`; }
-            for (let i = 0; i < numOptions; i++) {
-                const startAngle = i * sliceAngle;
-                const endAngle = startAngle + sliceAngle;
-                svgContent += `<path d="${describeArc(radius, radius, radius - 2, startAngle, endAngle)}" fill="${wheelColors[i % wheelColors.length]}"></path>`;
-                const textPathId = `text-path-${i}`;
-                svgContent += `<defs><path id="${textPathId}" d="${describeTextArc(radius, radius, textRadius, startAngle, endAngle)}"></path></defs>`;
-                svgContent += `<text class="wheel-text"><textPath href="#${textPathId}" startOffset="50%" text-anchor="middle">${WHEEL_OPTIONS[i]}</textPath></text>`;
-            }
-            svgContent += `</g></svg>`;
-            document.getElementById('wheel-svg-container').innerHTML = svgContent;
-        }
-
-        function spinTheWheel() {
-            if (appState.wheelSpinning) return;
-            appState.wheelSpinning = true;
-            document.getElementById('spinBtn').disabled = true;
-            const wheel = document.getElementById('wheel-group');
-            const spinCycles = Math.floor(Math.random() * 4) + 5;
-            const randomStopAngle = Math.floor(Math.random() * 360);
-            const totalRotation = (spinCycles * 360) + randomStopAngle;
-            appState.currentRotation += totalRotation;
-            wheel.style.transform = `rotate(${appState.currentRotation}deg)`;
-            setTimeout(() => {
-                const finalAngle = appState.currentRotation % 360;
-                const sliceAngle = 360 / WHEEL_OPTIONS.length;
-                const winningIndex = Math.floor((360 - finalAngle + (sliceAngle / 2)) % 360 / sliceAngle);
-                showFloatingOutput(`And the winner is...: ${WHEEL_OPTIONS[winningIndex]}`);
-                appState.wheelSpinning = false;
-                document.getElementById('spinBtn').disabled = false;
-            }, 5000);
-        }
-        
-        function renderOptions(container, title, options, className, clickHandler) {
-            container.innerHTML = `<h2 class="section-header">${title}</h2>`;
-            options.forEach(optionText => {
-                const card = document.createElement('div');
-                card.className = className;
-                card.innerHTML = `<span>${optionText}</span>`;
-                card.addEventListener('click', (e) => {
-                    e.stopPropagation(); 
-                    clickHandler(optionText);
-                });
-                container.appendChild(card);
-            });
-        }
-
+        function renderTimeline() { const timelineContainer = document.getElementById('persistent-timeline-wrapper'); if (!timelineContainer) return; timelineContainer.innerHTML = `<section class="timeline-section"><h2 class="section-header">biggest steps taken by my babygirl so far</h2><div class="timeline-scroll-wrapper"><div class="timeline"><div class="timeline-svg-container"><svg width="100%" height="100%" viewBox="0 0 1400 120"><path class="timeline-path" d="M 50 60 C 200 15, 400 105, 600 60 S 800 15, 1000 60 S 1200 105, 1350 60" stroke="var(--primary-purple)" stroke-width="3" fill="none"/><circle id="dot-1" class="timeline-dot" cx="340" cy="59" /><circle id="dot-2" class="timeline-dot" cx="610" cy="60" /><circle id="dot-3" class="timeline-dot" cx="890" cy="34.5" /><circle id="dot-4" class="timeline-dot" cx="1190" cy="92.4" /></svg></div><div class="timeline-item" id="item-1"><div class="timeline-content"><h3>nervous affirmation</h3><span class="date">january 19, 2023</span><p>you made me wait, but were beyond worth it</p></div></div><div class="timeline-item" id="item-2"><div class="timeline-content"><h3>halfway to ownership</h3><span class="date">May 26, 2023</span><p>wore nothing but blue jeans and panties while sitting on my lap</p></div></div><div class="timeline-item" id="item-3"><div class="timeline-content"><h3>complete takeover</h3><span class="date">March, 2024</span><p>let me have my way with you, delightfully naked</p></div></div><div class="timeline-item" id="item-4"><div class="timeline-content"><h3>what's next?</h3><span class="date">August 2025</span><p>what else may i soon lay claim to?</p></div></div></div></div></section>`; }
+        function showIntroScreen() { document.getElementById('contentArea').innerHTML = `<div class="intro-screen"><div class="glowing-orb"></div><h2>${getWelcomeMessage()}</h2><p>${INTRO_TEXT.description}</p></div><div id="persistent-timeline-wrapper"></div>`; renderTimeline(); }
+        function getWelcomeMessage() { const hour = new Date().getHours(); if (hour >= 5 && hour < 12) { return INTRO_TEXT.morning; } else if (hour >= 12 && hour < 17) { return INTRO_TEXT.afternoon; } else if (hour >= 17 && hour < 21) { return INTRO_TEXT.evening; } else { return INTRO_TEXT.night; } }
+        function showFloatingOutput(text) { const output = document.getElementById('floatingOutput'); output.textContent = text; output.classList.add('show'); setTimeout(() => { output.classList.remove('show'); }, 5000); }
+        function switchTab(tabName) { const contentArea = document.getElementById('contentArea'); const vaultTab = document.querySelector('.tab[data-tab="vault"]'); if (tabName === 'vault' && vaultTab.classList.contains('locked')) { showFloatingOutput("the vault is still locked, my love. wait for the countdown."); return; } document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active')); document.querySelector(`[data-tab="${tabName}"]`)?.classList.add('active'); if (tabName !== 'drive') appState.driveNavigation = []; if (tabName !== 'growth') appState.growthNavigation = []; if (tabName !== 'play') appState.playNavigation = []; appState.currentTab = tabName; contentArea.innerHTML = ''; switch (tabName) { case 'pending': showPendingTasks(); break; case 'mind': showMindOptions(); break; case 'luck': showSpinWheel(); break; case 'playlist': showPlaylist(); break; case 'drive': showDriveOptions(); break; case 'growth': showGrowthOptions(); break; case 'play': showPlayOptions(); break; case 'vault': showVaultContent(); break; default: showIntroScreen(); } }
+        function showVaultContent() { document.getElementById('contentArea').innerHTML = `<div><h2 class="vault-header">Happy Birthday, My Love</h2><div class="vault-letter"><p>My Dearest,</p><p>If you're reading this, it means the wait is over. Happy birthday, my beautiful girl. I wanted to give you something more than just a gift; I wanted to give you a space filled with our memories and my love for you.</p><p>This past year has been... [continue your letter here].</p><p>With all my heart,<br>Arka</p></div></div>`; }
+        function showPlaylist() { document.getElementById('contentArea').innerHTML = `<div style="text-align: center;"><h2 class="section-header">happy headache</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">you don't use spotify, so i think i found a way for us to listen to it here. yay.</p><iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1E4vj8Q9Z5AzA" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`; }
+        function showSpinWheel() { const content = `<div style="text-align: center;"><h2 class="section-header">you're my lady luck, btw.</h2><p style="opacity: 0.8; max-width: 600px; margin: -20px auto 30px auto;">still, if you want, we can leave it to the fates for once.</p></div><div class="wheel-container"><div class="wheel-wrapper"><div class="wheel-pointer"></div><div id="wheel-svg-container"></div></div><button class="spin-button" id="spinBtn">Spin the Wheel</button></div>`; document.getElementById('contentArea').innerHTML = content; buildSvgWheel(); document.getElementById('spinBtn').addEventListener('click', (e) => { e.stopPropagation(); spinTheWheel(); }); }
+        function buildSvgWheel() { const wheelColorsDark = ['#581845', '#900C3F', '#C70039', '#FF5733', '#4A235A', '#7D3C98', '#9B59B6', '#AF7AC5']; const wheelColorsLight = ['#F8BBD0', '#F48FB1', '#F06292', '#EC407A', '#E91E63', '#D81B60', '#C2185B', '#AD1457']; const wheelColors = document.body.classList.contains('light-theme') ? wheelColorsLight : wheelColorsDark; const numOptions = WHEEL_OPTIONS.length; const sliceAngle = 360 / numOptions; const size = 450; const radius = size / 2; const textRadius = radius * 0.65; let svgContent = `<svg id="wheel-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg"><g id="wheel-group" style="transform-origin: ${radius}px ${radius}px;">`; const polarToCartesian = (centerX, centerY, r, angleInDegrees) => { const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0; return { x: centerX + (r * Math.cos(angleInRadians)), y: centerY + (r * Math.sin(angleInRadians)) }; }; const describeArc = (x, y, r, startAngle, endAngle) => { const start = polarToCartesian(x, y, r, endAngle); const end = polarToCartesian(x, y, r, startAngle); const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1"; return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 0 ${end.x} ${end.y} L ${x} ${y} Z`; }; const describeTextArc = (x, y, r, startAngle, endAngle) => { const start = polarToCartesian(x, y, r, startAngle); const end = polarToCartesian(x, y, r, endAngle); const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1"; return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`; }; for (let i = 0; i < numOptions; i++) { const startAngle = i * sliceAngle; const endAngle = startAngle + sliceAngle; svgContent += `<path d="${describeArc(radius, radius, radius - 2, startAngle, endAngle)}" fill="${wheelColors[i % wheelColors.length]}"></path>`; const textPathId = `text-path-${i}`; svgContent += `<defs><path id="${textPathId}" d="${describeTextArc(radius, radius, textRadius, startAngle, endAngle)}"></path></defs>`; svgContent += `<text class="wheel-text"><textPath href="#${textPathId}" startOffset="50%" text-anchor="middle">${WHEEL_OPTIONS[i]}</textPath></text>`; } svgContent += `</g></svg>`; document.getElementById('wheel-svg-container').innerHTML = svgContent; }
+        function spinTheWheel() { if (appState.wheelSpinning) return; appState.wheelSpinning = true; document.getElementById('spinBtn').disabled = true; const wheel = document.getElementById('wheel-group'); const spinCycles = Math.floor(Math.random() * 4) + 5; const randomStopAngle = Math.floor(Math.random() * 360); const totalRotation = (spinCycles * 360) + randomStopAngle; appState.currentRotation += totalRotation; wheel.style.transform = `rotate(${appState.currentRotation}deg)`; setTimeout(() => { const finalAngle = appState.currentRotation % 360; const sliceAngle = 360 / WHEEL_OPTIONS.length; const winningIndex = Math.floor((360 - finalAngle + (sliceAngle / 2)) % 360 / sliceAngle); showFloatingOutput(`And the winner is...: ${WHEEL_OPTIONS[winningIndex]}`); appState.wheelSpinning = false; document.getElementById('spinBtn').disabled = false; }, 5000); }
+        function renderOptions(container, title, options, className, clickHandler) { container.innerHTML = `<h2 class="section-header">${title}</h2>`; options.forEach(optionText => { const card = document.createElement('div'); card.className = className; card.innerHTML = `<span>${optionText}</span>`; card.addEventListener('click', (e) => { e.stopPropagation(); clickHandler(optionText); }); container.appendChild(card); }); }
         function showPendingTasks() { renderOptions( document.getElementById('contentArea'), "some things you should never forget🤍 ", PENDING_TASKS, 'task-card', handleTaskClick ); }
         function showMindOptions() { renderOptions( document.getElementById('contentArea'), "hey, hottie. how would you like for us to interact today?", MIND_OPTIONS, 'mind-option', handleMindClick ); }
-        
-        function renderCascadingNavigation(config) {
-            const { contentArea, header, appStateKey, optionsData, classNames, resetNav, navigateTo, clickHandler } = config;
-            const navigationPath = appState[appStateKey];
-            contentArea.innerHTML = `<h2 class="section-header">${header}</h2>`;
-            if (navigationPath.length > 0) {
-                const breadcrumbContainer = document.createElement('div');
-                breadcrumbContainer.className = classNames.breadcrumb;
-                const rootItem = document.createElement('span');
-                rootItem.className = 'breadcrumb-item';
-                rootItem.textContent = classNames.root;
-                rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetNav(); });
-                breadcrumbContainer.appendChild(rootItem);
-                navigationPath.forEach((item, index) => {
-                    breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator">/</span>`;
-                    const breadcrumbItem = document.createElement('span');
-                    breadcrumbItem.className = 'breadcrumb-item';
-                    breadcrumbItem.textContent = item;
-                    breadcrumbItem.addEventListener('click', (e) => { e.stopPropagation(); navigateTo(index); });
-                    breadcrumbContainer.appendChild(breadcrumbItem);
-                });
-                contentArea.appendChild(breadcrumbContainer);
-            }
-            let optionsToShow = [];
-            const level = navigationPath.length;
-            if (level === 0) { optionsToShow = optionsData.level1 || []; }
-            else if (level === 1) { const key = navigationPath[0]; optionsToShow = optionsData.level2?.[key] || []; }
-            else if (level === 2) { const key = navigationPath[1]; optionsToShow = optionsData.level3?.[key] || []; }
-            const clickLevel = level + 1; 
-            optionsToShow.forEach(optionText => {
-                const optionEl = document.createElement('div');
-                optionEl.className = classNames.option;
-                optionEl.innerHTML = `<span>${optionText}</span>`;
-                optionEl.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    clickHandler(optionText, clickLevel);
-                });
-                contentArea.appendChild(optionEl);
-            });
-        }
-        
+        function renderCascadingNavigation(config) { const { contentArea, header, appStateKey, optionsData, classNames, resetNav, navigateTo, clickHandler } = config; const navigationPath = appState[appStateKey]; contentArea.innerHTML = `<h2 class="section-header">${header}</h2>`; if (navigationPath.length > 0) { const breadcrumbContainer = document.createElement('div'); breadcrumbContainer.className = classNames.breadcrumb; const rootItem = document.createElement('span'); rootItem.className = 'breadcrumb-item'; rootItem.textContent = classNames.root; rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetNav(); }); breadcrumbContainer.appendChild(rootItem); navigationPath.forEach((item, index) => { breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator">/</span>`; const breadcrumbItem = document.createElement('span'); breadcrumbItem.className = 'breadcrumb-item'; breadcrumbItem.textContent = item; breadcrumbItem.addEventListener('click', (e) => { e.stopPropagation(); navigateTo(index); }); breadcrumbContainer.appendChild(breadcrumbItem); }); contentArea.appendChild(breadcrumbContainer); } let optionsToShow = []; const level = navigationPath.length; if (level === 0) { optionsToShow = optionsData.level1 || []; } else if (level === 1) { const key = navigationPath[0]; optionsToShow = optionsData.level2?.[key] || []; } else if (level === 2) { const key = navigationPath[1]; optionsToShow = optionsData.level3?.[key] || []; } const clickLevel = level + 1; optionsToShow.forEach(optionText => { const optionEl = document.createElement('div'); optionEl.className = classNames.option; optionEl.innerHTML = `<span>${optionText}</span>`; optionEl.addEventListener('click', (e) => { e.stopPropagation(); clickHandler(optionText, clickLevel); }); contentArea.appendChild(optionEl); }); }
         function showDriveOptions() { renderCascadingNavigation({ contentArea: document.getElementById('contentArea'), header: "so you wish to show yourself to me. how indecent of you. i love it.", appStateKey: 'driveNavigation', optionsData: DRIVE_OPTIONS, classNames: { breadcrumb: 'drive-breadcrumb', option: 'drive-option', root: 'Drive' }, resetNav: resetDriveNavigation, navigateTo: navigateDriveTo, clickHandler: handleDriveClick }); }
         function showGrowthOptions() { renderCascadingNavigation({ contentArea: document.getElementById('contentArea'), header: "shut out everything else, and just follow instructions to grow. isn't it simple?", appStateKey: 'growthNavigation', optionsData: GROWTH_OPTIONS, classNames: { breadcrumb: 'growth-breadcrumb', option: 'growth-option', root: 'Growth' }, resetNav: resetGrowthNavigation, navigateTo: navigateGrowthTo, clickHandler: handleGrowthClick }); }
-        function showPlayOptions() {
-            const contentArea = document.getElementById('contentArea');
-            contentArea.innerHTML = `<h2 class="section-header">in case you're bored, here's some us-themed games.</h2>`;
-            if (appState.playNavigation.length === 0) {
-                Object.keys(PLAY_OPTIONS).forEach(option => {
-                    const optionEl = document.createElement('div');
-                    optionEl.className = 'play-option';
-                    optionEl.innerHTML = `<span>${option}</span>`;
-                    optionEl.addEventListener('click', (e) => { e.stopPropagation(); handlePlayOptionClick(option); });
-                    contentArea.appendChild(optionEl);
-                });
-            } else {
-                const selectedOption = appState.playNavigation[0];
-                const breadcrumbContainer = document.createElement('div');
-                breadcrumbContainer.className = 'play-breadcrumb';
-                const rootItem = document.createElement('span');
-                rootItem.className = 'breadcrumb-item';
-                rootItem.textContent = 'Games';
-                rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetPlayNavigation(); });
-                breadcrumbContainer.appendChild(rootItem);
-                breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator">/</span><span class="breadcrumb-item">${selectedOption}</span>`;
-                contentArea.appendChild(breadcrumbContainer);
-                (PLAY_OPTIONS[selectedOption] || []).forEach(subOption => {
-                    const subOptionEl = document.createElement('div');
-                    subOptionEl.className = 'play-sub-option';
-                    subOptionEl.textContent = subOption;
-                    subOptionEl.addEventListener('click', (e) => { e.stopPropagation(); handlePlaySubClick(subOption); });
-                    contentArea.appendChild(subOptionEl);
-                });
-            }
-        }
-
+        function showPlayOptions() { const contentArea = document.getElementById('contentArea'); contentArea.innerHTML = `<h2 class="section-header">in case you're bored, here's some us-themed games.</h2>`; if (appState.playNavigation.length === 0) { Object.keys(PLAY_OPTIONS).forEach(option => { const optionEl = document.createElement('div'); optionEl.className = 'play-option'; optionEl.innerHTML = `<span>${option}</span>`; optionEl.addEventListener('click', (e) => { e.stopPropagation(); handlePlayOptionClick(option); }); contentArea.appendChild(optionEl); }); } else { const selectedOption = appState.playNavigation[0]; const breadcrumbContainer = document.createElement('div'); breadcrumbContainer.className = 'play-breadcrumb'; const rootItem = document.createElement('span'); rootItem.className = 'breadcrumb-item'; rootItem.textContent = 'Games'; rootItem.addEventListener('click', (e) => { e.stopPropagation(); resetPlayNavigation(); }); breadcrumbContainer.appendChild(rootItem); breadcrumbContainer.innerHTML += `<span class="breadcrumb-separator">/</span><span class="breadcrumb-item">${selectedOption}</span>`; contentArea.appendChild(breadcrumbContainer); (PLAY_OPTIONS[selectedOption] || []).forEach(subOption => { const subOptionEl = document.createElement('div'); subOptionEl.className = 'play-sub-option'; subOptionEl.textContent = subOption; subOptionEl.addEventListener('click', (e) => { e.stopPropagation(); handlePlaySubClick(subOption); }); contentArea.appendChild(subOptionEl); }); } }
         function handleTaskClick(task) { showFloatingOutput(`I've reminded myself that: ${task}`); }
         function handleMindClick(option) { showFloatingOutput(`This is how I wish to interact with you today: ${option}`); }
         function handleDriveClick(option, level) { if (level === 3) { showFloatingOutput(`How I plan to show myself to you today: ${[...appState.driveNavigation, option].join(' / ')}`); resetDriveNavigation(); } else { appState.driveNavigation.push(option); showDriveOptions(); } }
@@ -943,76 +581,9 @@
         function resetPlayNavigation() { appState.playNavigation = []; showPlayOptions(); }
         function navigateDriveTo(index) { appState.driveNavigation = appState.driveNavigation.slice(0, index + 1); showDriveOptions(); }
         function navigateGrowthTo(index) { appState.growthNavigation = appState.growthNavigation.slice(0, index + 1); showGrowthOptions(); }
-        
-        function updateCountdown() {
-            const targetDate = new Date("2025-10-27T00:00:00").getTime();
-            const now = new Date().getTime();
-            const difference = targetDate - now;
-            const timerEl = document.getElementById('countdownTimer');
-            const vaultTab = document.querySelector('.tab[data-tab="vault"]');
-            if (difference <= 0) {
-                if (timerEl) timerEl.innerHTML = "The Vault is Unlocked";
-                if (vaultTab) vaultTab.classList.remove('locked');
-                return;
-            }
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-            const format = (num) => num.toString().padStart(2, '0');
-            if (timerEl) timerEl.innerHTML = `${format(days)}:${format(hours)}:${format(minutes)}:${format(seconds)}`;
-        }
-
-        function shufflePolaroid() {
-            const polaroid = document.querySelector('.memory-polaroid');
-            const polaroidImg = document.getElementById('polaroid-image');
-            if (!polaroid || !polaroidImg || memoryImages.length < 2) return;
-
-            polaroid.classList.add('shuffling');
-
-            setTimeout(() => {
-                const currentSrc = polaroidImg.src;
-                let newSrc = currentSrc;
-                while (newSrc === currentSrc) {
-                    let randomIndex = Math.floor(Math.random() * memoryImages.length);
-                    newSrc = memoryImages[randomIndex];
-                }
-                polaroidImg.src = newSrc;
-                polaroid.classList.remove('shuffling');
-            }, 400);
-        }
-
-        function updateSidebarFeatures() {
-            const polaroidImg = document.getElementById('polaroid-image');
-            if (polaroidImg && memoryImages.length > 0) {
-                const randomIndex = Math.floor(Math.random() * memoryImages.length);
-                polaroidImg.src = memoryImages[randomIndex];
-            }
-            const currentUserEl = document.getElementById('currentUser');
-            if (!currentUserEl) return; 
-            
-            const currentUser = currentUserEl.dataset.user;
-            const today = new Date().toDateString();
-            const storageKey = currentUser === 'her' ? 'devotionStreakHer' : 'devotionStreakYou';
-            
-            const storedData = JSON.parse(localStorage.getItem(storageKey)) || { count: 0, lastVisit: null };
-            
-            if (storedData.lastVisit !== today) {
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                
-                if (storedData.lastVisit === yesterday.toDateString()) {
-                    storedData.count++;
-                } else {
-                    storedData.count = 1;
-                }
-                storedData.lastVisit = today;
-                localStorage.setItem(storageKey, JSON.stringify(storedData));
-            }
-            
-            document.getElementById('streak-number').textContent = storedData.count;
-            document.getElementById('streak-text').textContent = currentUser === 'her' ? "devotion streak: " : "maintenance streak: ";
-        }
+        function updateCountdown() { const targetDate = new Date("2025-10-27T00:00:00").getTime(); const now = new Date().getTime(); const difference = targetDate - now; const timerEl = document.getElementById('countdownTimer'); const vaultTab = document.querySelector('.tab[data-tab="vault"]'); if (difference <= 0) { if (timerEl) timerEl.innerHTML = "The Vault is Unlocked"; if (vaultTab) vaultTab.classList.remove('locked'); return; } const days = Math.floor(difference / (1000 * 60 * 60 * 24)); const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)); const seconds = Math.floor((difference % (1000 * 60)) / 1000); const format = (num) => num.toString().padStart(2, '0'); if (timerEl) timerEl.innerHTML = `${format(days)}:${format(hours)}:${format(minutes)}:${format(seconds)}`; }
+        function shufflePolaroid() { const polaroid = document.querySelector('.memory-polaroid'); const polaroidImg = document.getElementById('polaroid-image'); if (!polaroid || !polaroidImg || memoryImages.length < 2) return; polaroid.classList.add('shuffling'); setTimeout(() => { const currentSrc = polaroidImg.src; let newSrc = currentSrc; while (newSrc === currentSrc) { let randomIndex = Math.floor(Math.random() * memoryImages.length); newSrc = memoryImages[randomIndex]; } polaroidImg.src = newSrc; polaroid.classList.remove('shuffling'); }, 400); }
+        function updateSidebarFeatures() { const polaroidImg = document.getElementById('polaroid-image'); if (polaroidImg && memoryImages.length > 0) { const randomIndex = Math.floor(Math.random() * memoryImages.length); polaroidImg.src = memoryImages[randomIndex]; } const currentUserEl = document.getElementById('currentUser'); if (!currentUserEl) return; const currentUser = currentUserEl.dataset.user; const today = new Date().toDateString(); const storageKey = currentUser === 'her' ? 'devotionStreakHer' : 'devotionStreakYou'; const storedData = JSON.parse(localStorage.getItem(storageKey)) || { count: 0, lastVisit: null }; if (storedData.lastVisit !== today) { const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1); if (storedData.lastVisit === yesterday.toDateString()) { storedData.count++; } else { storedData.count = 1; } storedData.lastVisit = today; localStorage.setItem(storageKey, JSON.stringify(storedData)); } document.getElementById('streak-number').textContent = storedData.count; document.getElementById('streak-text').textContent = currentUser === 'her' ? "devotion streak: " : "maintenance streak: "; }
         
         document.addEventListener('DOMContentLoaded', function() {
             const cursorDot = document.createElement('div');
