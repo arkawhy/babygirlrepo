@@ -208,6 +208,26 @@
             opacity: 1;
         }
 
+        /* NEW: Animated Sidebar Icons */
+        @keyframes heart-beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .tab[data-tab="pending"]:hover .tab-icon path { animation: heart-beat 1.5s infinite ease-in-out; }
+
+        @keyframes bell-ring {
+            0%, 100% { transform: rotate(0); }
+            10%, 30%, 50% { transform: rotate(-15deg); }
+            20%, 40% { transform: rotate(15deg); }
+        }
+        .tab[data-tab="mind"]:hover .tab-icon path { animation: bell-ring 2s infinite; transform-origin: top center; }
+
+        @keyframes star-shine {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+            50% { transform: scale(1.3) rotate(15deg); opacity: 1; }
+        }
+        .tab[data-tab="luck"]:hover .tab-icon polygon { animation: star-shine 2s infinite ease-in-out; transform-origin: center; }
+
         .tab-text { font-size: 1rem; font-weight: 500; }
 
         /* --- Sidebar Features --- */
@@ -296,8 +316,7 @@
             align-items: center;
             text-align: center;
             position: relative;
-            /* FIX: Centering adjustments */
-            min-height: calc(100vh - 120px); /* Adjust based on header/footer/timeline heights */
+            min-height: calc(100vh - 120px);
             padding: 0;
             margin: 0;
         }
@@ -312,6 +331,30 @@
         body.light-theme .intro-screen h2 { color: var(--primary-purple); }
         .intro-screen p { font-size: 1.1rem; max-width: 600px; opacity: 0.8; position: relative; z-index: 1; }
         
+        /* NEW: Daily Question / Anniversary Styles */
+        .daily-feature {
+            margin-top: 30px;
+            padding: 15px 25px;
+            border-left: 3px solid var(--primary-purple);
+            background: rgba(0,0,0,0.1);
+            max-width: 600px;
+            animation: fadeIn 1s ease 0.5s forwards;
+            opacity: 0;
+            z-index: 1;
+        }
+        .daily-feature h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--primary-lavender);
+            margin: 0 0 5px 0;
+            font-weight: normal;
+        }
+        .daily-feature p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
         .glowing-orb {
             position: absolute;
             width: 400px;
@@ -404,14 +447,8 @@
         #fullscreen-btn:hover { background: var(--primary-purple); transform: scale(1.1); }
         #fullscreen-btn svg { width: 20px; height: 20px; stroke: var(--primary-lavender); stroke-width: 2; }
         
-        /* FIX: Invisible Scrollbar Styles */
-        .sidebar, .timeline-scroll-wrapper {
-            scrollbar-width: none; /* For Firefox */
-            -ms-overflow-style: none;  /* For IE and Edge */
-        }
-        .sidebar::-webkit-scrollbar, .timeline-scroll-wrapper::-webkit-scrollbar {
-            display: none; /* For Chrome, Safari, and Opera */
-        }
+        .sidebar, .timeline-scroll-wrapper { scrollbar-width: none; -ms-overflow-style: none; }
+        .sidebar::-webkit-scrollbar, .timeline-scroll-wrapper::-webkit-scrollbar { display: none; }
         
         /* --- Mobile Responsiveness --- */
         @media (max-width: 900px) {
@@ -552,18 +589,78 @@
             "https://raw.githubusercontent.com/arkawhy/babygirlrepo/main/WhatsApp%20Image%202025-07-20%20at%2010.30.29%20AM.jpeg"
         ];
         
+        // NEW: Data for Daily Question and "On This Day" features
+        const DAILY_QUESTIONS = [
+            "What's one small thing that made you smile today?",
+            "If we could go anywhere in the world right now, where would you want to be?",
+            "What's a secret you've never told me?",
+            "Describe a perfect lazy Sunday with me.",
+            "What's one thing I do that always makes you feel loved?",
+            "What song is stuck in your head today?",
+            "If you could have any superpower for a day, what would it be and why?",
+            "What's the silliest thing you're proud of?",
+        ];
+
+        const ANNIVERSARIES = {
+            "01-19": "Happy Anniversary of your nervous affirmation. You were worth the wait.",
+            "05-26": "Happy 'halfway to ownership' Anniversary. A perfect moment.",
+            // Add future anniversaries here in MM-DD format
+        };
+        
         function renderTimeline() {
             const timelineContainer = document.getElementById('persistent-timeline-wrapper');
             if (!timelineContainer) return;
             timelineContainer.innerHTML = `<section class="timeline-section"><h2 class="section-header">biggest steps taken by my babygirl so far</h2><div class="timeline-scroll-wrapper"><div class="timeline"><div class="timeline-svg-container"><svg width="100%" height="100%" viewBox="0 0 1400 120"><path class="timeline-path" d="M 50 60 C 200 15, 400 105, 600 60 S 800 15, 1000 60 S 1200 105, 1350 60" stroke="var(--primary-purple)" stroke-width="3" fill="none"/><circle id="dot-1" class="timeline-dot" cx="340" cy="59" /><circle id="dot-2" class="timeline-dot" cx="610" cy="60" /><circle id="dot-3" class="timeline-dot" cx="890" cy="34.5" /><circle id="dot-4" class="timeline-dot" cx="1190" cy="92.4" /></svg></div>
             <div class="timeline-item" id="item-1"><div class="timeline-content"><h3>nervous affirmation</h3><span class="date">january 19, 2023</span><p>you made me wait, but were beyond worth it</p></div></div>
             <div class="timeline-item" id="item-2"><div class="timeline-content"><h3>halfway to ownership</h3><span class="date">May 26, 2023</span><p>wore nothing but blue jeans and panties while sitting on my lap</p></div></div>
-            <div class="timeline-item" id="item-3"><div class="timeline-content"><h3>complete takeover of assets</h3><span class="date">March, 2024</span><p>let me have my way with you, delightfully naked</p></div></div>
+            <div class="timeline-item" id="item-3"><div class="timeline-content"><h3>complete takeover</h3><span class="date">March, 2024</span><p>let me have my way with you, delightfully naked</p></div></div>
             <div class="timeline-item" id="item-4"><div class="timeline-content"><h3>what's next?</h3><span class="date">August 2025</span><p>what else may i soon lay claim to?</p></div></div></div></div></section>`;
         }
 
+        // NEW: Function to render the daily feature
+        function renderDailyFeature() {
+            const container = document.getElementById('dailyFeatureContainer');
+            if (!container) return;
+
+            const now = new Date();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const day = now.getDate().toString().padStart(2, '0');
+            const todayKey = `${month}-${day}`;
+
+            let featureHTML = '';
+
+            if (ANNIVERSARIES[todayKey]) {
+                featureHTML = `
+                    <div class="daily-feature">
+                        <h3>On This Day...</h3>
+                        <p>${ANNIVERSARIES[todayKey]}</p>
+                    </div>`;
+            } else {
+                const start = new Date(now.getFullYear(), 0, 0);
+                const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+                const oneDay = 1000 * 60 * 60 * 24;
+                const dayOfYear = Math.floor(diff / oneDay);
+                const question = DAILY_QUESTIONS[dayOfYear % DAILY_QUESTIONS.length];
+                
+                featureHTML = `
+                    <div class="daily-feature">
+                        <h3>A Question for You...</h3>
+                        <p>${question}</p>
+                    </div>`;
+            }
+            container.innerHTML = featureHTML;
+        }
+
         function showIntroScreen() {
-            document.getElementById('contentArea').innerHTML = `<div class="intro-screen"><div class="glowing-orb"></div><h2>${getWelcomeMessage()}</h2><p>${INTRO_TEXT.description}</p></div><div id="persistent-timeline-wrapper"></div>`;
+            document.getElementById('contentArea').innerHTML = `
+                <div class="intro-screen">
+                    <div class="glowing-orb"></div>
+                    <h2>${getWelcomeMessage()}</h2>
+                    <p>${INTRO_TEXT.description}</p>
+                    <div id="dailyFeatureContainer"></div>
+                </div>
+                <div id="persistent-timeline-wrapper"></div>`;
+            renderDailyFeature();
             renderTimeline();
         }
         
